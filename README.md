@@ -6,7 +6,7 @@ If you are an AI assistant or a new engineer, start with [docs/AI-HANDOFF.md](do
 
 ## See it online
 
-**https://maxroper.github.io/fieldline/** is the live demo. It is the real app: the API and an embedded Postgres run inside your browser tab, so there is no server and every visitor gets their own copy of the demo company. The first visit takes a few seconds while the database starts; after that it is instant. Pick a person on the sign-in page (James Reynolds is the owner, Alex Tran the dispatcher, Elena Cruz a technician). Clearing the site's data in your browser resets the demo. The customer portal demo is at `/fieldline/portal/barranca`.
+**https://reynolds-5473.github.io/fieldline/** is the live demo (the repository is being transferred to JR's account; the page goes live there once GitHub Pages is switched on under Settings, Pages, with the source set to GitHub Actions). It is the real app: the API and an embedded Postgres run inside your browser tab, so there is no server and every visitor gets their own copy of the demo company. The first visit takes a few seconds while the database starts; after that it is instant. Pick a person on the sign-in page (James Reynolds is the owner, Alex Tran the dispatcher, Elena Cruz a technician). Clearing the site's data in your browser resets the demo. The customer portal demo is at `/fieldline/portal/barranca`.
 
 The demo is rebuilt and published by GitHub Actions on every push to `main` (`.github/workflows/pages.yml`). Build it locally with `npm run build:demo` and serve `apps/web/dist`.
 
