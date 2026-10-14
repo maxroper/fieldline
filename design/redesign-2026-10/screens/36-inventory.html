@@ -1,0 +1,333 @@
+<section class="screen" id="s-inventory" data-title="Inventory" data-group="office" data-face="office" data-order="36">
+<style>
+  #s-inventory .tiles { display: flex; flex-wrap: wrap; gap: 8px; }
+  #s-inventory .tiles .btn.on { background: var(--copper-tint); border-color: #ecc8b3; color: var(--copper-deep); }
+  #s-inventory .group { display: flex; flex-direction: column; gap: 12px; }
+  #s-inventory .table .meter { width: 90px; }
+  #s-inventory .io { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 16px; }
+  #s-inventory .io b { display: block; font-size: 18px; letter-spacing: -0.02em; }
+  #s-inventory .list .item .pill { justify-self: end; }
+  @media (max-width: 900px) { #s-inventory .io { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+
+<div class="toolbar">
+  <div class="seg" data-seg="inventory-view"><button type="button" class="on" data-val="sku">By SKU</button><button type="button" data-val="dollars">Dollars</button></div>
+  <div class="search" style="flex: 1 1 220px; max-width: 360px;"><input class="input" type="search" placeholder="SKU, part, category or warehouse" aria-label="Search inventory"></div>
+  <button class="btn sm" type="button" data-open="#sheet-inventory-filters"><svg><use href="#i-filter"/></svg>Filters · 1</button>
+  <span class="grow"></span>
+  <button class="btn ghost sm" type="button" data-toast="Inventory export started: balances by warehouse and category, SKUs with min/max (.xlsx)">Export</button>
+</div>
+
+<div class="page stack loose">
+  <div class="summary-line"><span><b>$39,810</b> on hand in 10 warehouses</span><span><span class="dot rust"></span><b>6</b> items below minimum</span><span><span class="dot red"></span><b>2</b> of tomorrow's jobs missing parts</span><span><span class="dot amber"></span>Van 12 count due <b>Oct 31</b></span></div>
+
+  <div class="tiles" data-tabs="inventory-reports" role="tablist" aria-label="Inventory views">
+    <button class="btn ghost sm on" type="button" data-tab="categories"><svg><use href="#i-tag"/></svg>Categories</button>
+    <button class="btn ghost sm" type="button" data-tab="audit"><svg><use href="#i-agreement"/></svg>Vehicle audit</button>
+    <button class="btn ghost sm" type="button" data-tab="inout"><svg><use href="#i-box"/></svg>In and out</button>
+    <button class="btn ghost sm" type="button" data-tab="bycat"><svg><use href="#i-chart"/></svg>By category</button>
+    <button class="btn ghost sm" type="button" data-open="#sheet-inventory-transfer"><svg><use href="#i-cart"/></svg>Transfer</button>
+    <button class="btn ghost sm" type="button" data-open="#sheet-inventory-count"><svg><use href="#i-list"/></svg>Count</button>
+  </div>
+
+  <div class="panel on" data-panel="categories" data-panel-group="inventory-reports">
+    <div class="group">
+      <div class="section-head">
+        <div><h3>Dollars by category</h3><div class="small muted">Main, Irvine and the eight vans · balances today</div></div>
+        <div class="btn-group"><button class="btn sm ghost" type="button" data-toast="New category: name it and pick the warehouses it applies to">New category</button><button class="btn sm ghost" type="button" data-toast="Pick a category to rename">Rename</button><button class="btn sm ghost" type="button" data-toast="Remove is blocked until a category balance is zero in every warehouse">Remove</button></div>
+      </div>
+      <div class="table-wrap">
+        <table class="table dense">
+          <thead><tr><th>Category</th><th class="num">Main · Costa Mesa</th><th class="num">Irvine shop</th><th class="num">Vans (8)</th><th class="num">Total</th><th>Share</th></tr></thead>
+          <tbody class="stagger">
+            <tr><td class="primary-cell">Refrigerant</td><td class="num money">$6,120</td><td class="num money">$1,630</td><td class="num money">$3,260</td><td class="num money strong">$11,010</td><td><div class="meter steel"><i style="width: 28%"></i></div></td></tr>
+            <tr><td class="primary-cell">Motors</td><td class="num money">$4,260</td><td class="num money">$1,420</td><td class="num money">$2,130</td><td class="num money strong">$7,810</td><td><div class="meter steel"><i style="width: 20%"></i></div></td></tr>
+            <tr><td class="primary-cell">Controls</td><td class="num money">$2,480</td><td class="num money">$920</td><td class="num money">$2,610</td><td class="num money strong">$6,010</td><td><div class="meter steel"><i style="width: 15%"></i></div></td></tr>
+            <tr><td class="primary-cell">Filters</td><td class="num money">$1,860</td><td class="num money">$740</td><td class="num money">$1,980</td><td class="num money strong">$4,580</td><td><div class="meter steel"><i style="width: 12%"></i></div></td></tr>
+            <tr><td class="primary-cell">Electrical</td><td class="num money">$1,220</td><td class="num money">$480</td><td class="num money">$1,890</td><td class="num money strong">$3,590</td><td><div class="meter steel"><i style="width: 9%"></i></div></td></tr>
+            <tr><td class="primary-cell">Fittings &amp; copper</td><td class="num money">$1,540</td><td class="num money">$610</td><td class="num money">$1,420</td><td class="num money strong">$3,570</td><td><div class="meter steel"><i style="width: 9%"></i></div></td></tr>
+            <tr><td class="primary-cell">Belts &amp; bearings</td><td class="num money">$640</td><td class="num money">$260</td><td class="num money">$980</td><td class="num money strong">$1,880</td><td><div class="meter steel"><i style="width: 5%"></i></div></td></tr>
+            <tr><td class="primary-cell">Misc</td><td class="num money">$300</td><td class="num money">$150</td><td class="num money">$910</td><td class="num money strong">$1,360</td><td><div class="meter steel"><i style="width: 3%"></i></div></td></tr>
+          </tbody>
+          <tfoot><tr><td class="strong">Total</td><td class="num money strong">$18,420</td><td class="num money strong">$6,210</td><td class="num money strong">$15,180</td><td class="num money strong">$39,810</td><td></td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" data-panel="audit" data-panel-group="inventory-reports">
+    <div class="group">
+      <div class="section-head">
+        <div><h3>Vehicle audit</h3><div class="small muted">Oct 1–14 · last count Van 12 · Sep 30 · Marcus · difference <span class="money" style="color: var(--red);">−$42.10</span></div></div>
+        <div class="btn-group"><button class="btn sm primary" type="button" data-toast="Vehicle audit run for Oct 1–14">Run report</button><button class="btn sm ghost" type="button" data-toast="Vehicle audit PDF ready">Print PDF</button><button class="btn sm ghost" type="button" data-toast="Vehicle audit exported (.xlsx)">Export to Excel</button></div>
+      </div>
+      <div class="table-wrap">
+        <table class="table dense">
+          <thead><tr><th>Van</th><th class="num">Starting</th><th class="num">Received</th><th class="num">Used on WOs</th><th class="num">Transfers</th><th class="num">Count adj.</th><th class="num">Ending</th><th>Last count</th></tr></thead>
+          <tbody>
+            <tr><td class="primary-cell">Van 12 · Marcus Hale</td><td class="num money">$2,310</td><td class="num money">$388</td><td class="num money">−$618</td><td class="num money">$60</td><td class="num money">$0</td><td class="num money strong">$2,140</td><td class="num">Sep 30</td></tr>
+            <tr><td class="primary-cell">Van 7 · Elena Cruz</td><td class="num money">$2,090</td><td class="num money">$120</td><td class="num money">−$230</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money strong">$1,980</td><td class="num">Sep 30</td></tr>
+            <tr><td class="primary-cell">Van 9 · Andre Walsh</td><td class="num money">$2,140</td><td class="num money">$0</td><td class="num money">−$480</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money strong">$1,660</td><td><span class="pill route plain">Aug 29 · overdue</span></td></tr>
+            <tr><td class="primary-cell">Van 4 · Priya Shah</td><td class="num money">$2,260</td><td class="num money">$210</td><td class="num money">−$160</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money strong">$2,310</td><td class="num">Sep 30</td></tr>
+            <tr><td class="primary-cell">Van 3 · Diego Ramos</td><td class="num money">$1,500</td><td class="num money">$0</td><td class="num money">−$80</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money strong">$1,420</td><td class="num">Sep 30</td></tr>
+            <tr><td class="primary-cell">Van 5 · Hannah Cho</td><td class="num money">$1,840</td><td class="num money">$150</td><td class="num money">−$100</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money strong">$1,890</td><td class="num">Sep 30</td></tr>
+            <tr><td class="primary-cell">Van 8 · Luis Ortega</td><td class="num money">$1,730</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money strong">$1,730</td><td class="num">Sep 30</td></tr>
+            <tr><td class="primary-cell">Van 6 · Naomi Brooks</td><td class="num money">$2,110</td><td class="num money">$90</td><td class="num money">−$150</td><td class="num money">$0</td><td class="num money">$0</td><td class="num money strong">$2,050</td><td class="num">Sep 30</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" data-panel="inout" data-panel-group="inventory-reports">
+    <div class="group">
+      <div class="section-head">
+        <div><h3>In and out</h3><div class="small muted">Oct 1–14 · all warehouses · all categories and kinds</div></div>
+        <div class="btn-group"><button class="btn sm primary" type="button" data-toast="In and out run for Oct 1–14">Run report</button><button class="btn sm ghost" type="button" data-toast="In and out PDF ready">Print PDF</button><button class="btn sm ghost" type="button" data-toast="In and out exported (.xlsx)">Export to Excel</button></div>
+      </div>
+      <div class="io">
+        <div><span class="eyebrow">Starting</span><b class="money">$40,322</b></div>
+        <div><span class="eyebrow">In</span><b class="money" style="color: var(--moss-deep);">$2,893</b></div>
+        <div><span class="eyebrow">Out</span><b class="money" style="color: var(--rust);">$3,405</b></div>
+        <div><span class="eyebrow">Ending</span><b class="money">$39,810</b></div>
+      </div>
+      <div class="table-wrap">
+        <table class="table dense">
+          <thead><tr><th>Date</th><th>Kind</th><th>Category</th><th class="num">Amount</th><th>Description</th><th>Who</th></tr></thead>
+          <tbody>
+            <tr><td class="num">Oct 14 10:41</td><td>Used on WO</td><td>Refrigerant</td><td class="num money">−$40.80</td><td>R-410A 2.5 lb · <button class="btn sm ghost" type="button" data-go="work-order">WO 1058</button></td><td>Marcus Hale</td></tr>
+            <tr><td class="num">Oct 13 16:40</td><td>Received</td><td>Controls</td><td class="num money">$234.80</td><td>TXV, filter driers · <button class="btn sm ghost" type="button" data-go="purchasing">PO 118</button></td><td>Andre Walsh</td></tr>
+            <tr><td class="num">Oct 12 15:10</td><td>Used on WO</td><td>Belts &amp; bearings</td><td class="num money">−$46.00</td><td>V-belt A42 ×2, bearing · <button class="btn sm ghost" type="button" data-go="work-order">WO 1047</button></td><td>Priya Shah</td></tr>
+            <tr><td class="num">Oct 9 08:20</td><td>Transfer in</td><td>Filters</td><td class="num money">$64.00</td><td>Main to Van 12 · 10 filters 20×25×2</td><td>James Reynolds</td></tr>
+            <tr><td class="num">Oct 9 08:20</td><td>Transfer out</td><td>Filters</td><td class="num money">−$64.00</td><td>Main to Van 12 · 10 filters 20×25×2</td><td>James Reynolds</td></tr>
+            <tr><td class="num">Oct 8 11:05</td><td>Received</td><td>Electrical</td><td class="num money">$388.15</td><td>Truck stock order · <button class="btn sm ghost" type="button" data-go="purchasing">PO 117</button></td><td>Marcus Hale</td></tr>
+            <tr><td class="num">Sep 30 17:30</td><td>Count adjustment</td><td>Misc</td><td class="num money">−$42.10</td><td>Van 12 month-end count</td><td>Marcus Hale</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" data-panel="bycat" data-panel-group="inventory-reports">
+    <div class="group">
+      <div class="section-head">
+        <div><h3>By category</h3><div class="small muted">Oct 1–14 · all warehouses</div></div>
+        <div class="btn-group"><button class="btn sm ghost" type="button" data-toast="By category PDF ready">Print PDF</button><button class="btn sm ghost" type="button" data-toast="By category exported (.xlsx)">Export to Excel</button></div>
+      </div>
+      <div class="table-wrap">
+        <table class="table dense">
+          <thead><tr><th>Category</th><th class="num">Starting</th><th class="num">In</th><th class="num">Out</th><th class="num">Ending</th><th class="num">Change</th></tr></thead>
+          <tbody>
+            <tr><td class="primary-cell">Refrigerant</td><td class="num money">$11,540</td><td class="num money">$480</td><td class="num money">−$1,010</td><td class="num money strong">$11,010</td><td class="num" style="color: var(--rust);">−4.6%</td></tr>
+            <tr><td class="primary-cell">Motors</td><td class="num money">$7,480</td><td class="num money">$900</td><td class="num money">−$570</td><td class="num money strong">$7,810</td><td class="num" style="color: var(--moss-deep);">+4.4%</td></tr>
+            <tr><td class="primary-cell">Controls</td><td class="num money">$6,180</td><td class="num money">$235</td><td class="num money">−$405</td><td class="num money strong">$6,010</td><td class="num" style="color: var(--rust);">−2.8%</td></tr>
+            <tr><td class="primary-cell">Filters</td><td class="num money">$4,790</td><td class="num money">$310</td><td class="num money">−$520</td><td class="num money strong">$4,580</td><td class="num" style="color: var(--rust);">−4.4%</td></tr>
+            <tr><td class="primary-cell">Electrical</td><td class="num money">$3,470</td><td class="num money">$388</td><td class="num money">−$268</td><td class="num money strong">$3,590</td><td class="num" style="color: var(--moss-deep);">+3.5%</td></tr>
+            <tr><td class="primary-cell">Fittings &amp; copper</td><td class="num money">$3,610</td><td class="num money">$180</td><td class="num money">−$220</td><td class="num money strong">$3,570</td><td class="num">−1.1%</td></tr>
+            <tr><td class="primary-cell">Belts &amp; bearings</td><td class="num money">$1,910</td><td class="num money">$212</td><td class="num money">−$242</td><td class="num money strong">$1,880</td><td class="num">−1.6%</td></tr>
+            <tr><td class="primary-cell">Misc</td><td class="num money">$1,342</td><td class="num money">$188</td><td class="num money">−$170</td><td class="num money strong">$1,360</td><td class="num">+1.3%</td></tr>
+          </tbody>
+          <tfoot><tr><td class="strong">Total</td><td class="num money strong">$40,322</td><td class="num money strong">$2,893</td><td class="num money strong">−$3,405</td><td class="num money strong">$39,810</td><td class="num">−1.3%</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="group">
+    <div class="section-head"><h2>Warehouses</h2><span class="small muted">Balance against the stocking target</span></div>
+    <div class="table-wrap">
+      <table class="table dense">
+        <thead><tr><th>Warehouse</th><th>Technician</th><th class="num">Balance</th><th>Target</th><th>Below min</th><th>Last count</th></tr></thead>
+        <tbody class="stagger">
+          <tr><td class="primary-cell">Main · Costa Mesa</td><td class="muted">Shop · 132 SKUs</td><td class="num money">$18,420</td><td><div class="row"><div class="meter steel"><i style="width: 92%"></i></div><span class="num small faint">$20,000</span></div></td><td class="num">0</td><td class="num">Oct 1</td></tr>
+          <tr><td class="primary-cell">Irvine shop</td><td class="muted">Shop · 68 SKUs</td><td class="num money">$6,210</td><td><div class="row"><div class="meter steel"><i style="width: 78%"></i></div><span class="num small faint">$8,000</span></div></td><td class="num">0</td><td class="num">Oct 1</td></tr>
+          <tr><td class="primary-cell">Van 12</td><td>Marcus Hale</td><td class="num money">$2,140</td><td><div class="row"><div class="meter steel"><i style="width: 89%"></i></div><span class="num small faint">$2,400</span></div></td><td class="num">2</td><td class="num">Sep 30</td></tr>
+          <tr><td class="primary-cell">Van 7</td><td>Elena Cruz</td><td class="num money">$1,980</td><td><div class="row"><div class="meter steel"><i style="width: 83%"></i></div><span class="num small faint">$2,400</span></div></td><td class="num">0</td><td class="num">Sep 30</td></tr>
+          <tr><td class="primary-cell">Van 9</td><td>Andre Walsh</td><td class="num money">$1,660</td><td><div class="row"><div class="meter amber"><i style="width: 69%"></i></div><span class="num small faint">$2,400</span></div></td><td class="num">3</td><td><span class="pill route plain">Aug 29 · overdue</span></td></tr>
+          <tr><td class="primary-cell">Van 4</td><td>Priya Shah</td><td class="num money">$2,310</td><td><div class="row"><div class="meter steel"><i style="width: 96%"></i></div><span class="num small faint">$2,400</span></div></td><td class="num">1</td><td class="num">Sep 30</td></tr>
+          <tr><td class="primary-cell">Van 3</td><td>Diego Ramos</td><td class="num money">$1,420</td><td><div class="row"><div class="meter steel"><i style="width: 71%"></i></div><span class="num small faint">$2,000</span></div></td><td class="num">0</td><td class="num">Sep 30</td></tr>
+          <tr><td class="primary-cell">Van 5</td><td>Hannah Cho</td><td class="num money">$1,890</td><td><div class="row"><div class="meter steel"><i style="width: 79%"></i></div><span class="num small faint">$2,400</span></div></td><td class="num">0</td><td class="num">Sep 30</td></tr>
+          <tr><td class="primary-cell">Van 8</td><td>Luis Ortega <span class="small faint">· off today</span></td><td class="num money">$1,730</td><td><div class="row"><div class="meter steel"><i style="width: 72%"></i></div><span class="num small faint">$2,400</span></div></td><td class="num">0</td><td class="num">Sep 30</td></tr>
+          <tr><td class="primary-cell">Van 6</td><td>Naomi Brooks</td><td class="num money">$2,050</td><td><div class="row"><div class="meter steel"><i style="width: 85%"></i></div><span class="num small faint">$2,400</span></div></td><td class="num">0</td><td class="num">Sep 30</td></tr>
+          <tr class="muted"><td class="primary-cell">Van 2 <span class="small faint">· inactive</span></td><td class="faint">retired Aug 2026</td><td class="num money">$0</td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="group">
+    <div class="section-head"><div><h2>Replenishment queue <span class="callout">1</span></h2><div class="small muted">6 items below min across 3 vans. Main has all 6 in stock. Pull tonight, Andre's van first: he starts Tustin Auto Center at 8:00.</div></div></div>
+    <div class="list stagger">
+      <div class="item"><span class="avatar sm amber">AW</span><div><div class="title">Run capacitor 45/5 µF 440 V <span class="faint num small">CAP-455</span></div><div class="sub">Van 9 · on hand 0 · min 2 · max 4</div></div><span class="num small">pull 4</span></div>
+      <div class="item"><span class="avatar sm amber">AW</span><div><div class="title">Contactor 2-pole 40 A 24 V <span class="faint num small">CON-240</span></div><div class="sub">Van 9 · on hand 1 · min 2 · max 4</div></div><span class="num small">pull 3</span></div>
+      <div class="item"><span class="avatar sm amber">AW</span><div><div class="title">V-belt A42 <span class="faint num small">BLT-A42</span></div><div class="sub">Van 9 · on hand 0 · min 2 · max 4 · needed Thu on 1137</div></div><span class="num small">pull 4</span></div>
+      <div class="item"><span class="avatar sm">MH</span><div><div class="title">Pleated filter 20×25×2 MERV 8 <span class="faint num small">FLT-2025-2</span></div><div class="sub">Van 12 · on hand 4 · min 8 · max 16</div></div><span class="num small">pull 12</span></div>
+      <div class="item"><span class="avatar sm">MH</span><div><div class="title">Fuse 30 A class RK5 <span class="faint num small">FUS-30</span></div><div class="sub">Van 12 · on hand 2 · min 6 · max 12</div></div><span class="num small">pull 10</span></div>
+      <div class="item"><span class="avatar sm rust">PS</span><div><div class="title">Pleated filter 16×25×2 MERV 8 <span class="faint num small">FLT-1625-2</span></div><div class="sub">Van 4 · on hand 2 · min 6 · max 12 · needed Thu on 1138</div></div><span class="num small">pull 10</span></div>
+    </div>
+    <div class="row wrap">
+      <span class="small muted">Fill to max · <span class="money">$312.40</span> from Main</span>
+      <span class="grow"></span>
+      <button class="btn ghost sm" type="button" data-toast="Replenishment list texted to Marcus, Andre and Priya">Text the techs</button>
+      <button class="btn sm primary" type="button" data-open="#sheet-inventory-transfer">Create transfer</button>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="group">
+    <div class="section-head">
+      <div class="row wrap gap-2"><h2>Truck stock by SKU <span class="callout">2</span></h2><div class="seg light" data-seg="inventory-van"><button type="button" class="on" data-val="mh">Van 12 · Marcus</button><button type="button" data-val="ec">Van 7 · Elena</button><button type="button" data-val="aw">Van 9 · Andre</button><button type="button" data-val="ps">Van 4 · Priya</button></div></div>
+      <div class="btn-group"><button class="btn sm ghost" type="button" data-toast="Min/max editor: set per SKU or copy from the van template">Edit min/max</button><button class="btn sm ghost" type="button" data-toast="Replenishment request sent to Main for Van 12 · 2 SKUs">Request replenishment</button></div>
+    </div>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>SKU</th><th>Description</th><th class="num">On hand</th><th class="num">Min / max</th><th>Status</th><th>Last used</th><th class="num">Unit cost</th></tr></thead>
+        <tbody class="stagger">
+          <tr><td class="num">FLT-2025-2</td><td class="primary-cell">Pleated filter 20×25×2 MERV 8</td><td class="num">4</td><td class="num">8 / 16</td><td><span class="pill parts">Low</span></td><td>Today · 1049 Adams Avenue Plaza</td><td class="num money">$6.40</td></tr>
+          <tr><td class="num">FLT-1625-2</td><td class="primary-cell">Pleated filter 16×25×2 MERV 8</td><td class="num">9</td><td class="num">6 / 12</td><td><span class="pill site">OK</span></td><td>Oct 9 · 1127 Balboa Bay</td><td class="num money">$5.90</td></tr>
+          <tr><td class="num">CAP-455</td><td class="primary-cell">Run capacitor 45/5 µF 440 V</td><td class="num">3</td><td class="num">2 / 4</td><td><span class="pill site">OK</span></td><td>Oct 12 · 1052 17th Street Market</td><td class="num money">$9.80</td></tr>
+          <tr><td class="num">CAP-350</td><td class="primary-cell">Run capacitor 35/5 µF 440 V</td><td class="num">2</td><td class="num">2 / 4</td><td><span class="pill site">OK</span></td><td>Oct 6</td><td class="num money">$8.90</td></tr>
+          <tr><td class="num">CON-240</td><td class="primary-cell">Contactor 2-pole 40 A 24 V</td><td class="num">2</td><td class="num">2 / 4</td><td><span class="pill site">OK</span></td><td>Oct 13 · 1061 Jamboree Corporate</td><td class="num money">$21.60</td></tr>
+          <tr><td class="num">MTR-13-1075</td><td class="primary-cell">Condenser fan motor 1/3 hp 1075 rpm <span class="small faint">· needed Thu on 1135</span></td><td class="num">1</td><td class="num">1 / 2</td><td><span class="pill site">OK</span></td><td>Sep 30 · 1041 Tustin Auto Center</td><td class="num money">$142.10</td></tr>
+          <tr><td class="num">FUS-30</td><td class="primary-cell">Fuse 30 A class RK5</td><td class="num">2</td><td class="num">6 / 12</td><td><span class="pill parts">Low</span></td><td>Oct 13 · 1061 Jamboree Corporate</td><td class="num money">$4.20</td></tr>
+          <tr><td class="num">BLT-A42</td><td class="primary-cell">V-belt A42</td><td class="num">3</td><td class="num">2 / 4</td><td><span class="pill site">OK</span></td><td>Oct 2</td><td class="num money">$11.50</td></tr>
+          <tr><td class="num">REF-410-25</td><td class="primary-cell">R-410A 25 lb cylinder <span class="small faint">· 18.5 lb left, cylinder 118-A</span></td><td class="num">1</td><td class="num">1 / 2</td><td><span class="pill site">OK</span></td><td>Today · 1058 Irvine Med Offices · 2.5 lb</td><td class="num money">$408.00</td></tr>
+          <tr><td class="num">TST-COM</td><td class="primary-cell">Thermostat, commercial programmable</td><td class="num">1</td><td class="num">1 / 2</td><td><span class="pill site">OK</span></td><td>Oct 7 · 1046 Costa Mesa Library</td><td class="num money">$64.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small faint">Balance <span class="money">$2,140</span> · 2 below min · count due Oct 31. Techs log parts on the work order and the van count drops as they go; refrigerant cylinders also feed the refrigerant log.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="group">
+    <div class="section-head"><div><h2>Tomorrow's jobs parts check <span class="callout">3</span></h2><div class="small muted">Thu Oct 15 · 6 jobs · checked against each tech's van and open POs</div></div></div>
+    <div class="list stagger">
+      <div class="item tall"><span class="avatar">MH</span><div><div class="title"><span class="num">1135</span> · Warner Business Park <span class="faint small">· 7:00 · Marcus</span></div><div class="sub">Condenser fan motor 1/3 hp ×1 (van 12: 1) · run capacitor 45/5 ×1 (van 12: 3)</div></div><span class="pill site">Ready</span></div>
+      <div class="item tall"><span class="avatar amber">AW</span><div><div class="title"><span class="num">1137</span> · Tustin Auto Center <span class="faint small">· 8:00 · Andre</span></div><div class="sub">Contactor 2P 40 A ×1 (van 9: 1) · V-belt A42 ×2 (van 9: 0, Main: 14)</div></div><span class="pill urgent">Missing</span></div>
+      <div class="item tall"><span class="avatar rust">PS</span><div><div class="title"><span class="num">1138</span> · Oak Creek Professional <span class="faint small">· 8:00 · Priya</span></div><div class="sub">Pleated filter 16×25×2 ×8 (van 4: 2, Main: 40)</div></div><span class="pill urgent">Missing</span></div>
+      <div class="item tall"><span class="avatar amber">AW</span><div><div class="title"><span class="num">1063</span> · Newport Plaza Retail <span class="faint small">· return · Andre</span></div><div class="sub">TXV and drier received into Main · R-410A 25 lb on backorder (PO 118) · van 9 has one cylinder, 14 lb left</div></div><span class="pill parts">On PO · Thu</span></div>
+      <div class="item tall"><span class="avatar" style="background: var(--paper-3); color: var(--ink-3);">—</span><div><div class="title"><span class="num">1064</span> · Irvine Med Offices · Suite 100 <span class="faint small">· unassigned</span></div><div class="sub">Economizer actuator ×1 · PO 120 expected Thu 10:00 at Main</div></div><span class="pill parts">On PO · Thu</span></div>
+      <div class="item tall"><span class="avatar moss">EC</span><div><div class="title"><span class="num">1141</span> · MacFadden Retail <span class="faint small">· 8:00 · Elena</span></div><div class="sub">Pleated filter 20×25×2 ×6 (van 7: 10)</div></div><span class="pill site">Ready</span></div>
+    </div>
+    <div class="row wrap">
+      <span class="small muted">2 missing · 2 on POs · 2 ready. Missing parts pull from Main in one transfer.</span>
+      <span class="grow"></span>
+      <button class="btn ghost sm" type="button" data-toast="Parts check texted to Andre and Priya: pick up at Main before 7:30">Text the techs</button>
+      <button class="btn sm primary" type="button" data-open="#sheet-inventory-transfer">Create transfer for both</button>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>The six tiles (Categories, Vehicle audit, In and out, By category, Transfer, Count) and every report under them: dollar categories per warehouse with New / Rename / Remove (still blocked until zero), vehicle audit with Run report, Print PDF, Export to Excel and the last-count hint, In and out with Starting / In / Out / Ending and WO / PO links, By category. Warehouses keep name, Main / Vehicle, technician and Inactive. Transfer (From / To / Category / Amount / Note) and Count (Expected / Counted / Difference) keep their fields in sheets.</li>
+    <li><span class="f">new</span>F16 Truck stock by SKU (callout 2): each van carries a parts list with on hand, min / max, Low / OK and last use, fed by parts logged on the work order and by PO receiving. The replenishment queue (callout 1) sums everything below min across vans and becomes one transfer from Main.</li>
+    <li><span class="f">new</span>F16 Tomorrow's jobs parts check (callout 3): tomorrow's visits with the parts each needs, checked against that tech's van and open POs, with one Ready / Missing / On PO pill per row and a single transfer action under the list. Refrigerant cylinders double as refrigerant-log sources [F7].</li>
+    <li><span class="f">changed</span>Per the direction update: the tiles are a quiet row of icon buttons that switch the report beneath them; one summary line replaces the pill row; warehouses are a table with meters instead of eleven cards; sections are separated by dividers, and filters (warehouse, category, status, dates) sit behind the Filters button.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-inventory-filters" role="dialog" aria-label="Inventory filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label>Warehouse</label><select class="select"><option>All warehouses</option><option>Main · Costa Mesa</option><option>Irvine shop</option><option>Van 12 · Marcus Hale</option><option>Van 7 · Elena Cruz</option><option>Van 9 · Andre Walsh</option><option>Van 4 · Priya Shah</option></select></div>
+    <div class="field"><label>Category</label><select class="select"><option>All categories</option><option>Refrigerant</option><option>Motors</option><option>Controls</option><option>Filters</option><option>Electrical</option><option>Fittings &amp; copper</option><option>Belts &amp; bearings</option><option>Misc</option></select></div>
+    <div class="chip-group"><span class="eyebrow">Stock status</span><div class="chips"><button class="chip" type="button" data-chip>Low</button><button class="chip" type="button" data-chip>OK</button><button class="chip" type="button" data-chip>Over max</button><button class="chip" type="button" data-chip>Needed tomorrow</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Report dates</span><div class="chips"><button class="chip on" type="button" data-chip>Oct 1 – 14</button><button class="chip" type="button" data-chip>Last month</button><button class="chip" type="button" data-chip>This quarter</button><button class="chip" type="button" data-chip>Custom</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Transaction kind</span><div class="chips"><button class="chip" type="button" data-chip>Received</button><button class="chip" type="button" data-chip>Used on WO</button><button class="chip" type="button" data-chip>Transfer in</button><button class="chip" type="button" data-chip>Transfer out</button><button class="chip" type="button" data-chip>Count adjustment</button></div></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button>
+    <button class="btn primary" type="button" data-close data-toast="Filters applied">Apply</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-inventory-transfer" role="dialog" aria-label="Transfer">
+  <div class="sheet-head">
+    <div class="row gap-2"><h2>Transfer</h2><span class="pill sched plain">Main to vans</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="seg" data-seg="inventory-transfer-mode"><button type="button" class="on" data-val="sku">By SKU</button><button type="button" data-val="dollars">By dollars</button></div>
+    <div class="panel on" data-seg-panel="inventory-transfer-mode" data-val="sku">
+      <div class="field-grid">
+        <div class="field"><label>From</label><select class="select"><option>Main · Costa Mesa</option><option>Irvine shop</option></select></div>
+        <div class="field"><label>To</label><select class="select"><option>Van 9 · Andre Walsh</option><option>Van 12 · Marcus Hale</option><option>Van 4 · Priya Shah</option></select></div>
+      </div>
+      <div class="table-wrap mt-2">
+        <table class="table dense">
+          <thead><tr><th>SKU</th><th>Item</th><th class="num">Qty</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td class="num">CAP-455</td><td>Run capacitor 45/5 µF 440 V</td><td class="num">4</td><td class="num money">$39.20</td></tr>
+            <tr><td class="num">CON-240</td><td>Contactor 2-pole 40 A 24 V</td><td class="num">3</td><td class="num money">$64.80</td></tr>
+            <tr><td class="num">BLT-A42</td><td>V-belt A42 <span class="small faint">· 1137 Thu</span></td><td class="num">4</td><td class="num money">$46.00</td></tr>
+          </tbody>
+          <tfoot><tr><td colspan="3" class="right muted">Van 9 · 3 SKUs</td><td class="num strong">$150.00</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="row wrap mt-2"><button class="btn sm ghost" type="button" data-toast="Line added">Add SKU</button><button class="btn sm ghost" type="button" data-toast="Van 12 (2 SKUs, $108.80) and Van 4 (1 SKU, $59.00) added as separate transfers">Add the other two vans</button></div>
+      <div class="field mt-2"><label>Note</label><input class="input" value="Pull tonight · Andre picks up at Main before 7:30" aria-label="Note"></div>
+    </div>
+    <div class="panel" data-seg-panel="inventory-transfer-mode" data-val="dollars">
+      <div class="field-grid">
+        <div class="field"><label>From</label><select class="select"><option>Main · Costa Mesa</option><option>Irvine shop</option></select></div>
+        <div class="field"><label>To</label><select class="select"><option>Van 9 · Andre Walsh</option><option>Van 12 · Marcus Hale</option></select></div>
+        <div class="field"><label>Category</label><select class="select"><option>Electrical</option><option>Refrigerant</option><option>Filters</option><option>Belts &amp; bearings</option></select></div>
+        <div class="field"><label>Amount</label><input class="input money" value="$150.00" aria-label="Amount"></div>
+        <div class="field span-2"><label>Note</label><input class="input" placeholder="Why this moved" aria-label="Note"></div>
+      </div>
+      <p class="small faint mt-2">Dollar transfers keep working for shops that have not loaded SKUs yet.</p>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn copper" type="button" data-close data-toast="Transfer posted: Main to Van 9 · 3 SKUs · $150.00. Andre texted the pickup note.">Create transfer</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-inventory-count" role="dialog" aria-label="Count">
+  <div class="sheet-head">
+    <div class="row gap-2"><h2>Count</h2><span class="pill route plain">Van 12 · due Oct 31</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="field-grid">
+      <div class="field"><label>Warehouse</label><select class="select"><option>Van 12 · Marcus Hale</option><option>Van 9 · Andre Walsh</option><option>Main · Costa Mesa</option></select></div>
+      <div class="field"><label>Counted by</label><select class="select"><option>Marcus Hale</option><option>James Reynolds</option></select></div>
+    </div>
+    <div class="table-wrap">
+      <table class="table dense">
+        <thead><tr><th>Item</th><th class="num">Expected</th><th class="num">Counted</th><th class="num">Difference</th></tr></thead>
+        <tbody>
+          <tr><td><div class="strong">Pleated filter 20×25×2</div><div class="small faint">FLT-2025-2 · <span class="money">$6.40</span></div></td><td class="num">4</td><td class="num"><input class="input num" value="4" aria-label="Counted" style="width: 64px; min-height: 32px; padding: 4px 8px; text-align: right;"></td><td class="num">0</td></tr>
+          <tr><td><div class="strong">Run capacitor 45/5 µF</div><div class="small faint">CAP-455 · <span class="money">$9.80</span></div></td><td class="num">3</td><td class="num"><input class="input num" value="2" aria-label="Counted" style="width: 64px; min-height: 32px; padding: 4px 8px; text-align: right;"></td><td class="num" style="color: var(--red);">−1 · <span class="money">−$9.80</span></td></tr>
+          <tr><td><div class="strong">Contactor 2-pole 40 A</div><div class="small faint">CON-240 · <span class="money">$21.60</span></div></td><td class="num">2</td><td class="num"><input class="input num" value="2" aria-label="Counted" style="width: 64px; min-height: 32px; padding: 4px 8px; text-align: right;"></td><td class="num">0</td></tr>
+          <tr><td><div class="strong">R-410A 25 lb cylinder</div><div class="small faint">REF-410-25 · <span class="money">$408.00</span> · weigh it: 18.5 lb expected</div></td><td class="num">1</td><td class="num"><input class="input num" value="1" aria-label="Counted" style="width: 64px; min-height: 32px; padding: 4px 8px; text-align: right;"></td><td class="num">0</td></tr>
+          <tr><td><div class="strong">Misc (dollars)</div><div class="small faint">fittings, tape, wire nuts</div></td><td class="num money">$118.00</td><td class="num"><input class="input money" value="$96.00" aria-label="Counted" style="width: 84px; min-height: 32px; padding: 4px 8px; text-align: right;"></td><td class="num" style="color: var(--red);"><span class="money">−$22.00</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">6 of 10 SKUs counted · difference so far <b class="money" style="color: var(--red);">−$31.80</b> · last count Sep 30 was <span class="money">−$42.10</span>.</p>
+    <div>
+      <span class="eyebrow">Previous counts</span>
+      <div class="list mt-1">
+        <div class="item"><span class="num small">Sep 30</span><div><div class="title">Van 12 · Marcus Hale</div><div class="sub">Difference −$42.10 · posted as count adjustment</div></div><span class="small faint">Posted</span></div>
+        <div class="item"><span class="num small">Aug 29</span><div><div class="title">Van 9 · Andre Walsh</div><div class="sub">Difference −$12.60</div></div><span class="small faint">Posted</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Save draft</button>
+    <button class="btn copper" type="button" data-close data-toast="Count posted for Van 12 · adjustment −$31.80 · next count due Nov 30">Post count</button>
+  </div>
+</div>
+</template>
+</section>

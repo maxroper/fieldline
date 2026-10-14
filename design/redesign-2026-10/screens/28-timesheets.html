@@ -1,0 +1,222 @@
+<section class="screen" id="s-timesheets" data-title="Timesheets" data-group="office" data-face="office" data-order="28">
+<style>
+  #s-timesheets .ts { display: flex; flex-direction: column; gap: 12px; }
+  #s-timesheets .ts + .ts { border-top: 1px solid var(--line); padding-top: 24px; }
+  #s-timesheets .ts-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+  #s-timesheets .ts-head .name { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  #s-timesheets .ts-head .sub { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+  #s-timesheets .table .brk td { color: var(--ink-3); background: var(--paper-2); }
+  #s-timesheets .table .flag td { color: var(--red); background: var(--red-tint); }
+  #s-timesheets .totals { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; align-items: center; }
+  #s-timesheets .ot { display: flex; flex-direction: column; gap: 6px; }
+  #s-timesheets .ot .load-bar { height: 8px; border-radius: 4px; }
+  #s-timesheets .ot .cells { display: flex; gap: 14px; font-size: 12px; color: var(--ink-2); flex-wrap: wrap; }
+  #s-timesheets .ot .cells b { font-family: var(--mono); font-weight: 500; color: var(--ink); }
+  @media (max-width: 900px) { #s-timesheets .totals { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="toolbar">
+  <div class="seg" data-seg="tsh-team"><button type="button" class="on" data-val="cm">Costa Mesa</button><button type="button" data-val="irv">Irvine</button></div>
+  <div class="row">
+    <button class="btn icon sm ghost" type="button" aria-label="Previous day">‹</button>
+    <b class="num" style="min-width: 7.5rem; text-align: center;">Tue, Oct 13</b>
+    <button class="btn icon sm ghost" type="button" aria-label="Next day">›</button>
+    <span class="tiny faint">yesterday</span>
+  </div>
+  <span class="grow"></span>
+  <div class="summary-line hide-narrow"><span><b>34.4 h</b> · 4 techs</span><span><span class="dot amber"></span><b>2.4 h</b> overtime</span><span><span class="dot moss"></span><b>3 of 4</b> submitted</span></div>
+  <button class="btn sm ghost" type="button" data-open="#sheet-timesheets-breaks">Break exceptions <span class="badge">1</span></button>
+  <button class="btn sm ghost" type="button" data-toast="Payroll CSV exported · Oct 12–13 · 4 techs · 68.9 h · regular, OT, double, premiums by day">Export payroll CSV</button>
+</div>
+
+<div class="page">
+  <div class="stack loose">
+    <div class="summary-line"><span>Pay period <b>Oct 12–25</b> · week 1</span><span>Period to date <b>68.9 h</b></span><span><span class="dot steel"></span>Payroll sync <b>6:00 AM</b> daily · 3 sheets synced <span class="callout">1</span></span><span class="faint">Office view is read only; techs edit on the phone</span></div>
+
+    <div class="stack loose stagger">
+
+      <!-- Marcus -->
+      <section class="ts">
+        <div class="ts-head">
+          <span class="avatar">MH</span>
+          <div>
+            <div class="name"><b>Marcus Hale</b><span class="pill done plain">Submitted · 4:52 PM</span></div>
+            <div class="sub"><span class="dot steel"></span> Synced to payroll 6:00 AM · Van 12 · Costa Mesa</div>
+          </div>
+          <button class="btn sm ghost" type="button" data-open="#sheet-timesheets-breaks">Fix breaks</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table dense">
+            <thead><tr><th>Work order</th><th>Kind</th><th>Start</th><th>Stop</th><th class="num">Hours</th><th>Edited</th><th>Geofence <span class="callout">2</span></th></tr></thead>
+            <tbody>
+              <tr><td>Shop → Balboa Bay</td><td>Travel</td><td class="num">7:08</td><td class="num">7:36</td><td class="num">0.47</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td><b class="num">1127</b> · Balboa Bay Offices</td><td>On site</td><td class="num">7:36</td><td class="num">12:04</td><td class="num">4.47</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Rest · paid, inside the line above</td><td>Break</td><td class="num">9:45</td><td class="num">9:55</td><td class="num">0.17</td><td>—</td><td>—</td></tr>
+              <tr class="brk"><td>Lunch · unpaid</td><td>Lunch</td><td class="num">12:04</td><td class="num">12:34</td><td class="num">0.50</td><td>—</td><td>Manual</td></tr>
+              <tr><td><b class="num">1127</b> · Balboa Bay Offices</td><td>On site</td><td class="num">12:34</td><td class="num">2:25</td><td class="num">1.85</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td>Balboa Bay → Adams Avenue</td><td>Travel</td><td class="num">2:25</td><td class="num">2:46</td><td class="num">0.35</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td><b class="num">1130</b> · Adams Avenue Plaza</td><td>On site</td><td class="num">2:46</td><td class="num">4:33</td><td class="num">1.78</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Rest · paid, inside the line above</td><td>Break</td><td class="num">3:10</td><td class="num">3:20</td><td class="num">0.17</td><td>—</td><td>—</td></tr>
+              <tr><td>Adams Avenue → Shop</td><td>Travel</td><td class="num">4:33</td><td class="num">4:53</td><td class="num">0.33</td><td class="small">James · 5:02 PM · stop was Running</td><td><span class="pill hold plain">Manual</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="totals">
+          <div class="summary-line"><span>Travel <b>1.15</b></span><span>On site <b>8.10</b></span><span>Lunch <b>0.50</b> unpaid</span><span>Paid <b>9.25 h</b></span></div>
+          <div class="ot">
+            <div class="load-bar"><i class="a" style="width: 86.5%"></i><i class="c" style="width: 13.5%"></i></div>
+            <div class="cells"><span>Regular <b>8.00</b></span><span>OT 1.5× <b>1.25</b></span><span>Double <b>0.00</b></span><span>Premium <b>0</b></span><span class="callout">3</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Elena -->
+      <section class="ts">
+        <div class="ts-head">
+          <span class="avatar moss">EC</span>
+          <div>
+            <div class="name"><b>Elena Cruz</b><span class="pill done plain">Submitted · 4:12 PM</span></div>
+            <div class="sub"><span class="dot steel"></span> Synced to payroll 6:00 AM · Van 8 · Costa Mesa</div>
+          </div>
+          <button class="btn sm ghost" type="button" data-open="#sheet-timesheets-breaks">Fix breaks</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table dense">
+            <thead><tr><th>Work order</th><th>Kind</th><th>Start</th><th>Stop</th><th class="num">Hours</th><th>Edited</th><th>Geofence</th></tr></thead>
+            <tbody>
+              <tr><td>Shop → Jamboree</td><td>Travel</td><td class="num">7:34</td><td class="num">8:00</td><td class="num">0.43</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td><b class="num">1124</b> · Jamboree Corporate</td><td>On site</td><td class="num">8:00</td><td class="num">11:10</td><td class="num">3.17</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Rest · paid</td><td>Break</td><td class="num">9:50</td><td class="num">10:00</td><td class="num">0.17</td><td>—</td><td>—</td></tr>
+              <tr><td>Jamboree → South Coast Plaza</td><td>Travel</td><td class="num">11:10</td><td class="num">11:34</td><td class="num">0.40</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td><b class="num">1128</b> · South Coast Plaza</td><td>On site</td><td class="num">11:34</td><td class="num">12:15</td><td class="num">0.68</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Lunch · unpaid</td><td>Lunch</td><td class="num">12:15</td><td class="num">12:45</td><td class="num">0.50</td><td>—</td><td>Manual</td></tr>
+              <tr><td><b class="num">1128</b> · South Coast Plaza</td><td>On site</td><td class="num">12:45</td><td class="num">3:39</td><td class="num">2.90</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Rest · paid</td><td>Break</td><td class="num">2:30</td><td class="num">2:40</td><td class="num">0.17</td><td>—</td><td>—</td></tr>
+              <tr><td>South Coast Plaza → Shop</td><td>Travel</td><td class="num">3:39</td><td class="num">4:04</td><td class="num">0.42</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="totals">
+          <div class="summary-line"><span>Travel <b>1.25</b></span><span>On site <b>6.75</b></span><span>Lunch <b>0.50</b> unpaid</span><span>Paid <b>8.00 h</b></span></div>
+          <div class="ot">
+            <div class="load-bar"><i class="a" style="width: 100%"></i></div>
+            <div class="cells"><span>Regular <b>8.00</b></span><span>OT 1.5× <b>0.00</b></span><span>Double <b>0.00</b></span><span>Premium <b>0</b></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Andre -->
+      <section class="ts">
+        <div class="ts-head">
+          <span class="avatar amber">AW</span>
+          <div>
+            <div class="name"><b>Andre Walsh</b><span class="pill done plain">Submitted · 4:35 PM</span></div>
+            <div class="sub"><span class="dot steel"></span> Synced to payroll 6:00 AM · Van 5 · Costa Mesa</div>
+          </div>
+          <button class="btn sm ghost" type="button" data-open="#sheet-timesheets-breaks">Fix breaks</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table dense">
+            <thead><tr><th>Work order</th><th>Kind</th><th>Start</th><th>Stop</th><th class="num">Hours</th><th>Edited</th><th>Geofence</th></tr></thead>
+            <tbody>
+              <tr><td>Shop → Mission Office Park</td><td>Travel</td><td class="num">7:36</td><td class="num">8:00</td><td class="num">0.40</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td><b class="num">1125</b> · Mission Office Park</td><td>On site</td><td class="num">8:00</td><td class="num">11:58</td><td class="num">3.97</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Rest · paid</td><td>Break</td><td class="num">10:00</td><td class="num">10:10</td><td class="num">0.17</td><td>—</td><td>—</td></tr>
+              <tr class="brk"><td>Lunch · unpaid</td><td>Lunch</td><td class="num">11:58</td><td class="num">12:28</td><td class="num">0.50</td><td>—</td><td>Manual</td></tr>
+              <tr><td><b class="num">1125</b> · Mission Office Park</td><td>On site</td><td class="num">12:28</td><td class="num">4:03</td><td class="num">3.58</td><td class="small">Andre · 4:10 PM · start was 12:30</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Rest · paid</td><td>Break</td><td class="num">2:15</td><td class="num">2:25</td><td class="num">0.17</td><td>—</td><td>—</td></tr>
+              <tr><td>Mission Office Park → Shop</td><td>Travel</td><td class="num">4:03</td><td class="num">4:30</td><td class="num">0.45</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="totals">
+          <div class="summary-line"><span>Travel <b>0.85</b></span><span>On site <b>7.55</b></span><span>Lunch <b>0.50</b> unpaid</span><span>Paid <b>8.40 h</b></span></div>
+          <div class="ot">
+            <div class="load-bar"><i class="a" style="width: 95.2%"></i><i class="c" style="width: 4.8%"></i></div>
+            <div class="cells"><span>Regular <b>8.00</b></span><span>OT 1.5× <b>0.40</b></span><span>Double <b>0.00</b></span><span>Premium <b>0</b></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Priya -->
+      <section class="ts">
+        <div class="ts-head">
+          <span class="avatar rust">PS</span>
+          <div>
+            <div class="name"><b>Priya Shah</b><span class="pill route plain">Open · not submitted</span></div>
+            <div class="sub"><span class="dot"></span> Not exported · late first meal needs a reason before Priya can submit · Van 9</div>
+          </div>
+          <button class="btn sm" type="button" data-open="#sheet-timesheets-breaks">Fix breaks</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table dense">
+            <thead><tr><th>Work order</th><th>Kind</th><th>Start</th><th>Stop</th><th class="num">Hours</th><th>Edited</th><th>Geofence</th></tr></thead>
+            <tbody>
+              <tr><td>Shop → Santa Ana Gym</td><td>Travel</td><td class="num">6:52</td><td class="num">7:05</td><td class="num">0.22</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td><b class="num">1126</b> · Santa Ana Gym</td><td>On site</td><td class="num">7:05</td><td class="num">11:10</td><td class="num">4.08</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="brk"><td>Rest · paid</td><td>Break</td><td class="num">9:00</td><td class="num">9:10</td><td class="num">0.17</td><td>—</td><td>—</td></tr>
+              <tr><td>Santa Ana Gym → Irvine Center Clinics</td><td>Travel</td><td class="num">11:10</td><td class="num">11:28</td><td class="num">0.30</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td><b class="num">1133</b> · Irvine Center Clinics</td><td>On site</td><td class="num">11:28</td><td class="num">1:12</td><td class="num">1.73</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr class="flag"><td>Lunch · started 1 h 20 m after the 5th hour · meal premium 1.0 h</td><td>Lunch</td><td class="num">1:12</td><td class="num">1:42</td><td class="num">0.50</td><td>—</td><td>Manual</td></tr>
+              <tr><td><b class="num">1133</b> · Irvine Center Clinics</td><td>On site</td><td class="num">1:42</td><td class="num">3:46</td><td class="num">2.07</td><td class="faint">—</td><td><span class="pill site plain">GPS verified</span></td></tr>
+              <tr><td>Irvine Center Clinics → Shop</td><td>Travel</td><td class="num">3:46</td><td class="num">4:09</td><td class="num">0.38</td><td class="faint">—</td><td><span class="pill hold plain">Manual</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="totals">
+          <div class="summary-line"><span>Travel <b>0.90</b></span><span>On site <b>7.88</b></span><span>Lunch <b>0.50</b> unpaid</span><span>Paid <b>8.78 h</b> + 1.00 premium</span></div>
+          <div class="ot">
+            <div class="load-bar"><i class="a" style="width: 91.1%"></i><i class="c" style="width: 8.9%"></i></div>
+            <div class="cells"><span>Regular <b>8.00</b></span><span>OT 1.5× <b>0.78</b></span><span>Double <b>0.00</b></span><span>Premium <b>1.00</b></span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="help">California rules applied automatically: daily overtime over 8 h at 1.5× and over 12 h at 2×; the first meal before the end of the 5th hour and a second before the 10th; a paid 10-minute rest per 4 hours. A missed or late meal or rest adds a one-hour premium that the supervisor approves in Break exceptions.</div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Team switch, day nav, and the Break exceptions button for supervisors. Each tech keeps the lines table (Work order, Kind, Start, Stop, Hours, Edited), lunch and break rows, the Labor / Travel / Total totals, the Submitted or Open status, and Fix breaks. Break exceptions keep tech, date, the missed meal or rest, the reason, premium hours, Approve / Approved, Fix breaks with meal start and stop, reason and note, the waiver hint, and the comment field.</li>
+    <li><span class="f">new</span>F20 A Geofence column shows "GPS verified" when the arrive and depart times came from the truck's position at the site, "Manual" when the tech typed them (callout 2). California daily overtime is computed per sheet: regular 8.00, OT 1.5×, double, and meal premiums, shown as a bar and four numbers (callout 3). Export payroll CSV in the toolbar sends the period to payroll.</li>
+    <li><span class="f">changed</span>The "Read only · ERP id empty" hint became a sync status per sheet (synced to payroll with the time, or not exported) and one quiet period line at the top (callout 1). Tech blocks are plain sections with a hairline between them: header row, table, totals; one pill per row. The office is reviewing yesterday, so the day nav sits on Tue Oct 13 with a "yesterday" tag.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-timesheets-breaks" role="dialog" aria-label="Break exceptions">
+  <div class="sheet-head"><div class="row gap-2"><h2>Break exceptions</h2><span class="badge">1</span></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div>
+      <div class="row between wrap"><div><b>Priya Shah</b> · Tue Oct 13</div><span class="pill overdue plain">First meal late</span></div>
+      <div class="small muted mt-1">Shift 6:52–4:09 · first meal started 1:12 PM, 1 h 20 m after the end of the 5th hour · reason from Priya: Customer emergency · premium hours <b class="num">1.0</b> · Pending</div>
+      <div class="row wrap mt-2">
+        <button class="btn sm primary" type="button" data-toast="Approved · 1.0 h meal premium added to Priya's Oct 13 sheet">Approve</button>
+        <button class="btn sm ghost" type="button" data-toggle-class="on" data-target="#tsh-fix-priya">Fix breaks</button>
+      </div>
+      <div class="panel" id="tsh-fix-priya">
+        <div class="notice red mt-3"><span><b>Missed meal.</b> The first meal must start before the end of the 5th hour (11:52 for this shift). Correct the times only if the tech actually ate earlier.</span></div>
+        <div class="field-grid mt-3">
+          <div class="field"><label>Meal start</label><input class="input" type="time" value="13:12"></div>
+          <div class="field"><label>Meal stop</label><input class="input" type="time" value="13:42"></div>
+          <div class="field"><label>Reason</label><select class="select"><option>Customer emergency</option><option>Waived (shift 6 hours or less)</option><option>Forgot</option><option>Supervisor asked me to keep working</option><option>Other</option></select></div>
+          <div class="field"><label>Note</label><input class="input" type="text" value="Server room call ran long; the clinic asked her to stay"></div>
+        </div>
+        <div class="help mt-1">A waiver is allowed only when the shift is 6 hours or less. This shift was 8.78 h, so the premium stays unless the times change.</div>
+        <div class="row wrap mt-2"><button class="btn sm primary" type="button" data-toast="Break fixed · change logged with your name and the time">Save fix</button></div>
+        <div class="small muted mt-2">Changes: none yet. Edits here show on Priya's phone and in the Edited column.</div>
+      </div>
+      <div class="row mt-3"><input class="input" type="text" placeholder="Comment for Priya" aria-label="Comment" style="flex: 1;"><button class="btn sm" type="button" data-toast="Comment saved and sent to Priya">Save comment</button></div>
+    </div>
+    <hr class="divider">
+    <div>
+      <div class="row between wrap"><div><b>Andre Walsh</b> · Mon Oct 12</div><span class="pill done plain">Approved</span></div>
+      <div class="small muted mt-1">Rest break missed, afternoon · reason: Forgot · premium hours <b class="num">1.0</b> · approved by Supervisor Oct 13 7:40 AM · comment: "Take the 10 minutes, Andre."</div>
+    </div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button><button class="btn" type="button" data-toast="Break exceptions exported · Oct 12–13">Export</button></div>
+</div>
+</template>
+</section>

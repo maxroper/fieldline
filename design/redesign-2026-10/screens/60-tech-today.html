@@ -1,0 +1,138 @@
+<section class="screen" id="s-tech-today" data-title="Today" data-group="tech" data-face="tech" data-order="60">
+<style>
+  #s-tech-today.on { display: flex; flex-direction: column; flex: 1 1 auto; }
+  #s-tech-today .ph-page { flex: 1 1 auto; gap: 18px; }
+  #s-tech-today .pill.live::before { margin-right: 0; }
+  #s-tech-today .btn.icon { width: 44px; }
+  #s-tech-today .tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  #s-tech-today .tools .btn { flex-direction: column; gap: 4px; font-size: 12px; font-weight: 500; color: var(--ink-2); padding: 8px 4px; border-color: transparent; min-height: 56px; }
+  #s-tech-today .tools .btn svg { width: 20px; height: 20px; }
+  #s-tech-today .breaks { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--ink-2); }
+  #s-tech-today .breaks .row { flex: 0 0 auto; }
+  #s-tech-today .ticket.next { border-color: var(--copper); box-shadow: 0 0 0 1px var(--copper), var(--shadow-2); }
+  #s-tech-today .ticket.next .ticket-title { font-size: 16px; }
+  #s-tech-today .drive { margin-left: 14px; padding: 1px 0 1px 12px; font-size: 11px; color: var(--ink-3); font-family: var(--mono); border-left: 2px dashed var(--line-2); }
+  #s-tech-today .swipe { position: relative; justify-content: flex-start; padding-left: 62px; overflow: hidden; }
+  #s-tech-today .swipe::before { content: "›"; position: absolute; left: 5px; top: 5px; bottom: 5px; width: 46px; border-radius: var(--pill); background: #fff; color: var(--copper); font-size: 24px; line-height: 1; display: grid; place-items: center; box-shadow: var(--shadow-1); animation: tt-nudge 2.4s var(--ease) infinite; }
+  @keyframes tt-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(8px); } }
+  #s-tech-today .cmd-preview { align-items: center; }
+  #s-tech-today .cmd-preview .chip { pointer-events: none; }
+  #s-tech-today .cmd-preview .chip b { font-family: var(--mono); font-weight: 500; }
+  #s-tech-today .cmd-preview .btn { margin-left: auto; }
+</style>
+
+<div class="ph-page">
+  <div class="row between">
+    <span class="pill site live">Synced 2 min ago</span>
+    <button class="btn sm subtle" type="button" data-open="#sheet-tech-today-sync"><span class="num">3</span>&nbsp;photos waiting for signal <span class="callout">1</span></button>
+  </div>
+
+  <div>
+    <div class="row between">
+      <button class="btn icon ghost" type="button" aria-label="Previous day">‹</button>
+      <div class="center">
+        <h1 class="num">Wed, Oct 14</h1>
+        <div class="small muted"><span class="num">4</span> visits · <span class="num">8.5 h</span> · <span class="num">2</span> done</div>
+      </div>
+      <button class="btn icon ghost" type="button" aria-label="Next day">›</button>
+    </div>
+    <div class="tools mt-1">
+      <button class="btn ghost" type="button" data-go="tech-timesheet"><svg class="i"><use href="#i-clock"/></svg>Timesheet</button>
+      <button class="btn ghost" type="button" data-go="tech-lookup"><svg class="i"><use href="#i-search"/></svg>Lookup</button>
+      <button class="btn ghost" type="button" data-go="tech-vehicle"><svg class="i"><use href="#i-box"/></svg>My vehicle</button>
+    </div>
+  </div>
+
+  <div class="breaks">
+    <span>Rest <b class="num">10:15–10:25</b> taken · meal due by <b class="num">12:02</b> <span class="callout">2</span></span>
+    <span class="row">
+      <button class="btn sm" type="button" data-toast="Meal started 10:45 · the clock is paused">Start meal</button>
+      <button class="btn sm" type="button" data-toast="Rest break started 10:45 · 10 minutes">Start rest</button>
+    </span>
+  </div>
+
+  <div class="notice steel"><b>New today</b><span>1135 Warner Business Park added at 11:00 (Fall PM, 4 RTUs). Jamboree 1061 moves to 3:30. — James Reynolds, 9:12</span></div>
+
+  <div class="ph-section">
+    <div class="row between"><span class="eyebrow">Route</span><span class="small muted num">31 mi · 58 min driving</span></div>
+    <div class="stack stagger">
+      <div class="ticket" role="button" tabindex="0" data-toast="Opens work order 1049">
+        <div class="ticket-head"><span class="row gap-2"><span class="ticket-time">7:30</span><span class="ticket-no">1049</span></span><span class="pill done">Done · 2.1 h</span></div>
+        <div class="ticket-title">Adams Avenue Plaza</div>
+        <div class="ticket-sub">Costa Mesa · Quarterly PM, 3 RTUs · signed by R. Castillo</div>
+      </div>
+      <div class="drive">Drive 14 min · 6.1 mi</div>
+      <div class="ticket" role="button" tabindex="0" data-toast="Opens work order 1058">
+        <div class="ticket-head"><span class="row gap-2"><span class="ticket-time">10:00</span><span class="ticket-no">1058</span></span><span class="pill parts">Done · return for parts</span></div>
+        <div class="ticket-title">Irvine Med Offices · Suite 200</div>
+        <div class="ticket-sub">Irvine · Warranty coil leak, RTU-2 · coil on order · 0.7 h</div>
+      </div>
+      <div class="drive">Drive 16 min · 8.4 mi · leave by 10:44</div>
+      <div class="ticket next">
+        <div class="ticket-head"><span class="row gap-2"><span class="ticket-time">11:00</span><span class="ticket-no">1135</span></span><span class="pill sched">Next · 4 h</span></div>
+        <div class="ticket-title">Warner Business Park · Bldg 3</div>
+        <div class="ticket-sub">Santa Ana · Fall PM, 4 RTUs · Silver agreement · Yolanda Ruiz, property manager · signature required</div>
+        <div class="stack tight mt-2">
+          <button class="btn copper xl block swipe" type="button" data-toast="Text sent to Yolanda Ruiz with your ETA">On my way · ETA 11:05 <span class="callout">3</span></button>
+          <button class="btn ghost lg block" type="button" data-go="tech-wo">Open work order</button>
+        </div>
+      </div>
+      <div class="drive">Drive 18 min · 7.2 mi</div>
+      <div class="ticket" role="button" tabindex="0" data-toast="Opens work order 1061">
+        <div class="ticket-head"><span class="row gap-2"><span class="ticket-time">3:30</span><span class="ticket-no">1061</span></span><span class="pill route plain">Moved</span></div>
+        <div class="ticket-title">Jamboree Corporate · Suite 310</div>
+        <div class="ticket-sub">Irvine · Thermostat swap · 2 h · thermostat is on the truck</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ph-bottom">
+  <div class="cmd">
+    <input type="text" value="Close, 1.5 hrs, filter change" aria-label="Tell Fieldline what you did">
+    <button class="mic" type="button" aria-label="Voice note" data-toast="Listening — say what you did and Fieldline fills it in">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><rect x="5.5" y="1.5" width="5" height="8" rx="2.5" fill="currentColor" stroke="none"/><path d="M3.5 7.5a4.5 4.5 0 0 0 9 0M8 12v2.5"/></svg>
+    </button>
+  </div>
+  <div class="cmd-preview">
+    <span class="chip on">Close <b>1058</b></span>
+    <span class="chip on">Labor <b>1.5 h</b></span>
+    <span class="chip on">Note · filter change</span>
+    <button class="btn sm primary" type="button" data-toast="1058 closed · 1.5 h labor · note added · sent to the office">Apply <span class="callout">4</span></button>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Day nav, the three tools (Timesheet / Lookup / My vehicle), Start meal / Start rest with today's breaks, the new-assignment notice, and one row per visit with time, number, customer, site, hours and state.</li>
+    <li><span class="f">new</span>F15 offline-first: the sync pill (1) says when the phone last synced; the quiet line beside it names what is still waiting, and Details lists the uploads with their retry. Nothing blocks the tech while signal is weak.</li>
+    <li><span class="f">new</span>F3 "On my way" (3) on the next visit: one slide texts Yolanda Ruiz an ETA with a live tracking link (see the customer face). Only the next visit has buttons.</li>
+    <li><span class="f">new</span>F20 the meal-due time (2) comes from the first clock-in; the timesheet enforces the California rule, this is the reminder.</li>
+    <li><span class="f">new</span>F17 the command box is the README's "Close, 1.5 hrs, filter change" given a home: type or dictate, Fieldline shows what it understood as three chips, Apply (4) writes time, note and status. The mic also records voice notes for the closeout summary.</li>
+    <li><span class="f">changed</span>One task on the screen: the route. Tools are a quiet icon row under the date, breaks are one line, and the visits read as a route with drive time and "leave by". Done visits are quiet; the warranty return says why it is not finished.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet bottom" id="sheet-tech-today-sync" role="dialog" aria-label="Sync status">
+  <div class="sheet-head">
+    <div class="row gap-2"><b>Sync</b><span class="pill site live">Connected · LTE</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="small muted">Everything you do is saved on the phone first. Uploads retry on their own; this list only shows what is still on its way.</div>
+    <div class="list">
+      <div class="item"><span class="photo steel" style="width:40px"><span class="cap">1</span></span><div><div class="title">1058 · Coil leak, RTU-2</div><div class="sub">Photo · 2.1 MB · uploading</div></div><span class="skeleton" style="width:64px; height:12px"></span></div>
+      <div class="item"><span class="photo copper" style="width:40px"><span class="cap">2</span></span><div><div class="title">1058 · Ceiling tile under RTU-2</div><div class="sub">Photo · 1.8 MB · queued</div></div><span class="small muted">Queued</span></div>
+      <div class="item"><span class="photo dark" style="width:40px"><span class="cap">3</span></span><div><div class="title">1058 · Nameplate RTU-2</div><div class="sub">Photo · 1.6 MB · queued</div></div><span class="small muted">Queued</span></div>
+      <div class="item"><svg class="i"><use href="#i-clock"/></svg><div><div class="title">Timesheet rows</div><div class="sub">4 rows · synced 10:43</div></div><span class="small muted">Synced</span></div>
+      <div class="item"><svg class="i"><use href="#i-list"/></svg><div><div class="title">1058 status · Done, return for parts</div><div class="sub">Synced 10:36</div></div><span class="small muted">Synced</span></div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Close</button>
+    <button class="btn primary" type="button" data-close data-toast="Retrying 3 uploads now">Retry now</button>
+  </div>
+</div>
+</template>
+</section>

@@ -1,0 +1,14 @@
+node_modules
+dist
+.vite
+*.log
+.env
+.env.local
+.DS_Store
+
+# local database and uploaded files (PGlite data directory, file storage)
+/data
+packages/db/.pglite
+
+# generated route tree is committed on purpose so a fresh clone type-checks; vite regenerates it
+# apps/web/src/routeTree.gen.ts

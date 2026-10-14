@@ -1,0 +1,123 @@
+<section class="screen" id="s-tech-closeout" data-title="Complete 1135" data-group="tech" data-face="tech" data-order="64">
+<style>
+  #s-tech-closeout .ph-page { gap: 20px; }
+  #s-tech-closeout .ph-page > .back-bar { position: static; margin: -14px -16px 0; }
+  #s-tech-closeout .pill.live::before { margin-right: 0; }
+  #s-tech-closeout .verify .item { grid-template-columns: auto minmax(0, 1fr) auto; min-height: 56px; }
+  #s-tech-closeout .verify .item > svg:first-child { color: var(--moss); }
+  #s-tech-closeout .verify .item.warn > svg:first-child { color: var(--amber-deep); }
+  #s-tech-closeout .summary { font-size: 14px; line-height: 1.5; }
+  #s-tech-closeout .signature { height: 120px; }
+  #s-tech-closeout .signature .hint { position: absolute; left: 10px; bottom: 6px; font-size: 11px; color: var(--ink-3); }
+  #s-tech-closeout .pay { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  #s-tech-closeout .amount { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }
+</style>
+
+<div class="ph-page">
+  <div class="back-bar">
+    <button class="btn subtle back" type="button" data-go="tech-wo">Back to work order</button>
+    <span class="pill site live">Synced 1 min ago</span>
+  </div>
+
+  <div class="stack tight">
+    <h1>Complete <span class="num">1135</span></h1>
+    <div class="small muted">Warner Business Park · Bldg 3 · Fall PM, 4 RTUs · on site since <span class="num">11:04</span></div>
+  </div>
+
+  <div class="list verify stagger">
+    <button class="item" type="button" data-open="#sheet-tech-closeout-time">
+      <svg class="i"><use href="#i-clock"/></svg>
+      <div><div class="title">Time charged</div><div class="sub">Labor 3.3 h · Travel 0.3 h · GPS verified</div></div>
+      <span class="small muted">Edit</span>
+    </button>
+    <div class="item">
+      <svg class="i"><use href="#i-box"/></svg>
+      <div><div class="title">Parts used</div><div class="sub">2 from truck $71.90 · PO 121 $142.10</div></div>
+      <span class="small muted">Posted</span>
+    </div>
+    <button class="item warn" type="button" data-go="tech-wo">
+      <svg class="i"><use href="#i-agreement"/></svg>
+      <div><div class="title">Checklist complete</div><div class="sub">8 of 8 answered · belt cracked went to quote 2045</div></div>
+      <span class="pill route plain">1 flagged</span>
+    </button>
+    <div class="item">
+      <svg class="i"><use href="#i-list"/></svg>
+      <div><div class="title">Refrigerant log recorded</div><div class="sub">R-410A · 2.5 lb added to RTU-3 · EPA 608 record created</div></div>
+      <span class="small muted">Recorded</span>
+    </div>
+    <div class="item warn">
+      <svg class="i"><use href="#i-board"/></svg>
+      <div><div class="title">Photos</div><div class="sub">6 attached · 2 still uploading</div></div>
+      <span class="num small muted">6</span>
+    </div>
+  </div>
+
+  <div class="stack">
+    <div class="row between"><span class="eyebrow">Work performed <span class="callout">1</span></span><span class="tag">From voice note · 0:42</span></div>
+    <p class="summary">Completed fall PM on RTU-1 through RTU-4. Replaced eight 20x25x2 filters, cleaned condenser coils and cleared condensate drains on all units. RTU-3 was 2.5 lb low on R-410A; leak-checked the joints, found no active leak, and recharged to 18.5 lb. Replaced a weak 45/5 capacitor on RTU-2. The belt on RTU-3 is cracked and the blower bearings are noisy; quoted both for replacement. All units heating and cooling on test.</p>
+    <div class="row between">
+      <span class="small muted">Written from your note; check it before you sign off.</span>
+      <button class="btn sm ghost" type="button" data-toast="Editing the summary">Edit</button>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Signature</span>
+    <div class="signature">
+      <svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><path d="M22 78 C30 40 44 34 50 60 C56 86 66 84 72 58 C78 32 92 34 98 58 C104 82 116 70 122 54 C130 36 142 44 150 62 C158 80 170 66 176 48 C182 30 196 40 204 60 C212 80 226 64 234 48 C242 32 258 40 266 56 C272 68 282 62 288 52"/></svg>
+      <span class="hint">Signed on the phone · 4:12 PM</span>
+    </div>
+    <div class="row between">
+      <span><b>Yolanda Ruiz</b> <span class="muted">· property manager</span></span>
+      <button class="btn sm ghost" type="button" data-toast="Signature cleared · ask Yolanda to sign again">Clear</button>
+    </div>
+  </div>
+
+  <label class="switch on" data-switch><i></i><span>Send the photo report to Yolanda when this completes <span class="callout">2</span></span></label>
+
+  <div class="stack">
+    <div class="row between"><span class="eyebrow">Collect payment <span class="callout">3</span></span><span class="small muted">Net 30 on this account · optional today</span></div>
+    <div class="row between">
+      <span class="amount money">$1,275.00</span>
+      <span class="small muted right">PM visit $1,180<br>refrigerant 2.5 lb $95</span>
+    </div>
+    <div class="pay">
+      <button class="btn lg primary" type="button" data-toast="Hold the card near the top of the phone · $1,275.00"><svg class="i"><use href="#i-dollar"/></svg>Tap to Pay</button>
+      <button class="btn lg" type="button" data-toast="Payment link texted to Yolanda Ruiz · $1,275.00"><svg class="i"><use href="#i-chat"/></svg>Send link</button>
+    </div>
+  </div>
+
+  <div class="notice"><b>Before you finish</b><span>2 photos are still uploading; the work order completes when they sync. Quote 2045 is a draft — send it so the office can price it for Yolanda.</span></div>
+
+  <button class="btn copper xl block" type="button" data-toast="Work order 1135 is completed. Yolanda gets the photo report; the office gets it to bill.">Verify and complete</button>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>The verify dialog's cards: time charged with labor and travel rows you can add to, purchase orders and material from the truck, description of work, the warnings bar and the big Verify and complete. Signer name and signature pad come over from the Closeout section.</li>
+    <li><span class="f">new</span>F17 Work performed (1) is written from the tech's voice note; the tech reads and edits instead of typing on a roof. The photo report switch (2) sends the customer the photos and this summary on completion.</li>
+    <li><span class="f">new</span>F11 Collect payment (3): Tap to Pay on the phone or a texted payment link, with the amount built from the billing rows. Optional, because this account is net 30.</li>
+    <li><span class="f">new</span>F8 and F7 appear as verify rows: the checklist must be complete and the refrigerant log recorded before the work order can close. F15: the photo row says what is still uploading instead of blocking.</li>
+    <li><span class="f">changed</span>Each check is one line; only the summary, the signature and payment take room. The signature and the copper button are the focus of the screen.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet bottom" id="sheet-tech-closeout-time" role="dialog" aria-label="Time charged">
+  <div class="sheet-head"><div class="row gap-2"><b>Time charged</b><span class="small muted num">3.6 h</span></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="list">
+      <div class="item"><svg class="i"><use href="#i-map"/></svg><div><div class="title">Travel</div><div class="sub">10:49 – 11:04 · GPS verified</div></div><b class="num">0.3 h</b></div>
+      <div class="item"><svg class="i"><use href="#i-building"/></svg><div><div class="title">Labor</div><div class="sub">11:04 – 11:55 · GPS verified</div></div><b class="num">0.9 h</b></div>
+      <div class="item"><svg class="i"><use href="#i-building"/></svg><div><div class="title">Labor</div><div class="sub">12:25 – 4:12 · GPS verified · lunch excluded</div></div><b class="num">2.4 h</b></div>
+    </div>
+    <div class="big-actions">
+      <button class="btn" type="button" data-toast="Labor row added · set start and stop"><svg class="i"><use href="#i-plus"/></svg>Add labor</button>
+      <button class="btn" type="button" data-toast="Travel row added · set start and stop"><svg class="i"><use href="#i-plus"/></svg>Add travel</button>
+    </div>
+    <div class="small muted">Rows marked GPS verified matched the site geofence. Anything you add by hand is marked Manual on the timesheet.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button><button class="btn primary" type="button" data-close data-toast="Time charged saved · 3.6 h">Save</button></div>
+</div>
+</template>
+</section>

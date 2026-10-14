@@ -1,0 +1,99 @@
+<section class="screen" id="s-cust-tracking" data-title="Tech on the way" data-group="customer" data-face="customer" data-order="80">
+<style>
+  #s-cust-tracking .ph-page { gap: 22px; padding-top: 18px; }
+  #s-cust-tracking .pill.live::before { margin-right: 0; }
+  #s-cust-tracking .mark { display: flex; align-items: center; gap: 10px; }
+  #s-cust-tracking .tech { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: start; }
+  #s-cust-tracking .tech .photo { width: 64px; border-radius: var(--r-2); }
+  #s-cust-tracking .eta { font-size: 36px; font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
+  #s-cust-tracking .map { min-height: 210px; margin-top: 14px; }
+  #s-cust-tracking .sel { user-select: all; -webkit-user-select: all; }
+  #s-cust-tracking .later { border-style: dashed; box-shadow: none; background: rgba(255, 253, 248, 0.6); }
+  #s-cust-tracking .stars { display: flex; gap: 8px; }
+  #s-cust-tracking .stars button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--amber); display: grid; place-items: center; padding: 0; }
+  #s-cust-tracking .stars button.on { background: var(--amber-tint); border-color: #f0d7a6; }
+  #s-cust-tracking .stars svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }
+  #s-cust-tracking .stars button.on svg { fill: currentColor; }
+</style>
+
+<div class="cf-top"><span class="url">fieldline.app/t/8f2k</span></div>
+<div class="ph-page">
+  <div class="mark">
+    <span class="avatar ink">HC</span>
+    <div><b>Harbor Coast Mechanical</b><div class="small muted">Costa Mesa · commercial HVAC</div></div>
+  </div>
+
+  <div class="stack tight">
+    <h1>Marcus is on the way</h1>
+    <div class="muted">Fall maintenance at Warner Business Park, Bldg 3</div>
+  </div>
+
+  <div class="card">
+    <div class="tech">
+      <div class="photo dark"><span class="cap">Marcus</span></div>
+      <div>
+        <div class="row between"><b>Marcus Hale</b><span class="pill site live">Live <span class="callout">1</span></span></div>
+        <div class="small muted">Lead technician · 9 years · EPA 608 certified</div>
+        <div class="row between top mt-2">
+          <div><span class="eyebrow">Arriving about</span><div class="eta num">11:05</div></div>
+          <div class="right small muted"><span class="num">16</span> min away<br>updated <span class="num">20</span> s ago</div>
+        </div>
+      </div>
+    </div>
+    <div class="map">
+      <svg class="streets" viewBox="0 0 340 210" preserveAspectRatio="none" aria-hidden="true">
+        <rect width="340" height="210" fill="#ece5d8"/>
+        <g stroke="#dbd2c3" stroke-width="2"><path d="M0 40H340M0 95H340M0 150H340"/><path d="M60 0V210M130 0V210M200 0V210M270 0V210"/></g>
+        <g stroke="#cfc3ad" stroke-width="6" fill="none"><path d="M0 120 C70 118 150 104 340 100"/><path d="M240 0 C236 70 246 140 250 210"/></g>
+        <g fill="#e2d9c8"><rect x="208" y="58" width="40" height="30" rx="3"/><rect x="258" y="62" width="34" height="26" rx="3"/><rect x="72" y="160" width="46" height="34" rx="3"/></g>
+        <path class="route" d="M92 128 C130 124 180 112 232 106 C240 105 246 100 248 92"/>
+      </svg>
+      <div class="pin" style="left: 73%; top: 44%;"><i></i><b>Bldg 3 · Warner Business Park</b></div>
+      <div class="truck" style="left: 27%; top: 61%;">MH</div>
+      <div class="map-legend"><span class="live">Truck</span><span>Warner Ave · 16 min</span></div>
+    </div>
+  </div>
+
+  <dl class="facts tight">
+    <dt>When</dt><dd>Wed, Oct 14 · window <span class="num">11:00 – 1:00</span></dd>
+    <dt>What</dt><dd>Fall maintenance on 4 rooftop units · about 4 hours</dd>
+    <dt>Where</dt><dd>2501 W Warner Ave, Bldg 3, Santa Ana</dd>
+    <dt>Work order</dt><dd class="num">1135</dd>
+    <dt>Your contact</dt><dd>Yolanda Ruiz · property manager</dd>
+  </dl>
+
+  <div class="stack tight">
+    <button class="btn copper xl block" type="button" data-toast="Opening Messages · your reply goes to the office at 714-555-0100"><svg class="i"><use href="#i-chat"/></svg>Reply by text · <span class="num sel">714-555-0100</span> <span class="callout">2</span></button>
+    <button class="btn lg block" type="button" data-toast="Calling Harbor Coast Mechanical · 949-555-0120">Call the office · <span class="num sel">949-555-0120</span></button>
+  </div>
+
+  <div class="stack tight">
+    <span class="eyebrow">What to expect</span>
+    <p class="small muted">Marcus will check in with the front desk first, then work on the roof. Each unit is off for 20 to 30 minutes while he services it. He will ask Yolanda to sign off at the end, and you will get the photo report by text.</p>
+  </div>
+
+  <div class="card later">
+    <div class="card-head"><h3>After the visit <span class="callout">3</span></h3><span class="small muted">appears when Marcus finishes</span></div>
+    <div class="small muted">Your photo report and a short summary of the work will be here, with a one-tap review.</div>
+    <div class="stars mt-2" aria-label="Rate the visit">
+      <button type="button" class="on" aria-label="1 star" data-toast="Thanks for the rating"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17.4l-5.4 2.9 1.1-6.1L3.2 9.9l6.1-.8z"/></svg></button>
+      <button type="button" class="on" aria-label="2 stars" data-toast="Thanks for the rating"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17.4l-5.4 2.9 1.1-6.1L3.2 9.9l6.1-.8z"/></svg></button>
+      <button type="button" class="on" aria-label="3 stars" data-toast="Thanks for the rating"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17.4l-5.4 2.9 1.1-6.1L3.2 9.9l6.1-.8z"/></svg></button>
+      <button type="button" class="on" aria-label="4 stars" data-toast="Thanks for the rating"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17.4l-5.4 2.9 1.1-6.1L3.2 9.9l6.1-.8z"/></svg></button>
+      <button type="button" aria-label="5 stars" data-toast="Thanks for the rating"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17.4l-5.4 2.9 1.1-6.1L3.2 9.9l6.1-.8z"/></svg></button>
+    </div>
+    <button class="btn ghost lg block mt-2" type="button" data-toast="A Google review link was texted to you">Leave a Google review</button>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">new</span>F3 and F1: this is the page behind the "On my way" text. The customer sees who is coming, when (1), and where the truck is, with the appointment written out so nobody has to call to ask.</li>
+    <li><span class="f">new</span>F3 two-way: Reply by text (2) lands in the office Messages inbox against this work order; the numbers are plain text so they can be copied or tapped.</li>
+    <li><span class="f">new</span>F14: after Marcus marks the visit done, the second card (3) turns into the photo report, the summary and the review request, so the review ask arrives while the visit is fresh.</li>
+    <li><span class="f">changed</span>No app, no login: a short link opened from a text. Company mark, one headline, one card for the tech and the map, the facts, two ways to reach us, and what to expect.</li>
+  </ul>
+</aside>
+
+<template data-overlay></template>
+</section>

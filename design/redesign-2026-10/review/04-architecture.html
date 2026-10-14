@@ -1,0 +1,83 @@
+<section class="screen" id="s-architecture" data-title="Architecture review" data-group="review" data-face="review" data-order="4">
+<div class="doc">
+  <div>
+    <span class="eyebrow">Architecture · October 14, 2026</span>
+    <h1 class="mt-1">Is Fieldline built on the right stack, and is it ready to grow?</h1>
+    <p class="lede mt-2">Short answer: the languages are right, the framework is used in a way that cancels its benefits, and the data layer has to be replaced before any of the twenty features can exist. The code is a good prototype of the business rules and a poor foundation for a multi-user product. Below: what to keep, change and replace, the target architecture, the risks found in the code, and a phased plan.</p>
+  </div>
+
+  <h2>Verdicts on what is there today</h2>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Layer</th><th>Today</th><th>Verdict</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="primary-cell">Language</td><td>TypeScript, strict mode</td><td><span class="verdict keep">Keep</span></td><td>The standard across the field-service incumbents (ServiceTitan, Jobber, Housecall Pro, Workiz, BuildOps all run TypeScript on the front end). Strict mode is already on.</td></tr>
+        <tr><td class="primary-cell">UI library</td><td>React 18.3</td><td><span class="verdict keep">Keep, upgrade</span></td><td>Industry standard. Move to React 19 for Actions, View Transitions and the React Compiler, which removes most hand memoization.</td></tr>
+        <tr><td class="primary-cell">Framework</td><td>Next.js 14.2 with <code>output: "export"</code></td><td><span class="verdict change">Change</span></td><td>Two majors behind (16.4 is current; Next 15 reaches end of life October 21, 2026). Static export disables Server Actions, proxy, route handlers and caching, so the app gets none of the reasons to use Next. Either upgrade to Next 16 and drop the export, or move the app to Vite with TanStack Router, which fits an authenticated, client-heavy tool with no SEO. Recommendation below.</td></tr>
+        <tr><td class="primary-cell">Persistence</td><td>One JSON document in <code>localStorage</code> (key <code>fieldline.db.v4</code>)</td><td><span class="verdict replace">Replace</span></td><td>Single device, single user, about 5 MB ceiling that base64 photos will hit, a full clone and stringify on every action, and a silent reset to seed data when a parse fails. Nothing multi-user, offline or integrated can be built on it.</td></tr>
+        <tr><td class="primary-cell">Data model</td><td>Typed entities with <code>orgId</code> on most rows</td><td><span class="verdict keep">Keep the shape</span></td><td>The entity model is sound and already multi-tenant in intent. Six types lack <code>orgId</code> (Note, TimeEntry, Photo, HourChange, CallNoteEdit, FieldChange); several legacy mirror fields are synced by hand; business numbers are computed from stale closures.</td></tr>
+        <tr><td class="primary-cell">Application code</td><td>One 10,500-line component and a 4,500-line context store with about 100 methods</td><td><span class="verdict replace">Replace the structure</span></td><td>Every mutation rebuilds the whole API object and re-renders every consumer. No routes or URLs, no deep links, no code splitting. Split into feature modules (dispatch, work orders, customers, quoting, purchasing, inventory, billing, timesheets, agreements, messages) with server state in TanStack Query and UI state in Zustand.</td></tr>
+        <tr><td class="primary-cell">Auth and permissions</td><td>A select box that picks the signed-in user; role checks inline in the store</td><td><span class="verdict add">Add</span></td><td>Anyone can impersonate anyone. Checks are uneven (a tech can type "billed" into the command parser and set a work order billed with no invoice). Needs real sign-in, organizations and roles, and server-side enforcement.</td></tr>
+        <tr><td class="primary-cell">Documents</td><td>Hand-written PDF 1.4 and OOXML generators</td><td><span class="verdict replace">Replace</span></td><td>Impressive, but the PDF has no text wrapping, loses non-Latin characters, and both are untested. Use react-pdf for invoices, quotes and POs, and ExcelJS for exports.</td></tr>
+        <tr><td class="primary-cell">Testing</td><td>None. <code>tsc --noEmit</code> is the only gate</td><td><span class="verdict add">Add</span></td><td>896 lines of money and tax math and 598 lines of timesheet math have zero tests. Vitest for the pure modules, Playwright for the phone flows, Storybook for the component library that comes out of the redesign.</td></tr>
+        <tr><td class="primary-cell">Mobile</td><td>Responsive web with Apple PWA meta only</td><td><span class="verdict change">Change in two steps</span></td><td>No manifest or service worker, so not installable on Android and not offline anywhere. A PWA with an outbox is enough for the pilot. Background GPS, reliable push and true offline on iOS need a native shell: the incumbents converged on Expo and React Native.</td></tr>
+        <tr><td class="primary-cell">Styling</td><td>One 1,350-line global stylesheet, many inline styles</td><td><span class="verdict change">Change</span></td><td>Keep plain CSS, but as design tokens plus component styles (the design system in this pass), with CSS Modules or Tailwind v4 per feature. Removing the inline styles is part of the split.</td></tr>
+        <tr><td class="primary-cell">Node</td><td>Node 26 on the dev machine, Next 14 built for Node 18–22</td><td><span class="verdict change">Pin</span></td><td>Pin the version in <code>.nvmrc</code> and <code>engines</code>; upgrade the framework before relying on Node 26 features.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>What the incumbents run on</h2>
+  <p>From public engineering posts and job listings: ServiceTitan is C#/.NET on Azure with React and a React Native app; Jobber is Ruby on Rails with GraphQL, React and React Native; Housecall Pro is Rails with React and separate native iOS and Android teams; Workiz and BuildOps are Node and TypeScript with React, BuildOps on GraphQL and React Native; FieldPulse is Node with Next.js. None is a no-backend single-page app. Every one has a conventional API over a relational database. Three of six chose React Native for the technician app, and ServiceTitan's path from native to Cordova to React Native is the cautionary tale about shipping wrapped web pages to technicians.</p>
+  <p>So the answer to "is this industry standard" is: TypeScript and React, yes; a relational database behind an API, yes, and Fieldline does not have one yet; a native or React Native tech app, eventually.</p>
+
+  <h2>Target architecture</h2>
+  <div class="arch">
+    <div class="layer"><span class="eyebrow">Office web app</span><b>React 19 + TypeScript</b><div class="small muted mt-1">Vite + TanStack Router (or Next 16 without export). Feature modules, TanStack Query, Zustand, the design system from this pass, URLs for every screen.</div></div>
+    <div class="layer"><span class="eyebrow">Tech app</span><b>PWA now, Expo later</b><div class="small muted mt-1">Phase 1: installable PWA with a durable outbox for status, notes, photos and time. Phase 4: Expo (React Native) with PowerSync for offline-first sync and background location.</div></div>
+    <div class="layer"><span class="eyebrow">Customer pages</span><b>Static pages from the API</b><div class="small muted mt-1">Tracking link, quote approval, invoice payment, portal. Token links, no login for tracking, light login for the portal.</div></div>
+    <div class="layer"><span class="eyebrow">API</span><b>Node + TypeScript</b><div class="small muted mt-1">One language end to end. A thin Hono or Fastify service with Drizzle, or Supabase's generated API plus edge functions for workflows. Server-side permission checks. Optimistic locking with a <code>version</code> column so two dispatchers cannot overwrite one move.</div></div>
+    <div class="layer"><span class="eyebrow">Database</span><b>Postgres with row-level security</b><div class="small muted mt-1">Supabase or Neon. <code>orgId</code> on every row enforced by RLS, not by the UI. UUIDv7 ids, per-org sequences for WO, quote, PO and invoice numbers, <code>timestamptz</code> everywhere, versioned SQL migrations.</div></div>
+    <div class="layer"><span class="eyebrow">Files</span><b>Object storage</b><div class="small muted mt-1">Photos, nameplates, signatures, vendor PDFs in Supabase Storage or S3-compatible storage with signed URLs. Never inside the database document.</div></div>
+    <div class="layer"><span class="eyebrow">Realtime</span><b>Broadcast or SSE</b><div class="small muted mt-1">Board updates and tech status via Supabase Realtime Broadcast from database triggers, or server-sent events from the API. Enough for a handful of dispatchers.</div></div>
+    <div class="layer"><span class="eyebrow">Auth</span><b>Clerk or Supabase Auth</b><div class="small muted mt-1">Organizations, roles (admin, supervisor, dispatcher, customer service, billing, tech), per-user permission flags kept. WorkOS when enterprise single sign-on appears.</div></div>
+    <div class="layer"><span class="eyebrow">Integrations</span><b>Twilio · Stripe · QuickBooks · Maps</b><div class="small muted mt-1">A2P 10DLC registration for SMS (start it first; 5–15 business days). Stripe SetupIntent for card on file, Tap to Pay in the field. QuickBooks Online with change-data-capture. Google Routes or Mapbox for drive times.</div></div>
+    <div class="layer"><span class="eyebrow">Documents</span><b>react-pdf · ExcelJS</b><div class="small muted mt-1">Quotes, invoices, POs, refrigerant records and photo reports from one template system.</div></div>
+    <div class="layer"><span class="eyebrow">Quality</span><b>Vitest · Playwright · Storybook</b><div class="small muted mt-1">Money and time math under test first. Phone-viewport end-to-end flows. CI on every pull request. Sentry for errors, PostHog for product analytics and feature flags.</div></div>
+  </div>
+
+  <h2>Next.js or Vite: the one decision to make</h2>
+  <div class="grid cols-2">
+    <div class="card"><span class="eyebrow">Option A · Vite + TanStack Router <span class="verdict keep">recommended</span></span><p class="small mt-1">The app is an authenticated tool with no public pages and no SEO. Vite is the simpler build, TanStack Router gives typed URLs and search params (filters in the URL, which the board and lists need), and nothing about the app wants server rendering. Keep Next, or plain static hosting, for a marketing site if one appears.</p></div>
+    <div class="card"><span class="eyebrow">Option B · Next.js 16 App Router, no static export</span><p class="small mt-1">Fine if the team prefers one framework and wants server functions in the same repo. Requires dropping <code>output: "export"</code>, the upgrade codemods (middleware becomes proxy, async request APIs), and a Node host. The app stays mostly client-rendered either way.</p></div>
+  </div>
+
+  <h2>Risks found in the current code</h2>
+  <p>From a full read of <code>lib/</code>. File and line pointers are in the research notes.</p>
+  <ul>
+    <li><b>Silent total data loss.</b> If the stored document fails a sanity check or does not parse, the app resets to seed data without telling anyone. A key-version bump has no migration path.</li>
+    <li><b>Hard-coded rates overwrite office data.</b> The journeyman bill rate is forced to a fixed value on every load and every save, so the office cannot change it.</li>
+    <li><b>Demo data lives in the production load path.</b> Demo customers, sites and work orders are re-merged on every load and cannot be deleted; several "ensure" fixes are specific to the demo company.</li>
+    <li><b>Photos and PDFs are base64 inside the document.</b> Every action clones and re-serializes all of them; the storage quota is the real capacity limit.</li>
+    <li><b>Tenant checks are inconsistent.</b> Newer actions filter by organization; older ones (status, assign, update call, notes, time, photos, customer and site updates) look up by id alone. Isolation depends on the UI only listing the current organization.</li>
+    <li><b>Permission gaps.</b> Setting a work order to billed needs no billing permission; the command parser can set "billed" without an invoice; equipment edits skip the customer-edit permission; a site can be created with no customer.</li>
+    <li><b>Compliance code is switched off.</b> Missed-meal and rest-premium detection is hard-coded to false, so the premium logic never fires.</li>
+    <li><b>Two timestamp formats and two rounding regimes.</b> Local stamps without an offset and UTC stamps share fields and are sorted as strings; quarter-hour rounding and two-decimal rounding both feed billing.</li>
+    <li><b>Weak identifiers.</b> Nine-character random ids and sequence numbers computed from stale state can collide under concurrency.</li>
+    <li><b>No tests on money and time.</b> Billing, tax, not-to-exceed, credits, timesheets and overtime have no coverage.</li>
+  </ul>
+
+  <h2>Phased plan</h2>
+  <ol>
+    <li><b>Stabilize (1–2 weeks).</b> Tests around billing and timesheet math; add <code>orgId</code> to the six types; remove the rate overwrite and the silent reset; pin Node; start Twilio 10DLC registration and the Stripe and QuickBooks developer accounts, because all three have waiting periods.</li>
+    <li><b>Backend (3–4 weeks).</b> Postgres with RLS, Drizzle, versioned migrations, auth with organizations and roles, object storage, a thin API. Port the store's actions to server mutations one feature at a time behind the existing UI. Add routes and URLs.</li>
+    <li><b>Redesign build (4–6 weeks).</b> Implement the screens in this pass feature by feature, splitting the monolith as each screen moves: dispatch board first, then work order, customers and equipment, quoting, billing. TanStack Query and the design system land here. Realtime for the board. PWA manifest, service worker and the outbox for techs.</li>
+    <li><b>Integrations and new areas (4–6 weeks).</b> Texting and the tracking page, payments, QuickBooks, maps, the agreements engine, pricebook, forms and the refrigerant log, the customer portal, reports.</li>
+    <li><b>Native tech app (later).</b> Expo with PowerSync when GPS tracking and true offline are needed in the field. The web tech screens keep working meanwhile.</li>
+  </ol>
+  <p>Running cost for the pilot is small: a managed Postgres and auth tier at about $25 each per month, Twilio and Stripe at usage, maps within free tiers, error tracking free at pilot volume. The expensive part is the engineering in phases 2 and 3, which is why the data layer comes before any new feature.</p>
+
+  <h2>What stays true to the README</h2>
+  <p>The README's week-by-week plan already says "real auth, Postgres, photo bucket, replace localStorage" is step two. This review agrees and adds the structure around it: tests first, routes and feature modules during the redesign, integrations after, native last. The README's risk line still holds: if the phone path is slower than a text to the office, stop and fix that before anything else. The tech screens in this pass were designed with that sentence on the wall.</p>
+</div>
+</section>

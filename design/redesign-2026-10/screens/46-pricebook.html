@@ -1,0 +1,312 @@
+<section class="screen" id="s-pricebook" data-title="Pricebook" data-group="office" data-face="office" data-order="46">
+<style>
+  #s-pricebook .tree { display: flex; flex-direction: column; gap: 2px; }
+  #s-pricebook .tree button { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; border: 0; background: transparent; padding: 7px 10px; border-radius: var(--r-1); color: var(--ink-2); font-weight: 500; min-width: 0; transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease); }
+  #s-pricebook .tree button:hover { background: var(--paper-2); color: var(--ink); }
+  #s-pricebook .tree button.on { background: var(--copper-tint); color: var(--copper-deep); font-weight: 600; }
+  #s-pricebook .tree .sub { padding-left: 28px; font-weight: 400; }
+  #s-pricebook .tree .count { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  #s-pricebook .tree .twisty { width: 10px; font-size: 10px; color: var(--ink-3); }
+  #s-pricebook .pb-card { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 14px; }
+  #s-pricebook .pb-card .photo { aspect-ratio: 1; }
+  #s-pricebook .pb-card .code { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  #s-pricebook .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+  #s-pricebook .tiers .t { display: block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--copper-deep); font-weight: 600; }
+  #s-pricebook .tiers .p { display: block; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; }
+  #s-pricebook .tiers .w { display: block; font-size: 11px; color: var(--ink-2); }
+  #s-pricebook .pb-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--ink-2); margin-top: 10px; align-items: center; }
+  #s-pricebook .pb-meta .meter { width: 56px; display: inline-block; vertical-align: middle; }
+  #s-pricebook .group { display: flex; flex-direction: column; gap: 12px; }
+  @media (max-width: 640px) { #s-pricebook .pb-card { grid-template-columns: 64px minmax(0, 1fr); } }
+</style>
+
+<div class="toolbar">
+  <div class="search" style="flex: 1 1 220px; max-width: 360px;"><input class="input" type="search" placeholder="Plain language: fan motor, leak, no cooling" aria-label="Search pricebook"></div>
+  <div class="seg" data-seg="pricebook-view"><button type="button" class="on" data-val="cards">Cards</button><button type="button" data-val="table">Table</button></div>
+  <button class="btn sm" type="button" data-open="#sheet-pricebook-filters"><svg><use href="#i-filter"/></svg>Filters · 1</button>
+  <span class="grow"></span>
+  <button class="btn ghost sm" type="button" data-toast="Johnstone catalog: 1,240 parts matched to 74 materials · 38 price changes to review below">Import from Johnstone</button>
+  <button class="btn copper sm" type="button" data-open="#sheet-pricebook-new"><svg><use href="#i-plus"/></svg>New item</button>
+</div>
+
+<div class="split narrow-rail">
+  <aside class="rail">
+    <span class="eyebrow">Categories <span class="callout">1</span></span>
+    <div class="tree">
+      <button type="button"><span class="twisty">▾</span>Repairs<span class="count">84</span></button>
+      <button type="button" class="sub">Electrical<span class="count">22</span></button>
+      <button type="button" class="sub on">Refrigeration<span class="count">31</span></button>
+      <button type="button" class="sub">Airflow<span class="count">18</span></button>
+      <button type="button" class="sub">Controls<span class="count">13</span></button>
+      <button type="button"><span class="twisty">▸</span>Maintenance<span class="count">12</span></button>
+      <button type="button"><span class="twisty">▸</span>Materials<span class="count">74</span></button>
+      <button type="button"><span class="twisty">▸</span>Labor<span class="count">6</span></button>
+      <button type="button"><span class="twisty">▸</span>Agreements<span class="count">3</span></button>
+    </div>
+    <hr class="divider">
+    <div class="small muted"><b>Good</b> fixes the failure, <b>Better</b> adds what prevents the next one, <b>Best</b> replaces or upgrades. Every item carries all three, so a proposal is one pick [F9].</div>
+    <button class="btn sm subtle" type="button" data-go="settings" style="align-self: flex-start;">Edit tier rules</button>
+  </aside>
+
+  <div class="canvas">
+    <div class="page stack loose">
+      <div class="summary-line"><span><b>186</b> items</span><span>Average margin <b>58%</b></span><span><span class="dot rust"></span><b>14</b> below benchmark</span><span><span class="dot amber"></span><b>38</b> price changes to review</span><span>Johnstone synced Oct 12</span></div>
+
+      <div class="section-head">
+        <div><h2>Repairs › Refrigeration</h2><div class="small muted">31 items · used 128 times this year · average margin 60% · 1 below benchmark</div></div>
+        <select class="select-pill" aria-label="Sort"><option>Most used</option><option>Highest margin</option><option>Lowest margin</option><option>Recently changed</option><option>Code</option></select>
+      </div>
+
+      <div class="panel on" data-seg-panel="pricebook-view" data-val="cards">
+        <div class="grid cols-2 stagger">
+          <div class="card pb-card">
+            <div class="photo copper"><span class="cap">RF-104</span></div>
+            <div>
+              <div class="code">RF-104</div>
+              <div class="strong">Replace condenser fan motor, 1/3 hp</div>
+              <div class="small muted">Motor, run capacitor, blade balance and amp check. The unit is down about 90 minutes.</div>
+              <div class="tiers">
+                <div><span class="t">Good</span><span class="p money">$684</span><span class="w">repair as found</span></div>
+                <div><span class="t">Better</span><span class="p money">$812</span><span class="w">+ contactor, coil rinse</span></div>
+                <div><span class="t">Best</span><span class="p money">$1,160</span><span class="w">ECM motor, 2-yr labor</span></div>
+              </div>
+              <div class="pb-meta"><span>Parts <b class="money">$151.90</b></span><span>Labor <b class="num">1.5 h</b></span><span>Margin <span class="meter moss"><i style="width: 65%"></i></span> <b class="num">65%</b> <span class="faint">of 55–65</span></span><span>Used <b class="num">14</b></span><span class="grow"></span><button class="btn sm ghost" type="button" data-open="#sheet-pricebook-rf104">Detail <span class="callout">2</span></button></div>
+            </div>
+          </div>
+          <div class="card pb-card">
+            <div class="photo steel"><span class="cap">RF-112</span></div>
+            <div>
+              <div class="code">RF-112 · refrigerant log required</div>
+              <div class="strong">Find and repair refrigerant leak, recharge R-410A up to 5 lb</div>
+              <div class="small muted">Electronic leak search, repair, evacuate, weigh in the charge. Logged to the refrigerant record.</div>
+              <div class="tiers">
+                <div><span class="t">Good</span><span class="p money">$920</span><span class="w">repair and recharge</span></div>
+                <div><span class="t">Better</span><span class="p money">$1,240</span><span class="w">+ dye, new drier</span></div>
+                <div><span class="t">Best</span><span class="p money">$1,890</span><span class="w">coil repair, 30-day recheck</span></div>
+              </div>
+              <div class="pb-meta"><span>Parts <b class="money">$204.00</b></span><span>Labor <b class="num">2.5 h</b></span><span>Margin <span class="meter moss"><i style="width: 62%"></i></span> <b class="num">62%</b> <span class="faint">of 55–65</span></span><span>Used <b class="num">9</b></span><span class="grow"></span><button class="btn sm ghost" type="button" data-toast="Detail: RF-112">Detail</button></div>
+            </div>
+          </div>
+          <div class="card pb-card">
+            <div class="photo"><span class="cap">RF-120</span></div>
+            <div>
+              <div class="code">RF-120</div>
+              <div class="strong">Replace expansion valve (TXV), 5 ton</div>
+              <div class="small muted">Recover, replace the valve and drier, evacuate, recharge and set superheat.</div>
+              <div class="tiers">
+                <div><span class="t">Good</span><span class="p money">$1,180</span><span class="w">valve and drier</span></div>
+                <div><span class="t">Better</span><span class="p money">$1,420</span><span class="w">+ deep evacuation, sight glass</span></div>
+                <div><span class="t">Best</span><span class="p money">$2,260</span><span class="w">+ coil clean, charge by subcooling</span></div>
+              </div>
+              <div class="pb-meta"><span>Parts <b class="money">$286.00</b></span><span>Labor <b class="num">3.0 h</b></span><span>Margin <span class="meter moss"><i style="width: 61%"></i></span> <b class="num">61%</b> <span class="faint">of 55–65</span></span><span>Used <b class="num">4</b></span><span class="grow"></span><button class="btn sm ghost" type="button" data-toast="Detail: RF-120">Detail</button></div>
+            </div>
+          </div>
+          <div class="card pb-card">
+            <div class="photo dark"><span class="cap">RF-131</span></div>
+            <div>
+              <div class="code">RF-131</div>
+              <div class="strong">Replace scroll compressor, 5 ton R-410A</div>
+              <div class="small muted">Recover, swap the compressor, new drier, triple evacuation, recharge, start-up readings.</div>
+              <div class="tiers">
+                <div><span class="t">Good</span><span class="p money">$3,280</span><span class="w">compressor and drier</span></div>
+                <div><span class="t">Better</span><span class="p money">$3,980</span><span class="w">+ contactor, start kit</span></div>
+                <div><span class="t">Best</span><span class="p money">$4,800</span><span class="w">+ coil clean, 2-yr labor</span></div>
+              </div>
+              <div class="pb-meta"><span>Parts <b class="money">$1,486.00</b></span><span>Labor <b class="num">6.0 h</b></span><span>Margin <span class="meter amber"><i style="width: 44%"></i></span> <b class="num">44%</b> <span class="faint">of 48–55</span></span><span class="pill parts plain">Below benchmark</span><span>Used <b class="num">3</b></span><span class="grow"></span><button class="btn sm ghost" type="button" data-toast="Detail: RF-131">Detail</button></div>
+            </div>
+          </div>
+          <div class="card pb-card">
+            <div class="photo copper"><span class="cap">RF-140</span></div>
+            <div>
+              <div class="code">RF-140</div>
+              <div class="strong">Replace liquid-line filter drier</div>
+              <div class="small muted">Recover, braze in a new drier, evacuate and recharge to the nameplate.</div>
+              <div class="tiers">
+                <div><span class="t">Good</span><span class="p money">$248</span><span class="w">drier</span></div>
+                <div><span class="t">Better</span><span class="p money">$320</span><span class="w">+ acid test</span></div>
+                <div><span class="t">Best</span><span class="p money">$420</span><span class="w">+ evacuation to 500 microns</span></div>
+              </div>
+              <div class="pb-meta"><span>Parts <b class="money">$24.20</b></span><span>Labor <b class="num">1.0 h</b></span><span>Margin <span class="meter moss"><i style="width: 67%"></i></span> <b class="num">67%</b> <span class="faint">of 55–65</span></span><span>Used <b class="num">11</b></span><span class="grow"></span><button class="btn sm ghost" type="button" data-toast="Detail: RF-140">Detail</button></div>
+            </div>
+          </div>
+          <div class="card pb-card">
+            <div class="photo steel"><span class="cap">RF-152</span></div>
+            <div>
+              <div class="code">RF-152</div>
+              <div class="strong">Clean condenser coil, chemical, per unit</div>
+              <div class="small muted">Rinse, foaming coil cleaner, rinse again, check head pressure before and after.</div>
+              <div class="tiers">
+                <div><span class="t">Good</span><span class="p money">$240</span><span class="w">coil</span></div>
+                <div><span class="t">Better</span><span class="p money">$340</span><span class="w">+ cabinet, drain</span></div>
+                <div><span class="t">Best</span><span class="p money">$480</span><span class="w">+ economizer service</span></div>
+              </div>
+              <div class="pb-meta"><span>Parts <b class="money">$18.00</b></span><span>Labor <b class="num">1.0 h</b></span><span>Margin <span class="meter moss"><i style="width: 68%"></i></span> <b class="num">68%</b> <span class="faint">of 55–65</span></span><span>Used <b class="num">27</b></span><span class="grow"></span><button class="btn sm ghost" type="button" data-toast="Detail: RF-152">Detail</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="row between wrap small muted mt-2"><span>Showing 6 of 31 · the Materials catalog behind these items has 74 SKUs with vendor cost and the margin bands from Settings.</span><button class="btn sm ghost" type="button" data-toast="25 more items loaded">Show 25 more</button></div>
+      </div>
+
+      <div class="panel" data-seg-panel="pricebook-view" data-val="table">
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>Code</th><th>Item</th><th class="num">Good</th><th class="num">Better</th><th class="num">Best</th><th class="num">Parts</th><th class="num">Labor</th><th class="num">Margin</th><th class="num">Used</th></tr></thead>
+            <tbody class="stagger">
+              <tr class="on"><td class="num">RF-104</td><td class="primary-cell">Replace condenser fan motor, 1/3 hp</td><td class="num money">$684</td><td class="num money">$812</td><td class="num money">$1,160</td><td class="num money">$151.90</td><td class="num">1.5 h</td><td class="num">65%</td><td class="num">14</td></tr>
+              <tr><td class="num">RF-112</td><td class="primary-cell">Find and repair refrigerant leak, recharge up to 5 lb</td><td class="num money">$920</td><td class="num money">$1,240</td><td class="num money">$1,890</td><td class="num money">$204.00</td><td class="num">2.5 h</td><td class="num">62%</td><td class="num">9</td></tr>
+              <tr><td class="num">RF-120</td><td class="primary-cell">Replace expansion valve (TXV), 5 ton</td><td class="num money">$1,180</td><td class="num money">$1,420</td><td class="num money">$2,260</td><td class="num money">$286.00</td><td class="num">3.0 h</td><td class="num">61%</td><td class="num">4</td></tr>
+              <tr><td class="num">RF-131</td><td class="primary-cell">Replace scroll compressor, 5 ton R-410A <span class="small faint">· below benchmark</span></td><td class="num money">$3,280</td><td class="num money">$3,980</td><td class="num money">$4,800</td><td class="num money">$1,486.00</td><td class="num">6.0 h</td><td class="num" style="color: var(--rust);">44%</td><td class="num">3</td></tr>
+              <tr><td class="num">RF-140</td><td class="primary-cell">Replace liquid-line filter drier</td><td class="num money">$248</td><td class="num money">$320</td><td class="num money">$420</td><td class="num money">$24.20</td><td class="num">1.0 h</td><td class="num">67%</td><td class="num">11</td></tr>
+              <tr><td class="num">RF-152</td><td class="primary-cell">Clean condenser coil, chemical, per unit</td><td class="num money">$240</td><td class="num money">$340</td><td class="num money">$480</td><td class="num money">$18.00</td><td class="num">1.0 h</td><td class="num">68%</td><td class="num">27</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="two-col">
+        <div class="group">
+          <div><h3>Price changes to review <span class="callout">3</span></h3><div class="small muted">38 from the Johnstone import on Oct 12 · 31 are within 5%</div></div>
+          <div class="list">
+            <div class="item"><span class="num small faint">TXV</span><div><div class="title">Sporlan OVE-5-C · <span class="money">$178.20</span> → <span class="money">$186.40</span> <span class="small" style="color: var(--rust);">+4.6%</span></div><div class="sub">Affects RF-120, RF-112 · Good margin 61% → 60%</div></div><div class="btn-group"><button class="btn sm" type="button" data-toast="Accepted · RF-120 and RF-112 costs updated, prices unchanged">Accept</button><button class="btn sm ghost" type="button" data-toast="Skipped">Skip</button></div></div>
+            <div class="item"><span class="num small faint">REF</span><div><div class="title">R-410A 25 lb cylinder · <span class="money">$382.00</span> → <span class="money">$408.00</span> <span class="small" style="color: var(--red);">+6.8%</span></div><div class="sub">Affects RF-112, MA-110 · over 5%, flagged for a price look</div></div><div class="btn-group"><button class="btn sm" type="button" data-toast="Accepted · RF-112 Good suggested $940 to hold 62%">Accept</button><button class="btn sm ghost" type="button" data-toast="Skipped">Skip</button></div></div>
+            <div class="item"><span class="num small faint">MTR</span><div><div class="title">Condenser fan motor 1/3 hp 1075 · <span class="money">$138.50</span> → <span class="money">$142.10</span> <span class="small" style="color: var(--rust);">+2.6%</span></div><div class="sub">Affects RF-104 · margin holds at 65%</div></div><div class="btn-group"><button class="btn sm" type="button" data-toast="Accepted · RF-104 cost updated">Accept</button><button class="btn sm ghost" type="button" data-toast="Skipped">Skip</button></div></div>
+            <div class="item"><span class="num small faint">CAP</span><div><div class="title">Run capacitor 45/5 µF · <span class="money">$9.40</span> → <span class="money">$9.80</span> <span class="small" style="color: var(--rust);">+4.3%</span></div><div class="sub">Affects RF-104, EL-210, EL-214</div></div><div class="btn-group"><button class="btn sm" type="button" data-toast="Accepted">Accept</button><button class="btn sm ghost" type="button" data-toast="Skipped">Skip</button></div></div>
+          </div>
+          <div class="row"><span class="grow"></span><button class="btn sm primary" type="button" data-toast="31 price changes accepted · 7 over 5% left to review">Accept all within 5%</button></div>
+        </div>
+        <div class="group">
+          <div><h3>Margin by category</h3><div class="small muted">Good tier against the Orange County benchmark band (grey)</div></div>
+          <svg class="chart" viewBox="0 0 360 160" role="img" aria-label="Margin by category against benchmark: Electrical 63 percent, Refrigeration 60, Controls 61, Airflow 58, Maintenance 48, Materials 42">
+            <line class="grid-line" x1="250" y1="6" x2="250" y2="150"/><line class="grid-line" x1="310" y1="6" x2="310" y2="150"/>
+            <text class="axis" x="243" y="158">50%</text><text class="axis" x="303" y="158">75%</text>
+            <text class="label" x="0" y="22">Electrical</text><rect class="bar soft" x="262" y="12" width="24" height="12" rx="2"/><rect class="bar h" x="130" y="12" width="151" height="12" rx="2"/><text class="val" x="290" y="22">63%</text>
+            <text class="label" x="0" y="46">Refrigeration</text><rect class="bar soft" x="262" y="36" width="24" height="12" rx="2"/><rect class="bar h" x="130" y="36" width="144" height="12" rx="2"/><text class="val" x="290" y="46">60%</text>
+            <text class="label" x="0" y="70">Controls</text><rect class="bar soft" x="262" y="60" width="24" height="12" rx="2"/><rect class="bar h" x="130" y="60" width="146" height="12" rx="2"/><text class="val" x="290" y="70">61%</text>
+            <text class="label" x="0" y="94">Airflow</text><rect class="bar soft" x="250" y="84" width="24" height="12" rx="2"/><rect class="bar h" x="130" y="84" width="139" height="12" rx="2"/><text class="val" x="290" y="94">58%</text>
+            <text class="label" x="0" y="118">Maintenance</text><rect class="bar soft" x="238" y="108" width="24" height="12" rx="2"/><rect class="bar h steel" x="130" y="108" width="115" height="12" rx="2"/><text class="val" x="290" y="118">48%</text>
+            <text class="label" x="0" y="142">Materials</text><rect class="bar soft" x="214" y="132" width="24" height="12" rx="2"/><rect class="bar h steel" x="130" y="132" width="101" height="12" rx="2"/><text class="val" x="290" y="142">42%</text>
+          </svg>
+          <p class="small faint">Benchmarks come from anonymized Orange County commercial HVAC shops, refreshed quarterly. Repairs 55–65%, maintenance 45–55%; materials follow the bands in Settings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>The quote editor's labor classes (Journeyman / Apprentice / Driver), the HVAC scope templates and the margin presets (45 / 40 / 35 / 30 / custom) are the seed of this book: the templates became items, the presets became the bands behind Materials, the labor classes live under Labor.</li>
+    <li><span class="f">new</span>F10 Pricebook: a tree of Repairs › Electrical / Refrigeration / Airflow / Controls, Maintenance, Materials and Labor (callout 1), items in plain language with a photo, parts cost, labor hours, margin against an Orange County benchmark and "used n times this year". Import from Johnstone brings vendor cost and stock; price changes queue for review (callout 3) instead of silently moving margins.</li>
+    <li><span class="f">new</span>F9 Good / Better / Best on every item, so the quote editor and the tech's phone build a three-option proposal from one pick. The detail sheet (callout 2) shows the included parts with van stock from Inventory [F16], the margin math and the benchmark note. Items that touch refrigerant say "refrigerant log required" [F7].</li>
+    <li><span class="f">changed</span>Per the direction update: one toolbar (search, Cards / Table, Filters, Import, New item) with the flag chips moved into the Filters sheet; a summary line instead of pills; the rail holds only the tree and a two-line tier rule; tiers are plain text columns rather than boxed cells; the lower blocks use headings and a divider, not cards. Search works in a customer's words, answering the "learn the lingo" complaint from the research.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-pricebook-filters" role="dialog" aria-label="Pricebook filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="chip-group"><span class="eyebrow">Flags</span><div class="chips"><button class="chip" type="button" data-chip>Below benchmark <span class="count">14</span></button><button class="chip" type="button" data-chip>Price change pending <span class="count">38</span></button><button class="chip" type="button" data-chip>Needs photo <span class="count">9</span></button><button class="chip" type="button" data-chip>Refrigerant log required <span class="count">11</span></button></div></div>
+    <div class="chip-group"><span class="eyebrow">Usage</span><div class="chips"><button class="chip on" type="button" data-chip>Used this year</button><button class="chip" type="button" data-chip>Never used</button><button class="chip" type="button" data-chip>Top 20</button></div></div>
+    <div class="field"><label>Vendor</label><select class="select"><option>Any vendor</option><option>Johnstone Supply</option><option>Ferguson HVAC</option><option>Carrier Enterprise</option></select></div>
+    <div class="field"><label>Shown on the tech's phone</label><select class="select"><option>All items</option><option>Shown</option><option>Hidden</option></select></div>
+    <div class="field-grid">
+      <div class="field"><label>Margin from</label><input class="input num" placeholder="0%" aria-label="Margin from"></div>
+      <div class="field"><label>Margin to</label><input class="input num" placeholder="100%" aria-label="Margin to"></div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button>
+    <button class="btn primary" type="button" data-close data-toast="Filters applied">Apply</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-pricebook-rf104" role="dialog" aria-label="RF-104 Replace condenser fan motor">
+  <div class="sheet-head">
+    <div class="row wrap gap-2"><h2>Replace condenser fan motor, 1/3 hp</h2><span class="pill plain">RF-104 · Refrigeration</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="photo-grid">
+      <div class="photo copper"><span class="cap">Motor, before</span></div>
+      <div class="photo"><span class="cap">Nameplate</span></div>
+      <div class="photo steel"><span class="cap">Installed</span></div>
+    </div>
+    <div class="field"><label>What the customer reads</label><div class="small muted">Your rooftop unit's condenser fan pulls outside air across the coil to shed heat. When the motor fails the compressor overheats and trips. We replace the motor and its run capacitor, balance the blade, and check amp draw against the nameplate.</div></div>
+
+    <hr class="divider">
+    <div>
+      <div class="row between"><span class="eyebrow">Included parts</span><span class="small muted">Johnstone prices · Oct 12</span></div>
+      <div class="table-wrap mt-1">
+        <table class="table dense">
+          <thead><tr><th>Part</th><th>SKU</th><th class="num">Qty</th><th class="num">Cost</th><th>Stock</th></tr></thead>
+          <tbody>
+            <tr><td>Condenser fan motor 1/3 hp 1075 rpm 208-230 V</td><td class="num">MTR-13-1075</td><td class="num">1</td><td class="num money">$142.10</td><td class="small">Santa Ana 6 · Van 12 has 1</td></tr>
+            <tr><td>Run capacitor 45/5 µF 440 V</td><td class="num">CAP-455</td><td class="num">1</td><td class="num money">$9.80</td><td class="small">Van 12 has 3</td></tr>
+            <tr><td>Hardware, wire nuts, blade set screw</td><td class="num">MISC</td><td class="num">1</td><td class="num money">$0.00</td><td class="small">truck misc</td></tr>
+          </tbody>
+          <tfoot><tr><td colspan="3" class="right muted">Parts</td><td class="num strong">$151.90</td><td></td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <dl class="facts">
+      <dt>Book time</dt><dd class="num">1.5 h · Journeyman · cost <span class="money">$58.00 / h</span> → <span class="money">$87.00</span></dd>
+      <dt>Actual</dt><dd class="num">1.3 h average over 14 jobs · 0 callbacks this year</dd>
+      <dt>Cost</dt><dd class="money">$238.90</dd>
+      <dt>Good price</dt><dd><span class="money">$684.00</span> · profit <span class="money">$445.10</span> · margin <b class="num">65%</b></dd>
+      <dt>Benchmark</dt><dd>OC shops price this <span class="money">$620–$780</span>, median <span class="money">$690</span>. You sit at the median with margin at the top of the band; shops above <span class="money">$750</span> pair it with Best more often.</dd>
+      <dt>Last changed</dt><dd>Jun 3 · Admin</dd>
+    </dl>
+
+    <hr class="divider">
+    <div>
+      <span class="eyebrow">Tiers · what each adds</span>
+      <div class="option-cards mt-1">
+        <button class="option-card on" type="button" data-option><span class="tier">Good</span><div class="price money">$684</div><div class="small muted">Motor, capacitor, blade balance, amp check</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Better</span><div class="price money">$812</div><div class="small muted">+ contactor (CON-240) and condenser coil rinse, +0.5 h</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Best</span><div class="price money">$1,160</div><div class="small muted">ECM motor (MTR-ECM-13, <span class="money">$288</span>), no capacitor to fail, 2-year labor warranty</div></button>
+      </div>
+      <p class="small faint mt-1">Financing shows "as low as <span class="money">$38</span> / mo" on Best when the proposal goes out [F9].</p>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Close</button>
+    <button class="btn" type="button" data-toast="Editing RF-104">Edit</button>
+    <button class="btn copper" type="button" data-go="quote-editor" data-close>Add to quote 2041</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-pricebook-new" role="dialog" aria-label="New pricebook item">
+  <div class="sheet-head">
+    <h2>New item</h2>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="field-grid">
+      <div class="field"><label>Code</label><input class="input num" value="RF-160" aria-label="Code"></div>
+      <div class="field"><label>Category</label><select class="select"><option>Repairs › Refrigeration</option><option>Repairs › Electrical</option><option>Repairs › Airflow</option><option>Repairs › Controls</option><option>Maintenance</option><option>Materials</option><option>Labor</option></select></div>
+      <div class="field span-2"><label>Plain-language name</label><input class="input" value="Replace reversing valve solenoid coil" aria-label="Name"></div>
+      <div class="field span-2"><label>What the customer reads</label><textarea class="textarea" aria-label="Description">The coil tells your heat pump when to switch between heating and cooling. When it fails the unit sticks in one mode. We replace the coil and confirm the changeover.</textarea></div>
+      <div class="field"><label>Labor hours</label><input class="input num" value="1.0" aria-label="Labor hours"></div>
+      <div class="field"><label>Labor class</label><select class="select"><option>Journeyman</option><option>Apprentice</option></select></div>
+    </div>
+    <div>
+      <div class="row between"><span class="eyebrow">Parts</span><button class="btn sm ghost" type="button" data-toast="Search the Materials catalog or Johnstone">Add part</button></div>
+      <div class="list mt-1">
+        <div class="item"><span class="num small faint">SOL-24</span><div><div class="title">Solenoid coil 24 V</div><div class="sub">Johnstone <span class="money">$31.40</span> · in stock Santa Ana</div></div><span class="num">×1</span></div>
+      </div>
+    </div>
+    <p class="small muted">Suggested from your margin band (60%): Good <span class="money">$236</span> · Better <span class="money">$310</span> (+ pressure test) · Best <span class="money">$440</span> (+ control board check). Benchmark <span class="money">$210–$290</span>.</p>
+    <div class="row wrap"><label class="check" data-check><i></i><span>Requires a refrigerant log</span></label><label class="check on" data-check><i></i><span>Show on the tech's phone</span></label></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn copper" type="button" data-close data-toast="RF-160 added to Repairs › Refrigeration">Save item</button>
+  </div>
+</div>
+</template>
+</section>

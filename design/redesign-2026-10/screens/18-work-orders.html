@@ -1,0 +1,204 @@
+<section class="screen" id="s-work-orders" data-title="Work orders" data-group="office" data-face="office" data-order="18">
+<style>
+  #s-work-orders .toolbar .search { flex: 1 1 200px; max-width: 320px; }
+  #s-work-orders .table .check { min-height: 0; gap: 0; }
+  #s-work-orders .table .check i { width: 18px; height: 18px; border-radius: 5px; }
+  #s-work-orders .table .check.on i::after { width: 5px; height: 9px; }
+  #s-work-orders .table th:first-child, #s-work-orders .table td:first-child { padding-right: 0; width: 34px; }
+  #s-work-orders .bulk { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 14px; background: var(--ink); color: var(--paper); border-radius: var(--r-3);  }
+  #s-work-orders .bulk .dim { color: #b9ad9c; font-size: 12px; }
+  #s-work-orders .bulk .btn { background: transparent; color: var(--paper); border-color: #40372c; box-shadow: none; }
+  #s-work-orders .bulk .btn:hover { background: #2a241c; border-color: #5a4f42; }
+  #s-work-orders .lnk { background: none; border: 0; padding: 0; font: inherit; font-family: var(--mono); font-weight: 600; color: var(--copper-deep); cursor: pointer; text-decoration: underline; text-decoration-color: var(--copper-tint); text-underline-offset: 3px; }
+  #s-work-orders .lnk:hover { text-decoration-color: var(--copper); }
+  #s-work-orders .table td.problem { max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-2); }
+  #s-work-orders .table td.who, #s-work-orders .table td.wait { white-space: nowrap; }
+  #s-work-orders .table th.sorted { color: var(--ink); }
+  #s-work-orders .table th.sorted::after { content: " ▾"; color: var(--copper); }
+  #s-work-orders .table .late { color: var(--red); font-weight: 600; font-family: var(--mono); }
+  #s-work-orders .pager { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-2); background: var(--paper-2); }
+  #s-work-orders .pager .pages { display: inline-flex; gap: 4px; }
+  #s-work-orders .pager .pages .btn.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+</style>
+
+<div class="toolbar">
+  <div class="seg" data-seg="wos-view" aria-label="Saved views">
+    <button type="button" class="on" data-val="open">All open <span class="count">24</span></button>
+    <button type="button" data-val="mine">Mine <span class="count">9</span></button>
+    <button type="button" data-val="waiting">Waiting <span class="count">5</span></button>
+    <button type="button" data-val="overdue">Overdue <span class="count">3</span></button>
+    <button type="button" data-val="warranty">Warranty <span class="count">2</span></button>
+    <button type="button" data-val="week">This week <span class="count">31</span></button>
+  </div>
+  <div class="search"><input class="input" type="search" placeholder="Number, customer, site, or problem" aria-label="Search work orders"></div>
+  <span class="grow"></span>
+  <button class="btn sm ghost" type="button" data-open="#sheet-work-orders-filters"><svg><use href="#i-filter"/></svg>Filters · 2</button>
+  <button class="btn sm ghost" type="button" data-toast="Exported 24 work orders to Excel">Export</button>
+</div>
+
+<div class="page">
+  <div class="stack loose">
+    <div class="row between wrap">
+      <div class="summary-line"><span><b>24</b> open</span><span><span class="dot red"></span><b>3</b> urgent</span><span><span class="dot rust"></span><b>5</b> waiting</span><span><span class="dot red"></span><b>3</b> overdue</span><span><span class="dot steel"></span><b>2</b> warranty</span><span><span class="dot moss"></span><b>41</b> completed this month</span><span class="callout">1</span></div>
+      <span class="tiny faint">Oct 12–18 · sorted by priority, then age</span>
+    </div>
+
+    <div class="bulk" role="toolbar" aria-label="Bulk actions">
+      <b><span class="num">2</span> selected</b><span class="dim">1055 · 1069 · both unassigned</span>
+      <span class="grow"></span>
+      <button class="btn sm" type="button" data-open="#sheet-work-orders-assign">Assign</button>
+      <button class="btn sm" type="button" data-toast="ETA texts queued for 2 customers · 1 has no mobile on file, see Follow-ups">Text ETA</button>
+      <button class="btn sm" type="button" data-toast="Exported 2 work orders to Excel">Export</button>
+      <button class="btn sm ghost" type="button" data-toast="Selection cleared">Clear</button>
+      <span class="callout">2</span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><label class="check" data-check aria-label="Select all on this page"><i></i></label></th>
+            <th>Number</th><th>Customer</th><th>Site</th><th>City</th><th>Type</th><th class="sorted">Priority</th><th>Status</th><th>Wait</th><th>Overdue</th><th>Lead tech</th><th>Default tech</th><th>Date</th><th class="num">Hours</th><th>Problem</th>
+          </tr>
+        </thead>
+        <tbody class="stagger">
+          <tr>
+            <td><label class="check on" data-check aria-label="Select 1055"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1055</button></td><td class="primary-cell">Harbor &amp; Main Kitchen</td><td>Main building</td><td>Costa Mesa</td><td>Service</td><td><span class="pill urgent plain">Urgent</span></td><td>Open</td><td class="wait faint">—</td><td><span class="late">8 d</span></td><td class="who faint">Unassigned</td><td class="who">Elena Cruz</td><td class="num faint">Not set</td><td class="num">2.0</td><td class="problem">Kitchen too hot, dining room 84°. MAU-1 tripping on high limit.</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1057"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1057</button></td><td class="primary-cell">Irvine Center Clinics</td><td>18000 Culver Dr</td><td>Irvine</td><td>Service</td><td><span class="pill urgent plain">Urgent</span></td><td><span class="pill site">On site</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Priya Shah</td><td class="who">Priya Shah</td><td class="num">Oct 14 · 9:30</td><td class="num">2.0</td><td class="problem">Server room no cooling · running 12 min over</td>
+          </tr>
+          <tr class="on">
+            <td><label class="check" data-check aria-label="Select 1058"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1058</button></td><td class="primary-cell">Irvine Med Offices</td><td>Suite 200</td><td>Irvine</td><td>Service · warranty</td><td>Normal</td><td><span class="pill site">On site</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Marcus Hale</td><td class="who">Marcus Hale</td><td class="num">Oct 14 · 10:00</td><td class="num">2.0</td><td class="problem">Warranty coil leak, suite 200. Water on the ceiling tile under RTU-2.</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1059"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1059</button></td><td class="primary-cell">Balboa Bay Offices</td><td>Tower 2</td><td>Newport Beach</td><td>Service</td><td>Normal</td><td><span class="pill route">En route</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Elena Cruz</td><td class="who">Elena Cruz</td><td class="num">Oct 14 · 11:00</td><td class="num">2.0</td><td class="problem">RTU-2 no cooling, 4th floor</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1050"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1050</button></td><td class="primary-cell">Bristol Court Offices</td><td>Bldg A and B</td><td>Costa Mesa</td><td>Maintenance</td><td>Normal</td><td><span class="pill site">On site</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Andre Walsh</td><td class="who">Andre Walsh</td><td class="num">Oct 14 · 8:00</td><td class="num">4.0</td><td class="problem">Fall PM, 4 RTUs · Gold agreement visit</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1053"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1053</button></td><td class="primary-cell">Santa Ana Gym</td><td>Main</td><td>Santa Ana</td><td>Service</td><td>Normal</td><td>Open</td><td class="wait"><span class="pill route plain">Need to return</span></td><td><span class="late">2 d</span></td><td class="who">Priya Shah</td><td class="who">Priya Shah</td><td class="num faint">Not set</td><td class="num">1.5</td><td class="problem">Balance the blower after belt and bearings</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1071"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1071</button></td><td class="primary-cell">Newport Coast HOA</td><td>Bldg C</td><td>Newport Beach</td><td>Quoted job</td><td>Normal</td><td>Open</td><td class="wait"><span class="pill quote plain">Approved, not scheduled</span></td><td class="faint">—</td><td class="who faint">Unassigned</td><td class="who">Marcus Hale</td><td class="num faint">Not set</td><td class="num">3.0</td><td class="problem">Replace condenser fan motor · Quote 2038 · $1,840</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1062"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1062</button></td><td class="primary-cell">Tustin Auto Center</td><td>Service bays</td><td>Tustin</td><td>Quoted job</td><td>Normal</td><td><span class="pill sched">Scheduled</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Priya Shah</td><td class="who">Priya Shah</td><td class="num">Oct 14 · 12:30</td><td class="num">2.0</td><td class="problem">Quoted: replace condenser fan motor, RTU-1</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1061"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1061</button></td><td class="primary-cell">Jamboree Corporate</td><td>Suite 310</td><td>Irvine</td><td>Service</td><td>Normal</td><td><span class="pill sched">Scheduled</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Marcus Hale</td><td class="who">Marcus Hale</td><td class="num">Oct 14 · 1:00</td><td class="num">2.0</td><td class="problem">Thermostat swap, suite 310 · ETA text failed, landline</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1063"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1063</button></td><td class="primary-cell">Newport Plaza Retail</td><td>RTU-3 · roof</td><td>Newport Beach</td><td>Service</td><td>Normal</td><td><span class="pill parts">Waiting</span></td><td class="wait">Waiting on parts</td><td class="faint">—</td><td class="who">Andre Walsh</td><td class="who">Andre Walsh</td><td class="num">Oct 15 · 1:00</td><td class="num">1.0</td><td class="problem">RTU-3 low charge, TXV hunting · Johnstone PO 118 due Thu</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1064"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1064</button></td><td class="primary-cell">Irvine Med Offices</td><td>Suite 100</td><td>Irvine</td><td>Service · warranty</td><td class="faint">Low</td><td><span class="pill parts">Waiting</span></td><td class="wait">Waiting on parts</td><td><span class="late">1 d</span></td><td class="who">Andre Walsh</td><td class="who">Andre Walsh</td><td class="num">Oct 15</td><td class="num">1.5</td><td class="problem">Economizer actuator on RTU-4 · call Dr. Park before returning</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1060"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1060</button></td><td class="primary-cell">Warner Business Park</td><td>Bldg 4</td><td>Santa Ana</td><td>Service</td><td>Normal</td><td>Open</td><td class="wait"><span class="pill hold plain">No access</span></td><td class="faint">—</td><td class="who">Andre Walsh</td><td class="who">Andre Walsh</td><td class="num">Oct 17 · 8:00</td><td class="num">3.0</td><td class="problem">Roof hatch locked · Yolanda Ruiz confirming Saturday access</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1066"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1066</button></td><td class="primary-cell">Santa Ana Gym</td><td>Main</td><td>Santa Ana</td><td>Maintenance</td><td>Normal</td><td>Open</td><td class="wait faint">—</td><td class="faint">—</td><td class="who faint">Unassigned</td><td class="who">Priya Shah</td><td class="num faint">Not set</td><td class="num">4.0</td><td class="problem">Fall PM, 6 RTUs · Silver agreement visit</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1067"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1067</button></td><td class="primary-cell">Oak Creek Professional</td><td>Bldg 2</td><td>Irvine</td><td>Service</td><td>Normal</td><td><span class="pill sched">Scheduled</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Elena Cruz</td><td class="who">Elena Cruz</td><td class="num">Oct 14 · 2:00</td><td class="num">2.0</td><td class="problem">Condensate drain backing up, 2nd floor ceiling</td>
+          </tr>
+          <tr>
+            <td><label class="check" data-check aria-label="Select 1068"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1068</button></td><td class="primary-cell">Warner Business Park</td><td>Bldg 2</td><td>Santa Ana</td><td>Service</td><td>Normal</td><td><span class="pill sched">Scheduled</span></td><td class="wait faint">—</td><td class="faint">—</td><td class="who">Andre Walsh</td><td class="who">Andre Walsh</td><td class="num">Oct 14 · 2:30</td><td class="num">2.5</td><td class="problem">Compressor amp draw high, RTU-6</td>
+          </tr>
+          <tr>
+            <td><label class="check on" data-check aria-label="Select 1069"><i></i></label></td>
+            <td><button class="lnk" type="button" data-go="work-order">1069</button></td><td class="primary-cell">Huntington Harbour Dental</td><td>Suite 4</td><td>Huntington Beach</td><td>Service</td><td class="faint">Low</td><td>Open</td><td class="wait faint">—</td><td class="faint">—</td><td class="who faint">Unassigned</td><td class="who">Elena Cruz</td><td class="num faint">Any day this week</td><td class="num">1.0</td><td class="problem">Thermostat keeps resetting to 60°</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pager">
+        <span>Showing <b class="num">1–16</b> of <b class="num">24</b> open work orders · <span class="num">38.5 h</span> on this page</span>
+        <div class="row wrap">
+          <select class="select-pill" aria-label="Rows per page"><option>16 per page</option><option>25 per page</option><option>50 per page</option></select>
+          <div class="pages">
+            <button class="btn icon sm ghost" type="button" aria-label="Previous page" disabled>‹</button>
+            <button class="btn sm on" type="button">1</button>
+            <button class="btn sm ghost" type="button" data-toast="Page 2 · 1047–1054 and completed this week">2</button>
+            <button class="btn icon sm ghost" type="button" aria-label="Next page" data-toast="Page 2 · 1047–1054 and completed this week">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>The same table, every column: Number, Customer, Site, City, Type, Priority, Status, Wait reason, Overdue, Lead tech, Default tech, Date, Hours, Problem. Search, Team, Technician, Type, Priority, Wait, From / To dates and the sort chips are all still here (filters in the sheet). Export still produces the Excel file. Clicking a number opens the work order record; the highlighted row (1058) is the one open on the board. New WO moved to the top bar's + New.</li>
+    <li><span class="f">new</span>Saved views as one segmented control (All open, Mine, Waiting, Overdue, Warranty, This week) so the common filter combinations are one tap. A quiet summary line above the table counts open, urgent, waiting, overdue, warranty, and completed (callout 1).</li>
+    <li><span class="f">new</span>Checkboxes per row and a bulk action bar (callout 2) that appears when rows are checked: Assign opens a sheet with suggested techs, Text ETA sends the F3 "on my way" or window text to every selected customer, Export the selection.</li>
+    <li><span class="f">changed</span>One toolbar row: the view switch, search, Filters · 2, Export. State is one pill per row: a status pill when the visit is live (en route, on site, waiting) and plain text otherwise; urgent is the only priority that gets a pill; overdue shows days in red; long problems truncate to one line. The table has a scroll container and a pagination footer with rows-per-page instead of one endless page.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-work-orders-filters" role="dialog" aria-label="Work order filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label for="wos-team">Team</label><select class="select" id="wos-team"><option>Both teams</option><option>Costa Mesa</option><option>Irvine</option></select></div>
+    <div class="field"><label for="wos-tech">Technician</label><select class="select" id="wos-tech"><option>All technicians</option><option>Unassigned</option><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option><option>Diego Ramos</option><option>Hannah Cho</option><option>Luis Ortega</option><option>Naomi Brooks</option></select></div>
+    <div class="chip-group"><span class="eyebrow">Type</span><div class="chips"><button class="chip" type="button" data-chip>Service</button><button class="chip" type="button" data-chip>Maintenance</button><button class="chip" type="button" data-chip>Quoted job</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Priority</span><div class="chips"><button class="chip" type="button" data-chip>Urgent</button><button class="chip" type="button" data-chip>Normal</button><button class="chip" type="button" data-chip>Low</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Wait reason</span><div class="chips"><button class="chip" type="button" data-chip>Waiting on parts</button><button class="chip" type="button" data-chip>Quote sent</button><button class="chip" type="button" data-chip>Approved not scheduled</button><button class="chip" type="button" data-chip>Need to return</button><button class="chip" type="button" data-chip>No access</button><button class="chip" type="button" data-chip>Warranty pending</button></div></div>
+    <div class="field-grid">
+      <div class="field"><label for="wos-from">From</label><input class="input" id="wos-from" type="date" value="2026-10-12"></div>
+      <div class="field"><label for="wos-to">To</label><input class="input" id="wos-to" type="date" value="2026-10-18"></div>
+    </div>
+    <div class="chip-group"><span class="eyebrow">Sort</span><div class="chips"><button class="chip" type="button" data-chip>Oldest</button><button class="chip" type="button" data-chip>Newest</button><button class="chip on" type="button" data-chip>Priority</button><button class="chip" type="button" data-chip>Date</button></div></div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Clear</button><button class="btn primary" type="button" data-close data-toast="Filters applied: Oct 12–18, sorted by priority">Apply</button></div>
+</div>
+
+<div class="sheet" id="sheet-work-orders-assign" role="dialog" aria-label="Assign selected work orders">
+  <div class="sheet-head">
+    <div class="row gap-2"><b>Assign <span class="num">2</span> work orders</b><span class="muted num">1055 · 1069</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="notice red"><span><b>1055 Harbor &amp; Main Kitchen</b> is urgent and 8 days old. Dining room reads 84°. Nearest free tech today: Priya at 3:00.</span></div>
+    <div>
+      <span class="eyebrow">Suggested</span>
+      <div class="option-cards mt-1" style="grid-template-columns: minmax(0, 1fr);">
+        <button class="option-card on" type="button" data-option><span class="tier">Suggested</span><div class="strong">Priya Shah · 1055 today 3:00 · 1069 Fri 8:00</div><div class="small muted">11 min to Harbor &amp; Main · knows both sites · 1069 fits before her Friday PM</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Alternative</span><div class="strong">Marcus Hale · 1055 today 3:30 · 1069 Thu 3:00</div><div class="small muted">18 min after Jamboree · Thursday afternoon open after the 1058 coil</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Split</span><div class="strong">Priya 1055 today 3:00 · Elena 1069 Fri 8:00</div><div class="small muted">Elena is the default tech for Huntington Harbour Dental</div></button>
+      </div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>Technician</label><select class="select"><option>Priya Shah</option><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option></select></div>
+      <div class="field"><label>Role</label><div class="seg light" data-seg="wos-role"><button type="button" class="on" data-val="lead">Lead</button><button type="button" data-val="helper">Helper</button></div></div>
+      <div class="field"><label>1055 date and time</label><input class="input" type="datetime-local" value="2026-10-14T15:00"></div>
+      <div class="field"><label>1069 date and time</label><input class="input" type="datetime-local" value="2026-10-16T08:00"></div>
+    </div>
+    <label class="check on" data-check><i></i><span>Text each customer the appointment window</span></label>
+    <div class="notice moss">No overlaps. Priya's 3:00 Costa Mesa Library visit moves to 4:30 with this plan; you will see both on the board.</div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn copper" type="button" data-close data-toast="Assigned to Priya Shah · 1055 today 3:00, 1069 Fri 8:00 · 2 customers texted">Assign 2 work orders</button>
+  </div>
+</div>
+</template>
+</section>

@@ -1,0 +1,100 @@
+<section class="screen" id="s-tech-vehicle" data-title="My vehicle" data-group="tech" data-face="tech" data-order="70">
+<style>
+  #s-tech-vehicle .ph-page { gap: 20px; }
+  #s-tech-vehicle .ph-page > .back-bar { position: static; margin: -14px -16px 0; }
+  #s-tech-vehicle .pill.live::before { margin-right: 0; }
+  #s-tech-vehicle .balance { font-size: 34px; font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
+  #s-tech-vehicle .stock td { vertical-align: middle; }
+  #s-tech-vehicle .stock .sku { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+  #s-tech-vehicle .stock tr.low td:first-child { box-shadow: inset 3px 0 0 var(--amber); }
+  #s-tech-vehicle .stock tr.out td:first-child { box-shadow: inset 3px 0 0 var(--red); }
+  #s-tech-vehicle .jobs .item { grid-template-columns: auto minmax(0, 1fr) auto; padding: 10px 0; }
+  #s-tech-vehicle .jobs .when { font-family: var(--mono); font-size: 11px; color: var(--ink-3); min-width: 36px; }
+  #s-tech-vehicle .jobs { border: 0; border-radius: 0; background: transparent; }
+  #s-tech-vehicle .history .item > svg:first-child { color: var(--ink-3); }
+</style>
+
+<div class="ph-page">
+  <div class="back-bar">
+    <button class="btn subtle back" type="button" data-go="tech-today">Back to my day</button>
+    <span class="pill site live">Synced</span>
+  </div>
+
+  <div class="stack">
+    <h1>Van 3</h1>
+    <div class="small muted">2022 Ford Transit · Marcus Hale · restocks from Costa Mesa main</div>
+    <div class="row between top mt-1">
+      <div><div class="balance money" data-countup="4862" data-prefix="$">$4,862</div><div class="small muted mt-1">on hand · target $5,500</div></div>
+      <div class="right small muted"><span class="num">42</span> SKUs<br><span class="num">3</span> below minimum</div>
+    </div>
+    <div class="meter steel"><i style="width: 88%"></i></div>
+    <div class="summary-line"><span>Filters <b>$412</b></span><span>Electrical <b>$1,140</b></span><span>Refrigerant <b>$890</b></span><span>Belts <b>$96</b></span><span>Controls <b>$1,210</b></span><span>Misc <b>$1,114</b></span></div>
+  </div>
+
+  <div class="stack">
+    <div class="row between"><span class="eyebrow">Truck stock by SKU <span class="callout">1</span></span><span class="small muted">counted Oct 9</span></div>
+    <div class="table-wrap">
+      <table class="table dense stock">
+        <thead><tr><th>Item</th><th class="num">On hand</th><th class="num">Min / max</th><th></th></tr></thead>
+        <tbody>
+          <tr class="out"><td>Belt B48<span class="sku">BLT-B48</span></td><td class="num">0</td><td class="num">1 / 4</td><td><span class="pill urgent plain">Out</span></td></tr>
+          <tr class="low"><td>Capacitor 45/5 µF 440 V<span class="sku">CAP-45-5</span></td><td class="num">1</td><td class="num">3 / 8</td><td><span class="pill route plain">Low</span></td></tr>
+          <tr class="low"><td>Filter 16x25x2 MERV 8<span class="sku">FLT-16252</span></td><td class="num">4</td><td class="num">8 / 24</td><td><span class="pill route plain">Low</span></td></tr>
+          <tr><td>Filter 20x25x2 MERV 8<span class="sku">FLT-20252</span></td><td class="num">16</td><td class="num">12 / 36</td><td></td></tr>
+          <tr><td>Capacitor 35/5 µF 440 V<span class="sku">CAP-35-5</span></td><td class="num">5</td><td class="num">3 / 8</td><td></td></tr>
+          <tr><td>Contactor 40 A 2P 24 V<span class="sku">CON-40-24</span></td><td class="num">3</td><td class="num">2 / 6</td><td></td></tr>
+          <tr><td>Belt A42<span class="sku">BLT-A42</span></td><td class="num">3</td><td class="num">2 / 6</td><td></td></tr>
+          <tr><td>R-410A cylinder 25 lb<span class="sku">R410-25</span></td><td class="num">1 · 21.5 lb</td><td class="num">1 / 2</td><td></td></tr>
+          <tr><td>Hot surface igniter<span class="sku">IGN-HSI</span></td><td class="num">2</td><td class="num">2 / 4</td><td></td></tr>
+          <tr><td>Thermostat, commercial<span class="sku">TSTAT-COM</span></td><td class="num">1</td><td class="num">1 / 3</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="btn copper lg block" type="button" data-toast="Transfer request sent · 3 items from Costa Mesa main · ready for pickup Thu 6:45"><svg class="i"><use href="#i-box"/></svg>Request replenishment · 3 items</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3>Tomorrow's jobs · Thu, Oct 15 <span class="callout">2</span></h3><span class="small muted">parts check</span></div>
+    <div class="list jobs">
+      <div class="item">
+        <span class="when">7:00</span>
+        <div><div class="title">1073 · Oak Creek Professional</div><div class="sub">Capacitor and belt, RTU-2 · needs CAP-45-5 × 1, BLT-B48 × 1</div></div>
+        <span class="pill urgent plain">Missing</span>
+      </div>
+      <div class="item">
+        <span class="when">10:00</span>
+        <div><div class="title">1074 · Costa Mesa Library</div><div class="sub">Quarterly PM · needs FLT-16252 × 6, have 4</div></div>
+        <span class="pill route plain">Short 2</span>
+      </div>
+      <div class="item">
+        <span class="when">1:00</span>
+        <div><div class="title">1071 · Newport Coast HOA</div><div class="sub">Replace condenser fan motor · motor on PO 119 at Costa Mesa main</div></div>
+        <span class="pill site plain">Ready</span>
+      </div>
+    </div>
+    <div class="small muted mt-2">The transfer above covers the missing belt, capacitor and filters. Pick up the motor with it.</div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">History</span>
+    <div class="list history stagger">
+      <div class="item"><svg class="i"><use href="#i-list"/></svg><div><div class="title">Used on 1135 · Filters 20x25x2 × 8</div><div class="sub">Today 12:40 · Warner Business Park</div></div><b class="money">−$48.80</b></div>
+      <div class="item"><svg class="i"><use href="#i-list"/></svg><div><div class="title">Used on 1135 · Capacitor 45/5 × 1</div><div class="sub">Today 12:40</div></div><b class="money">−$23.10</b></div>
+      <div class="item"><svg class="i"><use href="#i-box"/></svg><div><div class="title">Transfer in · Costa Mesa main</div><div class="sub">Oct 13 · 24 filters, 2 contactors</div></div><b class="money">+$222.80</b></div>
+      <div class="item"><svg class="i"><use href="#i-list"/></svg><div><div class="title">Used on 1049 · Filters 16x25x2 × 4</div><div class="sub">Today 9:20 · Adams Avenue Plaza</div></div><b class="money">−$21.60</b></div>
+      <div class="item"><svg class="i"><use href="#i-clock"/></svg><div><div class="title">Count adjustment</div><div class="sub">Oct 9 · belt B48 counted 0, expected 1</div></div><b class="money">−$12.40</b></div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Vehicle name and balance, the balance by category (now one quiet line under the meter) and the transaction history (received, used on WO, transfer, count adjustment).</li>
+    <li><span class="f">new</span>F16 truck stock by SKU (1): on hand against min / max, with Out and Low called out and one button that asks the warehouse for exactly what is short. The count moves as parts are used on a work order.</li>
+    <li><span class="f">new</span>F16 tomorrow's parts check (2): tomorrow's jobs against what is on the van, so a missing belt is found the afternoon before, not on the roof.</li>
+    <li><span class="f">changed</span>Dollars by category stay for the office; the tech's view is items. Low rows carry a colored edge so the table reads at a glance.</li>
+  </ul>
+</aside>
+
+<template data-overlay></template>
+</section>

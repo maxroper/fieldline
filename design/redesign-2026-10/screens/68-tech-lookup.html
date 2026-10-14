@@ -1,0 +1,156 @@
+<section class="screen" id="s-tech-lookup" data-title="Customer lookup" data-group="tech" data-face="tech" data-order="68">
+<style>
+  #s-tech-lookup .ph-page { gap: 20px; }
+  #s-tech-lookup .ph-page > .back-bar { position: static; margin: -14px -16px 0; }
+  #s-tech-lookup .pill.live::before { margin-right: 0; }
+  #s-tech-lookup .results .item { min-height: 52px; padding: 10px 14px; }
+  #s-tech-lookup .results .item > svg:first-child { color: var(--ink-3); }
+  #s-tech-lookup .units .item { grid-template-columns: 44px minmax(0, 1fr) auto; min-height: 60px; }
+  #s-tech-lookup .units .photo { width: 44px; border-radius: var(--r-1); }
+  #s-tech-lookup .history .item { grid-template-columns: auto minmax(0, 1fr) auto; }
+  #s-tech-lookup .history .when { font-family: var(--mono); font-size: 11px; color: var(--ink-3); min-width: 44px; }
+</style>
+
+<div class="ph-page">
+  <div class="back-bar">
+    <button class="btn subtle back" type="button" data-go="tech-today">Back to my day</button>
+    <span class="pill site live">Synced</span>
+  </div>
+
+  <div class="stack">
+    <h1>Customer lookup</h1>
+    <div class="search"><input class="input lg" type="search" value="Irvine Med" aria-label="Customer, building, address, or contact"></div>
+    <div class="list results">
+      <button class="item on" type="button" data-toast="Showing Irvine Med Offices · Suite 200">
+        <svg class="i"><use href="#i-building"/></svg>
+        <div><div class="title">Irvine Med Offices · Suite 200</div><div class="sub">4600 Barranca Pkwy, Irvine · Barranca Medical Partners</div></div>
+        <span></span>
+      </button>
+      <button class="item" type="button" data-toast="Showing Irvine Med Offices · Suite 100">
+        <svg class="i"><use href="#i-building"/></svg>
+        <div><div class="title">Irvine Med Offices · Suite 100</div><div class="sub">4600 Barranca Pkwy, Irvine · Barranca Medical Partners</div></div>
+        <span></span>
+      </button>
+      <button class="item" type="button" data-toast="Showing Irvine Center Clinics">
+        <svg class="i"><use href="#i-building"/></svg>
+        <div><div class="title">Irvine Center Clinics</div><div class="sub">18 Technology Dr, Irvine · Irvine Center Medical Group</div></div>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="stack">
+    <div class="row between"><h2>Irvine Med Offices · Suite 200</h2><span class="pill copper plain">Gold · 4 h response</span></div>
+    <dl class="facts tight">
+      <dt>Parent</dt><dd>Barranca Medical Partners</dd>
+      <dt>Site</dt><dd>Irvine Med Offices · Suite 200</dd>
+      <dt>Address</dt><dd>4600 Barranca Pkwy, Suite 200, Irvine 92604<br><button class="btn sm" type="button" data-toast="Opening directions to 4600 Barranca Pkwy"><svg class="i"><use href="#i-map"/></svg>Directions</button></dd>
+      <dt>Contact</dt><dd>Dr. Lena Park · practice manager</dd>
+      <dt>Phone</dt><dd class="num">949-555-0142</dd>
+      <dt>Instructions</dt><dd>Check in at reception. No work in exam rooms during patient hours (8–5). Roof access through the Suite 230 corridor; ladder key at reception.</dd>
+      <dt>Default tech</dt><dd>Marcus Hale</dd>
+      <dt>Backup</dt><dd>Elena Cruz</dd>
+    </dl>
+  </div>
+
+  <div class="stack">
+    <div class="row between">
+      <span class="eyebrow">Equipment · 4 units <span class="callout">1</span></span>
+      <button class="btn sm ghost" type="button" data-toast="Camera opened · point at the unit's QR tag">Scan QR</button>
+    </div>
+    <div class="list units stagger">
+      <button class="item" type="button" data-toast="RTU-1 · nameplate, history and refrigerant totals">
+        <span class="photo steel"><span class="cap">RTU-1</span></span>
+        <div><div class="title">RTU-1 · Carrier 48TC</div><div class="sub">7.5 ton · 2023 · roof, east · <span class="tag mono">R-410A 16.8 lb</span></div></div>
+        <span class="pill warranty plain">Warranty to 2033</span>
+      </button>
+      <button class="item" type="button" data-toast="RTU-2 · nameplate, history and refrigerant totals">
+        <span class="photo steel"><span class="cap">RTU-2</span></span>
+        <div><div class="title">RTU-2 · Carrier 48TC</div><div class="sub">7.5 ton · 2023 · roof, west · coil on order (1058) · <span class="tag mono">R-410A 17.2 lb</span></div></div>
+        <span class="pill warranty plain">Warranty to 2033</span>
+      </button>
+      <button class="item" type="button" data-toast="RTU-4 · nameplate, history and refrigerant totals">
+        <span class="photo dark"><span class="cap">RTU-4</span></span>
+        <div><div class="title">RTU-4 · Carrier 48TC · Suite 100</div><div class="sub">10 ton · 2016 · roof, south · actuator on PO 118 · <span class="tag mono">R-410A 22.0 lb</span></div></div>
+        <span class="pill parts plain">Out of warranty</span>
+      </button>
+      <button class="item" type="button" data-toast="Server room split · nameplate, history and refrigerant totals">
+        <span class="photo"><span class="cap">Split</span></span>
+        <div><div class="title">Server room split · Mitsubishi PUZ</div><div class="sub">3 ton · 2021 · Suite 200 IT closet · <span class="tag mono">R-410A 6.4 lb</span></div></div>
+        <span class="pill warranty plain">Warranty to 2028</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">History · last 15 visits</span>
+    <div class="list history stagger">
+      <button class="item" type="button" data-toast="Opens work order 1058">
+        <span class="when">Oct 14</span>
+        <div><div class="title">1058 · Warranty coil leak, RTU-2</div><div class="sub">Marcus · done today, returns when the coil arrives</div></div>
+        <span class="pill parts plain">Parts</span>
+      </button>
+      <button class="item" type="button" data-toast="Opens work order 1064">
+        <span class="when">Oct 13</span>
+        <div><div class="title">1064 · Economizer actuator, RTU-4</div><div class="sub">Suite 100 · Johnstone PO 118 expected Thu</div></div>
+        <span class="small muted">Waiting</span>
+      </button>
+      <button class="item" type="button" data-open="#sheet-tech-lookup-wo">
+        <span class="when">Oct 2</span>
+        <div><div class="title">1032 · Quarterly PM, 3 RTUs <span class="callout">2</span></div><div class="sub">Marcus · 2.5 h · invoice 742</div></div>
+        <span class="small muted">Billed</span>
+      </button>
+      <button class="item" type="button" data-toast="Opens work order 1011">
+        <span class="when">Aug 20</span>
+        <div><div class="title">1011 · RTU-2 no cooling</div><div class="sub">Elena · TXV replaced under warranty · 3.0 h</div></div>
+        <span class="small muted">Billed</span>
+      </button>
+      <button class="item" type="button" data-toast="Opens work order 0988">
+        <span class="when">Jul 7</span>
+        <div><div class="title">0988 · Summer PM, 3 RTUs</div><div class="sub">Marcus · 2.5 h</div></div>
+        <span class="small muted">Billed</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Search, result rows, the site facts (parent, site, address, contact, phone, special instructions, default and backup tech), the equipment list and the history rows that open a read-only work order sheet.</li>
+    <li><span class="f">new</span>F6 equipment (1): each unit has a nameplate photo, make and model, tonnage, install year, refrigerant type and charge, and its warranty state. Scan QR reads the tag on the unit and jumps straight to it.</li>
+    <li><span class="f">new</span>F5 the agreement tier and response target sit beside the site name so a tech knows what the customer was promised.</li>
+    <li><span class="f">changed</span>Equipment is always visible instead of behind Equipment / Hide equipment. The read-only work order (2) is a bottom sheet with every field the old fact sheet showed, in one facts list.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet bottom" id="sheet-tech-lookup-wo" role="dialog" aria-label="Work order 1032">
+  <div class="sheet-head"><div class="row gap-2"><b class="num">1032</b><span class="small muted">Read only</span></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <dl class="facts tight">
+      <dt>Number</dt><dd class="num">1032</dd>
+      <dt>Date</dt><dd>Thu, Oct 2 · 8:00</dd>
+      <dt>Status</dt><dd>Billed · invoice 742 · <span class="money">$940.00</span></dd>
+      <dt>Problem</dt><dd>Quarterly PM, 3 RTUs</dd>
+      <dt>Details</dt><dd>Filters, coils, drains, belts and electrical on RTU-1, RTU-2 and the server room split. RTU-2 capacitor reading 41 µF, noted for next visit.</dd>
+      <dt>WO type</dt><dd>Maintenance · agreement visit</dd>
+      <dt>Priority</dt><dd>Normal</dd>
+      <dt>Parent</dt><dd>Barranca Medical Partners</dd>
+      <dt>Site</dt><dd>Irvine Med Offices · Suite 200</dd>
+      <dt>Address</dt><dd>4600 Barranca Pkwy, Suite 200, Irvine</dd>
+      <dt>Contact</dt><dd>Dr. Lena Park · <span class="num">949-555-0142</span></dd>
+      <dt>Instructions</dt><dd>No work in exam rooms during patient hours</dd>
+      <dt>Units</dt><dd>RTU-1, RTU-2 · Carrier 48TC · S/N <span class="num">2323G11042</span>, <span class="num">2323G11043</span> · roof · server room split</dd>
+      <dt>Assigned</dt><dd>Marcus Hale · lead</dd>
+      <dt>Time</dt><dd>Labor 2.5 h · Travel 0.4 h</dd>
+      <dt>Dispatcher notes</dt><dd>Reception closes at 5; be off the roof by 4:30.</dd>
+      <dt>Customer PO</dt><dd class="num">BMP-0926</dd>
+      <dt>Caller</dt><dd>Dr. Lena Park · scheduled from the agreement</dd>
+      <dt>Signature</dt><dd>Required · signed by L. Park</dd>
+      <dt>Flags</dt><dd>Agreement visit · none open</dd>
+    </dl>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button></div>
+</div>
+</template>
+</section>

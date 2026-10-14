@@ -1,0 +1,335 @@
+<section class="screen" id="s-tech-status" data-title="Tech status" data-group="office" data-face="office" data-order="26">
+<style>
+  #s-tech-status .map-strip { min-height: 180px; }
+  #s-tech-status .map-strip .gps { position: absolute; right: 10px; top: 10px; z-index: 4; background: rgba(255, 253, 248, 0.92); border: 1px solid var(--line); border-radius: var(--pill); padding: 4px 10px; font-size: 11px; color: var(--ink-2); }
+  #s-tech-status .tech-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  #s-tech-status .tech { display: flex; flex-direction: column; gap: 12px; }
+  #s-tech-status .tech-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+  #s-tech-status .tech-head .sub { font-size: 12px; color: var(--ink-2); }
+  #s-tech-status .today { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-2); }
+  #s-tech-status .today .meter { flex: 1; }
+  #s-tech-status .wk { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+  #s-tech-status .wk > div { border-radius: var(--r-1); padding: 6px 4px 5px; text-align: center; font-size: 11px; color: var(--ink-2); background: var(--paper-2); }
+  #s-tech-status .wk b { display: block; font-family: var(--mono); font-weight: 500; color: var(--ink); font-size: 12px; }
+  #s-tech-status .wk .bar { height: 4px; border-radius: 2px; background: var(--line); margin-top: 5px; overflow: hidden; }
+  #s-tech-status .wk .bar i { display: block; height: 100%; background: var(--steel); }
+  #s-tech-status .wk .bar i.over { background: var(--red); }
+  #s-tech-status .wk .on { background: var(--copper-tint); color: var(--copper-deep); }
+  #s-tech-status .wk .on b { color: var(--copper-deep); }
+  #s-tech-status .wk .off { background: repeating-linear-gradient(135deg, var(--paper-3) 0 4px, transparent 4px 8px); color: var(--ink-3); }
+  #s-tech-status .wk .off b { color: var(--ink-3); font-family: var(--font); font-weight: 500; }
+  #s-tech-status .visit { display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid var(--line); font-size: 12px; }
+  #s-tech-status .visit:first-of-type { border-top: 0; }
+  #s-tech-status .visit .t { font-family: var(--mono); color: var(--ink-2); }
+  #s-tech-status .visit .sub { color: var(--ink-2); }
+  #s-tech-status .foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 10px; }
+  #s-tech-status .off-days { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; }
+  #s-tech-status .off-days .input { width: 138px; min-height: 30px; padding: 3px 10px; font-size: 12px; border-radius: var(--pill); }
+  @media (max-width: 900px) { #s-tech-status .tech-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="toolbar">
+  <div class="seg" data-seg="ts-team"><button type="button" class="on" data-val="cm">Costa Mesa</button><button type="button" data-val="irv">Irvine</button></div>
+  <div class="row">
+    <button class="btn icon sm ghost" type="button" aria-label="Previous day">‹</button>
+    <b class="num" style="min-width: 7.5rem; text-align: center;">Wed, Oct 14</b>
+    <button class="btn icon sm ghost" type="button" aria-label="Next day">›</button>
+  </div>
+  <div class="seg" data-seg="ts-span"><button type="button" class="on" data-val="day">Day</button><button type="button" data-val="week">Week</button></div>
+  <span class="grow"></span>
+  <div class="summary-line hide-narrow"><span><b>4</b> techs</span><span><span class="dot moss"></span><b>2</b> on site</span><span><span class="dot amber"></span><b>1</b> en route</span><span><span class="dot red"></span><b>1</b> late</span></div>
+  <button class="btn sm ghost" type="button" data-toast="Message to the Costa Mesa team: Dispatch is covering phones until 2:00; text James for parts runs."><svg><use href="#i-chat"/></svg>Message team</button>
+</div>
+
+<div class="page">
+  <div class="stack loose">
+    <!-- Compact live map strip -->
+    <div class="map map-strip">
+      <svg class="streets" viewBox="0 0 1000 180" preserveAspectRatio="none" aria-hidden="true">
+        <rect width="1000" height="180" fill="#ece5d8"/>
+        <g stroke="#dbd2c3" stroke-width="2"><path d="M0 45H1000M0 90H1000M0 135H1000"/><path d="M100 0V180M250 0V180M400 0V180M550 0V180M700 0V180M850 0V180"/></g>
+        <g stroke="#cfc3ad" stroke-width="5" fill="none"><path d="M0 120 C200 100 350 60 600 70 S900 110 1000 60"/><path d="M460 0 C470 60 520 120 560 180"/></g>
+        <g fill="#e2d9c8"><rect x="150" y="55" width="60" height="30" rx="3"/><rect x="620" y="100" width="70" height="36" rx="3"/><rect x="800" y="40" width="50" height="30" rx="3"/></g>
+        <path class="route" d="M700 72 C740 60 790 50 830 44"/>
+      </svg>
+      <div class="pin moss" style="left: 42%; top: 46%;"><i></i><b>1058 Irvine Med</b></div>
+      <div class="pin amber" style="left: 84%; top: 30%;"><i></i><b>1059 Balboa Bay</b></div>
+      <div class="pin moss" style="left: 17%; top: 72%;"><i></i><b>1050 Bristol Ct</b></div>
+      <div class="pin red" style="left: 60%; top: 76%;"><i></i><b>1057 Irvine Center</b></div>
+      <div class="truck" style="left: 42%; top: 52%;">MH</div>
+      <div class="truck" style="left: 71%; top: 40%;">EC</div>
+      <div class="truck" style="left: 17%; top: 78%;">AW</div>
+      <div class="truck" style="left: 60%; top: 82%;">PS</div>
+      <div class="map-legend"><span><span class="dot moss"></span> On site</span><span><span class="dot amber"></span> En route</span><span><span class="dot red"></span> Running late</span></div>
+      <div class="gps"><span class="live"></span>GPS 10:43 · 4 of 4 trucks reporting <span class="callout">1</span></div>
+    </div>
+
+    <!-- Day view -->
+    <div class="panel on" data-seg-panel="ts-span" data-val="day">
+      <div class="panel on" data-seg-panel="ts-team" data-val="cm">
+        <div class="tech-grid stagger">
+
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg">MH</span>
+              <div><b>Marcus Hale</b><div class="sub">Lead · journeyman · EPA 608 Universal · Van 12</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Marcus: Dr. Park called again, water in exam room 3. Can you look before you leave?"><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap">
+              <span class="pill site plain"><span class="live"></span>On site · Irvine Med Offices · <span class="num">0:41</span></span>
+              <span class="tiny faint num">GPS 10:43 · 4600 Barranca Pkwy</span>
+            </div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 39%"></i></span><b class="num">3.1 / 8 h</b><span class="faint num">6.5 scheduled</span></div>
+            <div class="wk">
+              <div><b>6.0</b>Mon<div class="bar"><i style="width: 75%"></i></div></div>
+              <div><b>9.3</b>Tue<div class="bar"><i class="over" style="width: 100%"></i></div></div>
+              <div class="on"><b>6.5</b>Wed<div class="bar"><i style="width: 81%"></i></div></div>
+              <div><b>8.0</b>Thu<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>4.0</b>Fri<div class="bar"><i style="width: 50%"></i></div></div>
+            </div>
+            <div class="summary-line"><span>Week <b>33.8 / 40 h</b></span><span>Backlog <b>14 h</b> · 5 open WOs</span></div>
+            <div>
+              <div class="visit"><span class="t">7:30</span><div>1049 · Adams Avenue Plaza<div class="sub">Quarterly PM · 2.0 h</div></div><span class="small muted">Done</span></div>
+              <div class="visit"><span class="t">10:00</span><div>1058 · Irvine Med Offices<div class="sub">Warranty coil leak · 2.0 h</div></div><span class="pill site plain">On site</span></div>
+              <div class="visit"><span class="t">1:00</span><div>1061 · Jamboree Corporate<div class="sub">Thermostat swap · 2.0 h · ETA text failed, call the desk</div></div><span class="small muted">Scheduled</span></div>
+              <div class="visit"><span class="t">3:30</span><div class="faint">Open · 1.5 h free</div><span></span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>31</b> this month</span><span>Close rate <b>94%</b></span><span>Callbacks <b>1</b></span></div>
+              <div class="off-days"><input class="input" type="date" value="2026-10-23" aria-label="Off day for Marcus"><button class="btn sm subtle" type="button" data-toast="Marcus marked off Fri Oct 23">Mark off</button></div>
+            </div>
+          </div>
+
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg moss">EC</span>
+              <div><b>Elena Cruz</b><div class="sub">Journeyman · EPA 608 Type II · Van 8</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Elena: Balboa Bay's manager will meet you at the loading dock."><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap">
+              <span class="pill route plain"><span class="live"></span>En route · Balboa Bay Offices · ETA <span class="num">11:05</span></span>
+              <span class="tiny faint num">GPS 10:43 · Jamboree Rd, 9 min out</span>
+            </div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 38%"></i></span><b class="num">3.0 / 8 h</b><span class="faint num">7.0 scheduled</span></div>
+            <div class="wk">
+              <div><b>8.0</b>Mon<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>8.0</b>Tue<div class="bar"><i style="width: 100%"></i></div></div>
+              <div class="on"><b>7.0</b>Wed<div class="bar"><i style="width: 88%"></i></div></div>
+              <div><b>1.0</b>Thu<div class="bar"><i style="width: 13%"></i></div></div>
+              <div><b>4.0</b>Fri<div class="bar"><i style="width: 50%"></i></div></div>
+            </div>
+            <div class="summary-line"><span>Week <b>28.0 / 40 h</b></span><span>Backlog <b>6 h</b> · 2 open WOs</span></div>
+            <div>
+              <div class="visit"><span class="t">7:30</span><div>1052 · 17th Street Market<div class="sub">Walk-in cooler compressor · 3.0 h</div></div><span class="small muted">Done</span></div>
+              <div class="visit"><span class="t">11:00</span><div>1059 · Balboa Bay Offices<div class="sub">RTU-2 no cooling · 2.0 h</div></div><span class="pill route plain">En route</span></div>
+              <div class="visit"><span class="t">2:00</span><div>1067 · Oak Creek Professional<div class="sub">Condensate drain backing up · 2.0 h</div></div><span class="small muted">Scheduled</span></div>
+              <div class="visit"><span class="t">4:00</span><div class="faint">Open · 1 h free · site backup for Irvine Med</div><span></span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>29</b> this month</span><span>Close rate <b>97%</b></span><span>Callbacks <b>0</b></span></div>
+              <div class="off-days"><input class="input" type="date" value="2026-10-30" aria-label="Off day for Elena"><button class="btn sm subtle" type="button" data-toast="Elena marked off Fri Oct 30">Mark off</button></div>
+            </div>
+          </div>
+
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg amber">AW</span>
+              <div><b>Andre Walsh</b><div class="sub">Lead · journeyman · EPA 608 Universal · Van 5</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Andre: Johnstone confirmed PO 118 for Thu 9:00 will-call."><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap">
+              <span class="pill site plain"><span class="live"></span>On site · Bristol Court Offices · <span class="num">2:43</span></span>
+              <span class="tiny faint num">GPS 10:42 · Bristol St, Costa Mesa</span>
+            </div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 34%"></i></span><b class="num">2.7 / 8 h</b><span class="faint num">8.0 scheduled</span></div>
+            <div class="wk">
+              <div><b>2.0</b>Mon<div class="bar"><i style="width: 25%"></i></div></div>
+              <div><b>8.4</b>Tue<div class="bar"><i class="over" style="width: 100%"></i></div></div>
+              <div class="on"><b>8.0</b>Wed<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>5.0</b>Thu<div class="bar"><i style="width: 63%"></i></div></div>
+              <div><b>10.0</b>Fri<div class="bar"><i class="over" style="width: 100%"></i></div></div>
+            </div>
+            <div class="summary-line"><span>Week <b>33.4 / 40 h</b> · Fri over by 2</span><span><span class="dot red"></span>Backlog <b>22 h</b> · 7 open WOs</span></div>
+            <div>
+              <div class="visit"><span class="t">8:00</span><div>1050 · Bristol Court Offices<div class="sub">Fall PM, 4 RTUs · 4.0 h · Gold agreement</div></div><span class="pill site plain">On site</span></div>
+              <div class="visit"><span class="t">1:00</span><div>1063 · Newport Plaza Retail<div class="sub">RTU-3 low charge · 1.0 h · parts due Thu</div></div><span class="small muted">Parts</span></div>
+              <div class="visit"><span class="t">2:30</span><div>1068 · Warner Business Park<div class="sub">Compressor amp draw high · 2.5 h</div></div><span class="small muted">Scheduled</span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>28</b> this month</span><span>Close rate <b>91%</b></span><span>Callbacks <b>2</b></span></div>
+              <div class="off-days"><input class="input" type="date" value="2026-10-26" aria-label="Off day for Andre"><button class="btn sm subtle" type="button" data-toast="Andre marked off Mon Oct 26">Mark off</button></div>
+            </div>
+          </div>
+
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg rust">PS</span>
+              <div><b>Priya Shah</b><div class="sub">Journeyman · EPA 608 Universal · Van 9</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Priya: Tustin Auto knows you are running late; 12:45 is fine with them."><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap">
+              <span class="pill urgent plain"><span class="live"></span>On site · Irvine Center Clinics · running <span class="num">12 min</span> over</span>
+              <span class="tiny faint num">GPS 10:43 · Culver Dr, Irvine</span>
+            </div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 46%"></i></span><b class="num">3.7 / 8 h</b><span class="faint num">7.5 scheduled</span></div>
+            <div class="wk">
+              <div><b>2.0</b>Mon<div class="bar"><i style="width: 25%"></i></div></div>
+              <div><b>8.8</b>Tue<div class="bar"><i class="over" style="width: 100%"></i></div></div>
+              <div class="on"><b>7.5</b>Wed<div class="bar"><i style="width: 94%"></i></div></div>
+              <div><b>3.0</b>Thu<div class="bar"><i style="width: 38%"></i></div></div>
+              <div class="off"><b>Off</b>Fri</div>
+            </div>
+            <div class="summary-line"><span>Week <b>21.3 / 32 h</b> · 4-day week</span><span>Backlog <b>9 h</b> · 3 open WOs</span></div>
+            <div>
+              <div class="visit"><span class="t">7:00</span><div>1047 · Santa Ana Gym<div class="sub">Belt and bearings · 2.0 h</div></div><span class="small muted">Done</span></div>
+              <div class="visit"><span class="t">9:30</span><div>1057 · Irvine Center Clinics<div class="sub">Server room no cooling · 2.0 h</div></div><span class="pill urgent plain">Late 12 m</span></div>
+              <div class="visit"><span class="t">12:30</span><div>1062 · Tustin Auto Center<div class="sub">Quoted: condenser fan motor · 2.0 h</div></div><span class="small muted">Scheduled</span></div>
+              <div class="visit"><span class="t">3:00</span><div>1065 · Costa Mesa Library<div class="sub">Economizer stuck open · 1.5 h</div></div><span class="small muted">Scheduled</span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>26</b> this month</span><span>Close rate <b>96%</b></span><span>Callbacks <b>0</b></span></div>
+              <div class="off-days"><button class="chip" type="button" data-toast="Off day cleared · Priya is available Fri Oct 16">Fri Oct 16 · Clear</button><input class="input" type="date" aria-label="Off day for Priya"><button class="btn sm subtle" type="button" data-toast="Pick a date first">Mark off</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" data-seg-panel="ts-team" data-val="irv">
+        <div class="tech-grid stagger">
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg moss">DR</span>
+              <div><b>Diego Ramos</b><div class="sub">Lead · journeyman · EPA 608 Universal · Van 3</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Diego sent"><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap"><span class="pill site plain"><span class="live"></span>On site · Jamboree Corporate · <span class="num">1:12</span></span><span class="tiny faint num">GPS 10:43 · Irvine</span></div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 41%"></i></span><b class="num">3.3 / 8 h</b><span class="faint num">8.0 scheduled</span></div>
+            <div class="wk">
+              <div><b>8.0</b>Mon<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>7.5</b>Tue<div class="bar"><i style="width: 94%"></i></div></div>
+              <div class="on"><b>8.0</b>Wed<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>6.0</b>Thu<div class="bar"><i style="width: 75%"></i></div></div>
+              <div><b>8.0</b>Fri<div class="bar"><i style="width: 100%"></i></div></div>
+            </div>
+            <div class="summary-line"><span>Week <b>37.5 / 40 h</b></span><span>Backlog <b>11 h</b> · 4 open WOs</span></div>
+            <div>
+              <div class="visit"><span class="t">7:00</span><div>1070 · Irvine Center Clinics · Bldg B<div class="sub">Fall PM, 3 RTUs · 3.0 h</div></div><span class="small muted">Done</span></div>
+              <div class="visit"><span class="t">10:00</span><div>1056 · Jamboree Corporate · Suite 120<div class="sub">VAV box not responding · 2.0 h</div></div><span class="pill site plain">On site</span></div>
+              <div class="visit"><span class="t">1:00</span><div>1051 · Oak Creek Professional · Bldg 1<div class="sub">Quarterly PM · 3.0 h</div></div><span class="small muted">Scheduled</span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>30</b> this month</span><span>Close rate <b>93%</b></span><span>Callbacks <b>1</b></span></div>
+              <div class="off-days"><input class="input" type="date" aria-label="Off day for Diego"><button class="btn sm subtle" type="button" data-toast="Pick a date first">Mark off</button></div>
+            </div>
+          </div>
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg amber">HC</span>
+              <div><b>Hannah Cho</b><div class="sub">Journeyman · EPA 608 Type II · Van 11</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Hannah sent"><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap"><span class="pill route plain"><span class="live"></span>En route · Tustin Auto Center · ETA <span class="num">11:10</span></span><span class="tiny faint num">GPS 10:43 · Red Hill Ave</span></div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 30%"></i></span><b class="num">2.4 / 8 h</b><span class="faint num">7.0 scheduled</span></div>
+            <div class="wk">
+              <div><b>6.0</b>Mon<div class="bar"><i style="width: 75%"></i></div></div>
+              <div><b>8.0</b>Tue<div class="bar"><i style="width: 100%"></i></div></div>
+              <div class="on"><b>7.0</b>Wed<div class="bar"><i style="width: 88%"></i></div></div>
+              <div><b>8.0</b>Thu<div class="bar"><i style="width: 100%"></i></div></div>
+              <div class="off"><b>Off</b>Fri</div>
+            </div>
+            <div class="summary-line"><span>Week <b>29.0 / 32 h</b> · 4-day week</span><span>Backlog <b>5 h</b> · 2 open WOs</span></div>
+            <div>
+              <div class="visit"><span class="t">8:00</span><div>1048 · Irvine Med Offices · Suite 100<div class="sub">Thermostat relocation · 2.0 h</div></div><span class="small muted">Done</span></div>
+              <div class="visit"><span class="t">11:00</span><div>1054 · Tustin Auto Center<div class="sub">Exhaust fan belt · 1.5 h</div></div><span class="pill route plain">En route</span></div>
+              <div class="visit"><span class="t">1:30</span><div>1046 · Irvine Center Clinics<div class="sub">Filter change, 6 units · 3.0 h</div></div><span class="small muted">Scheduled</span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>24</b> this month</span><span>Close rate <b>95%</b></span><span>Callbacks <b>0</b></span></div>
+              <div class="off-days"><button class="chip" type="button" data-toast="Off day cleared">Fri Oct 16 · Clear</button><input class="input" type="date" aria-label="Off day for Hannah"><button class="btn sm subtle" type="button" data-toast="Pick a date first">Mark off</button></div>
+            </div>
+          </div>
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg rust">LO</span>
+              <div><b>Luis Ortega</b><div class="sub">Apprentice · EPA 608 Type I · rides with Diego</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Luis sent"><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap"><span class="pill site plain"><span class="live"></span>On site · Jamboree Corporate · helper</span><span class="tiny faint num">GPS 10:43 · with Van 3</span></div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 41%"></i></span><b class="num">3.3 / 8 h</b><span class="faint num">8.0 scheduled</span></div>
+            <div class="wk">
+              <div class="off"><b>Off</b>Mon</div>
+              <div><b>8.0</b>Tue<div class="bar"><i style="width: 100%"></i></div></div>
+              <div class="on"><b>8.0</b>Wed<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>8.0</b>Thu<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>8.0</b>Fri<div class="bar"><i style="width: 100%"></i></div></div>
+            </div>
+            <div class="summary-line"><span>Week <b>32.0 / 32 h</b></span><span>Backlog <b>0 h</b> · helper</span></div>
+            <div>
+              <div class="visit"><span class="t">7:00</span><div>1070 · Irvine Center Clinics · helper<div class="sub">Fall PM, 3 RTUs · 3.0 h</div></div><span class="small muted">Done</span></div>
+              <div class="visit"><span class="t">10:00</span><div>1056 · Jamboree Corporate · helper<div class="sub">VAV box · 2.0 h</div></div><span class="pill site plain">On site</span></div>
+              <div class="visit"><span class="t">1:00</span><div>1051 · Oak Creek Professional · helper<div class="sub">Quarterly PM · 3.0 h</div></div><span class="small muted">Scheduled</span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>27</b> this month</span><span>Close rate <b>—</b></span><span>Callbacks <b>—</b></span></div>
+              <div class="off-days"><input class="input" type="date" aria-label="Off day for Luis"><button class="btn sm subtle" type="button" data-toast="Pick a date first">Mark off</button></div>
+            </div>
+          </div>
+          <div class="card tech">
+            <div class="tech-head">
+              <span class="avatar lg plum">NB</span>
+              <div><b>Naomi Brooks</b><div class="sub">Lead · journeyman · controls · EPA 608 Universal · Van 7</div></div>
+              <button class="btn sm ghost" type="button" data-toast="Message to Naomi sent"><svg><use href="#i-chat"/></svg>Message</button>
+            </div>
+            <div class="row between wrap"><span class="pill site plain"><span class="live"></span>On site · Balboa Bay Offices · Tower 1 · <span class="num">1:40</span></span><span class="tiny faint num">GPS 10:42 · Newport Beach</span></div>
+            <div class="today"><span>Today</span><span class="meter moss"><i style="width: 49%"></i></span><b class="num">3.9 / 8 h</b><span class="faint num">8.0 scheduled</span></div>
+            <div class="wk">
+              <div><b>8.0</b>Mon<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>9.0</b>Tue<div class="bar"><i class="over" style="width: 100%"></i></div></div>
+              <div class="on"><b>8.0</b>Wed<div class="bar"><i style="width: 100%"></i></div></div>
+              <div><b>4.0</b>Thu<div class="bar"><i style="width: 50%"></i></div></div>
+              <div><b>6.0</b>Fri<div class="bar"><i style="width: 75%"></i></div></div>
+            </div>
+            <div class="summary-line"><span>Week <b>35.0 / 40 h</b></span><span>Backlog <b>16 h</b> · 5 open WOs</span></div>
+            <div>
+              <div class="visit"><span class="t">7:00</span><div>1043 · Balboa Bay Offices · Tower 1<div class="sub">BMS controller replacement · 5.0 h</div></div><span class="pill site plain">On site</span></div>
+              <div class="visit"><span class="t">1:00</span><div>1041 · Newport Plaza Retail<div class="sub">Economizer controls · 3.0 h</div></div><span class="small muted">Scheduled</span></div>
+            </div>
+            <div class="foot">
+              <div class="summary-line"><span>Jobs <b>22</b> this month</span><span>Close rate <b>98%</b></span><span>Callbacks <b>0</b></span></div>
+              <div class="off-days"><input class="input" type="date" aria-label="Off day for Naomi"><button class="btn sm subtle" type="button" data-toast="Pick a date first">Mark off</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Week view -->
+    <div class="panel" data-seg-panel="ts-span" data-val="week">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Technician</th><th class="num">Mon 12</th><th class="num">Tue 13</th><th class="num">Wed 14</th><th class="num">Thu 15</th><th class="num">Fri 16</th><th>Week</th><th class="num">Backlog</th><th>Off days</th></tr></thead>
+          <tbody class="stagger">
+            <tr><td class="primary-cell"><span class="avatar sm">MH</span> Marcus Hale</td><td class="num">6.0</td><td class="num"><span class="late" style="color: var(--red);">9.3</span></td><td class="num">6.5</td><td class="num">8.0</td><td class="num">4.0</td><td><div class="row"><span class="load-bar" style="width: 110px;"><i class="a" style="width: 81%"></i><i class="c" style="width: 3%"></i></span><span class="num small">33.8 / 40</span></div></td><td class="num">14 h</td><td class="small muted">Fri Oct 23</td></tr>
+            <tr><td class="primary-cell"><span class="avatar sm moss">EC</span> Elena Cruz</td><td class="num">8.0</td><td class="num">8.0</td><td class="num">7.0</td><td class="num">1.0</td><td class="num">4.0</td><td><div class="row"><span class="load-bar" style="width: 110px;"><i class="a" style="width: 70%"></i></span><span class="num small">28.0 / 40</span></div></td><td class="num">6 h</td><td class="small muted">—</td></tr>
+            <tr><td class="primary-cell"><span class="avatar sm amber">AW</span> Andre Walsh</td><td class="num">2.0</td><td class="num">8.4</td><td class="num">8.0</td><td class="num">5.0</td><td class="num"><span style="color: var(--red);">10.0</span></td><td><div class="row"><span class="load-bar" style="width: 110px;"><i class="a" style="width: 78%"></i><i class="d" style="width: 6%"></i></span><span class="num small">33.4 / 40</span></div></td><td class="num"><span style="color: var(--red);">22 h</span></td><td class="small muted">—</td></tr>
+            <tr><td class="primary-cell"><span class="avatar sm rust">PS</span> Priya Shah</td><td class="num">2.0</td><td class="num">8.8</td><td class="num">7.5</td><td class="num">3.0</td><td class="num faint">Off</td><td><div class="row"><span class="load-bar" style="width: 110px;"><i class="a" style="width: 64%"></i><i class="c" style="width: 3%"></i></span><span class="num small">21.3 / 32</span></div></td><td class="num">9 h</td><td class="small muted">Fri Oct 16</td></tr>
+            <tr><td colspan="6" class="strong">Costa Mesa team</td><td><div class="row"><span class="load-bar" style="width: 110px;"><i class="a" style="width: 76%"></i><i class="c" style="width: 3%"></i></span><span class="num small strong">116.5 / 152</span></div></td><td class="num strong">51 h</td><td class="small muted">1 open slot Fri</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="help mt-2">Week hours are scheduled plus charged. Red cells are over 8 h in a day. Month balancing uses the same numbers in Reports.</div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Team switch and day nav in the toolbar. Each tech still shows the day and week hours line (now a meter and five Mon–Fri cells, off days hatched), the backlog total, today's visits, and the off-day control with Mark off and the "date · Clear" chip. The "Month balancing comes later" hint is gone: the Week view carries the numbers.</li>
+    <li><span class="f">new</span>F1 A compact live map strip at the top with truck positions and the last GPS time (callout 1); each card's status pill carries where the tech is and how long. F3 a Message button on every card and Message team in the toolbar. F19 a small scorecard line per tech: jobs this month, close rate, callbacks.</li>
+    <li><span class="f">changed</span>One toolbar row: team, day, Day / Week, a quiet summary line, one button. Cards are plain inside: the hours meter, the week strip, one summary line, visit rows with hairlines, and a footer with the scorecard and the off-day control. State is one pill per row.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+</template>
+</section>

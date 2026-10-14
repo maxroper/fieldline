@@ -1,0 +1,276 @@
+<section class="screen" id="s-purchasing" data-title="Purchasing" data-group="office" data-face="office" data-order="34">
+<style>
+  #s-purchasing .rail .item { padding: 10px 12px; grid-template-columns: 40px minmax(0, 1fr) auto; }
+  #s-purchasing .rail .item .po { font-family: var(--mono); font-weight: 600; font-size: 13px; }
+  #s-purchasing .rail .item .amt { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  #s-purchasing .rail .item .pill { min-height: 18px; font-size: 11px; padding: 1px 7px; }
+  #s-purchasing .table .input, #s-purchasing .table .select { min-height: 32px; padding: 4px 8px; box-shadow: none; font-size: 12px; }
+  #s-purchasing .table .select { background-position: calc(100% - 14px) 13px, calc(100% - 9px) 13px; padding-right: 26px; }
+  #s-purchasing .lines td { vertical-align: top; }
+  #s-purchasing .hint { font-size: 11px; color: var(--ink-3); margin-top: 3px; }
+  #s-purchasing .files { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+  #s-purchasing .file { font-size: 11px; color: var(--ink-2); min-width: 0; }
+  #s-purchasing .file .photo { aspect-ratio: 4 / 3; margin-bottom: 6px; }
+  #s-purchasing .file b { display: block; font-family: var(--mono); font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #s-purchasing .readonly { background: var(--paper-2); color: var(--ink-2); display: flex; align-items: center; box-shadow: none; }
+  #s-purchasing .group { display: flex; flex-direction: column; gap: 12px; }
+</style>
+
+<div class="toolbar">
+  <div class="summary-line"><span><b>7</b> POs this week</span><span><span class="dot rust"></span><b>$1,315</b> awaiting receipt</span><span><span class="dot red"></span><b>1</b> invoice difference</span><span><span class="dot amber"></span><b>1</b> lump-sum reminder</span></div>
+  <span class="grow"></span>
+  <button class="btn ghost sm" type="button" data-toast="Export started: 7 POs with lines, receipts and vendor invoices (.xlsx)">Export</button>
+  <button class="btn copper sm" type="button" data-open="#sheet-purchasing-new"><svg><use href="#i-plus"/></svg>New PO</button>
+</div>
+
+<div class="split narrow-rail">
+  <aside class="rail">
+    <div class="search"><input class="input" type="search" placeholder="PO, vendor or work order" aria-label="Search purchase orders"></div>
+    <div class="seg" data-seg="purchasing-lines"><button type="button" class="on" data-val="all">All</button><button type="button" data-val="lump">Lump sum</button><button type="button" data-val="lined">Lined</button></div>
+    <button class="btn sm" type="button" data-open="#sheet-purchasing-filters"><svg><use href="#i-filter"/></svg>Filters · 1</button>
+    <div class="list stagger">
+      <button class="item" type="button" data-toast="PO 121 opened in the editor">
+        <span class="po">121</span>
+        <div><div class="title truncate">Carrier Enterprise</div><div class="sub truncate">1058 · Irvine Med Offices · warranty coil · Oct 14</div></div>
+        <div class="amt"><span class="money small">$48.00</span><span class="pill sched plain">Issued</span></div>
+      </button>
+      <button class="item" type="button" data-toast="PO 120 opened in the editor">
+        <span class="po">120</span>
+        <div><div class="title truncate">Johnstone Supply</div><div class="sub truncate">1064 · Irvine Med Offices · Suite 100 · actuator · Oct 13</div></div>
+        <div class="amt"><span class="money small">$318.90</span><span class="pill sched plain">Issued</span></div>
+      </button>
+      <button class="item" type="button" data-toast="PO 119 opened in the editor">
+        <span class="po">119</span>
+        <div><div class="title truncate">Ferguson HVAC</div><div class="sub truncate">1055 · Harbor &amp; Main Kitchen · lump sum · Oct 13</div></div>
+        <div class="amt"><span class="money small">$540.00</span><span class="pill route plain">Reminder Fri</span></div>
+      </button>
+      <button class="item on" type="button" aria-current="true">
+        <span class="po">118</span>
+        <div><div class="title truncate">Johnstone Supply</div><div class="sub truncate">1063 · Newport Plaza Retail · 3 lines · Oct 12</div></div>
+        <div class="amt"><span class="money small">$642.80</span><span class="pill parts plain">Partial</span></div>
+      </button>
+      <button class="item" type="button" data-toast="PO 117 opened in the editor">
+        <span class="po">117</span>
+        <div><div class="title truncate">Grainger</div><div class="sub truncate">Truck stock · Van 12 · 4 lines · Oct 8</div></div>
+        <div class="amt"><span class="money small">$388.15</span><span class="pill site plain">Received</span></div>
+      </button>
+      <button class="item" type="button" data-toast="PO 116 opened in the editor">
+        <span class="po">116</span>
+        <div><div class="title truncate">Ferguson HVAC</div><div class="sub truncate">1047 · Santa Ana Gym · belts, bearings · Oct 7</div></div>
+        <div class="amt"><span class="money small">$212.40</span><span class="pill site plain">Received</span></div>
+      </button>
+      <button class="item" type="button" data-toast="PO 115 opened in the editor">
+        <span class="po">115</span>
+        <div><div class="title truncate">Johnstone Supply</div><div class="sub truncate">1052 · 17th Street Market · compressor · Oct 9</div></div>
+        <div class="amt"><span class="money small">$1,486.20</span><span class="pill done">Invoiced</span></div>
+      </button>
+    </div>
+    <div class="small faint">7 of 7 · last 14 days · <span class="money">$3,636.45</span></div>
+  </aside>
+
+  <div class="canvas">
+    <div class="page stack loose">
+      <div class="notice">
+        <span><b>Lump-sum reminder.</b> PO 119 · Ferguson · <span class="money">$540.00</span> for WO 1055 has no lines. Upload the pack list or line it by Fri Oct 16 so inventory gets the dollars by category. <span class="callout">1</span></span>
+        <span class="grow"></span>
+        <button class="btn sm" type="button" data-toast="PO 119 opened in the editor">Open PO 119</button>
+      </div>
+
+      <div class="row between wrap">
+        <div class="row wrap gap-2"><h2 class="num">PO 118</h2><span class="pill parts">Partial · 2 of 3 received</span><span class="pill hold plain">QuickBooks bill · not yet <span class="callout">4</span></span></div>
+        <div class="btn-group">
+          <button class="btn sm ghost" type="button" data-toast="PO 118 PDF ready to print">Print PO</button>
+          <button class="btn sm ghost" type="button" data-open="#modal-purchasing-email">Email PO</button>
+        </div>
+      </div>
+      <div class="small muted">Lined · Johnstone Supply, Santa Ana · issued Oct 12 by James Reynolds · WO 1063 Newport Plaza Retail, RTU-3 low charge · cost <span class="money">$642.80</span></div>
+
+      <hr class="divider">
+
+      <div class="field-grid">
+        <div class="field"><label>Ship to</label><select class="select"><option>Main · Costa Mesa shop</option><option>Irvine shop</option><option>Job site · Newport Plaza Retail</option><option>Van 9 · Andre Walsh</option></select></div>
+        <div class="field"><label>Warehouse</label><select class="select"><option>Main · Costa Mesa</option><option>Irvine shop</option><option>Van 9 · Andre Walsh</option></select></div>
+        <div class="field"><label>Work order</label><select class="select"><option>1063 · Newport Plaza Retail · RTU-3 low charge</option><option>Truck stock</option><option>1055 · Harbor &amp; Main Kitchen</option><option>1058 · Irvine Med Offices · Suite 200</option></select></div>
+        <div class="field"><label>Site</label><input class="input" value="Newport Plaza Retail · 1200 Newport Center Dr, Newport Beach" aria-label="Site"></div>
+        <div class="field"><label>Vendor</label><select class="select"><option>Johnstone Supply · Santa Ana</option><option>Ferguson HVAC · Costa Mesa</option><option>Carrier Enterprise · Anaheim</option><option>Grainger · Irvine</option></select></div>
+        <div class="field"><label>Vendor order number</label><input class="input num" value="S-2210447" aria-label="Vendor order number"></div>
+      </div>
+      <label class="check" data-check><i></i><span>Lump sum <span class="small faint">· one amount, no lines; Follow-ups reminds you until the pack list is uploaded or the PO is lined</span></span></label>
+
+      <hr class="divider">
+
+      <div class="group">
+        <div class="section-head">
+          <h3>Lines <span class="faint">· 3</span></h3>
+          <div class="btn-group">
+            <button class="btn sm ghost" type="button" data-toast="Empty line added">Add line</button>
+            <button class="btn sm moss" type="button" data-toast="All 3 lines received into Main · Costa Mesa. WO 1063 moved off Waiting on parts.">Receive all</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="table dense lines">
+            <thead><tr><th>Description</th><th>Category</th><th class="num">Qty</th><th class="num">Unit cost</th><th class="num">Extended</th><th>Received</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="strong">TXV, Sporlan OVE-5-C, R-410A, 5 ton</div><div class="hint">Johnstone <span class="money">$186.40</span> · in stock, Santa Ana <span class="callout">2</span></div></td>
+                <td><select class="select" aria-label="Category"><option>Controls</option><option>Refrigerant</option><option>Fittings &amp; copper</option><option>Motors</option><option>Electrical</option></select></td>
+                <td class="num">1</td><td class="num">186.40</td><td class="num">186.40</td>
+                <td class="num">1 of 1</td>
+              </tr>
+              <tr>
+                <td><div class="strong">Filter drier, Sporlan C-164-S, 1/2" ODF</div><div class="hint">Johnstone <span class="money">$24.20</span> · in stock, Santa Ana</div></td>
+                <td><select class="select" aria-label="Category"><option>Fittings &amp; copper</option><option>Controls</option><option>Refrigerant</option></select></td>
+                <td class="num">2</td><td class="num">24.20</td><td class="num">48.40</td>
+                <td class="num">2 of 2</td>
+              </tr>
+              <tr>
+                <td><div class="strong">R-410A refrigerant, 25 lb cylinder</div><div class="hint">Johnstone <span class="money">$408.00</span> · <span style="color: var(--rust);">backordered to Thu Oct 15</span></div></td>
+                <td><select class="select" aria-label="Category"><option>Refrigerant</option><option>Controls</option></select></td>
+                <td class="num">1</td><td class="num">408.00</td><td class="num">408.00</td>
+                <td><div class="stepper" aria-label="Received quantity"><button type="button" aria-label="Less">−</button><b>0</b><button type="button" aria-label="More" data-toast="Received 1 of 1 · line complete">+</button></div></td>
+              </tr>
+            </tbody>
+            <tfoot><tr><td colspan="4" class="right muted">Cost</td><td class="num strong">$642.80</td><td class="small faint">$234.80 received</td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="group">
+        <div class="section-head"><h3>Vendor invoice</h3><span class="small" style="color: var(--red);">Difference <b class="money">+$15.56</b></span></div>
+        <div class="field-grid">
+          <div class="field"><label>Invoice number</label><input class="input num" value="JS-884120" aria-label="Invoice number"></div>
+          <div class="field"><label>Invoice date</label><input class="input num" value="Oct 13, 2026" aria-label="Invoice date"></div>
+          <div class="field"><label>Invoice amount</label><input class="input money" value="$658.36" aria-label="Invoice amount"></div>
+          <div class="field"><label>PO cost</label><div class="input readonly money">$642.80</div></div>
+        </div>
+        <div class="row wrap small">
+          <span class="muted">Johnstone's "Freight" line is not on the PO.</span>
+          <span class="grow"></span>
+          <button class="btn sm" type="button" data-toast="Freight line $15.56 added to PO 118 · difference cleared">Add as freight</button>
+          <button class="btn sm ghost" type="button" data-toast="Dispute noted for Johnstone AR · PO 118 stays Partial">Dispute</button>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="group">
+        <div class="section-head">
+          <h3>Pack list or invoice</h3>
+          <div class="btn-group">
+            <button class="btn sm ghost" type="button" data-toast="Choose a photo or PDF">Upload</button>
+            <button class="btn sm ghost" type="button" data-toast="Read invoice JS-884120: number, date and total filled in. Lines are not extracted.">Read invoice</button>
+          </div>
+        </div>
+        <div class="files">
+          <div class="file"><div class="photo"><span class="cap">Pack list · Oct 13</span></div><b>packlist-118-a.jpg</b>Andre · 1.2 MB</div>
+          <div class="file"><div class="photo dark"><span class="cap">Invoice PDF</span></div><b>JS-884120.pdf</b>Johnstone email · 86 KB</div>
+          <div class="file"><div class="photo add">Add file</div><b>Drop or tap</b>photo or PDF</div>
+        </div>
+        <p class="small faint">Read invoice fills the number, date and total. It does not extract lines. <span class="callout">3</span></p>
+      </div>
+
+      <hr class="divider">
+
+      <div class="group">
+        <span class="eyebrow">Changes</span>
+        <div class="timeline">
+          <div class="tl moss"><div class="when">Oct 13 · 4:40 PM</div><div class="what">Received TXV and 2 filter driers into Main</div><div class="who">Andre Walsh · from the van</div></div>
+          <div class="tl amber"><div class="when">Oct 13 · 9:02 AM</div><div class="what">Johnstone: R-410A backordered to Thu</div><div class="who">Vendor email · attached</div></div>
+          <div class="tl steel"><div class="when">Oct 12 · 9:10 AM</div><div class="what">PO 118 issued · emailed to Johnstone</div><div class="who">James Reynolds</div></div>
+        </div>
+      </div>
+
+      <div class="row wrap">
+        <button class="btn ghost danger" type="button" data-toast="PO 118 cancelled · lines released">Cancel PO</button>
+        <span class="grow"></span>
+        <button class="btn" type="button" data-toast="PO 118 saved">Save</button>
+        <button class="btn copper" type="button" data-toast="PO 118 saved · 2 of 3 lines received">Save and receive</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Every filter (vendor, work order, number, Lump sum / Lined, status), the PO list with cost, and the editor fields: ship to, warehouse, work order (including Truck stock), site, vendor, lump sum with its Follow-ups reminder, lines with an inventory category, Mark received / Receive all, vendor invoice with the difference, pack list upload, Read invoice (still fills number, date and total only), Print PO, Email PO, Save / Save and receive.</li>
+    <li><span class="f">new</span>Supplier price hints under each line (callout 2): Johnstone's price and branch stock from the pricebook vendor feed [F10]. Receiving a line posts to the warehouse or the van by SKU, so the truck stock table on Inventory updates itself [F16]. The empty "ERP id" is a sync pill, "QuickBooks bill · not yet" (callout 4); a difference offers "Add as freight" or "Dispute" [F12].</li>
+    <li><span class="f">changed</span>Per the direction update: the PO list lives in a light rail with search, Lump sum / Lined and a Filters button (vendor, work order, number, status and dates in a sheet); the toolbar is one summary line plus Export and New PO. Each PO row carries one pill. The editor is a calm record: number, two pills, one line of facts, then field groups split by dividers instead of boxed cards.</li>
+    <li><span class="f">changed</span>Status words are pills in the shared language: steel issued, rust partial, moss received, solid moss vendor invoiced. The lump-sum reminder (callout 1) is the one notice on the page; Read invoice keeps its limit visible (callout 3).</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-purchasing-filters" role="dialog" aria-label="Purchasing filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label>Vendor</label><select class="select"><option>All vendors</option><option>Johnstone Supply · Santa Ana</option><option>Ferguson HVAC · Costa Mesa</option><option>Carrier Enterprise · Anaheim</option><option>Grainger · Irvine</option></select></div>
+    <div class="field"><label>Work order</label><select class="select"><option>Any work order</option><option>Truck stock</option><option>1052 · 17th Street Market</option><option>1055 · Harbor &amp; Main Kitchen</option><option>1058 · Irvine Med Offices · Suite 200</option><option>1063 · Newport Plaza Retail</option><option>1064 · Irvine Med Offices · Suite 100</option></select></div>
+    <div class="field"><label>PO or work order number</label><input class="input num" placeholder="118 or 1063-2" aria-label="PO or work order number"></div>
+    <div class="chip-group"><span class="eyebrow">Status</span><div class="chips"><button class="chip" type="button" data-chip>Issued <span class="count">3</span></button><button class="chip" type="button" data-chip>Partial <span class="count">1</span></button><button class="chip" type="button" data-chip>Received <span class="count">2</span></button><button class="chip" type="button" data-chip>Vendor invoiced <span class="count">1</span></button><button class="chip" type="button" data-chip>Cancelled <span class="count">0</span></button></div></div>
+    <div class="chip-group"><span class="eyebrow">Issued</span><div class="chips"><button class="chip on" type="button" data-chip>Last 14 days</button><button class="chip" type="button" data-chip>This month</button><button class="chip" type="button" data-chip>This quarter</button><button class="chip" type="button" data-chip>Custom dates</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Flags</span><div class="chips"><button class="chip" type="button" data-chip>Invoice difference</button><button class="chip" type="button" data-chip>Lump-sum reminder due</button><button class="chip" type="button" data-chip>Not pushed to QuickBooks</button></div></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button>
+    <button class="btn primary" type="button" data-close data-toast="Filters applied">Apply</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-purchasing-new" role="dialog" aria-label="New purchase order">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="num strong" style="font-size: 18px;">PO 122</span><span class="pill hold plain">Not saved yet</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="field-grid">
+      <div class="field"><label>Vendor</label><select class="select"><option>Choose a vendor</option><option>Johnstone Supply · Santa Ana</option><option>Ferguson HVAC · Costa Mesa</option><option>Carrier Enterprise · Anaheim</option><option>Grainger · Irvine</option></select></div>
+      <div class="field"><label>Work order</label><select class="select"><option>Choose</option><option>Truck stock</option><option>1055 · Harbor &amp; Main Kitchen</option><option>1058 · Irvine Med Offices · Suite 200</option><option>1063 · Newport Plaza Retail</option><option>1066 · Santa Ana Gym</option></select></div>
+      <div class="field"><label>Or type a number</label><input class="input num" placeholder="1063 or 1063-2" aria-label="Work order number"></div>
+      <div class="field"><label>Warehouse</label><select class="select"><option>Main · Costa Mesa</option><option>Irvine shop</option><option>Van 12 · Marcus Hale</option><option>Van 9 · Andre Walsh</option></select></div>
+      <div class="field span-2"><label>Ship to</label><select class="select"><option>Main · Costa Mesa shop</option><option>Irvine shop</option><option>Job site</option></select></div>
+    </div>
+    <label class="check" data-check><i></i><span>Lump sum</span></label>
+    <div class="field-grid">
+      <div class="field"><label>Lump-sum amount</label><input class="input money" placeholder="$0.00" aria-label="Lump-sum amount"></div>
+      <div class="field"><label>Reminder</label><div class="input readonly small">Pack list due 3 days after issue</div></div>
+    </div>
+    <p class="small faint">A lump-sum PO shows in Follow-ups until you upload the pack list or add lines. Lined POs post to inventory by category when received.</p>
+    <hr class="divider">
+    <div class="section-head"><h3>Lines</h3><button class="btn sm ghost" type="button" data-toast="Line added">Add line</button></div>
+    <div class="table-wrap">
+      <table class="table dense">
+        <thead><tr><th>Description</th><th>Category</th><th class="num">Qty</th><th class="num">Unit cost</th><th class="num">Extended</th></tr></thead>
+        <tbody>
+          <tr><td><input class="input" value="Contactor 2-pole 40 A 24 V" aria-label="Description" style="min-height: 32px; padding: 4px 8px;"><div class="small faint" style="margin-top: 4px;">Johnstone <span class="money">$21.60</span> · in stock, Santa Ana</div></td><td><select class="select" aria-label="Category" style="min-height: 32px; padding: 4px 26px 4px 8px;"><option>Electrical</option></select></td><td class="num">2</td><td class="num">21.60</td><td class="num">43.20</td></tr>
+          <tr><td><input class="input" placeholder="Part or description" aria-label="Description" style="min-height: 32px; padding: 4px 8px;"></td><td><select class="select" aria-label="Category" style="min-height: 32px; padding: 4px 26px 4px 8px;"><option>Choose</option></select></td><td class="num">1</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4" class="right muted">Cost</td><td class="num strong">$43.20</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn" type="button" data-close data-toast="PO 122 saved as Issued">Save</button>
+    <button class="btn copper" type="button" data-close data-toast="PO 122 saved and received into Main · Costa Mesa">Save and receive</button>
+  </div>
+</div>
+
+<div class="modal" id="modal-purchasing-email" role="dialog" aria-label="Email PO 118">
+  <div class="card">
+    <div class="card-head"><h2>Email PO 118</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+    <div class="stack">
+      <div class="field"><label>To</label><input class="input" value="orders@johnstone-santaana.example" aria-label="To"></div>
+      <div class="field"><label>Subject</label><input class="input" value="PO 118 · Harbor Coast Mechanical · WO 1063 Newport Plaza Retail" aria-label="Subject"></div>
+      <div class="field"><label>Message</label><textarea class="textarea" aria-label="Message">Hi Johnstone team, attached is PO 118 for pickup at the Santa Ana branch. Please confirm the R-410A backorder date. Thanks, James Reynolds, Harbor Coast Mechanical, 714-555-0100.</textarea></div>
+      <div class="row small muted"><span class="num">PO-118.pdf</span><span>attached · 48 KB</span><span class="grow"></span><span>Copy to James Reynolds</span></div>
+    </div>
+    <div class="row mt-3" style="justify-content: flex-end;">
+      <button class="btn ghost" type="button" data-close>Cancel</button>
+      <button class="btn copper" type="button" data-close data-toast="PO 118 emailed to Johnstone Supply · copy to James">Send</button>
+    </div>
+  </div>
+</div>
+</template>
+</section>

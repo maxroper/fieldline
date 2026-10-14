@@ -1,0 +1,235 @@
+<section class="screen" id="s-new-wo" data-title="New WO" data-group="office" data-face="office" data-order="14">
+<style>
+  #s-new-wo .intake { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, 1fr); gap: 32px; align-items: start; }
+  #s-new-wo .seg.fill { display: flex; }
+  #s-new-wo .seg.fill button { flex: 1 1 auto; }
+  #s-new-wo .call-no { font-family: var(--mono); font-size: 24px; font-weight: 500; letter-spacing: -0.02em; }
+  #s-new-wo .slots { grid-template-columns: minmax(0, 1fr); }
+  #s-new-wo .matched { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 10px 12px; border-radius: var(--r-2); background: var(--paper-2); font-size: 13px; }
+  #s-new-wo .matched .sub { color: var(--ink-2); font-size: 12px; }
+  #s-new-wo .sla { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-2); }
+  #s-new-wo .sla .meter { flex: 1; }
+  #s-new-wo .hist { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  #s-new-wo .hist:first-of-type { border-top: 0; }
+  #s-new-wo .hist .sub { color: var(--ink-2); font-size: 12px; }
+  #s-new-wo .form-section + .form-section { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 16px; }
+  @media (max-width: 1000px) { #s-new-wo .intake { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="back-bar">
+  <button class="btn ghost sm back" type="button" data-go="dispatch">Back to Dispatch board</button>
+  <div class="row">
+    <button class="btn sm ghost" type="button" data-toast="Draft saved">Save</button>
+    <button class="btn sm primary" type="button" data-go="dispatch" data-toast="WO 1072 created · in the open queue">Save and back</button>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-head">
+    <div>
+      <div class="row wrap gap-2"><h1>New work order</h1><span class="pill site plain"><span class="live"></span>Incoming call · <span class="num">0:42</span></span></div>
+      <div class="sub">Call intake · next number <span class="num">1072</span> · Costa Mesa team · opened 10:12 from caller ID</div>
+    </div>
+  </div>
+
+  <div class="intake">
+    <!-- Left: the form -->
+    <div class="card">
+      <div class="form-section">
+        <span class="eyebrow">Where</span>
+        <div class="field prefilled mt-2">
+          <label>Site <span class="prefilled-tag">prefilled</span></label>
+          <div class="search"><input class="input" type="search" value="Irvine Med Offices · Suite 200" placeholder="Customer, building, address, or contact" aria-label="Site search"></div>
+        </div>
+        <div class="matched mt-2">
+          <span class="avatar sm">IM</span>
+          <div><b>Irvine Med Offices · Suite 200</b> <span class="sub">· 4600 Barranca Pkwy, Irvine · Bill-to Barranca Medical Partners</span><div class="sub">Primary: Marcus Hale · Backup: Elena Cruz · Marcus is on site at this building now on 1058, until about noon <span class="callout">1</span></div></div>
+          <button class="btn sm subtle" type="button" data-toast="Type to search customers, buildings, addresses, or contacts. No match? Add site.">Change</button>
+        </div>
+        <div class="field-grid mt-3">
+          <div class="field prefilled">
+            <label>Unit or equipment <span class="prefilled-tag">prefilled</span></label>
+            <select class="select" aria-label="Unit">
+              <option>RTU-2 · Carrier 48TC · 7.5 ton · suite 200 · warranty</option>
+              <option>RTU-1 · Carrier 48TC · 5 ton · suite 200</option>
+              <option>RTU-3 · Trane YSC · 6 ton · suite 100</option>
+              <option>RTU-4 · Trane YSC · 6 ton · suite 100</option>
+              <option>Split · Mitsubishi · server closet</option>
+              <option>Not unit specific</option>
+            </select>
+            <div class="help">Dr. Park said "the unit over exam room 3". RTU-2 serves suite 200.</div>
+          </div>
+          <div class="field"><label>Location in building</label><input class="input" type="text" value="Roof, above exam room 3 · hatch by suite 210"></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <span class="eyebrow">What</span>
+        <div class="field mt-2">
+          <label>WO type</label>
+          <div class="seg light fill" data-seg="nw-type">
+            <button type="button" data-val="tm">T&amp;M</button>
+            <button type="button" class="on" data-val="nte">T&amp;M NTE</button>
+            <button type="button" data-val="quoted">Quoted job</button>
+            <button type="button" data-val="pm">Maintenance</button>
+          </div>
+        </div>
+        <div class="panel" data-seg-panel="nw-type" data-val="tm">
+          <div class="help mt-2">Gold agreement rate applies: <b>$165/h</b> journeyman, <b>$118/h</b> apprentice, no trip charge, parts 10% off list.</div>
+        </div>
+        <div class="panel on" data-seg-panel="nw-type" data-val="nte">
+          <div class="field-grid mt-2">
+            <div class="field prefilled"><label>NTE amount <span class="prefilled-tag">from agreement</span></label><input class="input money" type="text" value="$850.00"><div class="help">Gold allows up to $850 without written approval. Over that, the tech stops and quotes.</div></div>
+            <div class="field"><label>Approval contact</label><input class="input" type="text" value="Dr. Lena Park · 714-555-0142"></div>
+          </div>
+        </div>
+        <div class="panel" data-seg-panel="nw-type" data-val="quoted">
+          <div class="field-grid mt-2">
+            <div class="field"><label>Quoted amount</label><input class="input money" type="text" value="$3,420.00"></div>
+            <div class="field"><label>Material budget</label><input class="input money" type="text" value="$1,260.00"></div>
+            <div class="field"><label>Labor budget hours</label><input class="input num" type="text" value="8.0"></div>
+            <div class="field prefilled"><label>Labor budget $ <span class="prefilled-tag">auto</span></label><input class="input money" type="text" value="$496.00" readonly><div class="help">8.0 h × $62.00 journeyman cost rate</div></div>
+          </div>
+          <div class="summary-line mt-2"><span>Accrued use tax <b>$97.65</b></span><span>Total budget <b>$1,853.65</b></span><span>Sold margin <b>$1,566.35</b></span><span>Sold margin <b>45.8%</b></span></div>
+          <div class="help mt-1">Fill from an approved quote: <button class="btn sm subtle" type="button" data-toast="Budget filled from Quote 2041 · Better">Quote 2041 · Better · $3,420</button></div>
+        </div>
+        <div class="panel" data-seg-panel="nw-type" data-val="pm">
+          <div class="summary-line mt-2"><span>PM method <b>Pre-billed</b></span><span>PM price <b>$1,180</b> per visit</span><span>Fall visit 2 of 2 due <b>Nov 3</b></span></div>
+          <div class="help mt-1">Booking maintenance here pulls the fall visit forward. <button class="btn sm subtle" type="button" data-toast="Fall PM visit moved to this work order">Use the fall PM visit</button></div>
+        </div>
+        <div class="field-grid mt-3">
+          <div class="field">
+            <label>Priority</label>
+            <div class="seg light fill" data-seg="nw-pri"><button type="button" class="on" data-val="urgent">Urgent</button><button type="button" data-val="normal">Normal</button><button type="button" data-val="low">Low</button></div>
+            <div class="help">Water in an exam room. The Gold SLA counts from the call.</div>
+          </div>
+          <div class="field"><label>Estimated hours</label><input class="input num" type="text" value="1.5"></div>
+          <div class="field span-2">
+            <label>Problem</label>
+            <textarea class="textarea">Water dripping from the ceiling grille in exam room 3, under RTU-2. Staff moved patients out of the room at 10:00. Unit is still running and cooling.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <span class="eyebrow">Who called</span>
+        <div class="field-grid mt-2">
+          <div class="field prefilled"><label>Caller name <span class="prefilled-tag">caller ID</span></label><input class="input" type="text" value="Dr. Lena Park"></div>
+          <div class="field prefilled"><label>Caller phone <span class="prefilled-tag">caller ID</span></label><input class="input num" type="tel" value="714-555-0142"></div>
+          <div class="field"><label>Customer PO</label><input class="input" type="text" placeholder="Optional under NTE"><div class="help">Barranca Medical Partners requires a PO over $1,000.</div></div>
+          <div class="field"><label>Signature required</label><label class="switch on" data-switch><i></i>Required on site · site default</label></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <span class="eyebrow">For the technician</span>
+        <div class="field mt-2">
+          <label>Dispatcher notes to technician</label>
+          <textarea class="textarea">Check in at the front desk, suite 200. Roof hatch key is at the security desk. Dr. Park wants photos of the coil and the ceiling before and after. Same unit as 1058; read Marcus's notes first.</textarea>
+        </div>
+        <div class="row wrap mt-3">
+          <button class="btn copper lg" type="button" data-toast="WO 1072 added to the open queue">Create WO</button>
+          <button class="btn lg ghost" type="button" data-toast="WO 1072 created and placed: Marcus Hale, today 11:45">Create and place at the picked slot</button>
+        </div>
+        <div class="help mt-1">Goes to the open queue unless a slot is picked on the right.</div>
+      </div>
+    </div>
+
+    <!-- Right: what the system already knows -->
+    <aside class="stack loose">
+      <div class="card">
+        <div class="card-head">
+          <span class="eyebrow">Caller</span>
+          <button class="btn sm subtle" type="button" data-toast="Search by name, phone, or address to change the match">Not this customer?</button>
+        </div>
+        <div class="call-no">714-555-0142</div>
+        <div class="row gap-2 mt-1"><span class="avatar">LP</span><div><b>Dr. Lena Park</b><div class="small muted">Practice owner · Irvine Med Offices · Suite 200 · mobile on the site contact</div></div></div>
+        <dl class="facts tight mt-3">
+          <dt>Open WOs</dt><dd><span class="num">3</span> · 1058 on site now · 1064 waiting on parts · 1045 ready to close</dd>
+          <dt>Last visit</dt><dd>Oct 2 · Elena Cruz · RTU-1 belt and filters · <span class="num">1.5 h</span></dd>
+          <dt>RTU-2</dt><dd>Carrier 48TC · 7.5 ton · R-410A · 2023 · parts warranty to 2033</dd>
+          <dt>Balance</dt><dd><span class="money">$1,186</span> · Invoice 742 due Oct 20 · card on file</dd>
+        </dl>
+        <div class="notice mt-3">
+          <div>
+            <b>Possible duplicate.</b> WO 1058 was opened yesterday for the same unit (warranty coil leak, suite 200). Marcus is on site now. <span class="callout">2</span>
+            <div class="row wrap mt-2">
+              <button class="btn sm primary" type="button" data-toast="Note added to 1058: Dr. Park called 10:12, water now dripping in exam room 3">Add note to 1058</button>
+              <button class="btn sm ghost" type="button" data-go="work-order">Open 1058</button>
+              <button class="btn sm subtle" type="button" data-toast="Continuing as a new work order">Continue new WO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="row between"><span class="eyebrow">Agreement</span><span class="pill copper plain">Gold</span></div>
+        <dl class="facts tight mt-2">
+          <dt>Response</dt><dd>4 h SLA · respond by <b class="num">2:12 PM</b> <span class="callout">3</span></dd>
+          <dt>PM visits</dt><dd>2 of 4 left · spring done Apr 8 · fall due Nov 3</dd>
+          <dt>Billing</dt><dd>Monthly · card on file · <span class="money">$640</span>/mo</dd>
+          <dt>Covers</dt><dd>PM labor and filters · 10% off parts · no trip charge · $165/h</dd>
+          <dt>Renewal</dt><dd>Mar 1, 2027 · auto-renew on</dd>
+        </dl>
+        <div class="sla mt-2"><span>SLA clock</span><span class="meter amber"><i style="width: 14%"></i></span><b class="num">0:33 of 4:00</b></div>
+      </div>
+
+      <hr class="divider">
+
+      <div>
+        <div class="row between"><span class="eyebrow">Next open slots</span><span class="tiny faint">capacity and drive time</span></div>
+        <div class="option-cards slots mt-2">
+          <button class="option-card on" type="button" data-option>
+            <span class="tier">Meets the SLA</span>
+            <div class="strong">Today 11:45 · Marcus Hale</div>
+            <div class="small muted">Already on site here, finishing 1058 · <span class="num">0 min</span> drive · Jamboree 1:00 shifts to 1:30</div>
+          </button>
+          <button class="option-card" type="button" data-option>
+            <span class="tier">Suggested</span>
+            <div class="strong">Today 3:00 · Priya Shah</div>
+            <div class="small muted"><span class="num">11 min</span> drive from Costa Mesa Library · 1.5 h free · misses the SLA by 48 min</div>
+          </button>
+          <button class="option-card" type="button" data-option>
+            <span class="tier">Alternative</span>
+            <div class="strong">Tomorrow 8:00 · Elena Cruz</div>
+            <div class="small muted">Site backup · <span class="num">14 min</span> from the shop · 4 h free</div>
+          </button>
+        </div>
+        <div class="row wrap mt-2">
+          <button class="btn sm ghost" type="button" data-go="dispatch">Pick on the board</button>
+          <button class="btn sm subtle" type="button" data-toast="Left in the open queue for the dispatcher">Leave unscheduled</button>
+        </div>
+        <div class="tiny faint mt-1">Suggestions only. Nothing moves until you place it. <span class="callout">4</span></div>
+      </div>
+
+      <hr class="divider">
+
+      <div>
+        <div class="row between"><span class="eyebrow">Site history</span><button class="btn sm subtle" type="button" data-go="site-equipment">Site &amp; equipment</button></div>
+        <div class="mt-2">
+          <div class="hist"><span class="num strong">1058</span><div>Warranty coil leak, suite 200<div class="sub">Marcus · today 10:00 · RTU-2</div></div><span class="pill site plain">On site</span></div>
+          <div class="hist"><span class="num strong">1064</span><div>Economizer actuator, RTU-4<div class="sub">Andre · Thu · suite 100</div></div><span class="pill parts plain">Parts</span></div>
+          <div class="hist"><span class="num strong">1045</span><div>RTU-1 belt and filters<div class="sub">Elena · Oct 9</div></div><span class="pill ready plain">Ready to close</span></div>
+          <div class="hist"><span class="num strong">1040</span><div>RTU-1 belt squeal<div class="sub">Oct 2 · Elena · 1.5 h · Quote 2041 came from this visit</div></div><span class="pill done plain">Billed</span></div>
+          <div class="hist"><span class="num strong">1012</span><div>RTU-2 low charge · added 2.5 lb R-410A<div class="sub">Jul 11 · Elena · 2 h</div></div><span class="pill done plain">Billed</span></div>
+          <div class="hist"><span class="num strong">996</span><div>Spring PM · 4 RTUs and split<div class="sub">Apr 8 · Andre · 4 h · agreement visit</div></div><span class="pill done plain">Billed</span></div>
+        </div>
+        <div class="tiny faint mt-1">3 open · showing 3 of the last 15 visits.</div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Every intake field: site search with the crew hint (callout 1), unit or equipment, WO type T&amp;M / T&amp;M NTE / Quoted job / Maintenance with the NTE amount, the quoted budgets (quoted amount, material budget, labor budget hours and dollars from the journeyman cost rate, accrued use tax, total budget, sold margin and %), the PM method and price hint, priority, problem, caller name and phone, customer PO, signature required, dispatcher notes, and Create WO. The back bar keeps Save / Save and back; site history (open work orders, last visits) stays beside the form.</li>
+    <li><span class="f">new</span>F4 Caller-ID screen pop: the call matches the site contact and fills site, unit, caller name and phone (green "prefilled" tags). The caller card shows open WOs, last visit, equipment warranty, and balance before the dispatcher asks a question. Duplicate detection (callout 2) catches that 1058 was opened yesterday for the same unit and offers "Add note to 1058" instead of a second ticket.</li>
+    <li><span class="f">new</span>F5 Agreement block: Gold tier, 4 h response with a live SLA clock (callout 3), PM visits left, billing, coverage. The NTE amount and the contract rate come from the agreement.</li>
+    <li><span class="f">new</span>F2 Capacity-aware time picker: three open slots ranked by SLA fit and drive time, with the reason for each. It suggests; the dispatcher still places (callout 4). "Create and place at the picked slot" goes straight to the board.</li>
+    <li><span class="f">changed</span>One card holds the form in four quiet sections (Where, What, Who called, For the technician) separated by hairlines; the right column has one card (the caller) and plain blocks. WO type is a segmented control whose panel shows only the budget fields that type needs. The matched site is one row with a Change link instead of a results list.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+</template>
+</section>

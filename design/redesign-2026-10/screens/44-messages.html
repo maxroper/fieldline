@@ -1,0 +1,263 @@
+<section class="screen" id="s-messages" data-title="Messages" data-group="office" data-face="office" data-order="44">
+<style>
+  #s-messages .thread { display: flex; flex-direction: column; min-height: calc(100vh - var(--review-h) - var(--top-h) - 58px); }
+  #s-messages .thread-head { padding: 16px 24px 14px; border-bottom: 1px solid var(--line); background: var(--card); display: flex; flex-direction: column; gap: 6px; }
+  #s-messages .bubbles { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; }
+  #s-messages .bubble { max-width: 70%; padding: 9px 12px; border-radius: var(--r-3); font-size: 13px; line-height: 1.45; min-width: 0; overflow-wrap: anywhere; }
+  #s-messages .bubble .meta { display: block; font-size: 11px; color: var(--ink-3); margin-top: 4px; font-family: var(--mono); }
+  #s-messages .bubble.them { align-self: flex-start; background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  #s-messages .bubble.us { align-self: flex-end; background: var(--ink); color: var(--paper); border-bottom-right-radius: 4px; }
+  #s-messages .bubble.us .meta { color: #b9ad9c; }
+  #s-messages .bubble.auto { align-self: flex-end; background: var(--steel-tint); color: var(--steel-deep); border: 1px dashed #b9cbda; border-bottom-right-radius: 4px; }
+  #s-messages .bubble.auto .meta { color: var(--steel); }
+  #s-messages .bubble.note { align-self: stretch; max-width: none; background: var(--amber-tint); color: var(--amber-deep); font-size: 12px; }
+  #s-messages .bubble.note .meta { color: var(--amber-deep); opacity: 0.8; }
+  #s-messages .bubble .link { font-family: var(--mono); text-decoration: underline; }
+  #s-messages .day-sep { align-self: center; font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 10px; }
+  #s-messages .composer { border-top: 1px solid var(--line); background: var(--card); padding: 14px 24px 18px; display: flex; flex-direction: column; gap: 10px; }
+  #s-messages .rail .item { padding: 10px 12px; grid-template-columns: auto minmax(0, 1fr); }
+  #s-messages .rail .item .pill { min-height: 18px; font-size: 11px; padding: 1px 7px; }
+  #s-messages .rail .item .when { font-family: var(--mono); font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+  #s-messages .auto-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  #s-messages .auto-row:last-child { border-bottom: 0; }
+  #s-messages .auto-row .sub { font-size: 11px; color: var(--ink-3); }
+  @media (max-width: 900px) { #s-messages .thread { min-height: 0; } #s-messages .bubble { max-width: 88%; } #s-messages .thread-head, #s-messages .bubbles, #s-messages .composer { padding-left: 16px; padding-right: 16px; } }
+</style>
+
+<div class="toolbar">
+  <div class="summary-line"><span><span class="dot red"></span><b>5</b> unread</span><span><b>3</b> need a reply</span><span>First reply <b>6 min</b> average</span><span><span class="dot amber"></span><b>9</b> ETA texts today · 1 failed</span></div>
+  <span class="grow"></span>
+  <button class="btn copper sm" type="button" data-open="#sheet-messages-new"><svg><use href="#i-plus"/></svg>New message</button>
+</div>
+
+<div class="split">
+  <aside class="rail">
+    <div class="search"><input class="input" type="search" placeholder="Messages, customers or numbers" aria-label="Search messages"></div>
+    <div class="seg" data-seg="messages-box"><button type="button" class="on" data-val="all">All <span class="count">24</span></button><button type="button" data-val="unread">Unread <span class="count">5</span></button><button type="button" data-val="reply">Needs reply <span class="count">3</span></button></div>
+    <button class="btn sm" type="button" data-open="#sheet-messages-filters"><svg><use href="#i-filter"/></svg>Filters</button>
+    <div class="list stagger">
+      <button class="item on" type="button" aria-current="true">
+        <span class="avatar amber">YR</span>
+        <div>
+          <div class="row between"><span class="title truncate">Yolanda Ruiz</span><span class="when">2:43 PM</span></div>
+          <div class="sub truncate">Warner Business Park · Is Andre still coming today? The tracker says he stopped…</div>
+          <div class="row mt-1" style="gap: 6px;"><span class="pill urgent plain">Needs reply</span><span class="tiny faint">SMS · 2 unread</span></div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Tony Reyes">
+        <span class="avatar rust">TR</span>
+        <div>
+          <div class="row between"><span class="title truncate">Tony Reyes</span><span class="when">1:58 PM</span></div>
+          <div class="sub truncate">Harbor &amp; Main Kitchen · Dining room at 84 again. Anyone today?</div>
+          <div class="row mt-1" style="gap: 6px;"><span class="pill urgent plain">Needs reply</span><span class="tiny faint">SMS · WO 1055 · 1 unread</span></div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Dr. Lena Park">
+        <span class="avatar">LP</span>
+        <div>
+          <div class="row between"><span class="title truncate">Dr. Lena Park</span><span class="when">10:02 AM</span></div>
+          <div class="sub truncate">Irvine Med Offices · Marcus is on site and will update you by noon.</div>
+          <div class="tiny faint mt-1">SMS · automated</div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Kim Alvarez">
+        <span class="avatar steel">KA</span>
+        <div>
+          <div class="row between"><span class="title truncate">Kim Alvarez</span><span class="when">9:40 AM</span></div>
+          <div class="sub truncate">Newport Plaza Retail · You: Parts for RTU-3 land Thu; Andre finishes Thu afternoon.</div>
+          <div class="tiny faint mt-1">SMS · replied</div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Dre Collins">
+        <span class="avatar moss">DC</span>
+        <div>
+          <div class="row between"><span class="title truncate">Dre Collins</span><span class="when">9:12 AM</span></div>
+          <div class="sub truncate">Santa Ana Gym · Review request after 1047 · Thanks for the quick belt fix!</div>
+          <div class="tiny faint mt-1">SMS · automated · 5-star review</div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Costa Mesa Library">
+        <span class="avatar" style="background: var(--red-tint); color: var(--red);">CL</span>
+        <div>
+          <div class="row between"><span class="title truncate">Costa Mesa Library</span><span class="when">8:55 AM</span></div>
+          <div class="sub truncate">ETA text failed · front desk number is a landline · call 714-555-0190</div>
+          <div class="row mt-1" style="gap: 6px;"><span class="pill urgent plain">Failed</span><span class="tiny faint">in Follow-ups · 1 unread</span></div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Huntington Harbour Dental">
+        <span class="avatar plum">HD</span>
+        <div>
+          <div class="row between"><span class="title truncate">Huntington Harbour Dental</span><span class="when">7:00 AM</span></div>
+          <div class="sub truncate">Confirm Thu Oct 15 8:00? Reply C to confirm. · No reply yet</div>
+          <div class="row mt-1" style="gap: 6px;"><span class="pill route plain">Unconfirmed</span><span class="tiny faint">SMS · automated</span></div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Sam Whitaker">
+        <span class="avatar steel">SW</span>
+        <div>
+          <div class="row between"><span class="title truncate">Sam Whitaker</span><span class="when">Yesterday</span></div>
+          <div class="sub truncate">Bristol Court Offices · Fall PM confirmation for Oct 14–15 · Confirmed</div>
+          <div class="tiny faint mt-1">Email · automated</div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Oak Creek Professional">
+        <span class="avatar">OC</span>
+        <div>
+          <div class="row between"><span class="title truncate">Oak Creek Professional</span><span class="when">Mon</span></div>
+          <div class="sub truncate">Quote 2042 · day 6 email · Condensate drain repair, $1,240 · Viewed Tue 4:12 PM</div>
+          <div class="tiny faint mt-1">Email · unsold quote cadence, day 6</div>
+        </div>
+      </button>
+      <button class="item" type="button" data-toast="Thread opened: Jamboree Corporate">
+        <span class="avatar plum">JC</span>
+        <div>
+          <div class="row between"><span class="title truncate">Jamboree Corporate</span><span class="when">Mon</span></div>
+          <div class="sub truncate">Facilities · PO 7781 attached for the thermostat swap in suite 310</div>
+          <div class="tiny faint mt-1">Email · filed on 1061 · 1 unread</div>
+        </div>
+      </button>
+    </div>
+    <div class="small faint">24 threads · 14 more from last week <span class="callout">1</span></div>
+
+    <hr class="divider">
+    <div class="row between"><span class="eyebrow">Automations <span class="callout">3</span></span><button class="btn sm subtle" type="button" data-open="#sheet-messages-cadence">Edit</button></div>
+    <div>
+      <div class="auto-row"><label class="switch on" data-switch><i></i></label><div>Appointment confirmations<div class="sub">24 h before · reply C confirms</div></div><span class="num small faint">31 sent</span></div>
+      <div class="auto-row"><label class="switch on" data-switch><i></i></label><div>On my way with live ETA<div class="sub">When the tech taps On my way</div></div><span class="num small faint">44 sent</span></div>
+      <div class="auto-row"><label class="switch on" data-switch><i></i></label><div>Running late<div class="sub">ETA slips 15 min or more</div></div><span class="num small faint">6 sent</span></div>
+      <div class="auto-row"><label class="switch on" data-switch><i></i></label><div>Review request<div class="sub">2 h after completion</div></div><span class="num small faint">12 · 4 reviews</span></div>
+      <div class="auto-row"><label class="switch on" data-switch><i></i></label><div>Unsold quote cadence<div class="sub">Day 2 text · day 6 email · day 14 call</div></div><span class="num small faint">7 active</span></div>
+      <div class="auto-row"><label class="switch" data-switch><i></i></label><div>Invoice reminders<div class="sub">7 / 14 / 30 days with a payment link</div></div><span class="num small faint">off</span></div>
+    </div>
+  </aside>
+
+  <div class="canvas">
+    <div class="thread">
+      <div class="thread-head">
+        <div class="row between wrap">
+          <div class="row wrap gap-2"><h2>Yolanda Ruiz</h2><span class="pill urgent">Needs reply</span><span class="pill plain">SMS · 714-555-0171</span></div>
+          <div class="btn-group">
+            <button class="btn sm ghost" type="button" data-toast="Calling 714-555-0171 from the office line">Call</button>
+            <button class="btn sm ghost" type="button" data-go="work-order">Open WO 1068</button>
+            <button class="btn sm ghost" type="button" data-toast="Thread marked done · stays searchable">Mark done</button>
+          </div>
+        </div>
+        <div class="small muted">Warner Business Park, Santa Ana · facilities manager · Silver agreement, 8 h response · balance <span class="money">$0</span>, card on file · WO 1068 compressor amp draw high, RTU-6 · <span class="live">Andre en route · live ETA 3:05</span></div>
+      </div>
+
+      <div class="bubbles">
+        <span class="day-sep">Yesterday · Oct 13</span>
+        <div class="bubble auto">Harbor Coast Mechanical: Hi Yolanda, Andre Walsh is scheduled at Warner Business Park Wed Oct 14, 2:30–5:00 PM for WO 1068 (compressor amp draw high, RTU-6). Reply C to confirm or call 714-555-0100.<span class="meta">Automated · Appointment confirmation · 4:00 PM · Delivered</span></div>
+        <div class="bubble them">C<span class="meta">4:12 PM</span></div>
+        <div class="bubble auto">Thanks, you're confirmed for Wed 2:30–5:00 PM. We'll text when Andre is on the way.<span class="meta">Automated · 4:12 PM · WO 1068 marked Confirmed</span></div>
+        <span class="day-sep">Today · Oct 14</span>
+        <div class="bubble auto">Andre is on the way to Warner Business Park, ETA 2:36 PM. Follow along: <span class="link">fieldline.app/t/8f2k</span> <span class="callout">2</span><span class="meta">Automated · On my way · 2:12 PM · Link opened 2:14 PM</span></div>
+        <div class="bubble them">Is Andre still coming today? The tracker says he stopped. Front desk closes at 5.<span class="meta">2:41 PM</span></div>
+        <div class="bubble them">Also please have him check the unit on the north side first, that's the one tripping.<span class="meta">2:43 PM</span></div>
+        <div class="bubble note">Internal · James: Andre is held at Newport Plaza, the PO 118 cylinder did not show. New ETA 3:05. Running-late text suggested below.<span class="meta">2:44 PM · only the office sees this</span></div>
+      </div>
+
+      <div class="composer">
+        <div class="row wrap"><span class="eyebrow">Template</span><select class="select-pill" aria-label="Template"><option>Running late</option><option>Parts arrived</option><option>Review request</option><option>Confirm appointment</option><option>Invoice link</option><option>Quote follow-up</option><option>None</option></select><span class="grow"></span><label class="switch" data-switch><i></i><span>Internal note</span></label></div>
+        <textarea class="textarea" aria-label="Message" style="min-height: 72px;">Hi Yolanda, Andre hit a delay at his last stop and now expects to arrive about 3:05 PM. He'll check in at the front desk and start with the north-side unit. Live ETA: fieldline.app/t/8f2k. Harbor Coast Mechanical</textarea>
+        <div class="row wrap">
+          <span class="small faint num">212 / 320 · 2 segments · from (714) 555-0119</span>
+          <span class="grow"></span>
+          <button class="btn sm ghost" type="button" data-toast="Attach a photo or PDF">Attach</button>
+          <button class="btn sm ghost" type="button" data-toast="Scheduled to send at 3:00 PM">Schedule</button>
+          <button class="btn sm copper" type="button" data-toast="Sent to Yolanda Ruiz · 714-555-0171. Andre notified: start with the north-side unit.">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Nothing to keep: the current app has no messaging. The "Text customer" action on a work order and the failed ETA text in Follow-ups land here as threads, and the thread header repeats the customer facts (agreement, balance, open work order) so nobody switches pages mid-reply.</li>
+    <li><span class="f">new</span>F3 Two-way SMS inbox with threads by customer (callout 1), SMS or email per thread, Unread and Needs reply views, and the automated "On my way" message with the live tracking link (callout 2) shown in-thread. The composer carries a template picker, segment count, an internal-note switch, Schedule and Send.</li>
+    <li><span class="f">new</span>F14 Automations as one quiet list under the threads (callout 3): confirmations, on-my-way, running late, review request after completion, unsold-quote cadence and invoice reminders, each with a switch and a sent count; the cadence sheet edits the steps. The failed ETA text (Costa Mesa Library, landline) shows here and in Follow-ups.</li>
+    <li><span class="f">changed</span>Per the direction update: the thread is the focus and the rail holds search, All / Unread / Needs reply, a Filters button and the list; the right-hand customer panel is gone, replaced by a calm header with two pills and one line of facts. Each thread row carries at most one pill. Automated bubbles are steel with a dashed edge, office replies ink, customer messages paper, internal notes amber and never leave the office.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-messages-filters" role="dialog" aria-label="Message filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="chip-group"><span class="eyebrow">Channel</span><div class="chips"><button class="chip" type="button" data-chip>SMS <span class="count">19</span></button><button class="chip" type="button" data-chip>Email <span class="count">5</span></button></div></div>
+    <div class="chip-group"><span class="eyebrow">Kind</span><div class="chips"><button class="chip" type="button" data-chip>Customer replies</button><button class="chip" type="button" data-chip>Automated <span class="count">11</span></button><button class="chip" type="button" data-chip>Failed <span class="count">1</span></button><button class="chip" type="button" data-chip>Unconfirmed visits <span class="count">1</span></button></div></div>
+    <div class="field"><label>Assigned to</label><select class="select"><option>Anyone</option><option>James Reynolds</option><option>Customer service</option><option>Unassigned</option></select></div>
+    <div class="field"><label>Linked work order</label><select class="select"><option>Any</option><option>1055 · Harbor &amp; Main Kitchen</option><option>1058 · Irvine Med Offices</option><option>1068 · Warner Business Park</option></select></div>
+    <div class="chip-group"><span class="eyebrow">When</span><div class="chips"><button class="chip" type="button" data-chip>Today</button><button class="chip" type="button" data-chip>This week</button><button class="chip" type="button" data-chip>Custom dates</button></div></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button>
+    <button class="btn primary" type="button" data-close data-toast="Filters applied">Apply</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-messages-new" role="dialog" aria-label="New message">
+  <div class="sheet-head">
+    <h2>New message</h2>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label>To</label><div class="search"><input class="input" value="Tony Reyes · Harbor &amp; Main Kitchen · 714-555-0188" aria-label="To"></div><div class="help">Customer contacts with a mobile number. Landlines get a call task instead.</div></div>
+    <div class="row wrap">
+      <div class="seg" data-seg="messages-new-channel"><button type="button" class="on" data-val="sms">SMS</button><button type="button" data-val="email">Email</button></div>
+      <select class="select-pill" aria-label="Template"><option>Template · Appointment set</option><option>Running late</option><option>Parts arrived</option><option>Review request</option><option>Invoice link</option><option>Quote follow-up</option></select>
+      <select class="select-pill" aria-label="Link to"><option>Link to WO 1055</option><option>No work order</option></select>
+    </div>
+    <div class="field"><label>Message</label><textarea class="textarea" aria-label="Message" style="min-height: 110px;">Hi Tony, Priya Shah is set for Harbor &amp; Main Kitchen today at 3:00 PM for the dining room temperature (WO 1055). You'll get a text with her live ETA when she's on the way. Harbor Coast Mechanical</textarea></div>
+    <div class="row small faint"><span class="num">221 / 320 · 2 segments</span><span class="grow"></span><span>From (714) 555-0119</span></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn copper" type="button" data-close data-toast="Sent to Tony Reyes · 714-555-0188 · filed on WO 1055">Send</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-messages-cadence" role="dialog" aria-label="Automations">
+  <div class="sheet-head">
+    <div class="row gap-2"><h2>Automations</h2><span class="pill site plain">5 of 6 on</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div>
+      <div class="row between"><h3>Unsold quote cadence</h3><label class="switch on" data-switch><i></i><span>On</span></label></div>
+      <div class="timeline mt-2">
+        <div class="tl steel"><div class="when">Day 2 · 9:00 AM</div><div class="what">Text: "Any questions on quote {number}? Reply here or approve online: {link}"</div><div class="who">SMS · skipped if viewed in the last 24 h</div></div>
+        <div class="tl steel"><div class="when">Day 6 · 9:00 AM</div><div class="what">Email: proposal PDF with Good / Better / Best and "as low as $/mo"</div><div class="who">Email · tracks opens</div></div>
+        <div class="tl amber"><div class="when">Day 14</div><div class="what">Call task to the account manager in Follow-ups</div><div class="who">Office · closes the cadence</div></div>
+        <div class="tl"><div class="when">Day 30</div><div class="what">Quote marked Follow-up · lost reason asked</div><div class="who">Automatic</div></div>
+      </div>
+      <div class="row wrap mt-1"><button class="btn sm ghost" type="button" data-toast="Step added after day 14">Add step</button><span class="grow"></span><span class="small muted">7 quotes in cadence · 2 won this quarter</span></div>
+    </div>
+    <hr class="divider">
+    <div>
+      <div class="row between"><h3>Review request</h3><label class="switch on" data-switch><i></i><span>On</span></label></div>
+      <div class="field-grid mt-2">
+        <div class="field"><label>Send</label><select class="select"><option>2 hours after completion</option><option>Next morning 9:00</option></select></div>
+        <div class="field"><label>Only when</label><select class="select"><option>Invoice paid or agreement job</option><option>Always</option></select></div>
+        <div class="field span-2"><label>Text</label><textarea class="textarea" aria-label="Review text" style="min-height: 64px;">Thanks for choosing Harbor Coast Mechanical, {first name}. If {tech} did a good job today, a quick review helps our small crew: {review link}</textarea></div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div>
+      <div class="row between"><h3>Appointment confirmations</h3><label class="switch on" data-switch><i></i><span>On</span></label></div>
+      <div class="field-grid mt-2">
+        <div class="field"><label>Send</label><select class="select"><option>24 hours before</option><option>48 hours before</option></select></div>
+        <div class="field"><label>No reply by</label><select class="select"><option>7:00 AM day of · flag Unconfirmed</option><option>Never flag</option></select></div>
+      </div>
+    </div>
+    <hr class="divider">
+    <p class="small muted">Quiet hours 8:00 PM to 7:00 AM Pacific. Anything due inside quiet hours waits for 7:00 AM.</p>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn primary" type="button" data-close data-toast="Automations saved">Save</button>
+  </div>
+</div>
+</template>
+</section>

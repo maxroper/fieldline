@@ -1,0 +1,152 @@
+<section class="screen" id="s-design-system" data-title="Design system" data-group="review" data-face="review" data-order="2">
+<style>
+  #s-design-system .demo { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  #s-design-system .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  #s-design-system .scale-row { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  #s-design-system .scale-row:last-child { border-bottom: 0; }
+  #s-design-system .motion-demo { display: flex; gap: 10px; flex-wrap: wrap; }
+  #s-design-system .motion-demo .card { flex: 1 1 200px; }
+  #s-design-system .sp { display: inline-block; background: var(--copper-tint); border: 1px solid var(--copper); height: 16px; vertical-align: middle; margin-right: 8px; }
+  #s-design-system .rad { display: inline-block; width: 44px; height: 32px; background: var(--card); border: 1px solid var(--line-2); vertical-align: middle; margin-right: 8px; }
+</style>
+<div class="doc">
+  <div>
+    <span class="eyebrow">Design system · Fieldline</span>
+    <h1 class="mt-1">Paper, ink, copper</h1>
+    <p class="lede mt-2">The system behind every screen in this pass. It keeps Fieldline's palette and type and turns them into tokens, a small set of components, one layout grammar, and rules for state, numbers and motion. The CSS in <code>design/redesign-2026-10/fieldline-ds.css</code> is its first implementation and is meant to become the product's stylesheet.</p>
+  </div>
+
+  <h2>Color</h2>
+  <p>Six roles. Paper and ink carry the page; copper is the one accent, used for the action that matters and for the "now" line; the four state hues carry job state and never decorate.</p>
+  <div class="swatches">
+    <div class="swatch"><i style="background:#f6f1e8"></i><div><b>Paper</b><code>--paper #f6f1e8</code></div></div>
+    <div class="swatch"><i style="background:#fffdf8"></i><div><b>Card</b><code>--card #fffdf8</code></div></div>
+    <div class="swatch"><i style="background:#efe7db"></i><div><b>Paper 3</b><code>--paper-3 #efe7db</code></div></div>
+    <div class="swatch"><i style="background:#e4dccd"></i><div><b>Line</b><code>--line #e4dccd</code></div></div>
+    <div class="swatch"><i style="background:#1b1712"></i><div><b>Ink</b><code>--ink #1b1712</code></div></div>
+    <div class="swatch"><i style="background:#5c5348"></i><div><b>Ink 2</b><code>--ink-2 #5c5348</code></div></div>
+    <div class="swatch"><i style="background:#b4532a"></i><div><b>Copper</b><code>--copper #b4532a</code></div></div>
+    <div class="swatch"><i style="background:#8a3d1c"></i><div><b>Copper deep</b><code>--copper-deep #8a3d1c</code></div></div>
+    <div class="swatch"><i style="background:#e8a317"></i><div><b>Amber · en route</b><code>--amber #e8a317</code></div></div>
+    <div class="swatch"><i style="background:#3d5a73"></i><div><b>Steel · scheduled</b><code>--steel #3d5a73</code></div></div>
+    <div class="swatch"><i style="background:#3f6b4a"></i><div><b>Moss · on site, done</b><code>--moss #3f6b4a</code></div></div>
+    <div class="swatch"><i style="background:#9a4a32"></i><div><b>Rust · waiting on parts</b><code>--rust #9a4a32</code></div></div>
+    <div class="swatch"><i style="background:#9b2c2c"></i><div><b>Red · urgent, late</b><code>--red #9b2c2c</code></div></div>
+    <div class="swatch"><i style="background:#6d28d9"></i><div><b>Plum · quoted job</b><code>--plum #6d28d9</code></div></div>
+  </div>
+  <p class="small muted">Each state hue has a tint (<code>--amber-tint</code>, <code>--steel-tint</code>, and so on) for card backgrounds and pills, and a deep step for text on that tint. Tints are the only place a job color fills a surface.</p>
+
+  <h3>One language for job state</h3>
+  <div class="table-wrap">
+    <table class="table dense">
+      <thead><tr><th>State</th><th>Pill</th><th>Ticket tint</th><th>Where it appears</th></tr></thead>
+      <tbody>
+        <tr><td>Open, unassigned</td><td><span class="pill open">Open</span></td><td>paper</td><td>queue rail, lists</td></tr>
+        <tr><td>Scheduled</td><td><span class="pill sched">Scheduled</span></td><td><span class="tag" style="background:var(--steel-tint)">steel</span></td><td>board slots, week and month, timeline</td></tr>
+        <tr><td>En route</td><td><span class="pill route">En route</span></td><td><span class="tag" style="background:var(--amber-tint)">amber</span></td><td>board, tech head, map truck, customer page</td></tr>
+        <tr><td>On site</td><td><span class="pill site">On site</span></td><td><span class="tag" style="background:var(--moss-tint)">moss</span></td><td>board, tech head, status track</td></tr>
+        <tr><td>Waiting on parts</td><td><span class="pill parts">Parts</span></td><td><span class="tag" style="background:var(--rust-tint)">rust</span></td><td>queue, follow-ups, purchasing</td></tr>
+        <tr><td>Done, ready to close</td><td><span class="pill ready">Ready to close</span></td><td>moss, dashed</td><td>queue tab, closeout</td></tr>
+        <tr><td>Billed</td><td><span class="pill done">Billed</span></td><td>moss solid</td><td>billing, work order</td></tr>
+        <tr><td>Urgent or late</td><td><span class="pill urgent">Urgent</span></td><td><span class="tag" style="background:var(--red-tint)">red</span></td><td>anywhere a job is late or urgent</td></tr>
+        <tr><td>Quoted job</td><td><span class="pill quote">Quoted</span></td><td><span class="tag" style="background:var(--plum-tint)">plum</span></td><td>queue, board, quoting</td></tr>
+        <tr><td>Warranty</td><td><span class="pill warranty">Warranty</span></td><td>steel</td><td>work order, equipment</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Type</h2>
+  <p>IBM Plex Sans for everything that is read, IBM Plex Mono with tabular figures for everything that is counted: work order numbers, times, hours, money. Weights are 400, 500 and 600 only. Headings get tight letter-spacing; uppercase eyebrows get loose letter-spacing.</p>
+  <div class="card">
+    <div class="scale-row"><code>hero 40</code><span style="font-size:40px;font-weight:600;letter-spacing:-0.04em;line-height:1.1" class="tabular">$186.4k</span></div>
+    <div class="scale-row"><code>kpi 28</code><span style="font-size:28px;font-weight:600;letter-spacing:-0.04em" class="tabular">14 visits</span></div>
+    <div class="scale-row"><code>title 24</code><span style="font-size:24px;font-weight:600;letter-spacing:-0.03em">Dispatch board</span></div>
+    <div class="scale-row"><code>section 18</code><span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Irvine Med Offices · Suite 200</span></div>
+    <div class="scale-row"><code>body 14</code><span>Kitchen too hot, dining room 84°. Make-up air unit tripping on high limit.</span></div>
+    <div class="scale-row"><code>dense 13</code><span style="font-size:13px">Table rows, facts, and phone body copy.</span></div>
+    <div class="scale-row"><code>meta 12</code><span class="small muted">Costa Mesa · Service · Urgent · 8 days old</span></div>
+    <div class="scale-row"><code>eyebrow 11</code><span class="eyebrow">Open queue · drag onto the board</span></div>
+    <div class="scale-row"><code>mono</code><span class="num">1058 · 10:00–12:00 · 2.5 h · $1,840.00</span></div>
+  </div>
+
+  <h2>Space, radius, elevation</h2>
+  <div class="grid cols-3">
+    <div class="card"><span class="eyebrow">Spacing</span><div class="stack tight mt-1 small"><div><span class="sp" style="width:4px"></span>4 · inside pills and chips</div><div><span class="sp" style="width:8px"></span>8 · between siblings</div><div><span class="sp" style="width:12px"></span>12 · between cards</div><div><span class="sp" style="width:16px"></span>16 · card padding, page gutter</div><div><span class="sp" style="width:24px"></span>24 · between sections</div></div></div>
+    <div class="card"><span class="eyebrow">Radius</span><div class="stack tight mt-1 small"><div><span class="rad" style="border-radius:8px"></span>8 · inputs, slots, small tiles</div><div><span class="rad" style="border-radius:12px"></span>12 · tickets, option cards</div><div><span class="rad" style="border-radius:16px"></span>16 · cards, sheets</div><div><span class="rad" style="border-radius:22px"></span>22 · phone bottom sheets</div><div><span class="rad" style="border-radius:999px"></span>pill · buttons, chips, selects</div></div></div>
+    <div class="card"><span class="eyebrow">Elevation</span><div class="stack tight mt-1 small"><div class="card flat" style="padding:8px">Level 0 · flat, borders only</div><div class="card" style="padding:8px">Level 1 · cards and buttons, a 1px lift</div><div class="card" style="padding:8px;box-shadow:var(--shadow-2)">Level 2 · hovered tickets, dropdowns</div><div class="card" style="padding:8px;box-shadow:var(--shadow-3)">Level 3 · sheets and modals</div></div></div>
+  </div>
+
+  <h2>Components</h2>
+  <p>The same kinds of controls the app has today, drawn once. Everything below is live.</p>
+  <div class="spec">
+    <span class="eyebrow">Buttons</span>
+    <div class="demo"><button class="btn copper" type="button" data-toast="The one copper button per screen">Copper · the key action</button><button class="btn primary" type="button">Primary</button><button class="btn" type="button">Default</button><button class="btn ghost" type="button">Ghost</button><button class="btn subtle" type="button">Subtle</button><button class="btn danger" type="button">Danger</button><button class="btn sm" type="button">Small</button><button class="btn lg" type="button">Large</button><button class="btn xl" type="button">Phone · thumb size</button><button class="btn" type="button" disabled>Disabled</button></div>
+    <span class="eyebrow">Segmented and chips</span>
+    <div class="demo"><div class="seg" data-seg="ds-demo"><button type="button" class="on">Day</button><button type="button">Week</button><button type="button">Month</button></div><div class="seg light" data-seg="ds-demo2"><button type="button" class="on">Both teams</button><button type="button">Costa Mesa</button></div><button class="chip on" type="button" data-chip>Open WOs <span class="count">12</span></button><button class="chip" type="button" data-chip>Urgent</button><button class="chip" type="button" data-chip>Waiting on parts</button></div>
+    <span class="eyebrow">Pills, tags, dots</span>
+    <div class="demo"><span class="pill open">Open</span><span class="pill sched">Scheduled</span><span class="pill route">En route</span><span class="pill site">On site</span><span class="pill parts">Parts</span><span class="pill ready">Ready to close</span><span class="pill done">Billed</span><span class="pill urgent">Urgent</span><span class="pill quote">Quoted</span><span class="pill warranty">Warranty</span><span class="pill copper">Suggested</span><span class="tag mono">1058-2</span><span class="tag">Lead</span><span class="dot moss"></span><span class="dot amber"></span><span class="dot red"></span></div>
+    <span class="eyebrow">Tickets · the job card, tinted by state</span>
+    <div class="demo-grid">
+      <button class="ticket" type="button"><div class="ticket-head"><span class="ticket-no">1066</span><span class="pill sched">Normal</span></div><div class="ticket-title">Santa Ana Gym</div><div class="ticket-sub">Fall PM, 6 RTUs</div></button>
+      <button class="ticket t-red" type="button"><div class="ticket-head"><span class="ticket-no">1055</span><span class="pill urgent">Urgent</span></div><div class="ticket-title">Harbor &amp; Main Kitchen</div><div class="ticket-sub">Kitchen too hot</div></button>
+      <button class="ticket t-rust" type="button"><div class="ticket-head"><span class="ticket-no">1064</span><span class="pill parts">Parts</span></div><div class="ticket-title">Irvine Med Offices</div><div class="ticket-sub">Actuator due Thu</div></button>
+      <button class="ticket t-plum" type="button"><div class="ticket-head"><span class="ticket-no">1071</span><span class="pill quote">Approved</span></div><div class="ticket-title">Newport Coast HOA</div><div class="ticket-sub">Fan motor, bldg C</div></button>
+      <button class="ticket t-moss" type="button"><div class="ticket-head"><span class="ticket-no">1049</span><span class="pill site">On site</span></div><div class="ticket-title">Adams Avenue Plaza</div><div class="ticket-sub">Quarterly PM</div></button>
+      <button class="ticket t-amber" type="button"><div class="ticket-head"><span class="ticket-no">1059</span><span class="pill route">En route</span></div><div class="ticket-title">Balboa Bay Offices</div><div class="ticket-sub">RTU-2 no cooling</div></button>
+    </div>
+    <span class="eyebrow">Numbers and progress</span>
+    <div class="kpis"><div class="kpi"><span class="eyebrow">Billed this month</span><div class="value">$186.4<small>k</small></div><div class="delta up">+8.2% vs Sep</div></div><div class="kpi"><span class="eyebrow">Capacity</span><div class="value">82<small>%</small></div><div class="meter steel mt-1"><i style="width:82%"></i></div></div><div class="kpi"><span class="eyebrow">Week load</span><div class="load-bar mt-2"><i class="a" style="width:60%"></i><i class="b" style="width:20%"></i><i class="d" style="width:10%"></i></div><div class="delta">34 / 40 h</div></div><div class="kpi"><span class="eyebrow">Live</span><div class="value"><span class="live small">4 trucks moving</span></div></div></div>
+    <span class="eyebrow">Forms</span>
+    <div class="field-grid">
+      <div class="field"><label for="ds-in1">Problem</label><input class="input" id="ds-in1" value="Kitchen too hot, dining room 84°"></div>
+      <div class="field prefilled"><label for="ds-in2">Site <span class="prefilled-tag">prefilled</span></label><input class="input" id="ds-in2" value="Harbor &amp; Main Kitchen · Costa Mesa"></div>
+      <div class="field"><label for="ds-sel">WO type</label><select class="select" id="ds-sel"><option>T&amp;M</option><option>T&amp;M NTE</option><option>Quoted job</option><option>Maintenance</option></select></div>
+      <div class="field"><label for="ds-search">Search</label><div class="search"><input class="input" id="ds-search" placeholder="Customer, address, or work order"></div></div>
+      <div class="field"><label class="switch on" data-switch><i></i><span>Signature required</span></label></div>
+      <div class="field"><label class="check on" data-check><i></i><span>Waiting on parts</span></label></div>
+    </div>
+    <span class="eyebrow">Option cards · Good / Better / Best</span>
+    <div class="option-cards"><button class="option-card" type="button" data-option><span class="tier">Good</span><div class="price money">$1,840</div><div class="small muted">Replace fan motor</div></button><button class="option-card on" type="button" data-option><span class="tier">Better</span><div class="price money">$3,420</div><div class="small muted">Motor, capacitor, contactor, coil clean</div></button><button class="option-card" type="button" data-option><span class="tier">Best</span><div class="price money">$9,860</div><div class="small muted">Replace condensing unit · as low as $184/mo</div></button></div>
+    <span class="eyebrow">Status track and status buttons · tap to try</span>
+    <div data-status-host>
+      <div class="status-track"><div class="st done" data-st="sched">Scheduled</div><div class="st done" data-st="route">En route</div><div class="st now" data-st="site">On site</div><div class="st" data-st="done">Done</div><div class="st" data-st="bill">Billed</div></div>
+      <div class="big-actions mt-2" style="max-width:420px"><button class="btn" type="button" data-status-cycle="route" data-status-text="En route">En route</button><button class="btn on" type="button" data-status-cycle="site" data-status-text="On site">On site</button><button class="btn" type="button" data-status-cycle="done" data-status-text="Done">Complete</button><button class="btn copper" type="button" data-toast="Toast · confirmations look like this">Show a toast</button></div>
+    </div>
+    <span class="eyebrow">Avatars, timeline, notices, empty state, skeleton</span>
+    <div class="grid cols-2">
+      <div class="stack"><div class="row"><span class="avatar">MH</span><span class="avatar moss">EC</span><span class="avatar amber">AW</span><span class="avatar rust">PS</span><span class="avatar-stack"><span class="avatar sm">MH</span><span class="avatar sm moss">EC</span><span class="avatar sm amber">AW</span></span></div><div class="timeline"><div class="tl moss"><div class="when">10:02</div><div class="what">Arrived on site</div><div class="who">Marcus · GPS matched</div></div><div class="tl amber"><div class="when">9:31</div><div class="what">En route · ETA text sent</div><div class="who">Automatic</div></div></div></div>
+      <div class="stack"><div class="notice">Running 12 minutes over the scheduled window.</div><div class="notice red">Over the not-to-exceed amount by $140.</div><div class="notice moss">Synced 2 minutes ago.</div><div class="empty"><b>No visits this day</b>Pick another day or ask dispatch.</div><div class="skeleton" style="height:14px;width:70%"></div></div>
+    </div>
+  </div>
+
+  <h2>Layout grammar</h2>
+  <div class="grid cols-2">
+    <div class="card"><span class="eyebrow">Office</span><ol class="mt-1 small"><li><b>Sidebar menu</b>: grouped Work, Customers, Sales, Money, Insights; Users and Settings at the bottom; collapses to icons. The top bar holds the page title, the follow-up bell, and the one "+ New" button.</li><li><b>Toolbar</b>: one row at most: a segmented control, a date or search, a Filters button, one or two buttons, and a quiet summary line.</li><li><b>Rail</b>: the work list on the left: a search, a segmented control, a Filters button, the list.</li><li><b>Canvas</b>: the board, calendar, table or record.</li><li><b>Sheet</b>: the record you clicked slides in from the right; the page stays put. "Open full" goes to the record page.</li><li><b>Back bar</b> on every record and editor: "Back to <i>where I came from</i>" left, Save and Save and back right, a discard prompt if dirty.</li></ol></div>
+    <div class="card"><span class="eyebrow">Phone</span><ol class="mt-1 small"><li><b>One task per screen</b>, the next action as the biggest button.</li><li><b>Status track</b> at the top of a job, status buttons under it.</li><li><b>Sections</b> as rows with counts; bottom sheets for detail.</li><li><b>Sync pill</b> always visible; nothing blocks on the network.</li><li><b>Command box</b> at the bottom of the day: type or speak "Close, 1.5 hrs, filter change" and see it parsed before it applies.</li></ol></div>
+  </div>
+
+  <h2>Motion</h2>
+  <div class="motion-demo">
+    <div class="card"><span class="eyebrow">Durations</span><div class="small mt-1">120 ms hover and press · 220 ms state change · 380 ms screens and sheets</div></div>
+    <div class="card"><span class="eyebrow">Easing</span><div class="small mt-1">Standard for state, an expo-out for entrances, a small spring only on toggles and checkmarks</div></div>
+    <div class="card"><span class="eyebrow">Patterns</span><div class="small mt-1">Screens rise in; lists stagger by 40 ms; sheets slide; meters and bars grow from their baseline; lines draw; live dots pulse; skeletons shimmer while syncing</div></div>
+    <div class="card"><span class="eyebrow">Restraint</span><div class="small mt-1">One orchestrated moment per screen. Nothing loops except the live pulse. <code>prefers-reduced-motion</code> turns it all off.</div></div>
+  </div>
+
+  <h2>Rules</h2>
+  <ul>
+    <li><b>Summary before detail.</b> Counts, money and lateness at the top of every page.</li>
+    <li><b>State in form, not only in words.</b> A pill or tint for every state; color never alone (the word is always there).</li>
+    <li><b>Numbers in mono, aligned.</b> Tabular figures in every column; money with cents only on documents.</li>
+    <li><b>Copper is scarce.</b> One copper button per screen, the "now" line, the selected option. Everything else is ink or ghost.</li>
+    <li><b>Prefill and say so.</b> Anything the app already knows is filled and tagged; nobody picks the same thing twice.</li>
+    <li><b>Tap targets of 44 px on the phone.</b> Status buttons are 56 px.</li>
+    <li><b>Charts use one hue.</b> Copper for the measure, a neutral for de-emphasis, a darker copper ramp for ordered categories; direct labels on the ends; a hover value on every mark. Steel and moss are too close for side-by-side series.</li>
+    <li><b>Empty states say what will appear and how to add it.</b> Never a blank panel.</li>
+    <li><b>Night mode is possible, not designed.</b> Every color is a token, so a dark theme for techs working after dark is a later, deliberate pass, not an inversion.</li>
+  </ul>
+
+  <h2>Handoff</h2>
+  <p>Tokens are CSS custom properties on <code>:root</code>; components are plain class names with no framework dependency, so they port to CSS Modules or Tailwind v4 unchanged. The next step in the build is a Storybook of these components taken from this stylesheet, then the screens assembled from them.</p>
+</div>
+</section>

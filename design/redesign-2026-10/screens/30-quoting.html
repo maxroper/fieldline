@@ -1,0 +1,169 @@
+<section class="screen" id="s-quoting" data-title="Quoting" data-group="office" data-face="office" data-order="30">
+<style>
+  #s-quoting .toolbar .seg button { padding: 6px 10px; }
+  #s-quoting .toolbar .search { flex: 1 1 150px; max-width: 240px; }
+  #s-quoting .gbb { display: inline-flex; gap: 3px; vertical-align: middle; }
+  #s-quoting .gbb i { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--line); font: 10px/16px var(--mono); text-align: center; color: var(--ink-3); font-style: normal; }
+  #s-quoting .gbb i.on { background: var(--copper); border-color: var(--copper); color: #fff; }
+  #s-quoting .gbb i.off { opacity: 0.3; }
+  #s-quoting .auto-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 20px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  #s-quoting .auto-row:last-child { border-bottom: 0; }
+  #s-quoting .auto-row .sub { color: var(--ink-2); font-size: 12px; }
+  #s-quoting .lower { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  @media (max-width: 900px) { #s-quoting .lower { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+</style>
+
+<div class="toolbar">
+  <div class="seg" data-seg="quote-stage">
+    <button type="button" class="on" data-val="all">All <span class="count">18</span></button>
+    <button type="button" data-val="draft">Draft <span class="count">3</span></button>
+    <button type="button" data-val="sent">Sent <span class="count">5</span></button>
+    <button type="button" data-val="viewed">Viewed <span class="count">2</span></button>
+    <button type="button" data-val="approved">Approved <span class="count">4</span></button>
+    <button type="button" data-val="declined">Declined <span class="count">1</span></button>
+    <button type="button" data-val="follow">Follow-up <span class="count">3</span></button>
+  </div>
+  <div class="search"><input class="input" type="search" placeholder="Quote, customer, or site" aria-label="Search quotes"></div>
+  <button class="btn" type="button" data-open="#sheet-quoting-filters"><svg><use href="#i-filter"/></svg>Filters · <span class="num">2</span></button>
+  <span class="grow"></span>
+  <button class="btn copper" type="button" data-go="quote-editor">New quote</button>
+</div>
+
+<div class="page">
+  <div class="kpis stagger">
+    <div class="kpi">
+      <span class="eyebrow">Open value</span>
+      <div class="value"><span data-countup="41260" data-prefix="$">$41,260</span></div>
+      <div class="delta">10 quotes out · Better selected on 6</div>
+      <svg class="spark" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M0 26 L14 22 L28 24 L42 16 L56 18 L70 12 L84 14 L100 6 V32 H0 Z"/><path class="line" d="M0 26 L14 22 L28 24 L42 16 L56 18 L70 12 L84 14 L100 6"/><circle cx="100" cy="6" r="2.5"/></svg>
+    </div>
+    <div class="kpi">
+      <span class="eyebrow">Close rate · 30 d</span>
+      <div class="value"><span data-countup="58" data-suffix="%">58%</span></div>
+      <div class="delta up">+9 pts since options went out with every quote</div>
+    </div>
+    <div class="kpi">
+      <span class="eyebrow">Average quote</span>
+      <div class="value"><span data-countup="3180" data-prefix="$">$3,180</span></div>
+      <div class="delta">Better average <span class="money">$3,640</span> · Good <span class="money">$1,790</span></div>
+    </div>
+    <div class="kpi">
+      <span class="eyebrow">Follow-ups due</span>
+      <div class="value"><span data-countup="3">3</span><small>today</small></div>
+      <div class="delta">2 automated texts at 9:00 · 1 call for Priya</div>
+    </div>
+  </div>
+
+  <div class="table-wrap mt-4">
+    <table class="table">
+      <thead><tr><th>Quote</th><th>Customer</th><th>Site · unit</th><th>Reason</th><th>Status</th><th>Options <span class="callout">1</span></th><th class="num">Total</th><th>Follow-up</th><th>Last activity</th></tr></thead>
+      <tbody class="stagger">
+        <tr>
+          <td class="num primary-cell">2044</td><td>Harbor &amp; Main Kitchen</td><td>Costa Mesa · MAU-1</td><td>From a service WO · 1055</td>
+          <td><span class="pill open">Draft</span></td><td><span class="gbb"><i class="on">G</i><i class="off">B</i><i class="off">B</i></span></td>
+          <td class="num money">$2,860</td><td class="muted">—</td><td class="small muted">Edited today 9:12 AM · Priya</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2043</td><td>Warner Business Park</td><td>Bldg C · RTU-6</td><td>Found on PM</td>
+          <td><span class="pill sched">Sent</span></td><td><span class="gbb"><i>G</i><i class="on">B</i><i>B</i></span></td>
+          <td class="num money">$4,780</td><td class="small">Text tomorrow 9:00 · auto</td><td class="small muted">Sent Mon 3:40 PM · Andre</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2042</td><td>Newport Plaza Retail</td><td>RTU-3</td><td>From a service WO · 1063</td>
+          <td><span class="pill sched">Sent</span></td><td><span class="gbb"><i class="on">G</i><i>B</i><i class="off">B</i></span></td>
+          <td class="num money">$3,120</td><td class="small">Call Thu · James</td><td class="small muted">Sent Tue 11:05 AM</td>
+        </tr>
+        <tr class="on">
+          <td class="num primary-cell"><button class="btn sm subtle" type="button" data-go="quote-editor" style="padding:0;min-height:0;font-family:var(--mono);font-weight:600">2041</button></td><td>Irvine Med Offices</td><td>Main building · RTU-3</td><td>Found on PM · 1041</td>
+          <td><span class="pill quote">Viewed</span></td><td><span class="gbb"><i>G</i><i class="on">B</i><i>B</i></span></td>
+          <td class="num money">$3,420</td><td class="small">Text tomorrow 9:00 · auto <span class="callout">2</span></td><td class="small muted">Viewed Tue 4:12 PM · Dr. Park, 3 opens</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2040</td><td>Newport Coast HOA</td><td>Bldg C · condenser fan</td><td>Requested by customer</td>
+          <td><span class="pill site">Approved</span></td><td><span class="gbb"><i class="on">G</i><i>B</i><i>B</i></span></td>
+          <td class="num money">$1,840</td><td class="small">Schedule · WO 1071 in queue</td><td class="small muted">E-signed Oct 8 · portal</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2039</td><td>Irvine Med Offices</td><td>Annex · RTU-A2</td><td>Found on PM</td>
+          <td><span class="pill site">Approved</span></td><td><span class="gbb"><i class="on">G</i><i class="off">B</i><i class="off">B</i></span></td>
+          <td class="num money">$1,260</td><td class="muted">—</td><td class="small muted">E-signed Sep 18 · WO 1046 billed</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2038</td><td>Santa Ana Gym</td><td>RTU-2</td><td>From a service WO · 1047</td>
+          <td><span class="pill overdue">Declined</span></td><td><span class="gbb"><i>G</i><i>B</i><i class="on">B</i></span></td>
+          <td class="num money">$6,900</td><td class="muted">—</td><td class="small muted">Declined Oct 6 · "took another bid"</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2036</td><td>Tustin Auto Center</td><td>Condenser fan motor</td><td>From a service WO</td>
+          <td><span class="pill site">Approved</span></td><td><span class="gbb"><i class="on">G</i><i>B</i><i class="off">B</i></span></td>
+          <td class="num money">$1,480</td><td class="small">Scheduled · 1062 today 12:30</td><td class="small muted">Approved Oct 9 · phone</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2033</td><td>Balboa Bay Offices</td><td>RTU-2</td><td>Found on PM</td>
+          <td><span class="pill route">Follow-up</span></td><td><span class="gbb"><i>G</i><i class="on">B</i><i class="off">B</i></span></td>
+          <td class="num money">$2,240</td><td class="small" style="color:var(--amber-deep)">Email today · 6 days, not opened</td><td class="small muted">Sent Oct 8 · Elena</td>
+        </tr>
+        <tr>
+          <td class="num primary-cell">2031</td><td>Oak Creek Professional</td><td>Condensate drain</td><td>From a service WO</td>
+          <td><span class="pill route">Follow-up</span></td><td><span class="gbb"><i class="on">G</i><i class="off">B</i><i class="off">B</i></span></td>
+          <td class="num money">$980</td><td class="small" style="color:var(--amber-deep)">Call today · Priya</td><td class="small muted">Viewed Oct 9 · no reply</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row between wrap mt-2 small muted"><span>Showing 10 of 18 · sorted by last activity</span><span><button class="btn sm subtle" type="button" data-toast="Quotes exported to Excel">Export</button></span></div>
+
+  <div class="lower mt-4">
+    <div>
+      <div class="row between"><span class="eyebrow">Automations <span class="callout">3</span></span><span class="small muted">F14 · unsold-quote cadence</span></div>
+      <div class="mt-2">
+        <div class="auto-row"><div><b>Day 2 · text</b><div class="sub">"Here is your quote again, reply with questions" · stops when viewed and approved</div></div><span class="small num muted">41 sent · 14 replies</span><label class="switch on" data-switch><i></i></label></div>
+        <div class="auto-row"><div><b>Day 6 · email with options</b><div class="sub">Resends the Good / Better / Best page with the financing line</div></div><span class="small num muted">22 sent · 6 approvals</span><label class="switch on" data-switch><i></i></label></div>
+        <div class="auto-row"><div><b>Day 10 · call task for the account manager</b><div class="sub">Lands in Follow-ups with the viewed-but-not-approved detail</div></div><span class="small num muted">9 tasks · 3 won</span><label class="switch on" data-switch><i></i></label></div>
+        <div class="auto-row"><div><b>Viewed 3 times, no approval · nudge</b><div class="sub">One text offering a call; never more than one per quote</div></div><span class="small num muted">5 sent</span><label class="switch" data-switch><i></i></label></div>
+      </div>
+      <div class="row wrap gap-2 mt-2"><button class="btn sm ghost" type="button" data-go="settings">Quoting setup</button><button class="btn sm ghost" type="button" data-go="followups">Open Follow-ups</button></div>
+    </div>
+    <div>
+      <span class="eyebrow">Due today</span>
+      <div class="list mt-2">
+        <button class="item" type="button"><span class="num muted">9:00</span><span class="stack tight"><span class="title">2043 · Warner Business Park</span><span class="sub">Day 2 text to Yolanda Ruiz · automatic</span></span><span class="small muted">Auto</span></button>
+        <button class="item" type="button"><span class="num muted">9:00</span><span class="stack tight"><span class="title">2033 · Balboa Bay Offices</span><span class="sub">Day 6 email · not opened since Oct 8</span></span><span class="small muted">Auto</span></button>
+        <button class="item" type="button"><span class="num muted">Today</span><span class="stack tight"><span class="title">2031 · Oak Creek Professional</span><span class="sub">Call · viewed Oct 9, no reply · Priya knows the site</span></span><span class="small muted">Priya</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>The quote list with number, customer, site, reason, status, total and follow-up; Status, Customer and Site filters (now in the Filters sheet); "Quoting setup" to the company page; "New quote". Quote reasons and statuses are the same vocabulary (Found on PM, From a service work order, Requested by customer; Draft, Sent, Approved, Declined, Follow-up).</li>
+    <li><span class="f">new</span>The pipeline is the segmented control: Draft, Sent, Viewed, Approved, Declined, Follow-up with counts. Viewed is a new state fed by open tracking on the customer page.</li>
+    <li><span class="f">new</span>F9 Options column (1): three marks for Good / Better / Best; the filled one is what the customer chose or what is selected; faded means that option was not offered.</li>
+    <li><span class="f">new</span>F14 Automations (3): the unsold-quote cadence (text day 2, email day 6, call task day 10, viewed-but-not-approved nudge) with sent counts and switches; the follow-up column (2) shows the next automatic touch. "Due today" is what Follow-ups will show for quotes.</li>
+    <li><span class="f">changed</span>Four KPI tiles answer the owner's questions before the table: open value, close rate, average quote, follow-ups due. One toolbar row; everything else is in Filters or below the table.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-quoting-filters" role="dialog" aria-label="Quote filters">
+  <div class="sheet-head"><h3>Filters</h3><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field-grid">
+      <div class="field"><label>Customer</label><select class="select"><option>Any customer</option><option>Irvine Med Offices</option><option>Warner Business Park</option><option>Newport Plaza Retail</option><option>Balboa Bay Offices</option><option>Santa Ana Gym</option></select></div>
+      <div class="field"><label>Site</label><select class="select"><option>Any site</option><option>Main building · 4600 Barranca</option><option>Annex · 4620 Barranca</option></select></div>
+      <div class="field"><label>Quoted by</label><select class="select"><option>Anyone</option><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option><option>James Reynolds</option></select></div>
+      <div class="field"><label>Sort</label><select class="select"><option>Last activity</option><option>Total, highest first</option><option>Oldest first</option><option>Follow-up date</option></select></div>
+      <div class="field"><label>From</label><input class="input num" value="Sep 1, 2026"></div>
+      <div class="field"><label>To</label><input class="input num" value="Oct 14, 2026"></div>
+    </div>
+    <div class="chip-group"><span class="eyebrow">Reason</span><div class="chips"><button class="chip on" type="button" data-chip>Found on PM</button><button class="chip on" type="button" data-chip>From a service work order</button><button class="chip" type="button" data-chip>Requested by customer</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Options offered</span><div class="chips"><button class="chip" type="button" data-chip>Good only</button><button class="chip" type="button" data-chip>Good + Better</button><button class="chip" type="button" data-chip>All three</button><button class="chip" type="button" data-chip>Has financing line</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Amount</span><div class="chips"><button class="chip" type="button" data-chip>Under $1,000</button><button class="chip" type="button" data-chip>$1,000 – $5,000</button><button class="chip" type="button" data-chip>Over $5,000</button></div></div>
+    <label class="switch" data-switch><i></i><span>Started from a work order only</span></label>
+    <label class="switch" data-switch><i></i><span>Viewed but not approved</span></label>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button><button class="btn primary" type="button" data-close data-toast="Filters applied · 18 quotes">Apply</button></div>
+</div>
+</template>
+</section>

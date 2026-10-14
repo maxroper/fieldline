@@ -1,0 +1,645 @@
+<section class="screen" id="s-work-order" data-title="Work order 1058" data-group="office" data-face="office" data-order="16">
+<style>
+  #s-work-order .wo-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 32px; align-items: start; margin-top: 8px; }
+  #s-work-order .rec-no { font-family: var(--mono); font-size: 28px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+  #s-work-order .rec-head h1 { font-size: 22px; }
+  #s-work-order .rec-head .status-track { max-width: 620px; margin-top: 18px; }
+  #s-work-order .status-btns .btn.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  #s-work-order .tabs { flex-wrap: wrap; }
+  #s-work-order .tab-body { display: flex; flex-direction: column; gap: 20px; padding-top: 20px; }
+  #s-work-order .block-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  #s-work-order .photo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  #s-work-order .log { font-size: 12px; color: var(--ink-2); display: flex; flex-direction: column; gap: 5px; }
+  #s-work-order .log .num { color: var(--ink-3); margin-right: 8px; }
+  #s-work-order .hist { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  #s-work-order .hist:first-of-type { border-top: 0; }
+  #s-work-order .hist .sub { color: var(--ink-2); font-size: 12px; }
+  #s-work-order .hist.tall { align-items: start; padding: 12px 0; }
+  #s-work-order .inv-prev { background: var(--paper-2); border-radius: var(--r-2); padding: 14px 16px; }
+  #s-work-order .side-block + .side-block { border-top: 1px solid var(--line); padding-top: 16px; }
+  @media (max-width: 1000px) { #s-work-order .wo-layout { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 640px) { #s-work-order .photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>
+
+<div class="back-bar">
+  <button class="btn ghost sm back" type="button" data-go="dispatch">Back to Dispatch board</button>
+  <div class="row">
+    <button class="btn sm ghost" type="button" data-toast="Saved">Save</button>
+    <button class="btn sm primary" type="button" data-go="dispatch" data-toast="Saved">Save and back</button>
+  </div>
+</div>
+
+<div class="page">
+  <!-- Calm record head -->
+  <div class="rec-head" data-status-host>
+    <div class="row top between wrap gap-3">
+      <div class="stack tight">
+        <div class="row wrap gap-2"><span class="rec-no">1058</span><h1>Warranty coil leak, suite 200</h1></div>
+        <div class="row wrap gap-2">
+          <span class="pill site">On site · <span data-status-label>0:38</span></span>
+          <span class="pill warranty plain">Warranty</span>
+          <span class="pill plain">Service · T&amp;M · Normal</span>
+        </div>
+        <div class="small muted">Irvine Med Offices · Suite 200 · 4600 Barranca Pkwy, Irvine · Marcus Hale, lead · Wed Oct 14 · 10:00–12:00 · est. <span class="num">2.0 h</span> · Gold agreement</div>
+      </div>
+      <div class="stack tight">
+        <span class="eyebrow">Work order status <span class="callout">1</span></span>
+        <div class="btn-group status-btns">
+          <button class="btn sm on" type="button" data-status-btn data-status-cycle="site" data-status-text="On site · 0:38">Open</button>
+          <button class="btn sm" type="button" data-status-btn data-status-cycle="done" data-status-text="Completed">Completed</button>
+          <button class="btn sm" type="button" disabled>Billed</button>
+        </div>
+        <span class="tiny faint">Billed is set from the Billing tab after closeout.</span>
+      </div>
+    </div>
+    <div class="status-track">
+      <div class="st done" data-st="sched">Scheduled<br><span class="num">8:50</span></div>
+      <div class="st done" data-st="route">En route<br><span class="num">9:31</span></div>
+      <div class="st now" data-st="site">On site<br><span class="num">10:02</span></div>
+      <div class="st" data-st="done">Done</div>
+      <div class="st" data-st="bill">Billed</div>
+    </div>
+  </div>
+
+  <div class="wo-layout">
+    <!-- Main column -->
+    <div>
+      <div class="tabs" data-tabs="wo-tabs">
+        <button type="button" data-tab="overview" class="on">Overview</button>
+        <button type="button" data-tab="time">Time <span class="count">1.15 h</span></button>
+        <button type="button" data-tab="parts">Parts &amp; POs <span class="count">2</span></button>
+        <button type="button" data-tab="quotes">Quotes <span class="count">2</span></button>
+        <button type="button" data-tab="compliance">Compliance <span class="count">1 flag</span></button>
+        <button type="button" data-tab="photos">Photos &amp; notes <span class="count">6</span></button>
+        <button type="button" data-tab="billing">Billing <span class="count">T&amp;M</span></button>
+      </div>
+
+      <!-- Overview -->
+      <div class="panel on" data-panel="overview" data-panel-group="wo-tabs">
+        <div class="tab-body">
+          <div class="two-col">
+            <div class="field">
+              <label>Problem</label>
+              <textarea class="textarea">Warranty coil leak, suite 200. Customer reports water on the ceiling tile under RTU-2. Unit still cooling.</textarea>
+              <div class="help">From the call, Oct 13 4:12 PM. Updated 10:12 today: Dr. Park called again, water now dripping into exam room 3, patients moved. Added here instead of a duplicate WO.</div>
+            </div>
+            <div class="field">
+              <label>Dispatcher notes to technician</label>
+              <textarea class="textarea">Check in at the front desk, suite 200. Roof hatch key at the security desk. Dr. Park wants photos of the coil before and after. Bill labor T&amp;M at the Gold rate; parts go on the Carrier warranty claim.</textarea>
+              <div class="help">Pinned on the phone. Marcus read this at 9:28.</div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div>
+            <div class="block-head"><span class="eyebrow">Facts</span><button class="btn sm subtle" type="button" data-go="site-equipment">Site &amp; equipment</button></div>
+            <dl class="facts">
+              <dt>Customer</dt><dd>Irvine Med Offices · Bill-to Barranca Medical Partners</dd>
+              <dt>Account manager</dt><dd>James Reynolds</dd>
+              <dt>Building</dt><dd>Suite 200 · 4600 Barranca Pkwy, Irvine 92604</dd>
+              <dt>Contact</dt><dd>Dr. Lena Park · <span class="num">949-555-0142</span> office · <span class="num">714-555-0142</span> mobile</dd>
+              <dt>Caller</dt><dd>Dr. Lena Park · <span class="num">714-555-0142</span> · Oct 13 4:12 PM</dd>
+              <dt>Unit</dt><dd>RTU-2 · Carrier 48TC · 7.5 ton · R-410A 18.5 lb · installed 2023 · parts warranty to 2033</dd>
+              <dt>Customer PO</dt><dd>Not required under $1,000 · warranty</dd>
+              <dt>Signature required</dt><dd>Yes · site default</dd>
+              <dt>Special instructions</dt><dd>Front desk check-in. No work in exam rooms during patient hours without asking.</dd>
+              <dt>Technicians</dt><dd>Marcus Hale, lead · no helper · suggested: Marcus is the site primary and holds EPA 608 Universal</dd>
+              <dt>Hours charged</dt><dd><span class="live"></span>Labor <span class="num">0.63 h</span> running · Travel <span class="num">0.52 h</span> · detail in Time</dd>
+            </dl>
+          </div>
+
+          <hr class="divider">
+
+          <div>
+            <div class="block-head"><span class="eyebrow">Schedule</span><button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#wo-helper">Add another helper</button></div>
+            <div class="field-grid">
+              <div class="field"><label>WO type</label><select class="select"><option>Service · T&amp;M</option><option>Service · T&amp;M NTE</option><option>Quoted job</option><option>Maintenance</option></select></div>
+              <div class="field"><label>Priority</label><select class="select"><option>Normal</option><option>Urgent</option><option>Low</option></select></div>
+              <div class="field"><label>Date</label><input class="input" type="date" value="2026-10-14"></div>
+              <div class="field"><label>Start time</label><input class="input" type="time" value="10:00"></div>
+              <div class="field"><label>Estimated hours</label><input class="input num" type="text" value="2.0"></div>
+              <div class="field"><label>Technician</label><select class="select"><option>Marcus Hale · lead</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option></select></div>
+            </div>
+            <div class="panel" id="wo-helper">
+              <div class="field-grid mt-3">
+                <div class="field"><label>Helper</label><select class="select"><option>Elena Cruz · free after 4:00</option><option>Diego Ramos</option><option>Luis Ortega</option></select></div>
+                <div class="field"><label>Date</label><input class="input" type="date" value="2026-10-15"></div>
+                <div class="field"><label>Start</label><input class="input" type="time" value="11:30"></div>
+                <div class="field"><label>Hours</label><input class="input num" type="text" value="3.0"></div>
+              </div>
+              <button class="btn sm primary mt-2" type="button" data-toast="Helper added: Elena Cruz, Thu 11:30, 3 h">Add helper</button>
+            </div>
+            <div class="help mt-2">Keep the Warranty flag so the coil bills to Carrier, not the customer; labor stays billable at the Gold rate.</div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3>Next steps</h3><span class="small muted">coil ships Thu · return visit needed</span></div>
+            <div class="two-col">
+              <div>
+                <span class="eyebrow">Follow-up</span>
+                <div class="field-grid mt-2">
+                  <div class="field"><label>Wait</label><select class="select"><option>Waiting on parts</option><option>Quote sent</option><option>Approved not scheduled</option><option>Need to return</option><option>No access</option><option>Warranty pending</option></select></div>
+                  <div class="field"><label>Follow-up date</label><input class="input" type="date" value="2026-10-15"></div>
+                  <div class="field"><label>Part</label><input class="input" type="text" value="Evaporator coil · Carrier 48TC-900-3"></div>
+                  <div class="field"><label>Expected</label><input class="input" type="date" value="2026-10-15"></div>
+                  <div class="field span-2"><label>Note</label><input class="input" type="text" value="Carrier claim 48TC-CLM-2026-3341 · will-call at Johnstone Santa Ana"></div>
+                </div>
+                <button class="btn sm primary mt-2" type="button" data-toast="Follow-up set: waiting on parts, Thu Oct 15">Set follow-up</button>
+              </div>
+              <div>
+                <span class="eyebrow">Return visit</span>
+                <div class="mt-2"><b>1058-2 not created yet</b></div>
+                <div class="small muted mt-1">Install the coil, pressure test, recharge 18.5 lb R-410A, verification leak test. About 3 h. Marcus is free Thu 11:30 after Warner Business Park.</div>
+                <button class="btn sm copper mt-3" type="button" data-open="#sheet-work-order-return">Schedule return visit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time -->
+      <div class="panel" data-panel="time" data-panel-group="wo-tabs">
+        <div class="tab-body">
+          <div class="summary-line"><span>Estimated <b>2.0 h</b></span><span><span class="live"></span>On site since <b>10:02</b></span><span>Still to schedule <b>3.0 h</b> · 1058-2</span><span>Helpers <b>0</b></span></div>
+          <div>
+            <div class="block-head"><span class="eyebrow">Time charged · Marcus Hale, lead · Wed Oct 14</span><span class="tiny faint">the same lines the tech sees</span></div>
+            <div class="table-wrap">
+              <table class="table dense">
+                <thead><tr><th>Date</th><th>Kind</th><th>Start</th><th>Stop</th><th class="num">Hours</th><th>Edited</th><th>Source</th></tr></thead>
+                <tbody>
+                  <tr><td class="num">Oct 14</td><td>Travel</td><td class="num">9:31</td><td class="num">10:02</td><td class="num">0.52</td><td class="faint">—</td><td>GPS verified</td></tr>
+                  <tr><td class="num">Oct 14</td><td>On site</td><td class="num">10:02</td><td><span class="live small">Running</span></td><td class="num">0.63</td><td class="faint">—</td><td>GPS verified</td></tr>
+                  <tr><td colspan="4" class="strong">Lead total</td><td class="num strong">1.15</td><td colspan="2" class="small muted">Labor 0.63 · Travel 0.52</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="two-col">
+            <div>
+              <span class="eyebrow">Lunch and breaks · today</span>
+              <div class="mt-2">
+                <div class="hist"><span class="num small">9:15–9:25</span><div>Rest break<div class="sub">10 min · paid · before this WO</div></div><span class="small muted">Taken</span></div>
+                <div class="hist"><span class="num small">12:00–12:30</span><div>Lunch<div class="sub">30 min · unpaid · after this visit</div></div><span class="small muted">Planned</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="block-head"><span class="eyebrow">Timesheet</span><button class="btn sm subtle" type="button" data-go="timesheets">Open timesheets</button></div>
+              <div class="small muted">Marcus's Wednesday sheet has 2 lines from this WO, none edited. Office edits show here with who and when, and on the tech's phone.</div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="two-col">
+            <div>
+              <div class="block-head"><span class="eyebrow">Add a day</span><span class="tag mono">Oct 14 · Marcus · 10:00 · 2 h</span></div>
+              <div class="field-grid">
+                <div class="field"><label>Date</label><input class="input" type="date" value="2026-10-15"></div>
+                <div class="field"><label>Start</label><input class="input" type="time" value="11:30"></div>
+                <div class="field"><label>Hours</label><input class="input num" type="text" value="3.0"></div>
+                <div class="field"><label>Technician</label><select class="select"><option>Marcus Hale</option><option>Elena Cruz</option></select></div>
+              </div>
+              <button class="btn sm mt-2" type="button" data-toast="Day added: Thu Oct 15 11:30, Marcus, 3 h">Add day</button>
+            </div>
+            <div>
+              <div class="block-head"><span class="eyebrow">Place at another time</span><span class="tiny faint">moves today's block</span></div>
+              <div class="field-grid">
+                <div class="field"><label>Technician</label><select class="select"><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option></select></div>
+                <div class="field"><label>Role</label><div class="seg light" data-seg="wo-role"><button type="button" class="on" data-val="lead">Lead</button><button type="button" data-val="helper">Helper</button></div></div>
+                <div class="field"><label>Date</label><input class="input" type="date" value="2026-10-14"></div>
+                <div class="field"><label>Start</label><input class="input" type="time" value="10:00"></div>
+                <div class="field"><label>Estimated hours</label><input class="input num" type="text" value="2.0"></div>
+              </div>
+              <button class="btn sm mt-2" type="button" data-toast="Block placed · board updated">Place</button>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div>
+            <span class="eyebrow">Change log</span>
+            <div class="log mt-2">
+              <div><span class="num">Oct 14 10:02</span>On site 10:02 · GPS · Marcus</div>
+              <div><span class="num">Oct 14 9:31</span>Travel started 9:31 · Marcus</div>
+              <div><span class="num">Oct 14 8:50</span>Start time 10:00 (was 9:00) · James Reynolds</div>
+              <div><span class="num">Oct 14 8:50</span>Estimated hours 2.0 (was 1.5) · James Reynolds</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parts & POs -->
+      <div class="panel" data-panel="parts" data-panel-group="wo-tabs">
+        <div class="tab-body">
+          <div>
+            <div class="block-head"><span class="eyebrow">Purchase orders · 2</span><button class="btn sm" type="button" data-open="#sheet-work-order-po">Issue PO for this work order</button></div>
+            <div class="hist tall">
+              <span class="num strong">PO 120</span>
+              <div>
+                <b>Carrier · warranty parts · Lined</b>
+                <div class="sub">Visit 1058 · RTU-2 · issued today 8:58 by James · Evaporator coil 48TC-900-3 ×1 · ships Thu to Johnstone Santa Ana will-call · claim 48TC-CLM-2026-3341 · files: claim-form.pdf, carrier-rma.pdf</div>
+                <div class="row wrap mt-1"><button class="btn sm subtle" type="button" data-go="purchasing">Open to change</button></div>
+              </div>
+              <div class="stack tight right"><span class="pill sched plain">Issued</span><span class="money">$0.00</span><span class="tiny faint">warranty</span></div>
+            </div>
+            <div class="hist tall">
+              <span class="num strong">PO 121</span>
+              <div>
+                <b>Johnstone Supply · Lump sum</b>
+                <div class="sub">Visit 1058 · nitrogen refill, brazing rod, drain pan tablets · issued today 10:20 by Marcus from the phone · pack list not attached yet</div>
+                <div class="row wrap mt-1"><button class="btn sm subtle" type="button" data-go="purchasing">Open to change</button></div>
+              </div>
+              <div class="stack tight right"><span class="pill route plain">Pack list due</span><span class="money">$86.40</span></div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div>
+            <div class="block-head"><span class="eyebrow">Parts from the truck · Van 12</span><button class="btn sm ghost" type="button" data-toast="Pick from Van 12 stock">Use from inventory</button></div>
+            <div class="table-wrap">
+              <table class="table dense">
+                <thead><tr><th>SKU</th><th>Description</th><th class="num">Qty</th><th class="num">Cost</th><th class="num">Sell</th><th>Stock after</th></tr></thead>
+                <tbody>
+                  <tr><td class="mono">CHM-COIL-1G</td><td>Coil cleaner, alkaline, 1 gal</td><td class="num">1</td><td class="num">$18.40</td><td class="num">$29.00</td><td class="small muted">3 left · min 2</td></tr>
+                  <tr><td class="mono">RFG-N2-REF</td><td>Nitrogen, pressure test (per fill)</td><td class="num">1</td><td class="num">$12.00</td><td class="num">$0.00</td><td class="small muted">consumable</td></tr>
+                  <tr><td class="mono">DRN-TAB-6</td><td>Drain pan tablets, 6 pk</td><td class="num">1</td><td class="num">$6.10</td><td class="num">$12.00</td><td><span class="pill parts plain">1 left · below min 2</span></td></tr>
+                  <tr><td colspan="3" class="strong">Material</td><td class="num strong">$36.50</td><td class="num strong">$41.00</td><td class="small muted">before the 10% agreement discount</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="help mt-1">Items below min join tonight's replenishment list for Van 12.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quotes -->
+      <div class="panel" data-panel="quotes" data-panel-group="wo-tabs">
+        <div class="tab-body">
+          <div>
+            <div class="block-head"><span class="eyebrow">Quotes on this site · 2</span><div class="row wrap"><button class="btn sm ghost" type="button" data-go="quote-editor">New quote for something found</button><button class="btn sm" type="button" data-toast="Quoted job 1073 created from Quote 2043 · open queue">Create quoted job</button></div></div>
+            <div class="hist tall">
+              <span class="num strong">2043</span>
+              <div>
+                <b>Drain pan replacement and UV light, RTU-2</b>
+                <div class="sub">Found on this visit · Marcus · from the flagged checklist item · Good <span class="money">$640</span> · Better <span class="money">$1,180</span> · Best <span class="money">$1,640</span></div>
+                <div class="row wrap mt-1"><button class="btn sm" type="button" data-toast="Quote 2043 approved · Better · quoted job ready to create">Approve</button><button class="btn sm ghost" type="button" data-toast="Quote 2043 declined">Decline</button><button class="btn sm subtle" type="button" data-toast="Quote 2043 sent to Dr. Park for e-sign">Send for e-sign</button></div>
+              </div>
+              <div class="stack tight right"><span class="pill quote plain">Draft</span><span class="money">$1,180</span></div>
+            </div>
+            <div class="hist tall">
+              <span class="num strong">2041</span>
+              <div>
+                <b>RTU-1 blower motor and VFD, suite 200</b>
+                <div class="sub">From WO 1040 · Elena, Oct 2 · sent Oct 8 · viewed Tue 4:12 PM · unsold-quote cadence day 6 · Better <span class="money">$3,420</span></div>
+                <div class="row wrap mt-1"><button class="btn sm subtle" type="button" data-go="quote-editor">Open quote</button><button class="btn sm subtle" type="button" data-go="followups">See follow-up</button></div>
+              </div>
+              <div class="stack tight right"><span class="pill quote plain">Sent</span><span class="money">$3,420</span></div>
+            </div>
+            <div class="help mt-2">No quoted job yet. Approving a quote creates one in the open queue with the sold budget filled in.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliance -->
+      <div class="panel" data-panel="compliance" data-panel-group="wo-tabs">
+        <div class="tab-body">
+          <div>
+            <div class="block-head"><span class="eyebrow">Refrigerant log · RTU-2 · R-410A · full charge 18.5 lb</span><button class="btn sm ghost" type="button" data-toast="Entry added to the refrigerant log">Add entry</button></div>
+            <div class="table-wrap">
+              <table class="table dense">
+                <thead><tr><th>When</th><th>WO</th><th class="num">Added lb</th><th class="num">Recovered lb</th><th>Cylinder</th><th>Technician · cert</th><th>Leak check</th></tr></thead>
+                <tbody>
+                  <tr><td class="num">Oct 14 10:31</td><td class="num">1058</td><td class="num">0.0</td><td class="num">11.4</td><td class="mono">RC-118-A</td><td>Marcus Hale · 608 Universal</td><td><span class="pill urgent plain">Leak found · coil U-bend</span></td></tr>
+                  <tr><td class="num">Oct 2 11:05</td><td class="num">1040</td><td class="num">2.0</td><td class="num">0.0</td><td class="mono">CYL-410-22</td><td>Elena Cruz · 608 Type II</td><td class="small muted">Electronic · not found</td></tr>
+                  <tr><td class="num">Jul 11 2:40 PM</td><td class="num">1012</td><td class="num">2.5</td><td class="num">0.0</td><td class="mono">CYL-410-19</td><td>Elena Cruz · 608 Type II</td><td class="small muted">Bubble test · not found</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="summary-line mt-2"><span><span class="dot red"></span>Leak rate <b>24%</b> · 4.5 lb added ÷ 18.5 lb, trailing 365 d</span><span>Threshold <b>10%</b> · comfort cooling, 15 lb and up · 40 CFR 84.106</span><span>Repair by <b>Nov 13</b></span><span>Records kept <b>3 yr</b> · EPA 608</span></div>
+            <div class="notice red mt-2"><span><b>Leak-rate repair required.</b> The coil replacement on 1058-2 is the repair. An initial verification test at the repair and a follow-up verification within 10 days both log here from the tech's entries. CARB RMP does not apply: charge under 50 lb. <span class="callout">3</span></span></div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="two-col">
+            <div>
+              <div class="block-head"><span class="eyebrow">Checklists</span><span class="small muted">Safety 6 / 6 · required before complete</span></div>
+              <div class="small muted">Safety list passed at 10:08: lockout/tagout, ladder tied off, disconnect verified, PPE, ceiling area cordoned, customer told the unit is off.</div>
+              <div class="row between mt-3"><b class="small">Service inspection</b><span class="small muted num">8 pass · 1 flag · 1 fail</span></div>
+              <div class="table-wrap mt-1">
+                <table class="table dense">
+                  <tbody>
+                    <tr><td>Evaporator coil</td><td><span class="pill urgent plain">Fail</span></td><td class="small muted">Leak at U-bend · repaired on this WO</td></tr>
+                    <tr><td>Drain pan</td><td><span class="pill route plain">Flag</span></td><td class="small muted">Corroded through at the corner · Quote 2043 line 1</td></tr>
+                    <tr><td>Filters</td><td class="small muted">Pass</td><td class="small muted">Replaced Oct 2</td></tr>
+                    <tr><td>Belt and blower</td><td class="small muted">Pass</td><td class="small muted">—</td></tr>
+                    <tr><td>Electrical connections</td><td class="small muted">Pass</td><td class="small muted">Tight, no discoloration</td></tr>
+                    <tr><td>Condensate drain</td><td class="small muted">Pass</td><td class="small muted">Clear</td></tr>
+                    <tr><td>Economizer</td><td class="small muted">Pass</td><td class="small muted">Dampers move freely</td></tr>
+                    <tr><td>Thermostat</td><td class="small muted">Pass</td><td class="small muted">Calibrated within 1°</td></tr>
+                    <tr><td>Compressor amps</td><td class="small muted">Pass</td><td class="small muted num">18.2 A of 22 RLA</td></tr>
+                    <tr><td>Contactor and capacitor</td><td class="small muted">Pass</td><td class="small muted num">44.6 µF of 45</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="help mt-1">Flagged items become quote lines with one tap on the phone. The drain pan became Quote 2043.</div>
+            </div>
+            <div>
+              <div class="block-head"><span class="eyebrow">Permit and warranty</span><span class="pill warranty plain">Claim submitted</span></div>
+              <dl class="facts tight">
+                <dt>Permit</dt><dd>Not required · like-for-like coil repair · City of Irvine</dd>
+                <dt>Title 24 ECC</dt><dd>Not triggered · no unit replacement or duct work</dd>
+                <dt>Parts warranty</dt><dd>Carrier · to Mar 2033 · registered Mar 14, 2023</dd>
+                <dt>Claim</dt><dd><span class="mono">48TC-CLM-2026-3341</span> · filed today 8:58 · coil approved · labor not covered</dd>
+                <dt>Labor</dt><dd>Billable T&amp;M at the Gold rate · told to Dr. Park on the call</dd>
+                <dt>Compressor</dt><dd>Carrier 10-year · to Mar 2033</dd>
+              </dl>
+              <div class="row wrap mt-3"><button class="btn sm ghost" type="button" data-toast="Claim refreshed from Carrier: approved, coil ships Thu">Refresh claim</button><button class="btn sm subtle" type="button" data-toast="Reminder set: request Carrier labor allowance after install">Remind me after install</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photos & notes -->
+      <div class="panel" data-panel="photos" data-panel-group="wo-tabs">
+        <div class="tab-body">
+          <div class="two-col">
+            <div>
+              <div class="block-head"><span class="eyebrow">Photos · 6</span><button class="btn sm ghost" type="button" data-toast="Photo report PDF built · 6 photos, summary, signature line">Build photo report</button></div>
+              <div class="photo-grid">
+                <div class="photo steel"><span class="cap">Coil leak · U-bend</span></div>
+                <div class="photo"><span class="cap">Ceiling tile · exam 3</span></div>
+                <div class="photo dark"><span class="cap">Nameplate RTU-2</span></div>
+                <div class="photo copper"><span class="cap">Drain pan corrosion</span></div>
+                <div class="photo"><span class="cap">Roof hatch</span></div>
+                <div class="photo steel"><span class="cap">Gauges · 10:31</span></div>
+                <div class="photo add">Add photo</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h3>AI job summary</h3><span class="tiny faint">from Marcus's voice note · 10:28</span></div>
+              <p class="small">Found a refrigerant leak at the evaporator coil U-bend on RTU-2 serving suite 200. Recovered 11.4 lb R-410A; nitrogen pressure test confirmed the leak. Coil is under Carrier parts warranty; replacement ordered on PO 120 for Thursday. Unit left off and tagged; Dr. Park declined portable cooling. Drain pan corrosion noted and quoted separately (Quote 2043).</p>
+              <div class="row wrap mt-2"><button class="btn sm ghost" type="button" data-toast="Summary opened for editing">Edit</button><button class="btn sm subtle" type="button" data-toast="Playing voice note · 0:48">Play voice note</button></div>
+              <label class="switch on mt-3" data-switch><i></i>Include in the customer's photo report <span class="callout">4</span></label>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="two-col">
+            <div class="field">
+              <label>WO notes · office</label>
+              <textarea class="textarea">Dr. Park prefers mornings. AP wants the warranty claim number on the invoice. Oct 13: Carrier confirmed coverage by phone (ref 88213).</textarea>
+              <div class="log mt-2"><div><span class="num">Oct 14 8:58</span>James added the claim reference</div><div><span class="num">Oct 13 4:20 PM</span>Customer service added the AP note</div></div>
+            </div>
+            <div>
+              <span class="eyebrow">Tech notes · from the phone</span>
+              <div class="timeline mt-2">
+                <div class="tl moss"><div class="when">10:31</div><div class="what">Recovered 11.4 lb R-410A into RC-118-A. Leak at the U-bend, see photo 1.</div><div class="who">Marcus</div></div>
+                <div class="tl moss"><div class="when">10:14</div><div class="what">Ceiling tile saturated; building maintenance replacing it. Drain pan rusted through at the corner.</div><div class="who">Marcus</div></div>
+                <div class="tl"><div class="when">10:02</div><div class="what">Roof hatch key is at security, not the front desk. Saved on the site.</div><div class="who">Marcus · access note</div></div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="two-col">
+            <div>
+              <span class="eyebrow">Field change log</span>
+              <div class="log mt-2">
+                <div><span class="num">Oct 14 10:02</span>Status On site · Marcus · GPS matched</div>
+                <div><span class="num">Oct 14 9:31</span>Status En route · Marcus · ETA text sent</div>
+                <div><span class="num">Oct 14 8:50</span>Start time 10:00 (was 9:00) · James Reynolds</div>
+                <div><span class="num">Oct 14 8:50</span>Assigned Marcus Hale, lead · James Reynolds</div>
+                <div><span class="num">Oct 13 4:15 PM</span>Warranty flag on · Customer service</div>
+                <div><span class="num">Oct 13 4:12 PM</span>Created from a call · Customer service</div>
+              </div>
+            </div>
+            <div>
+              <div class="block-head"><span class="eyebrow">Customer site history</span><button class="btn sm subtle" type="button" data-go="site-equipment">All 15 visits</button></div>
+              <div class="hist"><span class="num strong">1064</span><div>Economizer actuator, RTU-4 · suite 100<div class="sub">Andre · waiting on parts · Thu</div></div><span class="pill parts plain">Parts</span></div>
+              <div class="hist"><span class="num strong">1045</span><div>RTU-1 belt and filters<div class="sub">Elena · Oct 9 · ready to close</div></div><span class="pill ready plain">Ready</span></div>
+              <div class="hist"><span class="num strong">1040</span><div>RTU-1 belt squeal · Quote 2041<div class="sub">Elena · Oct 2 · 1.5 h</div></div><span class="pill done plain">Billed</span></div>
+              <div class="hist"><span class="num strong">1012</span><div>RTU-2 low charge · 2.5 lb added<div class="sub">Elena · Jul 11 · 2 h</div></div><span class="pill done plain">Billed</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing -->
+      <div class="panel" data-panel="billing" data-panel-group="wo-tabs">
+        <div class="tab-body">
+          <div class="two-col">
+            <div>
+              <div class="block-head"><span class="eyebrow">Closeout</span><span class="small muted">waiting on the tech</span></div>
+              <dl class="facts tight">
+                <dt>Work performed</dt><dd class="muted">Not yet · Marcus's summary fills this at closeout</dd>
+                <dt>What is left</dt><dd>Coil install, recharge, verification test · 1058-2</dd>
+                <dt>Need to return</dt><dd>Yes · parts Thu</dd>
+                <dt>Signer</dt><dd class="muted">—</dd>
+                <dt>Signature</dt><dd><div class="signature" style="height: 60px;">Not signed yet</div></dd>
+              </dl>
+              <div class="row wrap mt-3"><button class="btn sm ghost" type="button" data-toast="Closed out by the office · Marcus notified">Close out</button><button class="btn sm primary" type="button" data-toast="1058 sent to Billing · waiting to bill">Send to billing</button></div>
+              <div class="help mt-1">The block stays on today's board.</div>
+            </div>
+            <div>
+              <div class="block-head"><span class="eyebrow">Billing method</span><span class="small muted">T&amp;M · contract</span></div>
+              <dl class="facts tight">
+                <dt>Labor bill rate</dt><dd>Contract · <span class="money">$165</span>/h journeyman · <span class="money">$118</span>/h apprentice</dd>
+                <dt>Travel</dt><dd>Billed separately · <span class="money">$165</span>/h · 0.52 h so far</dd>
+                <dt>Vehicle charge</dt><dd><span class="money">$45</span> per visit</dd>
+                <dt>Parts</dt><dd>Coil on Carrier warranty · <span class="money">$0</span> · truck material at list, 10% agreement discount</dd>
+                <dt>Misc material</dt><dd>3% of labor</dd>
+                <dt>Sales tax</dt><dd>Irvine 7.75% on material</dd>
+                <dt>NTE</dt><dd>Not set · plain T&amp;M</dd>
+              </dl>
+              <div class="help mt-1">Change the WO type in Overview to see the NTE, quoted-budget, or PM billing rows.</div>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div>
+            <div class="block-head"><span class="eyebrow">Invoice</span><span class="small muted">not billed yet</span></div>
+            <div class="two-col">
+              <div class="table-wrap">
+                <table class="table dense">
+                  <thead><tr><th>Line</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead>
+                  <tbody>
+                    <tr><td>Labor · journeyman · <span class="live small">running</span></td><td class="num">0.63 h</td><td class="num">$165.00</td><td class="num">$103.95</td></tr>
+                    <tr><td>Travel</td><td class="num">0.52 h</td><td class="num">$165.00</td><td class="num">$85.80</td></tr>
+                    <tr><td>Material from truck · 10% off</td><td class="num">3</td><td class="num">—</td><td class="num">$36.90</td></tr>
+                    <tr><td>Misc material 3%</td><td></td><td></td><td class="num">$5.69</td></tr>
+                    <tr><td>Vehicle charge</td><td class="num">1</td><td class="num">$45.00</td><td class="num">$45.00</td></tr>
+                    <tr><td>Sales tax 7.75% on material</td><td></td><td></td><td class="num">$2.86</td></tr>
+                    <tr><td class="strong">Estimated so far</td><td></td><td></td><td class="num strong">$280.20</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <dl class="facts tight">
+                <dt>Invoice number</dt><dd class="muted">Assigned at Mark billed</dd>
+                <dt>Date</dt><dd class="muted">—</dd>
+                <dt>Total · Credit · Balance</dt><dd class="muted">—</dd>
+                <dt>Status</dt><dd>Not billed</dd>
+                <dt>Delivered</dt><dd>Will email ap@barrancamed.com · parent setting</dd>
+                <dt>Payment</dt><dd>Card on file · Visa 4242 · autopay off</dd>
+                <dt>Revisions · credits</dt><dd class="muted">None</dd>
+              </dl>
+            </div>
+            <div class="row wrap mt-3">
+              <button class="btn sm ghost" type="button" data-toggle-class="on" data-target="#wo-invoice-preview">View invoice preview</button>
+              <button class="btn sm subtle" type="button" data-toast="Invoice preview PDF opened">Print PDF</button>
+              <button class="btn sm subtle" type="button" data-go="billing">Open in Billing</button>
+            </div>
+            <div class="panel" id="wo-invoice-preview">
+              <div class="inv-prev mt-2">
+                <div class="row between wrap"><div class="row gap-2"><span class="avatar ink">HC</span><b>Harbor Coast Mechanical</b></div><div class="right small muted">Invoice · draft<br>Work order 1058</div></div>
+                <div class="grid cols-3 mt-3 small">
+                  <div><span class="eyebrow">Bill to</span><div>Barranca Medical Partners<br>AP · ap@barrancamed.com<br>Net 30</div></div>
+                  <div><span class="eyebrow">Site</span><div>Irvine Med Offices · Suite 200<br>4600 Barranca Pkwy, Irvine</div></div>
+                  <div><span class="eyebrow">Work order</span><div>1058 · Oct 14 · Marcus Hale<br>Warranty coil leak, RTU-2<br>Carrier claim 48TC-CLM-2026-3341</div></div>
+                </div>
+                <div class="row between mt-3 strong"><span>Amount to bill (so far)</span><span class="money">$280.20</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side column -->
+    <aside class="stack loose">
+      <div class="side-block">
+        <div class="row between"><span class="eyebrow">Today</span><span class="small muted"><span class="live"></span>live</span></div>
+        <div class="timeline mt-2">
+          <div class="tl moss"><div class="when">10:31</div><div class="what">Refrigerant recovered · 11.4 lb logged</div><div class="who">Marcus · cylinder RC-118-A</div></div>
+          <div class="tl copper"><div class="when">10:28</div><div class="what">Voice note turned into a job summary</div><div class="who">Automatic · Marcus confirms at closeout</div></div>
+          <div class="tl amber"><div class="when">10:20</div><div class="what">PO 121 issued from the phone · Johnstone · $86.40</div><div class="who">Marcus</div></div>
+          <div class="tl amber"><div class="when">10:12</div><div class="what">Dr. Park called: water in exam room 3</div><div class="who">Customer service · note added, no duplicate WO</div></div>
+          <div class="tl moss"><div class="when">10:02</div><div class="what">Arrived on site</div><div class="who">Marcus · GPS matched the address</div></div>
+          <div class="tl amber"><div class="when">9:31</div><div class="what">En route · ETA text sent to Dr. Park</div><div class="who">Automatic · link opened 9:33</div></div>
+          <div class="tl steel"><div class="when">8:58</div><div class="what">Carrier claim filed · PO 120</div><div class="who">James Reynolds</div></div>
+          <div class="tl steel"><div class="when">8:50</div><div class="what">Assigned to Marcus Hale, 10:00</div><div class="who">James Reynolds</div></div>
+          <div class="tl"><div class="when">Oct 13 · 4:12 PM</div><div class="what">Work order created from a call</div><div class="who">Customer service · caller Dr. Park</div></div>
+        </div>
+      </div>
+
+      <div class="side-block">
+        <div class="row between"><span class="eyebrow">Customer contact</span><span class="tiny faint">confirmed YES · Oct 13</span></div>
+        <div class="row gap-2 mt-2"><span class="avatar">LP</span><div><b>Dr. Lena Park</b><div class="small muted">Practice owner · Irvine Med Offices</div></div></div>
+        <dl class="facts tight mt-2">
+          <dt>Mobile</dt><dd class="num">714-555-0142</dd>
+          <dt>Office</dt><dd class="num">949-555-0142</dd>
+          <dt>Email</dt><dd>lpark@irvinemed.com</dd>
+          <dt>AP</dt><dd>ap@barrancamed.com · Net 30</dd>
+          <dt>Portal</dt><dd>2 users · last login Oct 9</dd>
+        </dl>
+        <div class="small muted mt-3"><b>Last text · 9:31</b> · delivered, link opened<br>"Marcus from Harbor Coast is on the way, ETA 10:05. Track him here: fieldline.app/t/8f2k"</div>
+        <div class="small muted mt-1"><b>Reply · Oct 13 4:24 PM</b> · "YES"</div>
+        <div class="row wrap mt-3">
+          <button class="btn sm primary" type="button" data-toast="Text sent to Dr. Park: Marcus found the leak. The coil is covered and arrives Thu; we will confirm the install time by 4:00.">Text customer <span class="callout">2</span></button>
+          <button class="btn sm ghost" type="button" data-toast="Calling Dr. Park · 714-555-0142">Call</button>
+          <button class="btn sm subtle" type="button" data-go="messages">Open thread</button>
+        </div>
+      </div>
+
+      <div class="side-block">
+        <span class="eyebrow">Crew</span>
+        <div class="row gap-2 mt-2"><span class="avatar">MH</span><div><b>Marcus Hale</b><div class="small muted">Lead · site primary · EPA 608 Universal</div></div></div>
+        <div class="small muted mt-2">No helper. Elena Cruz is the site backup and is free after 4:00.</div>
+        <button class="btn sm ghost mt-2" type="button" data-toast="Helper request added to the queue">Add helper</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Everything in today's CallWindow: the facts (customer, account manager, building, contact, caller, unit, customer PO, signature required, technicians, suggested tech), the editable WO type, priority, date, start, estimated hours and technician, the Open / Completed / Billed buttons (callout 1, Billed stays disabled until Billing marks it), problem and dispatcher notes, hours charged, add a helper, the follow-up box and the return-trip creator, time charged by lead / helper / day with add-a-day and place-at-another-time, lunch and breaks, POs with Issue PO and Open to change, use from inventory, found quotes with Approve / Decline / Create quoted job, WO notes, field change log, tech notes, site history, photos, closeout facts with Close out and Send to billing, the billing rows, and the invoice facts with View / Print.</li>
+    <li><span class="f">new</span>F7 Compliance tab: the refrigerant log per unit with pounds added and recovered, cylinder, tech certification, and the leak-rate math against the 40 CFR 84.106 threshold with the repair deadline (callout 3). F8 the safety checklist (required before complete) and the service inspection with pass / flag / fail, where the flag became Quote 2043. F18 permit, Title 24 and warranty-claim status with the claim number AP wants on the invoice.</li>
+    <li><span class="f">new</span>F17 Photos &amp; notes carries the photo grid and the AI job summary drafted from the tech's voice note, with Edit and a switch to include it in the customer's photo report (callout 4). F16 truck parts used show stock left and the below-min flag. F3 the contact block shows the delivered ETA text, the YES confirmation, and Text customer (callout 2).</li>
+    <li><span class="f">changed</span>The modal became a record page: back bar, a calm header with the number, title, three pills and one line of facts, the status track, then tabs. The eight toggle sections became seven tabs with counts; Follow up moved into Overview as Next steps (the one card), Closeout into Billing, Inventory into Parts &amp; POs. Inside the tabs, blocks are plain with hairline dividers instead of nested cards; the Today timeline on the right replaces reading change logs to learn what happened.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-work-order-return" role="dialog" aria-label="Schedule return visit for 1058">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="num strong" style="font-size:18px">1058-2</span><span class="pill parts">Waiting on parts</span><span class="muted">Irvine Med Offices</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div>
+      <h2>Schedule the return visit</h2>
+      <div class="muted">Install the Carrier coil, pressure test, recharge, verification leak test. Keeps 1058's notes, photos, PO 120, and the refrigerant log.</div>
+    </div>
+    <div>
+      <span class="eyebrow">Suggested slots</span>
+      <div class="option-cards mt-1" style="grid-template-columns: minmax(0, 1fr);">
+        <button class="option-card on" type="button" data-option><span class="tier">Suggested</span><div class="strong">Marcus Hale · Thu Oct 15 · 11:30</div><div class="small muted">Knows the unit · after Warner Business Park, 16 min · coil at Johnstone will-call by 9:00</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Alternative</span><div class="strong">Elena Cruz · Thu Oct 15 · 1:00</div><div class="small muted">Site backup · 608 Type II · 3 h free after Newport Plaza</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Alternative</span><div class="strong">Marcus Hale · Fri Oct 16 · 7:00</div><div class="small muted">Before Civic Center Hall · Dr. Park prefers mornings</div></button>
+      </div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>Date</label><input class="input" type="date" value="2026-10-15"></div>
+      <div class="field"><label>Start</label><input class="input" type="time" value="11:30"></div>
+      <div class="field"><label>Hours</label><input class="input num" type="number" value="3.0" step="0.25"></div>
+      <div class="field"><label>Technician</label><select class="select"><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option></select></div>
+      <div class="field"><label>Role</label><div class="seg light" data-seg="wo-ret-role"><button type="button" class="on" data-val="lead">Lead</button><button type="button" data-val="helper">Helper</button></div></div>
+      <div class="field"><label>Priority</label><div class="seg light" data-seg="wo-ret-pri"><button type="button" data-val="urgent">Urgent</button><button type="button" class="on" data-val="normal">Normal</button><button type="button" data-val="low">Low</button></div></div>
+    </div>
+    <div class="row wrap gap-3">
+      <label class="check on" data-check><i></i><span>Waiting on parts</span></label>
+      <label class="check on" data-check><i></i><span>Warranty</span></label>
+      <label class="check on" data-check><i></i><span>Text Dr. Park the window when placed</span></label>
+    </div>
+    <div class="field"><label>Note for the tech</label><textarea class="textarea">Pick up the coil at Johnstone Santa Ana will-call (PO 120, claim 48TC-CLM-2026-3341). Nitrogen test, triple evacuation, charge 18.5 lb by weight. Log the verification test.</textarea></div>
+    <div class="notice moss">No overlap. Marcus finishes 1135 Warner Business Park at 11:00, 16 min away. Thursday lunch moves to 2:30.</div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn copper" type="button" data-close data-toast="1058-2 created · Marcus Hale, Thu Oct 15 11:30 · Dr. Park texted the window">Create 1058-2</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-work-order-po" role="dialog" aria-label="Issue purchase order">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="num strong" style="font-size:18px">PO 122</span><span class="muted">not saved yet</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div><h2>Issue PO for work order 1058</h2><div class="muted">Parts bill to the work order and show on the invoice with their source.</div></div>
+    <div class="field-grid">
+      <div class="field"><label>Vendor</label><select class="select"><option>Johnstone Supply · Santa Ana</option><option>Ferguson · Costa Mesa</option><option>Carrier Enterprise</option><option>RSD · Irvine</option></select><div class="help">Johnstone: coil gasket kit <span class="money">$38.20</span> · in stock Santa Ana</div></div>
+      <div class="field"><label>Work order</label><select class="select"><option>1058 · Irvine Med Offices · Suite 200</option><option>Truck stock · Van 12</option></select></div>
+      <div class="field"><label>Warehouse</label><select class="select"><option>Van 12 · Marcus</option><option>Main · Costa Mesa</option></select></div>
+      <div class="field"><label>Needed by</label><input class="input" type="date" value="2026-10-15"></div>
+    </div>
+    <label class="check" data-check><i></i><span>Lump sum · one amount, attach the pack list later</span></label>
+    <div>
+      <span class="eyebrow">Lines</span>
+      <div class="table-wrap mt-1">
+        <table class="table dense">
+          <thead><tr><th>Description</th><th>Category</th><th class="num">Qty</th><th class="num">Unit cost</th><th class="num">Extended</th></tr></thead>
+          <tbody>
+            <tr><td>Coil gasket and seal kit, 48TC</td><td>Refrigeration</td><td class="num">1</td><td class="num">$38.20</td><td class="num">$38.20</td></tr>
+            <tr><td>R-410A, 25 lb cylinder</td><td>Refrigerant</td><td class="num">1</td><td class="num">$215.00</td><td class="num">$215.00</td></tr>
+            <tr><td colspan="4" class="strong">Cost</td><td class="num strong">$253.20</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn sm ghost mt-1" type="button" data-toast="Line added">Add line</button>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn" type="button" data-close data-toast="PO 122 saved · Issued">Save</button>
+    <button class="btn copper" type="button" data-close data-toast="PO 122 saved and received into Van 12">Save and receive</button>
+  </div>
+</div>
+</template>
+</section>

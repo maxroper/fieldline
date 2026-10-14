@@ -1,0 +1,274 @@
+<section class="screen" id="s-quote-editor" data-title="Quote 2041" data-group="office" data-face="office" data-order="32">
+<style>
+  #s-quote-editor .option-card { display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+  #s-quote-editor .option-card .name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+  #s-quote-editor .option-card .price { font-size: 26px; }
+  #s-quote-editor .option-card .fin { font-size: 12px; color: var(--copper-deep); font-weight: 500; }
+  #s-quote-editor .option-card .inc { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--ink-2); }
+  #s-quote-editor .option-card .inc li::before { content: "·"; margin-right: 6px; color: var(--ink-3); }
+  #s-quote-editor .option-card .inc li.plus { color: var(--ink); }
+  #s-quote-editor .option-card .oc-foot { margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); font-size: 11px; color: var(--ink-3); display: flex; justify-content: space-between; gap: 8px; }
+  #s-quote-editor .editor-cols { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  #s-quote-editor .lines .row { padding: 4px 0; }
+  #s-quote-editor .lines .input { min-height: 34px; padding: 6px 10px; }
+  #s-quote-editor .table.dense .input { min-height: 30px; padding: 4px 8px; width: 72px; text-align: right; box-shadow: none; }
+  #s-quote-editor .table.dense .input.wide { width: 100%; text-align: left; }
+  #s-quote-editor .filechip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: var(--r-2); padding: 6px 10px 6px 6px; font-size: 12px; background: var(--card); }
+  #s-quote-editor .filechip .photo { width: 28px; height: 28px; aspect-ratio: auto; border-radius: 6px; }
+  #s-quote-editor .totals dd.big { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+  @media (max-width: 1100px) { #s-quote-editor .editor-cols { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+</style>
+
+<div class="back-bar">
+  <button class="btn ghost sm back" type="button" data-go="quoting">Back to Quoting</button>
+  <div class="btn-group"><button class="btn sm" type="button" data-toast="Saved">Save</button><button class="btn primary sm" type="button" data-go="quoting" data-toast="Saved">Save and back</button></div>
+</div>
+
+<div class="page">
+  <div class="page-head">
+    <div class="stack tight">
+      <span class="eyebrow">Quote · started from work order 1041 · Oct 2</span>
+      <h1>Quote 2041 · Irvine Med Offices</h1>
+      <div class="row wrap"><span class="pill quote">Viewed · Tue 4:12 PM, 3 opens</span><span class="pill copper">Better preselected · $3,420</span><span class="pill route">Follow-up tomorrow 9:00 · text</span></div>
+      <div class="small muted">Barranca Medical Partners · Main building, 4600 Barranca Pkwy, Irvine · RTU-3 Trane Precedent YSC120, 10 ton, 2016 · Found on PM · Marcus Hale</div>
+    </div>
+    <div class="btn-group">
+      <button class="btn sm ghost" type="button" data-toast="Bid PDF created · Quote-2041-Irvine-Med-Offices.pdf">Create bid PDF</button>
+      <button class="btn sm ghost" type="button" data-toast="Quote 2041 marked Declined · loss reason asked next">Decline</button>
+      <button class="btn sm" type="button" data-toast="Quote 2041 approved on Better · WO 1072 created in the open queue">Approve</button>
+      <button class="btn sm copper" type="button" data-toast="Sent for e-sign · Dr. Lena Park · text and email with the portal link">Send for e-sign</button>
+    </div>
+  </div>
+
+  <div class="option-cards mt-2">
+    <button class="option-card" type="button" data-option>
+      <span class="tier">Good</span>
+      <span class="name">Repair RTU-3</span>
+      <span class="price money">$1,720</span>
+      <span class="fin">as low as <span class="money">$56</span>/mo · 36 mo</span>
+      <ul class="inc">
+        <li>Replace blower belt and both bearings</li>
+        <li>Align and tension drive, test amps</li>
+        <li>1-year labor warranty</li>
+      </ul>
+      <span class="oc-foot"><span>3 lines · 12.8 h</span><span>margin 40%</span></span>
+    </button>
+    <button class="option-card on" type="button" data-option>
+      <span class="row between"><span class="tier">Better</span><span class="tag">Recommended</span></span>
+      <span class="name">Repair + indoor air quality</span>
+      <span class="price money">$3,420</span>
+      <span class="fin">as low as <span class="money">$110</span>/mo · 36 mo <span class="callout">1</span></span>
+      <ul class="inc">
+        <li>Everything in Good</li>
+        <li class="plus">UV-C coil lamp kit on the evaporator</li>
+        <li class="plus">MERV-13 filter upgrade, 4 filters</li>
+        <li class="plus">2-year labor warranty</li>
+      </ul>
+      <span class="oc-foot"><span>6 lines · 15.8 h</span><span>margin 40% · profit <span class="money">$1,368</span></span></span>
+    </button>
+    <button class="option-card" type="button" data-option>
+      <span class="tier">Best</span>
+      <span class="name">Replace RTU-3</span>
+      <span class="price money">$28,900</span>
+      <span class="fin">as low as <span class="money">$449</span>/mo · 84 mo</span>
+      <ul class="inc">
+        <li>Carrier 48TCFA12 · 10 ton · R-454B</li>
+        <li>Crane, curb adapter, electrical and gas</li>
+        <li>10-year parts warranty registered · Title 24 permit and ECC filed</li>
+        <li>Old unit recovered and recycled</li>
+      </ul>
+      <span class="oc-foot"><span>9 lines · 52 h</span><span>margin 20% · replacement band</span></span>
+    </button>
+  </div>
+  <div class="summary-line mt-2">
+    <span>Customer sees all three, Better preselected</span>
+    <span>Financing by Wisetack · 36 mo at 9.9% APR, 84 mo for replacements · subject to approval</span>
+    <span>Lines below edit the <b>Better</b> option <span class="callout">2</span></span>
+  </div>
+
+  <div class="editor-cols mt-4">
+    <div class="stack loose">
+      <div>
+        <div class="search"><input class="input" type="search" value="Irvine Med Offices · Main building" aria-label="Site or work order"></div>
+        <dl class="facts mt-3">
+          <dt>Parent</dt><dd>Barranca Medical Partners</dd>
+          <dt>Site</dt><dd>Main building · 4600 Barranca Pkwy, Irvine</dd>
+          <dt>Contact</dt><dd>Dr. Lena Park · <span class="num">949-555-0142</span></dd>
+          <dt>Problem</dt><dd>Fall PM found a cracked blower belt and worn bearings on RTU-3. Unit is 10 years old on R-410A; owner asked what replacement would cost.</dd>
+          <dt>Started from</dt><dd>Work order 1041 · Oct 2 · Marcus Hale</dd>
+        </dl>
+      </div>
+
+      <hr class="divider">
+
+      <div class="field-grid">
+        <div class="field"><label>Reason</label><select class="select"><option>Found on PM</option><option>From a service work order</option><option>Requested by customer</option></select></div>
+        <div class="field"><label>Unit</label><select class="select"><option>RTU-3 · Trane Precedent YSC120 · 10 ton</option><option>RTU-1 · Carrier 48TC</option><option>RTU-2 · Carrier 48TC</option><option>RTU-4 · Lennox LGH120</option><option>SS-1 · Mitsubishi PUY-A24</option></select></div>
+        <div class="field span-2"><label>Scope template <span class="callout">3</span></label>
+          <select class="select">
+            <option>Custom</option>
+            <option>Replace motor</option><option>Replace compressor</option><option>Replace condenser fan</option><option>Replace blower</option><option>Replace contactor</option><option>Replace capacitor</option><option>Replace filter drier</option><option>Replace expansion valve</option><option>Replace evaporator coil</option><option>Replace condenser coil</option><option>Repair refrigerant leak</option><option>Recover and recharge</option><option>Replace thermostat</option><option>Replace economizer</option><option>Replace gas valve</option><option>Replace heat exchanger</option><option selected>Replace belts and bearings</option><option>PM deficiency</option><option>Clean coils</option><option>Repair condensate drain</option>
+          </select>
+          <span class="help">Templates fill the scope lines, labor hours and pricebook materials; edit anything after.</span>
+        </div>
+        <div class="field span-2"><label>Custom scope</label><textarea class="textarea" style="min-height:64px">Add UV-C lamp kit and MERV-13 upgrade per owner's air-quality question on the Oct 2 visit.</textarea></div>
+      </div>
+
+      <div>
+        <span class="eyebrow">Scope of work · Better</span>
+        <div class="lines mt-2">
+          <div class="row"><input class="input" value="Replace blower belt (A-68) and both blower bearings on RTU-3"><button class="btn icon sm subtle" type="button" aria-label="Remove line">✕</button></div>
+          <div class="row"><input class="input" value="Align and tension the drive, verify blower amps against nameplate"><button class="btn icon sm subtle" type="button" aria-label="Remove line">✕</button></div>
+          <div class="row"><input class="input" value="Install UV-C coil lamp kit on the evaporator, wire to blower circuit"><button class="btn icon sm subtle" type="button" aria-label="Remove line">✕</button></div>
+          <div class="row"><input class="input" value="Replace four 20×25×2 filters with MERV-13, label change date"><button class="btn icon sm subtle" type="button" aria-label="Remove line">✕</button></div>
+          <button class="btn sm ghost mt-1" type="button" data-toast="Scope line added">Add line</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow">Labor <span class="callout">4</span></span>
+        <div class="table-wrap mt-2">
+          <table class="table dense">
+            <thead><tr><th>Class</th><th class="num">Hours</th><th class="num">Cost per hour</th><th class="num">Line total</th></tr></thead>
+            <tbody>
+              <tr><td>Journeyman</td><td class="num"><input class="input num" value="7.5"></td><td class="num money">$64.00</td><td class="num money">$480.00</td></tr>
+              <tr><td>Apprentice</td><td class="num"><input class="input num" value="7.5"></td><td class="num money">$34.00</td><td class="num money">$255.00</td></tr>
+              <tr><td>Driver</td><td class="num"><input class="input num" value="0.8"></td><td class="num money">$30.00</td><td class="num money">$24.00</td></tr>
+              <tr><td class="strong">Total labor</td><td class="num">15.8</td><td></td><td class="num money strong">$759.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="small muted mt-1">Cost rates from the company page; the customer never sees them.</div>
+      </div>
+
+      <div>
+        <div class="row between"><span class="eyebrow">Materials</span><div class="btn-group"><button class="btn sm" type="button" data-open="#sheet-quote-editor-pricebook">Add from pricebook <span class="callout">5</span></button><button class="btn sm ghost" type="button" data-toast="Blank material line added">Add line</button></div></div>
+        <div class="table-wrap mt-2">
+          <table class="table dense">
+            <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit cost</th><th class="num">Total</th><th>Source</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>Blower belt A-68</td><td class="num"><input class="input num" value="2"></td><td class="num money">$46.00</td><td class="num money">$92.00</td><td><span class="tag">Pricebook</span></td><td><button class="btn icon sm subtle" type="button" aria-label="Remove">✕</button></td></tr>
+              <tr><td>Blower bearing set, 1-3/16 in</td><td class="num"><input class="input num" value="2"></td><td class="num money">$98.00</td><td class="num money">$196.00</td><td><span class="tag">Pricebook</span></td><td><button class="btn icon sm subtle" type="button" aria-label="Remove">✕</button></td></tr>
+              <tr><td>Adjustable motor pulley 1VP56</td><td class="num"><input class="input num" value="1"></td><td class="num money">$100.00</td><td class="num money">$100.00</td><td><span class="tag">Johnstone · in stock Santa Ana</span></td><td><button class="btn icon sm subtle" type="button" aria-label="Remove">✕</button></td></tr>
+              <tr><td>UV-C coil lamp kit, single lamp</td><td class="num"><input class="input num" value="1"></td><td class="num money">$684.00</td><td class="num money">$684.00</td><td><span class="tag">Pricebook · IAQ</span></td><td><button class="btn icon sm subtle" type="button" aria-label="Remove">✕</button></td></tr>
+              <tr><td>MERV-13 filter 20×25×2</td><td class="num"><input class="input num" value="4"></td><td class="num money">$32.00</td><td class="num money">$128.00</td><td><span class="tag">Truck stock · Marcus</span></td><td><button class="btn icon sm subtle" type="button" aria-label="Remove">✕</button></td></tr>
+              <tr><td class="strong">Total materials</td><td></td><td></td><td class="num money strong">$1,200.00</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow">Files · picture or vendor quote</span>
+        <div class="row wrap mt-2">
+          <span class="filechip"><span class="photo copper"></span>RTU-3-belt.jpg · Marcus · Oct 2</span>
+          <span class="filechip"><span class="photo dark"></span>RTU-3-bearing-play.mov · 0:14</span>
+          <span class="filechip"><span class="photo steel"></span>Johnstone-quote-UV-kit.pdf · <span class="money">$684</span></span>
+          <button class="btn sm ghost" type="button" data-toast="Attach a file: photo, vendor quote, or PDF">Attach</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack loose">
+      <div>
+        <div class="row between wrap"><span class="eyebrow">Margin</span><div class="seg" data-seg="margin"><button type="button" data-val="45">45</button><button type="button" class="on" data-val="40">40</button><button type="button" data-val="35">35</button><button type="button" data-val="30">30</button><button type="button" data-val="custom">Custom</button></div></div>
+        <div class="small muted mt-1">Contract customer band defaults to 40%. Replacements use the 20% band.</div>
+        <dl class="facts tight totals mt-3">
+          <dt>Materials</dt><dd class="money">$1,200.00</dd>
+          <dt>Labor</dt><dd class="money">$759.00</dd>
+          <dt>Project cost</dt><dd class="money">$1,959.00</dd>
+          <dt>Accrued use tax</dt><dd class="money">$93.00 <span class="muted">· 7.75% on materials</span></dd>
+          <dt>Cost with tax</dt><dd class="money">$2,052.00</dd>
+          <dt>Sell price</dt><dd class="money big">$3,420.00</dd>
+          <dt>Profit</dt><dd class="money">$1,368.00 <span class="muted">· 40.0%</span></dd>
+        </dl>
+        <div class="small muted mt-2">Good <span class="money">$1,720</span> at 40% · Best <span class="money">$28,900</span> at 20%</div>
+      </div>
+
+      <hr class="divider">
+
+      <div>
+        <div class="row between"><span class="eyebrow">Customer view <span class="callout">6</span></span><button class="btn sm ghost" type="button" data-go="cust-portal">Preview as customer</button></div>
+        <div class="status-track mt-3">
+          <div class="st done">Sent<br><span class="num">Oct 9 · 2:10 PM</span></div>
+          <div class="st now">Viewed<br><span class="num">Tue 4:12 PM</span></div>
+          <div class="st">Approved</div>
+          <div class="st">E-signed</div>
+        </div>
+        <dl class="facts tight mt-3">
+          <dt>Opens</dt><dd>3 · Dr. Lena Park on iPhone · Tue 4:12 PM, Wed 8:03 AM, Wed 8:05 AM</dd>
+          <dt>Time on Best</dt><dd><span class="num">1:40</span> · longest of the three</dd>
+          <dt>E-sign</dt><dd>Not yet · link valid to Nov 8 · signs as Barranca Medical Partners</dd>
+          <dt>Approval creates</dt><dd>Quoted job in the open queue · RTU-3R proposed if Best</dd>
+        </dl>
+      </div>
+
+      <hr class="divider">
+
+      <div>
+        <span class="eyebrow">Follow-up</span>
+        <div class="field-grid mt-2">
+          <div class="field"><label>Status</label><select class="select"><option>Draft</option><option>Sent</option><option selected>Viewed</option><option>Approved</option><option>Declined</option><option>Follow-up</option></select></div>
+          <div class="field"><label>Follow-up date</label><input class="input num" value="Oct 15, 2026"><span class="help">Follow-up needs a date.</span></div>
+          <div class="field span-2"><label>Kind</label><select class="select"><option>Text · automatic, day 2 of the cadence</option><option>Email with options</option><option>Call · account manager</option><option>Visit</option></select></div>
+        </div>
+        <div class="small muted mt-2">Shows in Follow-ups as "Quote 2041 · viewed 3 times · next touch: text tomorrow 9:00".</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Everything in today's editor: Approve, Decline and Create bid PDF; the site and work order search with the quote-customer facts; Reason, Unit, the full HVAC scope template list (3) and Custom scope; scope-of-work lines; labor as Journeyman / Apprentice / Driver × hours × cost per hour (4); materials lines with quantity and unit cost; picture or vendor quote files; margin presets 45 / 40 / 35 / 30 / Custom; accrued use tax, project cost, sell price and profit; Status, Follow-up date and "Follow-up needs a date".</li>
+    <li><span class="f">new</span>F9 Good / Better / Best is the one focus (1): three option cards with price, what is included, and an "as low as $/mo" financing line. The lines below edit the selected option (2); approval creates the quoted job, and a Best approval adds the proposed unit to the site record.</li>
+    <li><span class="f">new</span>F10 "Add from pricebook" (5) opens the picker: plain-language repairs with tier prices, parts cost, labor hours, margin benchmark and how often it was used this year.</li>
+    <li><span class="f">new</span>Customer view (6): sent, viewed, approved, e-signed as a track, with open tracking and the e-sign link state; "Send for e-sign" replaces mailing a PDF, and "Preview as customer" opens the portal page.</li>
+    <li><span class="f">changed</span>Per the direction update: back bar, calm header with three pills and one line of facts, the option cards, then two quiet columns. Materials show their source (pricebook, vendor price hint, truck stock) as a tag instead of a separate field.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-quote-editor-pricebook" role="dialog" aria-label="Pricebook">
+  <div class="sheet-head"><div><h3>Pricebook</h3><div class="small muted">Adding to Quote 2041 · Better</div></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="search"><input class="input" type="search" value="blower" aria-label="Search the pricebook"></div>
+    <div class="chips"><button class="chip on" type="button" data-chip>Repairs</button><button class="chip" type="button" data-chip>Airflow</button><button class="chip" type="button" data-chip>Refrigeration</button><button class="chip" type="button" data-chip>Electrical</button><button class="chip" type="button" data-chip>Controls</button><button class="chip on" type="button" data-chip>IAQ</button><button class="chip" type="button" data-chip>Maintenance</button><button class="chip" type="button" data-chip>Materials</button></div>
+    <div class="list">
+      <div class="item tall">
+        <span class="photo" style="width:44px;height:44px;border-radius:8px"></span>
+        <span class="stack tight"><span class="title">Replace blower belt and bearings, 10-ton RTU</span><span class="sub"><span class="num">R-AF-104</span> · Good <span class="money">$1,720</span> · parts <span class="money">$288</span> · 6.0 h · margin 40% · used 14 times this year</span></span>
+        <span class="pill site plain">On quote</span>
+      </div>
+      <div class="item tall">
+        <span class="photo steel" style="width:44px;height:44px;border-radius:8px"></span>
+        <span class="stack tight"><span class="title">UV-C coil lamp kit, single lamp</span><span class="sub"><span class="num">IAQ-UV-210</span> · Better <span class="money">$1,180</span> · parts <span class="money">$684</span> · 1.5 h · margin 42% · used 6 times</span></span>
+        <span class="pill site plain">On quote</span>
+      </div>
+      <div class="item tall">
+        <span class="photo" style="width:44px;height:44px;border-radius:8px"></span>
+        <span class="stack tight"><span class="title">MERV-13 filter upgrade, four filters</span><span class="sub"><span class="num">IAQ-FL-013</span> · <span class="money">$260</span> · parts <span class="money">$128</span> · 0.5 h · used 31 times</span></span>
+        <span class="pill site plain">On quote</span>
+      </div>
+      <div class="item tall">
+        <span class="photo copper" style="width:44px;height:44px;border-radius:8px"></span>
+        <span class="stack tight"><span class="title">Replace blower motor, 2 hp belt drive</span><span class="sub"><span class="num">R-AF-118</span> · Good <span class="money">$1,960</span> · Better <span class="money">$2,340</span> with VFD · parts <span class="money">$612</span> · 4.0 h · margin 40% · used 5 times</span></span>
+        <button class="btn sm" type="button" data-toast="Replace blower motor added to Better · sell price now $5,380">Add</button>
+      </div>
+      <div class="item tall">
+        <span class="photo dark" style="width:44px;height:44px;border-radius:8px"></span>
+        <span class="stack tight"><span class="title">Bipolar ionization module, duct mount</span><span class="sub"><span class="num">IAQ-ION-305</span> · Better <span class="money">$1,460</span> · parts <span class="money">$790</span> · 2.0 h · margin 38% · used 2 times · benchmark: OC shops $1,300–1,700</span></span>
+        <button class="btn sm" type="button" data-toast="Ionization module added to Better · sell price now $4,880">Add</button>
+      </div>
+      <div class="item tall">
+        <span class="photo" style="width:44px;height:44px;border-radius:8px"></span>
+        <span class="stack tight"><span class="title">Replace condenser fan motor, 1/3 hp</span><span class="sub"><span class="num">R-RF-220</span> · Good <span class="money">$1,480</span> · parts <span class="money">$412</span> · 2.5 h · margin 40% · used 14 times</span></span>
+        <button class="btn sm" type="button" data-toast="Condenser fan motor added to Better">Add</button>
+      </div>
+    </div>
+    <div class="small muted">Prices are tier sell prices from the pricebook; margin and labor hours are the company defaults for the item. Johnstone and Ferguson costs refresh nightly.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn primary" type="button" data-close data-toast="Pricebook items added to Better">Done</button></div>
+</div>
+</template>
+</section>

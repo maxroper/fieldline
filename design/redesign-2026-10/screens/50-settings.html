@@ -1,0 +1,487 @@
+<section class="screen" id="s-settings" data-title="Settings" data-group="office" data-face="office" data-order="50">
+<style>
+  #s-settings .anav { display: flex; flex-direction: column; gap: 2px; }
+  #s-settings .anav button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 9px 12px; border-radius: var(--r-2); color: var(--ink-2); min-width: 0; transition: background var(--dur-1) var(--ease); }
+  #s-settings .anav button b { display: block; color: var(--ink); font-weight: 600; }
+  #s-settings .anav button span { display: block; font-size: 11px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #s-settings .anav button:hover { background: var(--paper-2); }
+  #s-settings .anav button.on { background: var(--copper-tint); box-shadow: inset 3px 0 0 var(--copper); }
+  #s-settings .anav button.on b { color: var(--copper-deep); }
+  #s-settings .group { display: flex; flex-direction: column; gap: 12px; }
+  #s-settings .group-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  #s-settings .group-head .sub { font-size: 12px; color: var(--ink-2); }
+  #s-settings .table .input, #s-settings .table .select { min-height: 32px; padding: 4px 8px; box-shadow: none; font-size: 12px; }
+  #s-settings .table .input.narrow { width: 92px; text-align: right; }
+  #s-settings .integ { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  #s-settings .integ:last-child { border-bottom: 0; }
+  #s-settings .save-row { display: flex; gap: 8px; justify-content: flex-end; align-items: center; padding-top: 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+  #s-settings .form-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  #s-settings .form-row:last-child { border-bottom: 0; }
+  #s-settings .readonly { background: var(--paper-2); color: var(--ink-2); box-shadow: none; display: flex; align-items: center; min-height: 38px; }
+  @media (max-width: 900px) { #s-settings .anav { flex-direction: row; overflow-x: auto; padding-bottom: 4px; } #s-settings .anav button { flex: 0 0 auto; width: auto; } #s-settings .anav button span { display: none; } #s-settings .form-row { grid-template-columns: minmax(0, 1fr) auto; } }
+</style>
+
+<div class="toolbar">
+  <div class="search" style="flex: 1 1 200px; max-width: 320px;"><input class="input" type="search" placeholder="Find a setting" aria-label="Find a setting"></div>
+  <span class="grow"></span>
+  <span class="small muted">Saved 2:35 PM · Admin</span>
+  <button class="btn primary sm" type="button" data-toast="Settings saved">Save changes</button>
+</div>
+
+<div class="split narrow-rail">
+  <aside class="rail">
+    <div class="anav" data-tabs="settings-nav" role="tablist" aria-label="Settings sections">
+      <button type="button" class="on" data-tab="company"><b>Company</b><span>Name, teams, from, terms, signature</span></button>
+      <button type="button" data-tab="rates"><b>Rates and margins</b><span>Cost and bill rates, bands, tax, vehicle</span></button>
+      <button type="button" data-tab="integrations"><b>Integrations</b><span>QuickBooks · 3 alerts · SMS · payments · maps</span></button>
+      <button type="button" data-tab="compliance"><b>Compliance</b><span>Refrigerant log · permits · warranty</span></button>
+      <button type="button" data-tab="forms"><b>Forms</b><span>4 checklists · 3 required before complete</span></button>
+      <button type="button" data-tab="notifications"><b>Notifications</b><span>8 automations on · quiet hours</span></button>
+      <button type="button" data-tab="warehouses"><b>Warehouses and vendors</b><span>11 warehouses · 5 vendors</span></button>
+      <button type="button" data-tab="people"><b>People permissions</b><span>5 office people · 2 rights</span></button>
+    </div>
+    <hr class="divider">
+    <div class="small faint">Everything on the old Company page is here, grouped. Rates feed Quoting and Billing; Compliance and Forms feed the tech's work order.</div>
+  </aside>
+
+  <div class="canvas">
+    <div class="page">
+
+      <div class="panel on" data-panel="company" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>Company</h1><div class="sub">What prints on quotes, POs and invoices, and the teams that appear on the board.</div></div></div>
+          <div class="field-grid">
+            <div class="field"><label>Company name</label><input class="input" value="Harbor Coast Mechanical" aria-label="Company name"></div>
+            <div class="field"><label>Legal name</label><input class="input" value="Harbor Coast Mechanical LLC" aria-label="Legal name"></div>
+            <div class="field span-2"><label>Address</label><input class="input" value="1740 Monrovia Ave, Costa Mesa, CA 92627" aria-label="Address"></div>
+            <div class="field"><label>Phone</label><input class="input num" value="714-555-0100" aria-label="Phone"></div>
+            <div class="field"><label>Email</label><input class="input" value="office@harborcoastmech.example" aria-label="Email"></div>
+            <div class="field"><label>CSLB license</label><input class="input num" value="C-20 · 1087432" aria-label="CSLB license"></div>
+            <div class="field"><label>Hours</label><input class="input" value="Mon–Fri 7:00–5:00 · on-call after hours" aria-label="Hours"></div>
+          </div>
+
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Teams</h3><button class="btn sm ghost" type="button" data-toast="New team: name, home shop and dispatcher">Add team</button></div>
+            <div class="table-wrap">
+              <table class="table dense">
+                <thead><tr><th>Team</th><th>Home shop</th><th>Techs</th><th>Dispatcher</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td class="primary-cell">Costa Mesa <span class="small faint">· home</span></td><td>Main · Costa Mesa</td><td><span class="avatar-stack"><span class="avatar sm">MH</span><span class="avatar sm moss">EC</span><span class="avatar sm amber">AW</span><span class="avatar sm amber">LO</span></span> <span class="small muted">4</span></td><td>James Reynolds</td><td class="right"><button class="btn sm ghost" type="button" data-toast="Editing team Costa Mesa">Edit</button></td></tr>
+                  <tr><td class="primary-cell">Irvine</td><td>Irvine shop</td><td><span class="avatar-stack"><span class="avatar sm rust">PS</span><span class="avatar sm">DR</span><span class="avatar sm moss">HC</span><span class="avatar sm rust">NB</span></span> <span class="small muted">4</span></td><td>James Reynolds</td><td class="right"><button class="btn sm ghost" type="button" data-toast="Editing team Irvine">Edit</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Documents</h3><span class="sub">Printed on quotes, POs and invoices</span></div>
+            <div class="field-grid">
+              <div class="field span-2"><label>Who it is from</label><textarea class="textarea" aria-label="Who it is from" style="min-height: 64px;">Harbor Coast Mechanical · 1740 Monrovia Ave, Costa Mesa, CA 92627 · 714-555-0100 · CSLB C-20 1087432</textarea></div>
+              <div class="field span-2"><label>Terms and conditions</label><textarea class="textarea" aria-label="Terms and conditions">Net 30 from invoice date. Quoted work is valid for 30 days. Parts carry the manufacturer's warranty; labor is warranted 90 days. Refrigerant is billed by the pound as logged on the job. Balances past 30 days carry a 1.5% monthly finance charge.</textarea></div>
+              <div class="field"><label>Signature block</label><textarea class="textarea" aria-label="Signature block" style="min-height: 64px;">Max Roper, Owner
+Harbor Coast Mechanical</textarea></div>
+              <div class="field"><label>Mark</label><div class="row gap-2"><span class="avatar lg ink">HC</span><button class="btn sm ghost" type="button" data-toast="Choose a PNG or SVG mark">Replace mark</button></div><div class="help">Shown on invoices, the portal and the tracking page.</div></div>
+            </div>
+          </div>
+          <div class="save-row"><span class="small faint">Jun 3 terms edited · Mar 1 Irvine team added</span><span class="grow"></span><button class="btn ghost" type="button" data-toast="Changes discarded">Discard</button><button class="btn primary" type="button" data-toast="Company saved">Save changes</button></div>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="rates" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>Rates and margins</h1><div class="sub">Labor cost and bill rates, material margin bands, tax and vehicle defaults. Quoting, Billing and the Pricebook read these.</div></div><button class="btn sm ghost" type="button" data-toast="Rates pulled from QuickBooks service items: 6 matched, nothing changed">Pull rates from QuickBooks</button></div>
+
+          <div class="group">
+            <div class="group-head"><h3>Labor cost rates</h3><span class="sub">per hour, with burden · used for job cost, quoted-job labor budgets, margin and California daily overtime [F20]</span></div>
+            <div class="field-grid">
+              <div class="field"><label>Journeyman</label><input class="input money" value="$58.00" aria-label="Journeyman cost"></div>
+              <div class="field"><label>Apprentice</label><input class="input money" value="$34.00" aria-label="Apprentice cost"></div>
+              <div class="field"><label>Driver</label><input class="input money" value="$26.00" aria-label="Driver cost"></div>
+              <div class="field"><label>Overtime factor</label><input class="input num" value="1.5× daily over 8 h · 2× over 12 h" aria-label="Overtime factor"></div>
+            </div>
+          </div>
+
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Defaults</h3></div>
+            <div class="field-grid">
+              <div class="field"><label>Default sales tax rate</label><input class="input num" value="7.75%" aria-label="Default sales tax rate"><div class="help">Site tax rate overrides · Santa Ana sites 9.25%</div></div>
+              <div class="field"><label>Misc material %</label><input class="input num" value="3%" aria-label="Misc material percent"></div>
+              <div class="field"><label>Vehicle charge</label><input class="input money" value="$45.00" aria-label="Vehicle charge"></div>
+              <div class="field"><label>Hours per vehicle charge</label><input class="input num" value="8" aria-label="Hours per vehicle charge"></div>
+              <div class="field"><label>Default quote margin</label><select class="select"><option>40%</option><option>45%</option><option>35%</option><option>30%</option><option>Custom</option></select></div>
+              <div class="field"><label>Travel</label><label class="check on" data-check style="min-height: 38px;"><i></i><span>Bill travel separately</span></label></div>
+            </div>
+          </div>
+
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Labor bill rates</h3><span class="sub">Contract rates apply to agreement customers</span></div>
+            <div class="grid cols-2">
+              <div class="table-wrap"><table class="table dense">
+                <thead><tr><th>Non-contract</th><th class="num">Regular</th><th class="num">After hours</th></tr></thead>
+                <tbody>
+                  <tr><td>Journeyman</td><td class="num"><input class="input money narrow" value="$195.00" aria-label="Journeyman non-contract"></td><td class="num"><input class="input money narrow" value="$292.50" aria-label="Journeyman after hours"></td></tr>
+                  <tr><td>Apprentice</td><td class="num"><input class="input money narrow" value="$120.00" aria-label="Apprentice non-contract"></td><td class="num"><input class="input money narrow" value="$180.00" aria-label="Apprentice after hours"></td></tr>
+                  <tr><td>Driver</td><td class="num"><input class="input money narrow" value="$90.00" aria-label="Driver non-contract"></td><td class="num"><input class="input money narrow" value="$135.00" aria-label="Driver after hours"></td></tr>
+                </tbody>
+              </table></div>
+              <div class="table-wrap"><table class="table dense">
+                <thead><tr><th>Contract</th><th class="num">Regular</th><th class="num">After hours</th></tr></thead>
+                <tbody>
+                  <tr><td>Journeyman</td><td class="num"><input class="input money narrow" value="$165.00" aria-label="Journeyman contract"></td><td class="num"><input class="input money narrow" value="$247.50" aria-label="Journeyman contract after hours"></td></tr>
+                  <tr><td>Apprentice</td><td class="num"><input class="input money narrow" value="$105.00" aria-label="Apprentice contract"></td><td class="num"><input class="input money narrow" value="$157.50" aria-label="Apprentice contract after hours"></td></tr>
+                  <tr><td>Driver</td><td class="num"><input class="input money narrow" value="$80.00" aria-label="Driver contract"></td><td class="num"><input class="input money narrow" value="$120.00" aria-label="Driver contract after hours"></td></tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div>
+
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Material margin bands <span class="callout">1</span></h3><span class="sub">Cost divided by the band factor gives the sell price</span></div>
+            <div class="grid cols-2">
+              <div class="table-wrap"><table class="table dense">
+                <thead><tr><th>Non-contract · up to</th><th class="num">Divide by</th><th>Example</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td class="num"><input class="input money narrow" value="$100" aria-label="Up to"></td><td class="num"><input class="input num narrow" value="0.50" aria-label="Divide by"></td><td class="small muted"><span class="money">$10</span> sells <span class="money">$20</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row removed">Remove</button></td></tr>
+                  <tr><td class="num"><input class="input money narrow" value="$500" aria-label="Up to"></td><td class="num"><input class="input num narrow" value="0.60" aria-label="Divide by"></td><td class="small muted"><span class="money">$300</span> sells <span class="money">$500</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row removed">Remove</button></td></tr>
+                  <tr><td class="num"><input class="input money narrow" value="$2,000" aria-label="Up to"></td><td class="num"><input class="input num narrow" value="0.70" aria-label="Divide by"></td><td class="small muted"><span class="money">$1,000</span> sells <span class="money">$1,429</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row removed">Remove</button></td></tr>
+                  <tr><td class="num small muted">Above</td><td class="num"><input class="input num narrow" value="0.75" aria-label="Divide by"></td><td class="small muted"><span class="money">$3,000</span> sells <span class="money">$4,000</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row added">Add row</button></td></tr>
+                </tbody>
+              </table></div>
+              <div class="table-wrap"><table class="table dense">
+                <thead><tr><th>Contract · up to</th><th class="num">Divide by</th><th>Example</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td class="num"><input class="input money narrow" value="$100" aria-label="Up to"></td><td class="num"><input class="input num narrow" value="0.55" aria-label="Divide by"></td><td class="small muted"><span class="money">$10</span> sells <span class="money">$18</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row removed">Remove</button></td></tr>
+                  <tr><td class="num"><input class="input money narrow" value="$500" aria-label="Up to"></td><td class="num"><input class="input num narrow" value="0.65" aria-label="Divide by"></td><td class="small muted"><span class="money">$300</span> sells <span class="money">$462</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row removed">Remove</button></td></tr>
+                  <tr><td class="num"><input class="input money narrow" value="$2,000" aria-label="Up to"></td><td class="num"><input class="input num narrow" value="0.74" aria-label="Divide by"></td><td class="small muted"><span class="money">$1,000</span> sells <span class="money">$1,351</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row removed">Remove</button></td></tr>
+                  <tr><td class="num small muted">Above</td><td class="num"><input class="input num narrow" value="0.80" aria-label="Divide by"></td><td class="small muted"><span class="money">$3,000</span> sells <span class="money">$3,750</span></td><td class="right"><button class="btn sm subtle" type="button" data-toast="Row added">Add row</button></td></tr>
+                </tbody>
+              </table></div>
+            </div>
+            <div class="summary-line"><span>Pricebook benchmark [F10]: Good-tier repair margin <b>58%</b> against OC <b>55–65%</b></span><span>Materials <b>42%</b> against <b>35–45%</b></span><button class="btn sm subtle" type="button" data-go="pricebook">Open Pricebook</button></div>
+          </div>
+          <div class="save-row"><button class="btn ghost" type="button" data-toast="Changes discarded">Discard</button><button class="btn primary" type="button" data-toast="Rates and margins saved">Save changes</button></div>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="integrations" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>Integrations</h1><div class="sub">Accounting, texting, payments, maps, parts and payroll. Each shows its last sync and anything waiting.</div></div></div>
+          <div>
+            <div class="integ">
+              <span class="avatar lg moss">QB</span>
+              <div class="stack">
+                <div class="row between wrap"><div><b>QuickBooks Online</b><div class="small muted">Harbor Coast Mechanical LLC · last sync <span class="num">2:35 PM</span>, every 15 min · pushes invoices, payments, credits, vendor bills from POs, customers</div></div><span class="pill site live">Connected</span></div>
+                <div class="row wrap">
+                  <label class="switch on" data-switch><i></i><span>Match on Fieldline IDs, never on names <span class="callout">2</span></span></label>
+                  <select class="select-pill" aria-label="Sync timing"><option>Sync every 15 min</option><option>Hourly</option><option>When marked billed</option></select>
+                  <button class="btn sm" type="button" data-open="#sheet-settings-qbo">Sync queue · 3 alerts</button>
+                  <button class="btn sm ghost" type="button" data-toast="Sync started · 2 invoices, 1 payment, 1 bill">Sync now</button>
+                </div>
+              </div>
+            </div>
+            <div class="integ">
+              <span class="avatar lg rust">SM</span>
+              <div class="stack">
+                <div class="row between wrap"><div><b>SMS · Twilio</b><div class="small muted">Texting number <span class="num">(714) 555-0119</span> · 10DLC brand verified, campaign "Customer care, low volume mixed" approved · this month <span class="num">1,240</span> segments, <span class="num">98.4%</span> delivered, 1 failed (landline) · replies land in Messages, "C" confirms the visit · quiet hours 8 PM – 7 AM</div></div><span class="pill site">Active</span></div>
+                <div class="row wrap"><button class="btn sm ghost" type="button" data-toast="Test text sent to 714-555-0100">Send test</button><button class="btn sm ghost" type="button" data-go="messages">Open Messages</button></div>
+              </div>
+            </div>
+            <div class="integ">
+              <span class="avatar lg plum">PY</span>
+              <div class="stack">
+                <div class="row between wrap"><div><b>Payments · Stripe</b><div class="small muted">Card on file for <span class="num">22</span> customers, agreement autopay on 16 · Tap to Pay enabled on 8 tech phones · payouts daily, 2-day settlement · 2.9% + 30¢ card, 0.8% ACH capped</div></div><span class="pill site">Connected</span></div>
+                <div class="row wrap"><label class="switch on" data-switch><i></i><span>Payment link on every invoice</span></label><label class="switch on" data-switch><i></i><span>Deposits on quoted jobs over <span class="money">$2,500</span></span></label></div>
+              </div>
+            </div>
+            <div class="integ">
+              <span class="avatar lg">GM</span>
+              <div class="stack">
+                <div class="row between wrap"><div><b>Google Maps</b><div class="small muted">Routes and geocoding · positions every 30 s from the tech app during work hours · geofence <span class="num">150 m</span> for auto arrive and depart on timesheets · live traffic for the board, suggestions and ETA texts · key restricted to fieldline.app</div></div><span class="pill site live">4 trucks reporting</span></div>
+                <div class="row wrap"><button class="btn sm ghost" type="button" data-toast="Costa Mesa shop to Warner Business Park: 18 min now">Test a route</button><label class="switch on" data-switch><i></i><span>Customer tracking page</span></label></div>
+              </div>
+            </div>
+            <div class="integ">
+              <span class="avatar lg amber">JS</span>
+              <div class="stack">
+                <div class="row between wrap"><div><b>Johnstone Supply · pricing feed</b><div class="small muted">Santa Ana branch account 44-1182 · last import Oct 12, <span class="num">1,240</span> parts matched, 38 price changes queued · branch stock shown on PO lines and pricebook parts</div></div><span class="pill site">Connected</span></div>
+                <div class="row wrap"><label class="switch on" data-switch><i></i><span>Import weekly, Monday 6:00 AM</span></label><button class="btn sm ghost" type="button" data-go="pricebook">Review changes</button></div>
+              </div>
+            </div>
+            <div class="integ">
+              <span class="avatar lg ink">PR</span>
+              <div class="stack">
+                <div class="row between wrap"><div><b>Payroll export</b><div class="small muted">Gusto CSV, biweekly · California daily OT over 8 h, double over 12, meal premiums · last export Oct 9 for Sep 26 – Oct 9, 8 techs</div></div><span class="pill plain">Manual</span></div>
+                <div class="row wrap"><button class="btn sm ghost" type="button" data-go="timesheets">Open Timesheets</button><button class="btn sm ghost" type="button" data-toast="Gusto connection: sign in on the Gusto side to enable direct push">Connect Gusto</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="compliance" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>Compliance</h1><div class="sub">Refrigerant records, permits and warranty registration. These rules decide what the tech must fill in before a job can complete.</div></div></div>
+
+          <div class="group">
+            <div class="group-head"><h3>Refrigerant log <span class="callout">3</span></h3><label class="switch on" data-switch><i></i><span>Required</span></label></div>
+            <div class="field-grid">
+              <div class="field"><label>Require a log when the unit holds more than</label><input class="input num" value="15 lb" aria-label="Threshold"><div class="help">40 CFR 84.106 appliance threshold for HFCs. Units under it can still be logged.</div></div>
+              <div class="field"><label>EPA reporting year</label><select class="select"><option>2026 · Jan 1 – Dec 31</option><option>2025</option></select></div>
+              <div class="field"><label>Leak-rate thresholds</label><div class="input readonly small">Comfort cooling 10% · commercial refrigeration 20% · industrial process 30%</div><div class="help">Fieldline computes the annualized rate from pounds added per unit.</div></div>
+              <div class="field"><label>Records kept</label><div class="input readonly small">3 years EPA 608 · 5 years CARB RMP</div></div>
+            </div>
+            <label class="switch on" data-switch><i></i><span>Register units over 50 lb with CARB R3 · facility ID <span class="num">RMP-0482-HCM</span></span></label>
+            <div class="table-wrap"><table class="table dense">
+              <thead><tr><th>Technician EPA 608</th><th>Type</th><th>Certificate</th><th>Verified</th></tr></thead>
+              <tbody>
+                <tr><td>Marcus Hale</td><td>Universal</td><td class="num">0821-4471</td><td class="small muted">Card photo</td></tr>
+                <tr><td>Elena Cruz</td><td>Universal</td><td class="num">0821-4472</td><td class="small muted">Card photo</td></tr>
+                <tr><td>Andre Walsh</td><td>Type II</td><td class="num">0821-4473</td><td class="small muted">Card photo</td></tr>
+                <tr><td>Priya Shah</td><td>Universal</td><td class="num">0821-4474</td><td class="small muted">Card photo</td></tr>
+                <tr><td>Diego Ramos</td><td>Type II</td><td class="num">0821-4475</td><td><span class="pill route plain">Add card photo</span></td></tr>
+                <tr><td>Hannah Cho</td><td>Universal</td><td class="num">0821-4476</td><td class="small muted">Card photo</td></tr>
+                <tr><td>Luis Ortega</td><td>Type II</td><td class="num">0821-4477</td><td class="small muted">Card photo</td></tr>
+                <tr><td>Naomi Brooks</td><td>Universal</td><td class="num">0821-4478</td><td class="small muted">Card photo</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Permits and Title 24</h3><label class="switch on" data-switch><i></i><span>Track by job type</span></label></div>
+            <div class="field-grid">
+              <div class="field"><label>Job types tracked</label><div class="stack tight"><label class="check on" data-check style="min-height: 32px;"><i></i><span>Replacement / changeout</span></label><label class="check on" data-check style="min-height: 32px;"><i></i><span>New install</span></label><label class="check" data-check style="min-height: 32px;"><i></i><span>Repair</span></label><label class="check" data-check style="min-height: 32px;"><i></i><span>Maintenance</span></label></div></div>
+              <div class="field"><label>Required tests on changeouts (ECC)</label><div class="stack tight"><label class="check on" data-check style="min-height: 32px;"><i></i><span>Duct leakage ≤ 15%</span></label><label class="check on" data-check style="min-height: 32px;"><i></i><span>Refrigerant charge verification</span></label><label class="check on" data-check style="min-height: 32px;"><i></i><span>Airflow</span></label><label class="check" data-check style="min-height: 32px;"><i></i><span>Fan watt draw</span></label></div><div class="help">2025 Energy Code, effective Jan 1, 2026. HERS is now ECC; the rater registers CF2R / CF3R before final.</div></div>
+              <div class="field"><label>Final inspection reminder</label><select class="select"><option>14 days after install, then weekly</option><option>7 days after install</option></select></div>
+              <div class="field"><label>Permit owner</label><select class="select"><option>Customer service</option><option>Installing tech</option><option>Dispatcher</option></select></div>
+            </div>
+            <div class="table-wrap"><table class="table dense">
+              <thead><tr><th>Jurisdiction</th><th>Portal</th><th class="num">Typical fee</th><th class="num">Open permits</th></tr></thead>
+              <tbody>
+                <tr><td>Irvine</td><td class="small">Online · same day</td><td class="num money">$285</td><td class="num">2</td></tr>
+                <tr><td>Costa Mesa</td><td class="small">Online · 2 days</td><td class="num money">$240</td><td class="num">1</td></tr>
+                <tr><td>Santa Ana</td><td class="small">Counter · 3 days</td><td class="num money">$310</td><td class="num">1</td></tr>
+                <tr><td>Newport Beach</td><td class="small">Online · 1 day</td><td class="num money">$320</td><td class="num">0</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Warranty registration</h3><label class="switch on" data-switch><i></i><span>Reminders</span></label></div>
+            <div class="field-grid">
+              <div class="field"><label>Remind</label><select class="select"><option>7 days after install</option><option>Same day</option><option>30 days after install</option></select></div>
+              <div class="field"><label>Owner</label><select class="select"><option>Customer service</option><option>Installing tech</option></select></div>
+              <div class="field span-2"><label>Manufacturer portals</label><div class="stack tight"><label class="check on" data-check style="min-height: 32px;"><i></i><span>Carrier</span></label><label class="check on" data-check style="min-height: 32px;"><i></i><span>Trane</span></label><label class="check on" data-check style="min-height: 32px;"><i></i><span>Lennox</span></label><label class="check on" data-check style="min-height: 32px;"><i></i><span>Daikin</span></label><label class="check" data-check style="min-height: 32px;"><i></i><span>York</span></label></div><div class="help">Registration pulls model and serial from the nameplate photo on the unit record [F6]; the warranty end date flows back to the Warranty pill on work orders.</div></div>
+            </div>
+            <div class="list">
+              <div class="item"><span class="num small">Oct 2</span><div><div class="title">Irvine Med Offices · RTU-2 Carrier 48TC</div><div class="sub">Registered · parts to 2033</div></div><span class="small faint">Done</span></div>
+              <div class="item"><span class="num small">Oct 9</span><div><div class="title">Tustin Auto Center · condenser fan motor</div><div class="sub">Parts warranty 1 yr · register by Oct 16</div></div><span class="pill route plain">Due</span></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn ghost" type="button" data-toast="Changes discarded">Discard</button><button class="btn primary" type="button" data-toast="Compliance saved">Save changes</button></div>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="forms" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>Forms</h1><div class="sub">Checklists the tech fills on the phone. "Required before complete" blocks Verify and complete until the form is done; flagged items become quote lines.</div></div><button class="btn sm ghost" type="button" data-toast="New form: name it, pick the job types and add items">New form</button></div>
+          <div>
+            <div class="form-row"><div><b>PM inspection checklist · rooftop unit</b><div class="small muted">24 items · pass / flag / fail · Maintenance jobs · 41 completed this season</div></div><label class="switch on" data-switch><i></i><span>Required before complete</span></label><label class="switch on" data-switch><i></i><span>Flagged → quote line</span></label><button class="btn sm ghost" type="button" data-open="#sheet-settings-form-pm">Edit</button></div>
+            <div class="form-row"><div><b>Safety checklist · rooftop and ladder</b><div class="small muted">8 items · before going up · all job types on roofs</div></div><label class="switch on" data-switch><i></i><span>Required before complete</span></label><label class="switch" data-switch><i></i><span>Flagged → quote line</span></label><button class="btn sm ghost" type="button" data-toast="Editing Safety checklist">Edit</button></div>
+            <div class="form-row"><div><b>Startup checklist · new install and changeout</b><div class="small muted">16 items · readings, charge, airflow, thermostat · feeds the ECC tests</div></div><label class="switch on" data-switch><i></i><span>Required before complete</span></label><label class="switch" data-switch><i></i><span>Flagged → quote line</span></label><button class="btn sm ghost" type="button" data-toast="Editing Startup checklist">Edit</button></div>
+            <div class="form-row"><div><b>Customer sign-off</b><div class="small muted">Signer name and signature · required when the WO says Signature required</div></div><label class="switch" data-switch><i></i><span>Required before complete</span></label><span></span><button class="btn sm ghost" type="button" data-toast="Editing Customer sign-off">Edit</button></div>
+            <div class="form-row"><div><b>Refrigerant log</b><div class="small muted">Type, pounds added and recovered, cylinder, leak check, tech cert · required by the Compliance rule over 15 lb</div></div><span class="small muted">Set in Compliance</span><span></span><button class="btn sm ghost" type="button" data-toast="The refrigerant log fields are fixed by the EPA record format">View</button></div>
+          </div>
+          <p class="small muted">Flagged items map to pricebook items so the quote writes itself: "Belt cracked" → MA-210 Replace belt, "Contactor pitted" → EL-210 Replace contactor [F10].</p>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="notifications" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>Notifications</h1><div class="sub">Which automations are on, when they fire and where. Customer messages go out from the texting number; internal ones go to the office.</div></div></div>
+          <div class="table-wrap"><table class="table">
+            <thead><tr><th>Automation</th><th>When</th><th>Channel</th><th>On</th><th class="num">This month</th></tr></thead>
+            <tbody class="stagger">
+              <tr><td class="primary-cell">Appointment confirmation</td><td>24 h before the visit · reply C confirms</td><td class="small">SMS, email</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">118</td></tr>
+              <tr><td class="primary-cell">On my way with live ETA</td><td>Tech taps On my way · tracking link</td><td class="small">SMS</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">164</td></tr>
+              <tr><td class="primary-cell">Running late</td><td>ETA slips 15 min or more · suggested to the office</td><td class="small">SMS</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">21</td></tr>
+              <tr><td class="primary-cell">Review request</td><td>2 h after completion · paid or agreement jobs</td><td class="small">SMS</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">39</td></tr>
+              <tr><td class="primary-cell">Unsold quote cadence</td><td>Day 2 text · day 6 email · day 14 call task</td><td class="small">SMS, email</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">26</td></tr>
+              <tr><td class="primary-cell">Renewal letters</td><td>60 and 30 days before the agreement ends</td><td class="small">Email</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">6</td></tr>
+              <tr><td class="primary-cell">Invoice reminders</td><td>7 / 14 / 30 days past due with a payment link</td><td class="small">Email</td><td><label class="switch" data-switch><i></i></label></td><td class="num faint">off</td></tr>
+              <tr><td class="primary-cell">Permit and warranty deadlines</td><td>Final inspection, registration due · to Follow-ups</td><td class="small">Internal</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">9</td></tr>
+              <tr><td class="primary-cell">Morning digest to dispatch</td><td>7:00 AM · overdue follow-ups, unconfirmed visits, parts missing</td><td class="small">Internal</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">14</td></tr>
+              <tr><td class="primary-cell">QuickBooks sync alerts</td><td>As they happen · to Billing</td><td class="small">Internal</td><td><label class="switch on" data-switch><i></i></label></td><td class="num">11</td></tr>
+            </tbody>
+          </table></div>
+          <hr class="divider">
+          <div class="field-grid">
+            <div class="field"><label>Quiet hours from</label><input class="input num" value="8:00 PM" aria-label="Quiet from"></div>
+            <div class="field"><label>Quiet hours to</label><input class="input num" value="7:00 AM" aria-label="Quiet to"><div class="help">Customer texts due inside quiet hours wait for 7:00 AM. Internal alerts are not held.</div></div>
+            <div class="field"><label>Texts from</label><div class="input readonly num">(714) 555-0119</div></div>
+            <div class="field"><label>Emails from</label><input class="input" value="office@harborcoastmech.example" aria-label="Emails from"></div>
+          </div>
+          <div class="save-row"><button class="btn ghost" type="button" data-toast="Changes discarded">Discard</button><button class="btn primary" type="button" data-toast="Notifications saved">Save changes</button></div>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="warehouses" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>Warehouses and vendors</h1><div class="sub">Where parts live and who you buy from. Vans are warehouses tied to a technician.</div></div></div>
+          <div class="group">
+            <div class="group-head"><h3>Warehouses</h3><button class="btn sm ghost" type="button" data-toast="New warehouse: name, kind, technician">Add warehouse</button></div>
+            <div class="table-wrap"><table class="table dense">
+              <thead><tr><th>Name</th><th>Kind</th><th>Technician</th><th>Active</th><th class="num">Target</th></tr></thead>
+              <tbody class="stagger">
+                <tr><td class="primary-cell">Main · Costa Mesa</td><td>Main</td><td class="muted">—</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$20,000</td></tr>
+                <tr><td class="primary-cell">Irvine shop</td><td>Main</td><td class="muted">—</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$8,000</td></tr>
+                <tr><td class="primary-cell">Van 12</td><td>Vehicle</td><td>Marcus Hale</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,400</td></tr>
+                <tr><td class="primary-cell">Van 7</td><td>Vehicle</td><td>Elena Cruz</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,400</td></tr>
+                <tr><td class="primary-cell">Van 9</td><td>Vehicle</td><td>Andre Walsh</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,400</td></tr>
+                <tr><td class="primary-cell">Van 4</td><td>Vehicle</td><td>Priya Shah</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,400</td></tr>
+                <tr><td class="primary-cell">Van 3</td><td>Vehicle</td><td>Diego Ramos</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,000</td></tr>
+                <tr><td class="primary-cell">Van 5</td><td>Vehicle</td><td>Hannah Cho</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,400</td></tr>
+                <tr><td class="primary-cell">Van 8</td><td>Vehicle</td><td>Luis Ortega</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,400</td></tr>
+                <tr><td class="primary-cell">Van 6</td><td>Vehicle</td><td>Naomi Brooks</td><td><label class="switch on" data-switch><i></i></label></td><td class="num money">$2,400</td></tr>
+                <tr><td class="primary-cell muted">Van 2</td><td class="muted">Vehicle</td><td class="muted">— · retired Aug 2026</td><td><label class="switch" data-switch><i></i></label></td><td class="num money muted">$0</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <hr class="divider">
+          <div class="group">
+            <div class="group-head"><h3>Vendors</h3><button class="btn sm ghost" type="button" data-toast="New vendor: name, city, phone, email">Add vendor</button></div>
+            <div class="table-wrap"><table class="table dense">
+              <thead><tr><th>Name</th><th>City</th><th>Phone</th><th>Email</th><th>Price feed</th></tr></thead>
+              <tbody class="stagger">
+                <tr><td class="primary-cell">Johnstone Supply</td><td>Santa Ana</td><td class="num">714-555-0300</td><td class="small">orders@johnstone-santaana.example</td><td><span class="pill site plain">Connected</span></td></tr>
+                <tr><td class="primary-cell">Ferguson HVAC</td><td>Costa Mesa</td><td class="num">714-555-0310</td><td class="small">counter@ferguson-cm.example</td><td><button class="btn sm subtle" type="button" data-toast="Ferguson feed: request access from your branch rep">Connect</button></td></tr>
+                <tr><td class="primary-cell">Carrier Enterprise</td><td>Anaheim</td><td class="num">714-555-0320</td><td class="small">parts@carrier-anaheim.example</td><td class="small muted">Warranty parts</td></tr>
+                <tr><td class="primary-cell">Grainger</td><td>Irvine</td><td class="num">949-555-0330</td><td class="small muted">—</td><td><button class="btn sm subtle" type="button" data-toast="Grainger feed: available via punchout">Connect</button></td></tr>
+                <tr><td class="primary-cell">US Air Conditioning Distributors</td><td>Garden Grove</td><td class="num">714-555-0340</td><td class="small">sales@usacd-gg.example</td><td class="small muted">None</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div class="save-row"><button class="btn ghost" type="button" data-toast="Changes discarded">Discard</button><button class="btn primary" type="button" data-toast="Warehouses and vendors saved">Save changes</button></div>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="people" data-panel-group="settings-nav">
+        <div class="stack loose">
+          <div class="page-head"><div><h1>People permissions</h1><div class="sub">The two edit rights, per office person. Admin always has both. Add or remove people on Users.</div></div><button class="btn sm ghost" type="button" data-go="users">Open Users</button></div>
+          <div class="table-wrap"><table class="table">
+            <thead><tr><th>Person</th><th>Role</th><th>Can edit customers and sites</th><th>Can edit invoices and issue credits</th></tr></thead>
+            <tbody class="stagger">
+              <tr><td class="primary-cell">Admin</td><td class="small muted">Admin</td><td><label class="check on" data-check style="min-height: 0;"><i></i><span class="small faint">always</span></label></td><td><label class="check on" data-check style="min-height: 0;"><i></i><span class="small faint">always</span></label></td></tr>
+              <tr><td class="primary-cell">Supervisor</td><td class="small muted">Supervisor</td><td><label class="check on" data-check style="min-height: 0;"><i></i><span></span></label></td><td><label class="check" data-check style="min-height: 0;"><i></i><span></span></label></td></tr>
+              <tr><td class="primary-cell">James Reynolds</td><td class="small muted">Dispatcher</td><td><label class="check on" data-check style="min-height: 0;"><i></i><span></span></label></td><td><label class="check" data-check style="min-height: 0;"><i></i><span></span></label></td></tr>
+              <tr><td class="primary-cell">Customer service</td><td class="small muted">Customer service</td><td><label class="check on" data-check style="min-height: 0;"><i></i><span></span></label></td><td><label class="check" data-check style="min-height: 0;"><i></i><span></span></label></td></tr>
+              <tr><td class="primary-cell">Billing</td><td class="small muted">Billing</td><td><label class="check" data-check style="min-height: 0;"><i></i><span></span></label></td><td><label class="check on" data-check style="min-height: 0;"><i></i><span></span></label></td></tr>
+            </tbody>
+          </table></div>
+          <p class="small muted">Techs have no office rights; what they can do from the job (quotes, POs, truck stock) is set per person on Users.</p>
+          <div class="save-row"><button class="btn ghost" type="button" data-toast="Changes discarded">Discard</button><button class="btn primary" type="button" data-toast="Permissions saved">Save changes</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Every field of the Company page: labor cost rates, default sales tax, misc material %, vehicle charge and hours per charge, bill travel separately, default quote margin, both margin tables with Up to / Divide by / Example / Remove / Add row (callout 1), both labor bill rate tables, the vendor list (name, city, phone, email), the per-person "Can edit customers and sites" and "Can edit invoices and issue credits" checks, warehouses (name, kind, technician, active), and Who it is from / Terms and conditions / Signature block. "Pull rates" keeps its button, now pointed at QuickBooks items.</li>
+    <li><span class="f">new</span>Integrations: F12 QuickBooks Online with last sync, ID matching (callout 2) and a sync-alert queue; F3 Twilio number with 10DLC status; F11 Stripe payments with card on file and Tap to Pay; F1 Google Maps for tracking and geofenced timesheets [F20]; the Johnstone pricing feed [F10]; payroll export.</li>
+    <li><span class="f">new</span>Compliance: F7 refrigerant log required over 15 lb (callout 3), EPA reporting year, leak-rate thresholds, CARB registration and the techs' 608 certificates; F18 permit tracking by job type, ECC tests, jurisdictions and warranty registration reminders. Forms: F8 checklists with "required before complete" and "flagged → quote line". Notifications lists every automation with a switch and a count.</li>
+    <li><span class="f">changed</span>Per the direction update: a left anchor list shows one calm section at a time; fields sit in field grids with dividers between groups instead of a card per section; integrations are a plain list of rows; each section saves on its own. Office permissions stay here and are mirrored on Users.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-settings-qbo" role="dialog" aria-label="QuickBooks sync queue">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="avatar moss">QB</span><div><h2>QuickBooks sync queue</h2><div class="small muted">3 alerts · last sync 2:35 PM</div></div></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div>
+      <div class="row between wrap"><b>Customer match · Irvine Med Offices</b><span class="pill route plain">Pick one</span></div>
+      <p class="small muted mt-1">Two QuickBooks customers look like this bill-to. Pick the one to link; the other is left alone. Matching stays by ID after this.</p>
+      <div class="option-cards mt-2" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+        <button class="option-card on" type="button" data-option><span class="tier">Suggested</span><div class="strong">Barranca Medical Partners</div><div class="small muted">QBO 1184 · 14 invoices · last Aug 30</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Other</span><div class="strong">Irvine Med Offices (old)</div><div class="small muted">QBO 406 · no activity since 2024</div></button>
+      </div>
+      <div class="row mt-2"><span class="grow"></span><button class="btn sm primary" type="button" data-toast="Linked to QBO 1184 · 2 held invoices pushed">Link and push</button></div>
+    </div>
+    <hr class="divider">
+    <div>
+      <div class="row between wrap"><b>Invoice 738 · tax code missing</b><span class="pill urgent plain">Blocked</span></div>
+      <p class="small muted mt-1">Santa Ana Gym · <span class="money">$1,186.00</span>. The site tax rate is 9.25% but no QBO tax code is mapped to it.</p>
+      <div class="row wrap mt-2"><select class="select-pill" aria-label="Tax code"><option>Map 9.25% → "Santa Ana 9.25"</option><option>Map 9.25% → "OC 7.75" (wrong)</option></select><span class="grow"></span><button class="btn sm primary" type="button" data-toast="Tax code mapped · invoice 738 pushed">Map and push</button></div>
+    </div>
+    <hr class="divider">
+    <div>
+      <div class="row between wrap"><b>Vendor Johnstone Supply not in QuickBooks</b><span class="pill route plain">Create?</span></div>
+      <p class="small muted mt-1">PO 115 is vendor-invoiced (<span class="money">$1,486.20</span>) and ready to push as a bill. QuickBooks has no vendor with this ID.</p>
+      <div class="row wrap mt-2"><button class="btn sm ghost" type="button" data-toast="Pick an existing QBO vendor">Match existing</button><span class="grow"></span><button class="btn sm primary" type="button" data-toast="Vendor created in QuickBooks · bill for PO 115 pushed">Create vendor and push</button></div>
+    </div>
+    <hr class="divider">
+    <div>
+      <span class="eyebrow">Recent syncs</span>
+      <div class="timeline mt-1">
+        <div class="tl moss"><div class="when">2:35 PM</div><div class="what">Pushed invoice 741, payment on 736, customer Newport Coast HOA</div><div class="who">Automatic · 15 min cycle</div></div>
+        <div class="tl amber"><div class="when">2:20 PM</div><div class="what">Held invoice 738 · tax code missing</div><div class="who">Alert sent to Billing</div></div>
+        <div class="tl moss"><div class="when">11:05 AM</div><div class="what">Pushed 3 payments from the portal</div><div class="who">Automatic</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Close</button>
+    <button class="btn" type="button" data-go="billing" data-close>Open Billing</button>
+    <button class="btn copper" type="button" data-close data-toast="Sync started">Sync now</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-settings-form-pm" role="dialog" aria-label="PM inspection checklist">
+  <div class="sheet-head">
+    <div class="row gap-2"><h2>PM inspection checklist · rooftop unit</h2><span class="pill plain">24 items</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="row wrap"><label class="switch on" data-switch><i></i><span>Required before complete</span></label><label class="switch on" data-switch><i></i><span>Flagged items become quote lines</span></label><label class="switch on" data-switch><i></i><span>Photo required on Fail</span></label></div>
+    <div class="field"><label>Applies to</label><select class="select"><option>Maintenance and agreement visits</option><option>Maintenance only</option><option>All job types</option></select></div>
+    <div>
+      <div class="row between"><span class="eyebrow">Items · pass / flag / fail</span><button class="btn sm ghost" type="button" data-toast="Item added at the end">Add item</button></div>
+      <div class="table-wrap mt-1"><table class="table dense">
+        <thead><tr><th>#</th><th>Item</th><th>Section</th><th>Flag maps to</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Filters: condition and size match the unit record</td><td class="small">Airflow</td><td class="small"><span class="num">MA-101</span> Replace filters</td></tr>
+          <tr><td class="num">2</td><td>Belt: cracks, glazing, tension</td><td class="small">Airflow</td><td class="small"><span class="num">MA-210</span> Replace belt</td></tr>
+          <tr><td class="num">3</td><td>Blower wheel and bearings</td><td class="small">Airflow</td><td class="small"><span class="num">AF-120</span> Bearings</td></tr>
+          <tr><td class="num">4</td><td>Condenser coil: clean, no damage</td><td class="small">Refrigeration</td><td class="small"><span class="num">RF-152</span> Coil clean</td></tr>
+          <tr><td class="num">5</td><td>Evaporator coil and drain pan</td><td class="small">Refrigeration</td><td class="small"><span class="num">RF-154</span></td></tr>
+          <tr><td class="num">6</td><td>Refrigerant pressures and superheat / subcooling</td><td class="small">Refrigeration</td><td class="small"><span class="num">RF-112</span> Leak repair</td></tr>
+          <tr><td class="num">7</td><td>Contactor: pitting, coil, wiring</td><td class="small">Electrical</td><td class="small"><span class="num">EL-210</span> Replace contactor</td></tr>
+          <tr><td class="num">8</td><td>Capacitors: µF within 6% of rating</td><td class="small">Electrical</td><td class="small"><span class="num">EL-214</span> Replace capacitor</td></tr>
+          <tr><td class="num">9</td><td>Compressor amps vs RLA</td><td class="small">Electrical</td><td class="small"><span class="num">RF-131</span></td></tr>
+          <tr><td class="num">10</td><td>Economizer: damper travel, sensor</td><td class="small">Controls</td><td class="small"><span class="num">CT-140</span></td></tr>
+          <tr><td class="num">11</td><td>Thermostat and schedule</td><td class="small">Controls</td><td class="small"><span class="num">CT-110</span></td></tr>
+          <tr><td class="num">12</td><td>Condensate drain flows clear</td><td class="small">Airflow</td><td class="small"><span class="num">AF-130</span></td></tr>
+          <tr><td colspan="4" class="small faint">12 more items: gas valve, heat exchanger, flue, ignition, disconnect, curb and roof penetrations, unit tag photo, readings sheet</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <p class="small muted">Used 41 times this season. Most flagged: belt (9), contactor (6), capacitor (5). Quotes created from flags: 14, approved 9.</p>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn primary" type="button" data-close data-toast="PM inspection checklist saved">Save form</button>
+  </div>
+</div>
+</template>
+</section>

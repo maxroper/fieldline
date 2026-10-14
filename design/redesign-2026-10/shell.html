@@ -1,0 +1,184 @@
+<title>Fieldline Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+{{CSS}}
+</style>
+
+<svg hidden aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></symbol>
+  <symbol id="i-board" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></symbol>
+  <symbol id="i-techs" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 5a3.5 3.5 0 0 1 0 7"/><path d="M21.5 20a6.5 6.5 0 0 0-5-6.3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></symbol>
+  <symbol id="i-agreement" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 15l2 2 4-4"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.5 12.5L12.5 20.5 3.5 11.5V3.5h8z"/><circle cx="7.5" cy="7.5" r="1.2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 3h12a2 2 0 0 1 2 2v16H7a2 2 0 0 0-2 2z"/><path d="M5 19a2 2 0 0 1 2-2h12"/><path d="M9 7h6"/></symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 6.5H9.5a3.25 3.25 0 0 0 0 6.5h5a3.25 3.25 0 0 1 0 6.5H6"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 7H6"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20v-8M10 20V5M16 20v-6M22 20H2"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M1.5 6l6.5-3 8 3 6.5-3v15l-6.5 3-8-3-6.5 3z"/><path d="M8 3v15M16 6v15"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+</svg>
+
+<div class="review-bar" role="toolbar" aria-label="Mockup review">
+  <span class="rb-kicker">Mockup pass</span>
+  <b>Fieldline redesign</b>
+  <button class="rb-btn" id="rb-prev" type="button" aria-label="Previous screen">‹</button>
+  <label class="sr-only" for="rb-select">Screen</label>
+  <select id="rb-select"></select>
+  <button class="rb-btn" id="rb-next" type="button" aria-label="Next screen">›</button>
+  <span class="rb-counter" id="rb-counter"></span>
+  <span class="grow"></span>
+  <span class="rb-face" id="rb-face"></span>
+  <button class="rb-btn" id="rb-notes" type="button"><span class="hide-narrow">Design </span>notes</button>
+</div>
+
+<div class="stage" id="stage">
+
+  <!-- Review pages: long-form reading -->
+  <div class="face" data-face="review">
+    {{REVIEW}}
+  </div>
+
+  <!-- Office face: grouped sidebar menu, slim top bar, content -->
+  <div class="face" data-face="office">
+    <div class="app">
+      <aside class="side" id="side" aria-label="Main menu">
+        <div class="side-top">
+          <div class="brand"><b>Fieldline</b></div>
+          <button class="side-collapse" type="button" aria-label="Collapse menu" data-toggle-class="collapsed" data-target="#side"><svg><use href="#i-chevron"/></svg></button>
+        </div>
+        <button class="side-company" type="button" data-open="#menu-company"><span class="avatar sm ink">HC</span><span class="side-company-name">Harbor Coast Mechanical</span><span class="chev">▾</span></button>
+        <button class="side-search" type="button" data-toast="Search opens a command palette: customers, addresses, work orders, quotes, invoices"><svg><use href="#i-search"/></svg><span>Search</span><kbd class="kbd">⌘K</kbd></button>
+        <nav class="side-nav">
+          <span class="side-label">Work</span>
+          <button class="side-item" type="button" data-go="dispatch" data-tip="Dispatch board"><svg><use href="#i-board"/></svg><span>Dispatch board</span></button>
+          <button class="side-item" type="button" data-go="followups" data-tip="Follow-ups"><svg><use href="#i-bell"/></svg><span>Follow-ups</span><span class="badge">3</span></button>
+          <button class="side-item" type="button" data-go="work-orders" data-tip="Work orders"><svg><use href="#i-list"/></svg><span>Work orders</span></button>
+          <button class="side-item" type="button" data-go="tech-status" data-tip="Tech status"><svg><use href="#i-techs"/></svg><span>Tech status</span></button>
+          <button class="side-item" type="button" data-go="timesheets" data-tip="Timesheets"><svg><use href="#i-clock"/></svg><span>Timesheets</span></button>
+          <span class="side-label">Customers</span>
+          <button class="side-item" type="button" data-go="customers" data-tip="Customers"><svg><use href="#i-building"/></svg><span>Customers</span></button>
+          <button class="side-item" type="button" data-go="agreements" data-tip="Agreements"><svg><use href="#i-agreement"/></svg><span>Agreements</span><span class="new-dot">new</span></button>
+          <button class="side-item" type="button" data-go="messages" data-tip="Messages"><svg><use href="#i-chat"/></svg><span>Messages</span><span class="new-dot">new</span></button>
+          <span class="side-label">Sales</span>
+          <button class="side-item" type="button" data-go="quoting" data-tip="Quoting"><svg><use href="#i-tag"/></svg><span>Quoting</span></button>
+          <button class="side-item" type="button" data-go="pricebook" data-tip="Pricebook"><svg><use href="#i-book"/></svg><span>Pricebook</span><span class="new-dot">new</span></button>
+          <span class="side-label">Money</span>
+          <button class="side-item" type="button" data-go="billing" data-tip="Billing"><svg><use href="#i-dollar"/></svg><span>Billing</span></button>
+          <button class="side-item" type="button" data-go="purchasing" data-tip="Purchasing"><svg><use href="#i-cart"/></svg><span>Purchasing</span></button>
+          <button class="side-item" type="button" data-go="inventory" data-tip="Inventory"><svg><use href="#i-box"/></svg><span>Inventory</span></button>
+          <span class="side-label">Insights</span>
+          <button class="side-item" type="button" data-go="reports" data-tip="Reports"><svg><use href="#i-chart"/></svg><span>Reports</span><span class="new-dot">new</span></button>
+        </nav>
+        <div class="side-bottom">
+          <button class="side-item" type="button" data-go="users" data-tip="Users"><svg><use href="#i-user"/></svg><span>Users</span></button>
+          <button class="side-item" type="button" data-go="settings" data-tip="Settings"><svg><use href="#i-gear"/></svg><span>Settings</span></button>
+          <button class="side-user" type="button" data-open="#menu-user"><span class="avatar sm">AD</span><span class="side-user-text"><b>Admin</b><small>Harbor Coast Mechanical</small></span></button>
+        </div>
+      </aside>
+
+      <div class="content">
+        <header class="topbar">
+          <button class="btn icon sm ghost menu-btn" type="button" aria-label="Open menu" data-toggle-class="open" data-target="#side"><svg><use href="#i-menu"/></svg></button>
+          <h1 class="top-title" id="top-title">Dispatch board</h1>
+          <span class="grow"></span>
+          <button class="btn icon sm ghost top-bell" type="button" data-go="followups" aria-label="Follow-ups, 3 overdue"><svg><use href="#i-bell"/></svg><span class="badge-dot"></span></button>
+          <button class="btn copper sm" type="button" data-open="#menu-new"><svg><use href="#i-plus"/></svg>New</button>
+        </header>
+        <main class="main">
+          {{OFFICE}}
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech face: the phone -->
+  <div class="face" data-face="tech">
+    <div class="phone-stage">
+      <div class="phone">
+        <div class="statusbar"><span class="num">9:41</span><span class="notch"></span><span class="num">●●● ▮</span></div>
+        <div class="ph-body">
+          <header class="tech-top">
+            <div class="brand"><b>Fieldline</b><span>Tech</span></div>
+            <select class="select-pill" aria-label="Technician" data-select-toast="Now viewing as">
+              <option>Marcus Hale</option>
+              <option>Elena Cruz</option>
+              <option>Andre Walsh</option>
+            </select>
+          </header>
+          {{TECH}}
+        </div>
+        <div class="homebar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer face: what the customer sees on their phone -->
+  <div class="face" data-face="customer">
+    <div class="phone-stage">
+      <div class="phone customer-frame">
+        <div class="statusbar"><span class="num">9:41</span><span class="notch"></span><span class="num">●●● ▮</span></div>
+        <div class="ph-body">
+          {{CUSTOMER}}
+        </div>
+        <div class="homebar"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="modal" id="menu-new" role="dialog" aria-label="Create">
+  <div class="card menu-card">
+    <div class="card-head"><h3>Create</h3><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+    <div class="menu-list">
+      <button class="menu-item" type="button" data-go="new-wo" data-close><svg><use href="#i-list"/></svg><span><b>Work order</b><small>From a call, an email, or a found repair</small></span></button>
+      <button class="menu-item" type="button" data-go="new-customer" data-close><svg><use href="#i-building"/></svg><span><b>Customer</b><small>Bill-to parent and first site</small></span></button>
+      <button class="menu-item" type="button" data-go="quote-editor" data-close><svg><use href="#i-tag"/></svg><span><b>Quote</b><small>Good, Better, Best from the pricebook</small></span></button>
+      <button class="menu-item" type="button" data-go="purchasing" data-close><svg><use href="#i-cart"/></svg><span><b>Purchase order</b><small>For a job or for truck stock</small></span></button>
+      <button class="menu-item" type="button" data-go="agreements" data-close><svg><use href="#i-agreement"/></svg><span><b>Agreement</b><small>Maintenance plan on a site's equipment</small></span></button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="menu-company" role="dialog" aria-label="Company">
+  <div class="card menu-card">
+    <div class="card-head"><h3>Company</h3><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+    <div class="menu-list">
+      <button class="menu-item on" type="button" data-close><span class="avatar sm ink">HC</span><span><b>Harbor Coast Mechanical</b><small>Costa Mesa · Irvine · 11 techs</small></span></button>
+      <button class="menu-item" type="button" data-close data-toast="Switched to Second company (empty)"><span class="avatar sm">SC</span><span><b>Second company (empty)</b><small>The tenant boundary: nothing crosses over</small></span></button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="menu-user" role="dialog" aria-label="Signed in as">
+  <div class="card menu-card">
+    <div class="card-head"><h3>Signed in as</h3><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+    <div class="menu-list">
+      <button class="menu-item on" type="button" data-close><span class="avatar sm">AD</span><span><b>Admin</b><small>Sees everything</small></span></button>
+      <button class="menu-item" type="button" data-close data-toast="Now viewing as Supervisor"><span class="avatar sm moss">SV</span><span><b>Supervisor</b><small>No purchasing, billing, or users</small></span></button>
+      <button class="menu-item" type="button" data-close data-toast="Now viewing as James Reynolds"><span class="avatar sm amber">JR</span><span><b>James Reynolds</b><small>Dispatcher</small></span></button>
+      <button class="menu-item" type="button" data-close data-toast="Now viewing as Customer service"><span class="avatar sm rust">CS</span><span><b>Customer service</b><small>Calls, customers, new work orders</small></span></button>
+      <button class="menu-item" type="button" data-close data-toast="Now viewing as Billing"><span class="avatar sm plum">BL</span><span><b>Billing</b><small>Billing and closed work orders</small></span></button>
+    </div>
+    <div class="row between mt-3"><button class="btn sm ghost" type="button" data-close data-toast="Demo data reset">Reset demo</button><button class="btn sm subtle" type="button" data-close data-toast="Signed out">Sign out</button></div>
+  </div>
+</div>
+{{OVERLAYS}}
+<div class="toast-host" id="toasts" aria-live="polite"></div>
+<aside class="notes-panel" id="notes" hidden></aside>
+
+<script>
+{{JS}}
+</script>

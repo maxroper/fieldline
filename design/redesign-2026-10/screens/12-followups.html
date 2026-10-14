@@ -1,0 +1,386 @@
+<section class="screen" id="s-followups" data-title="Follow-ups" data-group="office" data-face="office" data-order="12">
+<style>
+  #s-followups .fu-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 32px; align-items: start; }
+  #s-followups .fu-group-head { display: flex; align-items: center; gap: 8px; padding-bottom: 6px; }
+  #s-followups .fu-group-head .count { font-family: var(--mono); color: var(--ink-3); font-size: 12px; }
+  #s-followups .fu-row { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 4px 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+  #s-followups .fu-when { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; font-size: 12px; color: var(--ink-2); }
+  #s-followups .fu-when b { font-family: var(--mono); font-weight: 500; }
+  #s-followups .fu-row.due .fu-when b { color: var(--red); }
+  #s-followups .fu-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  #s-followups .fu-title { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-weight: 600; }
+  #s-followups .fu-note { font-size: 13px; color: var(--ink-2); }
+  #s-followups .fu-note q { font-style: italic; }
+  #s-followups .fu-actions { display: flex; flex-wrap: wrap; gap: 2px 4px; margin: 4px 0 0 -8px; }
+  #s-followups .fu-inline.on { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+  #s-followups .fu-inline .input, #s-followups .fu-inline .select { width: auto; min-height: 32px; padding: 4px 10px; }
+  #s-followups .fu-inline .input[type="text"] { flex: 1 1 180px; max-width: 320px; }
+  #s-followups .auto-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; padding: 10px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  #s-followups .auto-row:first-of-type { border-top: 0; padding-top: 2px; }
+  #s-followups .auto-row .switch { margin-top: 1px; }
+  #s-followups .cadence { display: flex; gap: 4px; }
+  #s-followups .cadence span { flex: 1; text-align: center; font-size: 10px; line-height: 1.3; padding: 6px 2px; border-radius: 6px; background: var(--paper-3); color: var(--ink-2); }
+  #s-followups .cadence span b { display: block; font-family: var(--mono); font-size: 11px; }
+  #s-followups .cadence span.done { background: var(--moss-tint); color: var(--moss-deep); }
+  #s-followups .cadence span.next { background: var(--copper-tint); color: var(--copper-deep); outline: 1.5px dashed var(--copper); outline-offset: -1.5px; }
+  @media (max-width: 1100px) { #s-followups .fu-layout { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 640px) { #s-followups .fu-row { grid-template-columns: minmax(0, 1fr); } #s-followups .fu-when { flex-direction: row; flex-wrap: wrap; align-items: center; } }
+</style>
+
+<div class="toolbar">
+  <div class="seg" data-seg="fu-view"><button type="button" class="on" data-val="all">All <span class="count">14</span></button><button type="button" data-val="waits">Waiting <span class="count">9</span></button><button type="button" data-val="auto">Automations <span class="count">5</span></button></div>
+  <span class="grow"></span>
+  <div class="summary-line hide-narrow"><span><span class="dot red"></span><b>3</b> overdue</span><span><span class="dot amber"></span><b>5</b> due today</span><span><b>12</b> this week</span></div>
+  <button class="btn sm ghost" type="button" data-open="#sheet-followups-filters"><svg><use href="#i-filter"/></svg>Filters · 1</button>
+</div>
+
+<div class="page">
+  <div class="fu-layout">
+    <div class="stack loose stagger">
+
+      <!-- Waiting on parts -->
+      <div>
+        <div class="fu-group-head"><span class="dot rust"></span><b>Waiting on parts</b><span class="count">3</span><span class="callout">1</span></div>
+        <article class="fu-row due">
+          <div class="fu-when"><span class="tag mono">WO 1064</span><b>Overdue 1 d</b><span>due Tue Oct 13</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Irvine Med Offices · Suite 100 <span class="pill parts plain">Waiting on parts</span></div>
+            <div class="small muted">Economizer actuator on RTU-4 · Andre Walsh · warranty · 4600 Barranca Pkwy, Irvine</div>
+            <div class="fu-note">Honeywell MS7505 actuator · Johnstone PO 118 · expected <b class="num">Thu Oct 15</b></div>
+            <div class="fu-note"><q>Call Dr. Park before we return. Suite 100 has patients until 3.</q> <span class="faint">James, Oct 9</span></div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-1064">Snooze</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-nt-1064">Add note</button>
+              <button class="btn sm subtle" type="button" data-toast="Parts received · 1064 is back in the open queue">Parts received</button>
+              <button class="btn sm subtle" type="button" data-open="#sheet-followups-return">Schedule</button>
+              <button class="btn sm subtle" type="button" data-toast="1064 moved back to the open queue">Back to open queue</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-1064"><input class="input" type="date" value="2026-10-15" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="1064 snoozed to Thu Oct 15" data-toggle-class="on" data-target="#fu-sn-1064">Snooze until this date</button></div>
+            <div class="panel fu-inline" id="fu-nt-1064"><input class="input" type="text" placeholder="Add a note for the team" aria-label="Note"><button class="btn sm primary" type="button" data-toast="Note added to 1064" data-toggle-class="on" data-target="#fu-nt-1064">Add</button></div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1063</span><b>Due Thu</b><span>Oct 15</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Newport Plaza Retail <span class="pill parts plain">Waiting on parts</span></div>
+            <div class="small muted">RTU-3 low charge, TXV hunting · Andre Walsh · scheduled Thu 1:00 · Newport Beach</div>
+            <div class="fu-note">TXV kit and filter drier · Johnstone PO 118 · expected <b class="num">Thu Oct 15</b> · will-call, Santa Ana</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-1063">Snooze</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-nt-1063">Add note</button>
+              <button class="btn sm subtle" type="button" data-toast="Parts received · 1063 stays on Andre, Thu 1:00">Parts received</button>
+              <button class="btn sm subtle" type="button" data-toast="1063 moved back to the open queue">Back to open queue</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-1063"><input class="input" type="date" value="2026-10-16" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="1063 snoozed to Fri Oct 16" data-toggle-class="on" data-target="#fu-sn-1063">Snooze until this date</button></div>
+            <div class="panel fu-inline" id="fu-nt-1063"><input class="input" type="text" placeholder="Add a note for the team" aria-label="Note"><button class="btn sm primary" type="button" data-toast="Note added to 1063" data-toggle-class="on" data-target="#fu-nt-1063">Add</button></div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">PO 119</span><b>Due today</b><span>5:00 PM</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Ferguson · WO 1052 · 17th Street Market <span class="pill hold plain">Lump sum · $412.00</span></div>
+            <div class="small muted">Walk-in cooler compressor · Elena Cruz · issued Oct 12</div>
+            <div class="fu-note">Upload the pack list or vendor invoice to finish receiving. Lump-sum POs stay open until a document is attached.</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Choose the pack list photo or PDF">Upload pack list</button>
+              <button class="btn sm subtle" type="button" data-go="purchasing">Open PO</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-119">Snooze</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-119"><input class="input" type="date" value="2026-10-15" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="PO 119 reminder moved to Thu" data-toggle-class="on" data-target="#fu-sn-119">Snooze until this date</button></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Waiting on customer -->
+      <div>
+        <div class="fu-group-head"><span class="dot plum"></span><b>Waiting on customer</b><span class="count">4</span></div>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">Quote 2041</span><b>Sent 6 days</b><span>viewed Tue 4:12 PM</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Irvine Med Offices · RTU-1 blower motor and VFD <span class="pill copper plain">Next touch: text tomorrow 9:00</span><span class="callout">2</span></div>
+            <div class="small muted">Better of 3 options · <span class="money">$3,420</span> · Dr. Lena Park · from WO 1040 · James Reynolds</div>
+            <div class="fu-note">Unsold-quote cadence, day 6 of 10. Last touch: text Oct 11, opened twice.</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-2041">Snooze</button>
+              <button class="btn sm subtle" type="button" data-go="quote-editor">Open quote</button>
+              <button class="btn sm subtle" type="button" data-toast="Calling Dr. Park · 714-555-0142">Call now</button>
+              <button class="btn sm subtle" type="button" data-toast="Cadence paused for Quote 2041">Pause cadence</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-2041"><input class="input" type="date" value="2026-10-19" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="Quote 2041 follow-up snoozed to Mon Oct 19" data-toggle-class="on" data-target="#fu-sn-2041">Snooze until this date</button></div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1071</span><b>Approved</b><span>not scheduled</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Newport Coast HOA · Bldg C <span class="pill quote plain">Approved, not scheduled</span></div>
+            <div class="small muted">Quote 2038 approved Oct 12 by Karen Doyle · Replace condenser fan motor · <span class="money">$1,840</span> · 3 h</div>
+            <div class="fu-note">Customer asked for a morning. Elena is free Fri 8:00; Marcus has Thu 3:00 after the 1058 coil install.</div>
+            <div class="fu-inline on">
+              <input class="input" type="date" value="2026-10-16" aria-label="Schedule date">
+              <select class="select" aria-label="Technician"><option>Elena Cruz · Fri 8:00 open</option><option>Marcus Hale · Thu 3:00 open</option><option>Priya Shah</option><option>Andre Walsh</option></select>
+              <button class="btn sm primary" type="button" data-toast="1071 placed with Elena Cruz, Fri Oct 16 8:00 · Karen Doyle texted the window">Schedule</button>
+              <button class="btn sm subtle" type="button" data-toast="1071 moved back to the open queue">Back to open queue</button>
+            </div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1060</span><b>Due Fri</b><span>Oct 16</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Warner Business Park · Bldg 4 <span class="pill hold plain">No access</span></div>
+            <div class="small muted">Roof hatch locked, need the building engineer · Andre Walsh · tentatively Sat Oct 17</div>
+            <div class="fu-note"><q>Yolanda Ruiz will confirm Saturday roof access by Friday.</q> <span class="faint">James, Oct 13</span></div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-1060">Snooze</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-nt-1060">Add note</button>
+              <button class="btn sm subtle" type="button" data-toast="Text sent to Yolanda Ruiz: Can you confirm roof access for Saturday 8:00?">Text Yolanda</button>
+              <button class="btn sm subtle" type="button" data-toast="1060 moved back to the open queue">Back to open queue</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-1060"><input class="input" type="date" value="2026-10-16" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="1060 snoozed to Fri Oct 16" data-toggle-class="on" data-target="#fu-sn-1060">Snooze until this date</button></div>
+            <div class="panel fu-inline" id="fu-nt-1060"><input class="input" type="text" placeholder="Add a note for the team" aria-label="Note"><button class="btn sm primary" type="button" data-toast="Note added to 1060" data-toggle-class="on" data-target="#fu-nt-1060">Add</button></div>
+          </div>
+        </article>
+        <article class="fu-row due">
+          <div class="fu-when"><span class="tag mono">WO 1061</span><b>Due 12:30</b><span>before the 1:00 visit</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Jamboree Corporate · Suite 310 <span class="pill urgent plain">ETA text failed</span><span class="callout">4</span></div>
+            <div class="small muted">Thermostat swap · Marcus Hale · today 1:00–3:00 · site contact Ray Nakamura</div>
+            <div class="fu-note">The "on my way" text to <b class="num">949-555-0120</b> bounced: landline. No mobile on file, so Marcus's ETA link cannot send. Call the desk or add a mobile.</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Calling Jamboree Corporate front desk · 949-555-0120">Call 949-555-0120</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-mb-1061">Add mobile</button>
+              <button class="btn sm subtle" type="button" data-toast="Marked handled">Mark handled</button>
+            </div>
+            <div class="panel fu-inline" id="fu-mb-1061"><input class="input" type="tel" placeholder="Mobile for Ray Nakamura" aria-label="Mobile"><button class="btn sm primary" type="button" data-toast="Mobile saved · the ETA text sends when Marcus taps En route" data-toggle-class="on" data-target="#fu-mb-1061">Save</button></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Waiting on tech -->
+      <div>
+        <div class="fu-group-head"><span class="dot amber"></span><b>Waiting on tech</b><span class="count">2</span></div>
+        <article class="fu-row due">
+          <div class="fu-when"><span class="tag mono">WO 1053</span><b>Overdue 2 d</b><span>due Mon Oct 12</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Santa Ana Gym <span class="pill route plain">Need to return</span></div>
+            <div class="small muted">Belt and bearings done; blower still needs balancing · Priya Shah · <span class="num">1.5 h</span> · not scheduled</div>
+            <div class="fu-note"><q>Bring the vibration meter. Manager wants it done before Saturday classes.</q> <span class="faint">Priya, Oct 9</span></div>
+            <div class="fu-actions">
+              <button class="btn sm" type="button" data-open="#sheet-followups-return">Schedule return visit</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-1053">Snooze</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-nt-1053">Add note</button>
+              <button class="btn sm subtle" type="button" data-toast="1053 moved back to the open queue">Back to open queue</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-1053"><input class="input" type="date" value="2026-10-15" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="1053 snoozed to Thu Oct 15" data-toggle-class="on" data-target="#fu-sn-1053">Snooze until this date</button></div>
+            <div class="panel fu-inline" id="fu-nt-1053"><input class="input" type="text" placeholder="Add a note for the team" aria-label="Note"><button class="btn sm primary" type="button" data-toast="Note added to 1053" data-toggle-class="on" data-target="#fu-nt-1053">Add</button></div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1045</span><b>Due today</b><span>Oct 14</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Irvine Med Offices · Suite 200 <span class="pill ready plain">Tech done, ready to close</span></div>
+            <div class="small muted">RTU-1 belt and filters · Elena Cruz · completed Oct 9 · <span class="num">1.5 h</span> charged</div>
+            <div class="fu-note">Work performed is empty, so Billing cannot invoice. Elena adds it from her phone.</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Elena nudged: please add work performed on 1045">Nudge Elena</button>
+              <button class="btn sm subtle" type="button" data-go="work-order">Open WO</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-1045">Snooze</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-1045"><input class="input" type="date" value="2026-10-15" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="1045 snoozed to Thu Oct 15" data-toggle-class="on" data-target="#fu-sn-1045">Snooze until this date</button></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Automations -->
+      <div>
+        <div class="fu-group-head"><span class="dot copper"></span><b>Automations</b><span class="count">5</span><span class="callout">3</span><span class="grow"></span><span class="tiny faint">queued by the system · send, edit, or skip</span></div>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1049</span><b>Sends 11:30</b><span>2 h after completion</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Review request · Adams Avenue Plaza <span class="pill done plain">Completed 9:30</span></div>
+            <div class="small muted">Quarterly PM · Marcus Hale · to Maria Lopez, property manager · <span class="num">714-555-0177</span></div>
+            <div class="fu-note"><q>Thanks for having Harbor Coast out today, Maria. If Marcus did a good job, a quick review helps us a lot: g.page/harborcoast/review</q></div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Review request sent to Maria Lopez">Send now</button>
+              <button class="btn sm subtle" type="button" data-toast="Review request text opened for editing">Edit text</button>
+              <button class="btn sm subtle" type="button" data-toast="Skipped for 1049">Skip</button>
+            </div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1052</span><b>Sends 12:30</b><span>2 h after completion</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Review request · 17th Street Market <span class="pill done plain">Completed 10:30</span></div>
+            <div class="small muted">Walk-in cooler compressor · Elena Cruz · to Sam Okafor, owner · <span class="num">949-555-0133</span></div>
+            <div class="fu-note">Held until the invoice goes out: this customer prefers one message.</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Review request sent to Sam Okafor">Send now</button>
+              <button class="btn sm subtle" type="button" data-toast="Skipped for 1052">Skip</button>
+            </div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1044</span><b>Due Oct 21</b><span>7 days</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Permit final · Balboa Bay Offices <span class="pill sched plain">Permit M2026-0912</span></div>
+            <div class="small muted">City of Newport Beach mechanical permit · RTU-5 replacement Sep 29 · Elena Cruz · final inspection not booked</div>
+            <div class="fu-note">Title 24 ECC forms (CF2R-MCH-01, duct leakage) must be uploaded before the inspector signs off. 1 of 2 attached.</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Inspection request opened on the Newport Beach portal">Schedule inspection</button>
+              <button class="btn sm subtle" type="button" data-toast="Choose the CF2R-MCH-20 PDF">Upload CF2R</button>
+              <button class="btn sm subtle" type="button" data-go="work-order">Open WO</button>
+            </div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">WO 1042</span><b>Due Oct 22</b><span>8 days</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Warranty registration · Huntington Harbour Dental <span class="pill warranty plain">Lennox LGH060</span></div>
+            <div class="small muted">Installed Sep 22 · serial 5826K01234 · Andre Walsh · register within 30 days to keep the 10-year parts warranty</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Lennox registration opened with model, serial, and install date filled">Register now</button>
+              <button class="btn sm subtle" type="button" data-toast="Marked registered · confirmation number saved on the unit">Mark registered</button>
+              <button class="btn sm subtle" type="button" data-toggle-class="on" data-target="#fu-sn-1042">Snooze</button>
+            </div>
+            <div class="panel fu-inline" id="fu-sn-1042"><input class="input" type="date" value="2026-10-19" aria-label="Snooze until"><button class="btn sm primary" type="button" data-toast="Reminder moved to Mon Oct 19" data-toggle-class="on" data-target="#fu-sn-1042">Snooze until this date</button></div>
+          </div>
+        </article>
+        <article class="fu-row">
+          <div class="fu-when"><span class="tag mono">Quote 2039</span><b>Sends Fri 9:00</b><span>cadence day 10</span></div>
+          <div class="fu-body">
+            <div class="fu-title">Unsold-quote call · Tustin Auto Center <span class="pill quote plain">Viewed twice</span></div>
+            <div class="small muted">Replace contactor and capacitor, RTU-1 · <span class="money">$1,210</span> · sent Oct 6 · James Reynolds owns the call</div>
+            <div class="fu-note">Day 10 is a call, not a text. The task lands on James's list Friday with the quote open.</div>
+            <div class="fu-actions">
+              <button class="btn sm subtle" type="button" data-toast="Calling Tustin Auto Center · 714-555-0160">Call now</button>
+              <button class="btn sm subtle" type="button" data-go="quote-editor">Open quote</button>
+              <button class="btn sm subtle" type="button" data-toast="Quote 2039 marked lost · reason: price">Mark lost</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Side column -->
+    <aside class="stack loose">
+      <div class="card">
+        <div class="card-head"><h3>Automations</h3><span class="small muted"><span class="live"></span>5 running</span></div>
+        <div class="auto-row">
+          <label class="switch on" data-switch aria-label="Appointment confirmations"><i></i></label>
+          <div><b>Appointment confirmation</b><div class="small muted">Text the day before at 4:00 PM, reply YES to confirm</div><div class="tiny faint num">14 sent this week · 11 confirmed</div></div>
+        </div>
+        <div class="auto-row">
+          <label class="switch on" data-switch aria-label="On my way texts"><i></i></label>
+          <div><b>"On my way" ETA text</b><div class="small muted">When the tech taps En route, with a live tracking link</div><div class="tiny faint num">31 sent · 1 failed (no mobile)</div></div>
+        </div>
+        <div class="auto-row">
+          <label class="switch on" data-switch aria-label="Review requests"><i></i></label>
+          <div><b>Review request</b><div class="small muted">2 hours after completion, once per customer per 90 days</div><div class="tiny faint num">9 sent this month · 4 reviews · avg 4.9</div></div>
+        </div>
+        <div class="auto-row">
+          <label class="switch on" data-switch aria-label="Unsold quote cadence"><i></i></label>
+          <div><b>Unsold-quote cadence</b><div class="small muted">Day 3 text · day 6 text · day 10 call · stops on approve or decline</div><div class="tiny faint num">5 quotes in cadence · 2 closed from it</div></div>
+        </div>
+        <div class="auto-row">
+          <label class="switch on" data-switch aria-label="Permit and warranty reminders"><i></i></label>
+          <div><b>Permit and warranty reminders</b><div class="small muted">14, 7, and 1 day before a final or a registration deadline</div><div class="tiny faint num">2 open deadlines</div></div>
+        </div>
+        <div class="auto-row">
+          <label class="switch" data-switch aria-label="PM due reminders"><i></i></label>
+          <div><b>PM visit due reminders</b><div class="small muted">Text the site contact 30 days before the season visit</div><div class="tiny faint">Off · Agreements owns scheduling</div></div>
+        </div>
+        <button class="btn sm ghost block mt-3" type="button" data-go="settings">Edit cadences and templates</button>
+      </div>
+
+      <div>
+        <div class="row between"><span class="eyebrow">Cadence · Quote 2041</span><span class="tag mono">day 6 of 10</span></div>
+        <div class="cadence mt-2">
+          <span class="done"><b>Day 0</b>Sent Oct 8</span>
+          <span class="done"><b>Day 3</b>Text Oct 11</span>
+          <span class="next"><b>Day 6</b>Text Thu 9:00</span>
+          <span><b>Day 10</b>Call Oct 18</span>
+        </div>
+        <div class="small muted mt-2">Opened twice, last Tue 4:12 PM. The day-6 text names the Better option and offers a morning install slot.</div>
+        <div class="row mt-2"><button class="btn sm ghost" type="button" data-toast="Day-6 text will send now instead of Thu 9:00">Send day 6 now</button><button class="btn sm subtle" type="button" data-toast="Cadence paused for Quote 2041">Pause</button></div>
+      </div>
+
+      <hr class="divider">
+
+      <div>
+        <div class="row between"><span class="eyebrow">Sent today</span><span class="tiny faint num">as of 10:45</span></div>
+        <div class="timeline mt-2">
+          <div class="tl red"><div class="when">10:12</div><div class="what">ETA text failed · Jamboree Corporate</div><div class="who">Landline on file · added to Waiting on customer</div></div>
+          <div class="tl amber"><div class="when">9:31</div><div class="what">"On my way" to Dr. Park · 1058</div><div class="who">Delivered · link opened 9:33</div></div>
+          <div class="tl amber"><div class="when">9:04</div><div class="what">"On my way" to Tony Reyes · 1057</div><div class="who">Delivered</div></div>
+          <div class="tl moss"><div class="when">7:00</div><div class="what">6 confirmations for tomorrow</div><div class="who">4 confirmed so far · 2 waiting</div></div>
+          <div class="tl"><div class="when">Yesterday 4:00 PM</div><div class="what">14 confirmations for today</div><div class="who">11 YES · 1 rescheduled · 2 no reply</div></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Wait-reason, technician, customer, and "Overdue only" filters (now in the Filters sheet). Every row keeps its actions: snooze with a date, add a note, Parts received, Schedule with date and tech for approved quotes, Back to open queue. PO rows keep the lump-sum pack-list reminder; quote rows keep Snooze and Open quote. Snooze and Add note reveal their input only when tapped, so rows rest quiet.</li>
+    <li><span class="f">new</span>F14 Review requests and the unsold-quote cadence appear as rows the dispatcher can send now, edit, or skip; the Automations card (right) shows every cadence with an on/off switch and a sent count, and the Quote 2041 block shows where it sits in the cadence (callout 2).</li>
+    <li><span class="f">new</span>F18 Permit finals, Title 24 ECC uploads, and warranty-registration deadlines land here with days remaining.</li>
+    <li><span class="f">new</span>F3 A failed "on my way" text (no mobile on file) becomes a follow-up with a call button and an Add mobile field (callout 4), instead of failing silently.</li>
+    <li><span class="f">changed</span>One flat list became groups by wait reason (callout 1), overdue first inside each group, overdue in red mono text instead of a pill. The toolbar is one switch (All / Waiting / Automations), a quiet summary line, and a Filters button; the chip wall moved into the sheet. The Automations group (callout 3) is system-queued work, visibly separate from human waits. "Schedule" opens a side sheet with suggested slots and can text the customer the window when placed.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-followups-filters" role="dialog" aria-label="Follow-up filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="chip-group"><span class="eyebrow">Wait reason</span><div class="chips"><button class="chip" type="button" data-chip>Waiting on parts</button><button class="chip" type="button" data-chip>Waiting on customer</button><button class="chip" type="button" data-chip>Waiting on tech</button><button class="chip" type="button" data-chip>Automations</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Due</span><div class="chips"><button class="chip" type="button" data-chip>Overdue</button><button class="chip" type="button" data-chip>Today</button><button class="chip" type="button" data-chip>This week</button><button class="chip" type="button" data-chip>Later</button></div></div>
+    <div class="field"><label for="fu-tech">Technician</label><select class="select" id="fu-tech"><option>All technicians</option><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option><option>Diego Ramos</option><option>Hannah Cho</option><option>Luis Ortega</option><option>Naomi Brooks</option></select></div>
+    <div class="field"><label for="fu-cust">Customer</label><select class="select" id="fu-cust"><option>All customers</option><option>Irvine Med Offices</option><option>Newport Plaza Retail</option><option>Santa Ana Gym</option><option>Warner Business Park</option><option>Jamboree Corporate</option><option>Newport Coast HOA</option><option>Tustin Auto Center</option></select></div>
+    <label class="switch on" data-switch><i></i>Overdue only</label>
+    <div class="small muted">Quote and PO rows stay visible when a technician is picked; they show the tech who created them.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Clear</button><button class="btn primary" type="button" data-close data-toast="Filters applied: overdue only">Apply</button></div>
+</div>
+
+<div class="sheet" id="sheet-followups-return" role="dialog" aria-label="Schedule return visit">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="num strong" style="font-size:18px">1053</span><span class="pill route">Need to return</span><span class="muted">Santa Ana Gym</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div>
+      <h2>Schedule the return visit</h2>
+      <div class="muted">Creates visit 1053-2 on the board and keeps 1053's history, parts, and notes.</div>
+    </div>
+    <div>
+      <span class="eyebrow">Suggested slots</span>
+      <div class="option-cards mt-1" style="grid-template-columns: minmax(0, 1fr);">
+        <button class="option-card on" type="button" data-option><span class="tier">Suggested</span><div class="strong">Priya Shah · Fri Oct 16 · 8:00</div><div class="small muted">Did the first visit · 9 min from the shop · 6 h free Friday</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Alternative</span><div class="strong">Diego Ramos · Thu Oct 15 · 1:00</div><div class="small muted">Irvine team · 16 min · 3 h free</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Alternative</span><div class="strong">Priya Shah · Thu Oct 15 · 3:30</div><div class="small muted">After Oak Creek · 22 min drive · tight before 5:00</div></button>
+      </div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>Date</label><input class="input" type="date" value="2026-10-16"></div>
+      <div class="field"><label>Start</label><input class="input" type="time" value="08:00"></div>
+      <div class="field"><label>Hours</label><input class="input num" type="number" value="1.5" step="0.25"></div>
+      <div class="field"><label>Technician</label><select class="select"><option>Priya Shah</option><option>Diego Ramos</option><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option></select></div>
+      <div class="field"><label>Role</label><div class="seg light" data-seg="fu-role"><button type="button" class="on" data-val="lead">Lead</button><button type="button" data-val="helper">Helper</button></div></div>
+      <div class="field"><label>Priority</label><div class="seg light" data-seg="fu-pri"><button type="button" data-val="urgent">Urgent</button><button type="button" class="on" data-val="normal">Normal</button><button type="button" data-val="low">Low</button></div></div>
+    </div>
+    <div class="row wrap gap-3">
+      <label class="check" data-check><i></i><span>Waiting on parts</span></label>
+      <label class="check" data-check><i></i><span>Warranty</span></label>
+      <label class="check on" data-check><i></i><span>Text the site the window when placed</span></label>
+    </div>
+    <div class="field"><label>Note for the tech</label><textarea class="textarea">Balance the blower on RTU-2 after the new belt. Bring the vibration meter. Manager wants it finished before Saturday classes.</textarea></div>
+    <div class="notice moss">No overlap. Priya's Friday is clear until 2:00; the shop stocks the belt tensioner she asked for.</div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn copper" type="button" data-close data-toast="1053-2 created · Priya Shah, Fri Oct 16 8:00 · Santa Ana Gym texted the window">Create 1053-2</button>
+  </div>
+</div>
+</template>
+</section>

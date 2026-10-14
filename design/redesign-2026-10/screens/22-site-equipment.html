@@ -1,0 +1,305 @@
+<section class="screen" id="s-site-equipment" data-title="Site &amp; equipment" data-group="office" data-face="office" data-order="22">
+<style>
+  #s-site-equipment .units { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  #s-site-equipment .unit { display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--line); border-radius: var(--r-3); background: var(--card); padding: 12px 14px; min-width: 0; }
+  #s-site-equipment .unit .photo { aspect-ratio: 16 / 6; border-radius: var(--r-2); }
+  #s-site-equipment .unit .tagno { font-family: var(--mono); font-weight: 600; font-size: 16px; }
+  #s-site-equipment .unit .line { font-size: 12px; color: var(--ink-2); }
+  #s-site-equipment .unit .line b { color: var(--ink); font-weight: 500; }
+  #s-site-equipment .unit .foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 6px; }
+  #s-site-equipment .unit.alert { border-color: #f0b8b0; box-shadow: 0 0 0 2px var(--red-tint); }
+  #s-site-equipment .unit.proposed { border-style: dashed; background: transparent; }
+  #s-site-equipment .unit.ocr { border: 1.5px dashed var(--copper); background: linear-gradient(180deg, var(--copper-tint) 0%, var(--card) 70%); }
+  #s-site-equipment .unit.ocr .photo { background: linear-gradient(135deg, #9a8a76, #4a3f33); }
+  #s-site-equipment .unit.ocr .plate { position: absolute; left: 14%; right: 14%; top: 20%; bottom: 20%; border: 1.5px solid rgba(255,255,255,0.75); border-radius: 3px; background: rgba(255,255,255,0.08); }
+  #s-site-equipment .unit.ocr .scan { position: absolute; left: 14%; right: 14%; height: 2px; background: var(--copper); box-shadow: 0 0 10px var(--copper); animation: ocr-scan 2.2s ease-in-out infinite alternate; }
+  @keyframes ocr-scan { from { top: 20%; } to { top: 78%; } }
+  #s-site-equipment .ocr-fields { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 4px 8px; font-size: 12px; align-items: center; }
+  #s-site-equipment .ocr-fields .k { color: var(--ink-3); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+  #s-site-equipment .ocr-fields .v { font-weight: 500;  }
+  #s-site-equipment .ocr-fields .v.skeleton { height: 14px; }
+  #s-site-equipment .qr { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
+  #s-site-equipment .qr svg { width: 14px; height: 14px; fill: currentColor; }
+  #s-site-equipment .site-cols { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  @media (max-width: 1100px) { #s-site-equipment .site-cols { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+</style>
+
+<div class="back-bar">
+  <button class="btn ghost sm back" type="button" data-go="customers">Back to Customers</button>
+  <div class="btn-group"><button class="btn sm" type="button" data-toast="Saved">Save</button><button class="btn primary sm" type="button" data-go="customers" data-toast="Saved">Save and back</button></div>
+</div>
+
+<div class="page">
+  <div class="page-head">
+    <div class="stack tight">
+      <span class="eyebrow">Barranca Medical Partners · Irvine Med Offices</span>
+      <h1>Main building · 4600 Barranca Pkwy</h1>
+      <div class="row wrap"><span class="pill copper">Gold agreement</span><span class="pill warranty">6 units · 3 under warranty</span><span class="pill overdue">RTU-2 leak rate over threshold</span></div>
+      <div class="small muted">Irvine · Dr. Lena Park <span class="num">949-555-0142</span> · Primary Marcus Hale, backup Elena Cruz · last visit Oct 2 · <span class="num">6</span> of 50 units</div>
+    </div>
+    <div class="btn-group">
+      <button class="btn" type="button" data-toast="QR tags for 6 units sent to the label printer">Print QR tags</button>
+      <button class="btn primary" type="button" data-open="#sheet-site-equipment-add">Add unit</button>
+    </div>
+  </div>
+
+  <div class="tabs" data-tabs="site">
+    <button type="button" data-tab="site">Site</button>
+    <button type="button" class="on" data-tab="equipment">Equipment <span class="count">6</span></button>
+    <button type="button" data-tab="history">History <span class="count">7</span></button>
+  </div>
+
+  <div class="panel" data-panel="site" data-panel-group="site">
+    <div class="site-cols mt-4">
+      <div>
+        <div class="row between"><span class="eyebrow">Site</span><button class="btn sm ghost" type="button" data-toast="Site fields unlocked for editing">Edit site</button></div>
+        <dl class="facts mt-2">
+          <dt>Building name</dt><dd>Irvine Med Offices</dd>
+          <dt>Address</dt><dd>4600 Barranca Pkwy</dd>
+          <dt>City</dt><dd>Irvine, CA 92604</dd>
+          <dt>Contact</dt><dd>Dr. Lena Park · practice director</dd>
+          <dt>Phone</dt><dd><span class="num">949-555-0142</span> · mobile, texts ok</dd>
+          <dt>Special instructions</dt><dd>Check in at the front desk, suite 200. No noisy work during patient hours 8–11.</dd>
+          <dt>Access notes <span class="callout">1</span></dt><dd>Roof hatch key at reception · ladder in janitor closet 2F · gate code <span class="num">4471#</span> after 6 PM</dd>
+          <dt>Tax rate</dt><dd><span class="num">7.75%</span> · company default</dd>
+          <dt>Invoice delivery</dt><dd>Uses parent (Email)</dd>
+          <dt>Primary tech</dt><dd>Marcus Hale</dd>
+          <dt>Backup tech</dt><dd>Elena Cruz</dd>
+        </dl>
+      </div>
+      <div>
+        <div class="row between"><span class="eyebrow">PM contract <span class="callout">4</span></span><span class="pill copper plain">Gold</span></div>
+        <dl class="facts tight mt-2">
+          <dt>Covered</dt><dd>RTU-1 to RTU-4 and SS-1 · 5 assets here</dd>
+          <dt>Schedule</dt><dd>Spring done Apr 8 · Fall Nov 3 · Marcus</dd>
+          <dt>Included</dt><dd>Filters, belts, coil wash, refrigerant check, economizer test · 4 h response</dd>
+          <dt>Billing method</dt><dd>Pre-billed · <span class="money">$640</span>/mo card on file</dd>
+          <dt>Not on contract</dt><dd class="muted">Annex units bill on demand until renewal</dd>
+        </dl>
+        <div class="btn-group mt-3"><button class="btn sm" type="button" data-go="agreements">Open agreement</button><button class="btn sm ghost" type="button" data-toast="Fall PM visit for 5 assets added to the open queue · Nov 3 · Marcus Hale">Generate fall visit</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel on" data-panel="equipment" data-panel-group="site">
+    <div class="row between wrap mt-4">
+      <div class="summary-line">
+        <span><span class="dot moss"></span><b>3</b> under warranty</span>
+        <span><span class="dot red"></span><b>1</b> leak rate over threshold</span>
+        <span><span class="dot rust"></span><b>1</b> waiting on parts</span>
+        <span><span class="dot plum"></span><b>1</b> proposed</span>
+        <span>Refrigerant this year <b>2.5 lb</b> added · <b>0.0</b> recovered <span class="callout">5</span></span>
+      </div>
+      <div class="seg" data-seg="unit-view"><button type="button" class="on" data-val="all">All</button><button type="button" data-val="attn">Needs attention</button></div>
+    </div>
+
+    <div class="units stagger mt-3">
+      <div class="unit">
+        <div class="row between top"><div><span class="tagno">RTU-1</span><div class="line">Rooftop package · suites 100–110</div></div><span class="pill warranty plain">Warranty to 2033</span></div>
+        <div class="photo copper"><span class="cap">Nameplate · Jun 2023</span></div>
+        <div class="line"><b>Carrier 48TCDA08A2A5</b> · SN <span class="num">2623C45811</span></div>
+        <div class="line"><span class="num">7.5</span> ton · R-410A <span class="num">15.6 lb</span> · installed 2023</div>
+        <div class="line">Last service Aug 27 · capacitor under warranty</div>
+        <div class="foot"><span class="qr"><svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h3v3H0zM1 1h1v1H1zM4 0h3v3H4zM5 1h1v1H5zM0 4h3v3H0zM1 5h1v1H1zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/></svg>HCM-0411 · Scan QR</span><button class="btn sm ghost" type="button" data-open="#sheet-site-equipment-unit">History</button></div>
+      </div>
+
+      <div class="unit alert">
+        <div class="row between top"><div><span class="tagno">RTU-2</span><div class="line">Rooftop package · suite 200</div></div><span class="pill overdue plain">Leak rate 16%</span></div>
+        <div class="photo copper"><span class="cap">Nameplate · Jun 2023</span></div>
+        <div class="line"><b>Carrier 48TCDA08A2A5</b> · SN <span class="num">2623C45812</span></div>
+        <div class="line"><span class="num">7.5</span> ton · R-410A <span class="num">15.6 lb</span> · installed 2023 · warranty to 2033</div>
+        <div class="line"><span class="live">Today</span> · WO 1058 coil leak · Marcus on site</div>
+        <div class="foot"><span class="qr"><svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h3v3H0zM1 1h1v1H1zM4 0h3v3H4zM5 1h1v1H5zM0 4h3v3H0zM1 5h1v1H1zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/></svg>HCM-0412 · Scan QR</span><button class="btn sm primary" type="button" data-open="#sheet-site-equipment-unit">History and refrigerant</button></div>
+      </div>
+
+      <div class="unit">
+        <div class="row between top"><div><span class="tagno">RTU-3</span><div class="line">Rooftop package · suites 210–230</div></div><span class="pill quote plain">Quote 2041 sent</span></div>
+        <div class="photo"><span class="cap">Nameplate · faded, re-shoot</span></div>
+        <div class="line"><b>Trane Precedent YSC120</b> · SN <span class="num">16244KPL3F</span></div>
+        <div class="line"><span class="num">10</span> ton · R-410A <span class="num">21.4 lb</span> · installed 2016 · out of warranty</div>
+        <div class="line">Oct 2 PM · belt cracked, blower bearings worn</div>
+        <div class="foot"><span class="qr"><svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h3v3H0zM1 1h1v1H1zM4 0h3v3H4zM5 1h1v1H5zM0 4h3v3H0zM1 5h1v1H1zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/></svg>HCM-0413 · Scan QR</span><button class="btn sm ghost" type="button" data-go="quote-editor">Open quote</button></div>
+      </div>
+
+      <div class="unit">
+        <div class="row between top"><div><span class="tagno">RTU-4</span><div class="line">Rooftop package · suite 100 wing</div></div><span class="pill parts plain">Parts due Thu</span></div>
+        <div class="photo steel"><span class="cap">Nameplate · Mar 2024</span></div>
+        <div class="line"><b>Lennox LGH120H4B</b> · SN <span class="num">5618H04422</span></div>
+        <div class="line"><span class="num">10</span> ton · R-410A <span class="num">20.0 lb</span> · installed 2018 · out of warranty</div>
+        <div class="line">WO 1064 · economizer actuator on Johnstone PO 118</div>
+        <div class="foot"><span class="qr"><svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h3v3H0zM1 1h1v1H1zM4 0h3v3H4zM5 1h1v1H5zM0 4h3v3H0zM1 5h1v1H1zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/></svg>HCM-0414 · Scan QR</span><button class="btn sm ghost" type="button" data-open="#sheet-site-equipment-unit">History</button></div>
+      </div>
+
+      <div class="unit">
+        <div class="row between top"><div><span class="tagno">SS-1</span><div class="line">Ductless split · server room 1F</div></div><span class="pill route plain">Warranty ends Dec</span></div>
+        <div class="photo dark"><span class="cap">Nameplate · Nov 2021</span></div>
+        <div class="line"><b>Mitsubishi PUY-A24NKA7</b> · SN <span class="num">1W0431A</span></div>
+        <div class="line"><span class="num">2</span> ton · R-410A <span class="num">4.1 lb</span> · under 15 lb, no log required · installed 2021</div>
+        <div class="line">Apr 8 spring PM · filter, coil wash</div>
+        <div class="foot"><span class="qr"><svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h3v3H0zM1 1h1v1H1zM4 0h3v3H4zM5 1h1v1H5zM0 4h3v3H0zM1 5h1v1H1zM4 4h1v1H4zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4zM6 6h1v1H6z"/></svg>HCM-0415 · Scan QR</span><button class="btn sm ghost" type="button" data-toast="Warranty registration reminder added to Follow-ups · due Nov 15">Remind before expiry</button></div>
+      </div>
+
+      <div class="unit proposed">
+        <div class="row between top"><div><span class="tagno">RTU-3R</span><div class="line">Proposed replacement for RTU-3</div></div><span class="pill quote plain">Proposed</span></div>
+        <div class="photo add">From Quote 2041 · Best option</div>
+        <div class="line"><b>Carrier 48TCFA12</b> · <span class="num">10</span> ton · R-454B (A2L) <span class="num">17.8 lb</span></div>
+        <div class="line">Turns Active when the quoted job completes; RTU-3 retires to history.</div>
+        <div class="foot"><span class="small faint">Source · Quote 2041</span><button class="btn sm ghost" type="button" data-go="quote-editor">Quote 2041</button></div>
+      </div>
+
+      <div class="unit ocr">
+        <div class="row between top"><div><b>Add unit from nameplate photo</b><div class="line">F6 · reads the plate, fills the record <span class="callout">3</span></div></div><span class="pill copper plain live">Reading</span></div>
+        <div class="photo"><span class="plate"></span><span class="scan"></span><span class="cap">IMG_4471 · Marcus · 10:21</span></div>
+        <div class="ocr-fields">
+          <span class="k">Make</span><span class="v">Carrier</span>
+          <span class="k">Model</span><span class="v num">48TCDA08A2A5</span>
+          <span class="k">Serial</span><span class="v num">2623C45813</span>
+          <span class="k">Refrigerant</span><span class="v">R-410A · <span class="num">15.6 lb</span></span>
+          <span class="k">Mfg → age</span><span class="v">06/2023 · <span class="num">3</span> yr</span>
+          <span class="k">Warranty</span><span class="v skeleton" aria-label="Looking up warranty"></span>
+        </div>
+        <div class="foot"><button class="btn sm ghost" type="button" data-toast="Marcus asked to retake the nameplate photo">Retake</button><button class="btn sm copper" type="button" data-open="#sheet-site-equipment-add">Review and add</button></div>
+      </div>
+    </div>
+    <p class="small muted mt-3">Equipment <span class="callout">2</span> · Tag, type, make, model, serial, location, source and status are on every unit; open History for the full record. Cards with a red ring need a decision this week.</p>
+  </div>
+
+  <div class="panel" data-panel="history" data-panel-group="site">
+    <div class="mt-4" style="max-width:760px">
+      <span class="eyebrow">Open work orders</span>
+      <div class="list mt-2">
+        <button class="item" type="button" data-go="work-order"><span class="num strong">1058</span><span class="stack tight"><span class="title">Warranty coil leak, suite 200</span><span class="sub">RTU-2 · Marcus · today 10:00</span></span><span class="pill site">On site</span></button>
+        <button class="item" type="button"><span class="num strong">1064</span><span class="stack tight"><span class="title">Economizer actuator</span><span class="sub">RTU-4 · Johnstone PO 118 · Thu</span></span><span class="pill parts">Parts</span></button>
+      </div>
+      <span class="eyebrow mt-4" style="display:block">Last visits</span>
+      <div class="list mt-2">
+        <button class="item" type="button"><span class="num muted">Oct 2</span><span class="stack tight"><span class="title">1041 · Fall PM, 4 RTUs</span><span class="sub">Marcus · 4.0 h · RTU-3 belt flagged → Quote 2041</span></span><span class="small muted">Billed</span></button>
+        <button class="item" type="button"><span class="num muted">Sep 18</span><span class="stack tight"><span class="title">1029 · Suite 210 too warm</span><span class="sub">Elena · 1.5 h · RTU-3 stat recalibrated</span></span><span class="small muted">Billed</span></button>
+        <button class="item" type="button"><span class="num muted">Aug 27</span><span class="stack tight"><span class="title">1017 · RTU-1 run capacitor</span><span class="sub">Marcus · 1.0 h · warranty part, labor billed</span></span><span class="small muted">Billed</span></button>
+        <button class="item" type="button"><span class="num muted">Jul 15</span><span class="stack tight"><span class="title">1003 · Server room alarm</span><span class="sub">Priya · 0.5 h · SS-1 drain cleared</span></span><span class="small muted">Billed</span></button>
+        <button class="item" type="button"><span class="num muted">Apr 8</span><span class="stack tight"><span class="title">0960 · Spring PM, 5 assets</span><span class="sub">Marcus · 4.5 h</span></span><span class="small muted">Billed</span></button>
+      </div>
+      <button class="btn sm subtle mt-2" type="button" data-toast="Showing the last 15 visits">Showing 5 · show the last 15</button>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Every field of the old SiteRecord and equipment sheet: building name, address, city, contact, phone, special instructions, tax rate, invoice delivery, primary and backup tech; per unit the tag, type, make, model, serial, location, source (Manual / List import / Nameplate photo), status (Active / Proposed), proposal link, nameplate photo with remove; the "n of 50 units" cap; the PM contract; site history with open work orders and the last 15 visits.</li>
+    <li><span class="f">new</span>Access notes (1) live with the site facts so the roof key and gate code travel with the job.</li>
+    <li><span class="f">new</span>F6 unit tiles (2): one pill each for the state that matters, make, model, serial, tons, refrigerant and charge, install year, warranty, last service, and a printable QR tag. RTU-3R shows a quoted replacement entering the record as Proposed.</li>
+    <li><span class="f">new</span>F6 nameplate OCR (3): the tech's photo fills make, model, serial, refrigerant and age while warranty is still looking up; the office reviews and adds.</li>
+    <li><span class="f">changed</span>The PM contract sheet that said "will be built later" is a real F5 block (4) on the Site tab: covered assets, schedule, inclusions, billing method, "Generate fall visit".</li>
+    <li><span class="f">new</span>F7 refrigerant totals (5) are one line above the grid; the unit sheet carries the log rows, the leak-rate math and the EPA 608 / 40 CFR 84.106 deadline.</li>
+    <li><span class="f">changed</span>Record layout per the direction update: back bar, calm header with three pills and one line of facts, then Site / Equipment / History tabs. Equipment is open at rest because it is what this page is for.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-site-equipment-unit" role="dialog" aria-label="Unit RTU-2">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="num strong" style="font-size:18px">RTU-2</span><span class="pill overdue">Leak rate 16%</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="row top gap-3">
+      <div class="photo copper" style="width:132px;aspect-ratio:4/3;flex:0 0 auto"><span class="cap">Nameplate</span></div>
+      <dl class="facts tight grow">
+        <dt>Make / model</dt><dd>Carrier 48TCDA08A2A5</dd>
+        <dt>Serial</dt><dd class="num">2623C45812</dd>
+        <dt>Capacity</dt><dd><span class="num">7.5</span> ton · 208/230 V 3 ph</dd>
+        <dt>Refrigerant</dt><dd>R-410A · <span class="num">15.6 lb</span></dd>
+        <dt>Location</dt><dd>Roof, NE corner · serves suite 200</dd>
+        <dt>Warranty</dt><dd>Parts to Jun 2033 · registered</dd>
+        <dt>Source</dt><dd>Nameplate photo · Jun 12, 2023</dd>
+        <dt>QR tag</dt><dd class="num">HCM-0412</dd>
+      </dl>
+    </div>
+
+    <div>
+      <div class="row between"><span class="eyebrow">Refrigerant · 2026</span><span class="tag mono">EPA 608 · 40 CFR 84.106 · CARB</span></div>
+      <div class="table-wrap mt-2">
+        <table class="table dense">
+          <thead><tr><th>Date</th><th>WO</th><th>Tech · cert</th><th class="num">Added</th><th class="num">Recovered</th><th>Cylinder</th><th>Leak check</th></tr></thead>
+          <tbody>
+            <tr><td class="num">Oct 14</td><td class="num">1058</td><td>Marcus · 608 Universal</td><td class="num">2.5 lb</td><td class="num">0.0</td><td class="num">118-A</td><td class="small" style="color:var(--red)">Leak found · coil</td></tr>
+            <tr><td class="num">Apr 8</td><td class="num">0960</td><td>Marcus · 608 Universal</td><td class="num">0.0</td><td class="num">0.0</td><td class="muted">—</td><td class="small">Passed</td></tr>
+            <tr><td class="num">Jun 12, 2023</td><td class="num">0611</td><td>Andre · 608 Universal</td><td class="num">15.6 lb</td><td class="num">0.0</td><td class="num">092-C</td><td class="small">Initial charge</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="summary-line mt-2">
+        <span>Added this year <b>2.5 lb</b></span>
+        <span>Leak rate <b style="color:var(--red)">16.0%</b> · threshold 10%</span>
+        <span>Repair and verification due <b>Nov 13</b></span>
+      </div>
+      <div class="notice red mt-2">2.5 lb added on a 15.6 lb charge is a 16% annualized rate, over the 10% comfort-cooling threshold. The record files itself when Marcus logs the follow-up leak check after the coil repair.</div>
+    </div>
+
+    <div>
+      <span class="eyebrow">Service history on this unit</span>
+      <div class="timeline mt-2">
+        <div class="tl moss"><div class="when">Oct 14 · WO 1058</div><div class="what">Coil leak found at the return bend; ceiling stain in suite 200</div><div class="who">Marcus Hale · on site now · warranty claim opened with Carrier</div></div>
+        <div class="tl steel"><div class="when">Oct 2 · WO 1041</div><div class="what">Fall PM · filters, belt ok, charge within spec</div><div class="who">Marcus Hale</div></div>
+        <div class="tl"><div class="when">Apr 8 · WO 0960</div><div class="what">Spring PM · coil wash, economizer tested</div><div class="who">Marcus Hale</div></div>
+        <div class="tl"><div class="when">Jun 12, 2023 · WO 0611</div><div class="what">Installed and started · warranty registered Jun 20</div><div class="who">Andre Walsh · 10-yr parts</div></div>
+      </div>
+    </div>
+
+    <div>
+      <span class="eyebrow">Edit unit</span>
+      <div class="field-grid mt-2">
+        <div class="field"><label>Tag</label><input class="input num" value="RTU-2"></div>
+        <div class="field"><label>Type</label><select class="select"><option>Rooftop package</option><option>Split system</option><option>Make-up air</option><option>Exhaust fan</option><option>Boiler</option></select></div>
+        <div class="field"><label>Make</label><input class="input" value="Carrier"></div>
+        <div class="field"><label>Model</label><input class="input num" value="48TCDA08A2A5"></div>
+        <div class="field"><label>Serial</label><input class="input num" value="2623C45812"></div>
+        <div class="field"><label>Location in the building</label><input class="input" value="Roof, NE corner · suite 200"></div>
+        <div class="field"><label>Source</label><select class="select"><option>Nameplate photo</option><option>Manual</option><option>List import</option></select></div>
+        <div class="field"><label>Status</label><select class="select"><option>Active</option><option>Proposed</option><option>Retired</option></select></div>
+        <div class="field span-2"><label>Proposal</label><input class="input" placeholder="Link a quote if this unit is proposed"></div>
+      </div>
+      <div class="btn-group mt-2"><button class="btn sm ghost" type="button" data-toast="Nameplate photo removed">Remove photo</button><button class="btn sm ghost" type="button" data-toast="Tech asked to re-shoot the nameplate on the next visit">Request new photo</button></div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Close</button>
+    <button class="btn" type="button" data-toast="QR tag HCM-0412 sent to the label printer">Print QR tag</button>
+    <button class="btn copper" type="button" data-go="new-wo" data-close>New WO on this unit</button>
+  </div>
+</div>
+<div class="sheet" id="sheet-site-equipment-add" role="dialog" aria-label="Add unit">
+  <div class="back-bar" style="position:static">
+    <button class="btn ghost sm back" type="button" data-close>Back to Site &amp; equipment</button>
+    <div class="btn-group"><button class="btn sm" type="button" data-toast="Saved">Save</button><button class="btn primary sm" type="button" data-close data-toast="Unit RTU-5 added · QR tag HCM-0416 queued">Save and back</button></div>
+  </div>
+  <div class="sheet-body stack loose">
+    <div><h2>Add unit</h2><div class="muted">Irvine Med Offices · Main building · 7 of 50 units after this</div></div>
+    <div class="row top gap-3">
+      <div class="photo" style="width:132px;aspect-ratio:4/3;flex:0 0 auto;background:linear-gradient(135deg,#9a8a76,#4a3f33)"><span class="cap">IMG_4471</span></div>
+      <div class="small muted grow">Read from the nameplate photo: make, model, serial, refrigerant and charge, manufacture date. Warranty is still being checked with Carrier. Confirm the serial against the plate before you save; corrections here train the reader.</div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>Tag</label><input class="input num" value="RTU-5"></div>
+      <div class="field"><label>Type</label><select class="select"><option>Rooftop package</option><option>Split system</option><option>Make-up air</option></select></div>
+      <div class="field prefilled"><label>Make <span class="prefilled-tag">from photo</span></label><input class="input" value="Carrier"></div>
+      <div class="field prefilled"><label>Model <span class="prefilled-tag">from photo</span></label><input class="input num" value="48TCDA08A2A5"></div>
+      <div class="field prefilled"><label>Serial <span class="prefilled-tag">from photo</span></label><input class="input num" value="2623C45813"></div>
+      <div class="field prefilled"><label>Refrigerant · charge <span class="prefilled-tag">from photo</span></label><input class="input" value="R-410A · 15.6 lb"></div>
+      <div class="field prefilled"><label>Installed <span class="prefilled-tag">from photo</span></label><input class="input num" value="2023"></div>
+      <div class="field"><label>Capacity</label><input class="input" value="7.5 ton"></div>
+      <div class="field span-2"><label>Location in the building</label><input class="input" placeholder="Roof, SW corner · serves suite 120"></div>
+      <div class="field"><label>Source</label><select class="select"><option>Nameplate photo</option><option>Manual</option><option>List import</option></select></div>
+      <div class="field"><label>Status</label><select class="select"><option>Active</option><option>Proposed</option></select></div>
+    </div>
+    <div class="stack tight">
+      <label class="check on" data-check><i></i><span>Add to the Gold agreement asset list (<span class="money">+$80</span>/mo at renewal)</span></label>
+      <label class="check on" data-check><i></i><span>Print a QR tag for the next visit</span></label>
+      <label class="check" data-check><i></i><span>Start the warranty registration reminder (F18)</span></label>
+    </div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Discard</button><button class="btn copper" type="button" data-close data-toast="Unit RTU-5 added · QR tag HCM-0416 queued">Add unit</button></div>
+</div>
+</template>
+</section>

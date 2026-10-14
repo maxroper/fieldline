@@ -1,0 +1,309 @@
+<section class="screen" id="s-dispatch" data-title="Dispatch board" data-group="office" data-face="office" data-order="10">
+<style>
+  #s-dispatch .dispatch-canvas { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  #s-dispatch .dispatch-canvas.show-map { grid-template-columns: minmax(0, 1fr) 340px; }
+  #s-dispatch .dispatch-canvas.show-map .map-side { display: block; }
+  #s-dispatch .map-side { display: none; border-left: 1px solid var(--line); background: var(--card); padding: 12px; }
+  #s-dispatch .map-side .map { min-height: 420px; }
+  #s-dispatch .board-scroll { overflow: auto; min-width: 0; }
+  #s-dispatch .day-grid { min-width: 820px; }
+  @media (max-width: 1100px) { #s-dispatch .dispatch-canvas.show-map { grid-template-columns: minmax(0, 1fr); } #s-dispatch .dispatch-canvas.show-map .map-side { border-left: 0; border-top: 1px solid var(--line); } }
+</style>
+
+<div class="toolbar">
+  <div class="seg" data-seg="team"><button type="button" class="on" data-val="cm">Costa Mesa</button><button type="button" data-val="irv">Irvine</button></div>
+  <div class="row">
+    <button class="btn icon sm ghost" type="button" aria-label="Previous day">‹</button>
+    <b class="num" style="min-width: 7.5rem; text-align: center;">Wed, Oct 14</b>
+    <button class="btn icon sm ghost" type="button" aria-label="Next day">›</button>
+  </div>
+  <div class="seg" data-seg="span"><button type="button" class="on" data-val="day">Day</button><button type="button" data-val="week">Week</button><button type="button" data-val="month">Month</button></div>
+  <span class="grow"></span>
+  <div class="summary-line hide-narrow"><span><b>14</b> visits</span><span><span class="dot red"></span><b>3</b> unassigned</span><span><span class="dot amber"></span><b>2</b> late</span><span><span class="dot steel"></span><b>82%</b> capacity</span></div>
+  <button class="btn ghost sm" type="button" data-toggle-class="show-map" data-target="#dispatch-canvas"><svg><use href="#i-map"/></svg>Map</button>
+  <button class="btn ghost sm" type="button" data-toast="3 suggestions: 1055 → Priya 3:00, 1066 → Elena 4:00, 1069 → Marcus Thu 8:00. Nothing moves until you drop it.">Suggest</button>
+</div>
+
+<div class="split narrow-rail">
+  <aside class="rail">
+    <div class="search"><input class="input" id="dispatch-search" type="search" placeholder="Customer, address, or work order"></div>
+    <div class="seg light" data-seg="queue"><button type="button" class="on">Open <span class="count">12</span></button><button type="button">Ready <span class="count">3</span></button><button type="button">Done <span class="count">41</span></button></div>
+    <div class="row between"><span class="eyebrow">Queue · drag onto the board <span class="callout">1</span></span><button class="btn sm ghost" type="button" data-open="#sheet-dispatch-filters"><svg><use href="#i-filter"/></svg>Filters · 2</button></div>
+    <div class="stack stagger">
+      <button class="ticket t-red" type="button" data-open="#sheet-wo-1055">
+        <div class="ticket-head"><span class="ticket-no">1055</span><span class="pill urgent">Urgent</span></div>
+        <div class="ticket-title">Harbor &amp; Main Kitchen</div>
+        <div class="ticket-sub">Costa Mesa · Kitchen too hot, dining room 84°</div>
+        <div class="ticket-meta"><span>Service</span><span>·</span><span>Unassigned</span><span>·</span><span class="num">8 days old</span></div>
+      </button>
+      <button class="ticket t-plum" type="button">
+        <div class="ticket-head"><span class="ticket-no">1071</span><span class="pill quote">Approved</span></div>
+        <div class="ticket-title">Newport Coast HOA</div>
+        <div class="ticket-sub">Newport Beach · Replace condenser fan motor, bldg C</div>
+        <div class="ticket-meta"><span>Quoted job</span><span>·</span><span class="num">$1,840</span><span>·</span><span>Not scheduled</span></div>
+      </button>
+      <button class="ticket t-rust" type="button">
+        <div class="ticket-head"><span class="ticket-no">1064</span><span class="pill parts">Parts</span></div>
+        <div class="ticket-title">Irvine Med Offices · Suite 100</div>
+        <div class="ticket-sub">Irvine · Economizer actuator on RTU-4</div>
+        <div class="ticket-meta"><span>Service</span><span>·</span><span>Johnstone PO 118 · expected Thu</span></div>
+      </button>
+      <button class="ticket" type="button">
+        <div class="ticket-head"><span class="ticket-no">1066</span><span class="pill sched">Normal</span></div>
+        <div class="ticket-title">Santa Ana Gym</div>
+        <div class="ticket-sub">Santa Ana · Fall PM, 6 RTUs</div>
+        <div class="ticket-meta"><span>Maintenance</span><span>·</span><span>Agreement visit</span><span>·</span><span class="num">4 h</span></div>
+      </button>
+      <button class="ticket" type="button">
+        <div class="ticket-head"><span class="ticket-no">1069</span><span class="pill hold">Low</span></div>
+        <div class="ticket-title">Huntington Harbour Dental</div>
+        <div class="ticket-sub">Huntington Beach · Thermostat keeps resetting</div>
+        <div class="ticket-meta"><span>Service</span><span>·</span><span>Any day this week</span></div>
+      </button>
+    </div>
+  </aside>
+
+  <div class="canvas">
+    <div class="panel on" data-seg-panel="span" data-val="day">
+      <div class="dispatch-canvas" id="dispatch-canvas">
+        <div class="board-scroll">
+          <div class="day-grid" style="--techs: 4;">
+            <div class="tech-head" style="grid-column: 1; grid-row: 1;"></div>
+            <div class="tech-head" style="grid-column: 2; grid-row: 1;"><span class="avatar sm">MH</span><span class="name">Marcus Hale</span><span class="sub"><span class="pill site plain">On site</span><span class="load">6.5 / 8 h</span></span></div>
+            <div class="tech-head" style="grid-column: 3; grid-row: 1;"><span class="avatar sm moss">EC</span><span class="name">Elena Cruz</span><span class="sub"><span class="pill route plain">En route</span><span class="load">7 / 8 h</span></span></div>
+            <div class="tech-head" style="grid-column: 4; grid-row: 1;"><span class="avatar sm amber">AW</span><span class="name">Andre Walsh</span><span class="sub"><span class="pill site plain">On site</span><span class="load">8 / 8 h</span></span></div>
+            <div class="tech-head" style="grid-column: 5; grid-row: 1;"><span class="avatar sm rust">PS</span><span class="name">Priya Shah</span><span class="sub"><span class="pill urgent plain">Late 12 m</span><span class="load">7 / 8 h</span></span></div>
+
+            <div class="col-bg" style="grid-column: 2;"></div>
+            <div class="col-bg" style="grid-column: 3;"></div>
+            <div class="col-bg" style="grid-column: 4;"></div>
+            <div class="col-bg" style="grid-column: 5;"></div>
+
+            <div class="time" style="grid-row: 2;">7:00</div>
+            <div class="time" style="grid-row: 4;">8:00</div>
+            <div class="time" style="grid-row: 6;">9:00</div>
+            <div class="time" style="grid-row: 8;">10:00</div>
+            <div class="time" style="grid-row: 10;">11:00</div>
+            <div class="time" style="grid-row: 12;">12:00</div>
+            <div class="time" style="grid-row: 14;">1:00</div>
+            <div class="time" style="grid-row: 16;">2:00</div>
+            <div class="time" style="grid-row: 18;">3:00</div>
+            <div class="time" style="grid-row: 20;">4:00</div>
+
+            <!-- Marcus -->
+            <div class="slot travel" style="--c: 2; grid-row: 2 / span 1;"><span class="t">Drive 22 min</span></div>
+            <div class="slot done" style="--c: 2; grid-row: 3 / span 4;"><b>1049 · Adams Avenue Plaza</b><span class="t">7:30–9:30 · Quarterly PM · Done</span></div>
+            <div class="slot travel" style="--c: 2; grid-row: 7 / span 1;"><span class="t">Drive 14 min</span></div>
+            <button class="slot site now-job" type="button" style="--c: 2; grid-row: 8 / span 4;" data-open="#sheet-wo-1058"><b>1058 · Irvine Med Offices</b><span class="t">10:00–12:00 · Warranty coil leak, suite 200</span><span class="pill site" style="margin-top:4px">On site · 0:38</span></button>
+            <div class="slot travel" style="--c: 2; grid-row: 12 / span 1;"><span class="t">Lunch</span></div>
+            <div class="slot" style="--c: 2; grid-row: 14 / span 4;"><b>1061 · Jamboree Corporate</b><span class="t">1:00–3:00 · Thermostat swap, suite 310</span></div>
+            <div class="slot ghost" style="--c: 2; grid-row: 19 / span 3;"><b>Drop 1055 here</b><span class="t">3:30–5:00 · 18 min from Jamboree</span></div>
+
+            <!-- Elena -->
+            <div class="slot done" style="--c: 3; grid-row: 3 / span 6;"><b>1052 · 17th Street Market</b><span class="t">7:30–10:30 · Walk-in cooler compressor · Done</span></div>
+            <div class="slot route" style="--c: 3; grid-row: 10 / span 4;"><b>1059 · Balboa Bay Offices</b><span class="t">11:00–1:00 · RTU-2 no cooling</span><span class="pill route" style="margin-top:4px">En route · ETA 11:05</span></div>
+            <div class="slot" style="--c: 3; grid-row: 16 / span 4;"><b>1067 · Oak Creek Professional</b><span class="t">2:00–4:00 · Condensate drain backing up</span></div>
+
+            <!-- Andre -->
+            <div class="slot site" style="--c: 4; grid-row: 4 / span 8;"><b>1050 · Bristol Court Offices</b><span class="t">8:00–12:00 · Fall PM, 4 RTUs</span><span class="pill site" style="margin-top:4px">On site · 2:40</span></div>
+            <div class="slot parts" style="--c: 4; grid-row: 14 / span 2;"><b>1063 · Newport Plaza Retail</b><span class="t">1:00–2:00 · RTU-3 low charge · parts due Thu</span></div>
+            <div class="slot" style="--c: 4; grid-row: 17 / span 5;"><b>1068 · Warner Business Park</b><span class="t">2:30–5:00 · Compressor amp draw high</span></div>
+
+            <!-- Priya -->
+            <div class="slot done" style="--c: 5; grid-row: 2 / span 4;"><b>1047 · Santa Ana Gym</b><span class="t">7:00–9:00 · Belt and bearings · Done</span></div>
+            <div class="slot urgent" style="--c: 5; grid-row: 7 / span 4;"><b>1057 · Irvine Center Clinics</b><span class="t">9:30–11:30 · Server room no cooling</span><span class="pill urgent" style="margin-top:4px">Running 12 min over</span></div>
+            <div class="slot quote" style="--c: 5; grid-row: 13 / span 4;"><b>1062 · Tustin Auto Center</b><span class="t">12:30–2:30 · Quoted: replace condenser fan motor</span></div>
+            <div class="slot" style="--c: 5; grid-row: 18 / span 3;"><b>1065 · Costa Mesa Library</b><span class="t">3:00–4:30 · Economizer stuck open</span></div>
+
+            <div class="now" style="top: 300px;"></div>
+          </div>
+        </div>
+
+        <aside class="map-side">
+          <div class="row between" style="margin-bottom: 8px;"><b>Live map</b><span class="live small muted">4 trucks moving</span></div>
+          <div class="map">
+            <svg class="streets" viewBox="0 0 340 420" preserveAspectRatio="none" aria-hidden="true">
+              <rect width="340" height="420" fill="#ece5d8"/>
+              <g stroke="#dbd2c3" stroke-width="2"><path d="M0 60H340M0 130H340M0 200H340M0 270H340M0 340H340"/><path d="M50 0V420M120 0V420M190 0V420M260 0V420"/></g>
+              <g stroke="#cfc3ad" stroke-width="5" fill="none"><path d="M0 110 C90 120 160 220 340 230"/><path d="M230 0 C220 120 270 260 300 420"/><path d="M0 330 C80 300 180 360 340 320"/></g>
+              <g fill="#e2d9c8"><rect x="60" y="70" width="50" height="40" rx="3"/><rect x="200" y="280" width="46" height="46" rx="3"/><rect x="130" y="150" width="40" height="34" rx="3"/></g>
+              <path class="route" d="M166 182 C180 210 220 232 236 262"/>
+            </svg>
+            <div class="pin moss" style="left: 48%; top: 44%;"><i></i><b>1058 Irvine Med</b></div>
+            <div class="pin steel" style="left: 70%; top: 64%;"><i></i><b>1061 Jamboree</b></div>
+            <div class="pin red" style="left: 22%; top: 26%;"><i></i><b>1055 Harbor &amp; Main</b></div>
+            <div class="pin amber" style="left: 80%; top: 22%;"><i></i><b>1059 Balboa Bay</b></div>
+            <div class="pin steel" style="left: 30%; top: 78%;"><i></i><b>1050 Bristol Ct</b></div>
+            <div class="truck" style="left: 48%; top: 46%;">MH</div>
+            <div class="truck" style="left: 62%; top: 30%;">EC</div>
+            <div class="truck" style="left: 30%; top: 80%;">AW</div>
+            <div class="truck" style="left: 56%; top: 56%;">PS</div>
+            <div class="map-legend"><span><span class="dot moss"></span> On site</span><span><span class="dot amber"></span> En route</span><span><span class="dot red"></span> Unassigned</span></div>
+            <div class="map-tools"><button class="btn icon sm" type="button" aria-label="Zoom in">+</button><button class="btn icon sm" type="button" aria-label="Zoom out">−</button></div>
+          </div>
+          <div class="stack tight mt-2 small muted">
+            <div class="row between"><span>Marcus → Jamboree</span><b class="num">18 min · 7.2 mi</b></div>
+            <div class="row between"><span>Elena → Balboa Bay</span><b class="num">9 min · ETA 11:05</b></div>
+            <div class="row between"><span>Nearest to 1055</span><b class="num">Priya · 11 min</b></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div class="panel" data-seg-panel="span" data-val="week">
+      <div class="scroll-x">
+        <div class="week-grid">
+          <div class="wk-head"></div>
+          <div class="wk-head">Sun 11</div><div class="wk-head">Mon 12</div><div class="wk-head">Tue 13</div><div class="wk-head today">Wed 14</div><div class="wk-head">Thu 15</div><div class="wk-head">Fri 16</div><div class="wk-head">Sat 17</div>
+          <div class="wk-tech"><span>Marcus Hale</span><span class="load-bar"><i class="a" style="width:70%"></i><i class="b" style="width:15%"></i></span><span class="tiny muted num">34 / 40 h</span></div>
+          <div class="wk-cell off"></div>
+          <div class="wk-cell"><div class="ticket compact t-steel"><span class="ticket-title">1119 · Adams Avenue</span><span class="ticket-time">8:00 · 4 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1127 · Balboa Bay</span><span class="ticket-time">7:30 · 6 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1058 · Irvine Med</span><span class="ticket-time">10:00 · 2 h</span></div><div class="ticket compact"><span class="ticket-title">1061 · Jamboree</span><span class="ticket-time">1:00 · 2 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact"><span class="ticket-title">1135 · Warner Business Park</span><span class="ticket-time">7:00 · 4 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact"><span class="ticket-title">1140 · Civic Center Hall</span><span class="ticket-time">8:00 · 6 h</span></div></div>
+          <div class="wk-cell off"></div>
+          <div class="wk-tech"><span>Elena Cruz</span><span class="load-bar"><i class="a" style="width:85%"></i><i class="c" style="width:10%"></i></span><span class="tiny muted num">38 / 40 h</span></div>
+          <div class="wk-cell off"></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1120 · Bristol Court</span><span class="ticket-time">8:00 · 8 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1124 · Jamboree Corporate</span><span class="ticket-time">8:00 · 3 h</span></div><div class="ticket compact t-moss"><span class="ticket-title">1128 · South Coast Plaza</span><span class="ticket-time">1:00 · 3 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-steel"><span class="ticket-title">1052 · 17th Street Market</span><span class="ticket-time">7:30 · 3 h</span></div><div class="ticket compact t-amber"><span class="ticket-title">1059 · Balboa Bay</span><span class="ticket-time">11:00 · 2 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-rust"><span class="ticket-title">1063 · Newport Plaza</span><span class="ticket-time">parts · 1 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact"><span class="ticket-title">1141 · MacFadden Retail</span><span class="ticket-time">8:00 · 4 h</span></div></div>
+          <div class="wk-cell off"></div>
+          <div class="wk-tech"><span>Andre Walsh</span><span class="load-bar"><i class="a" style="width:60%"></i><i class="d" style="width:20%"></i></span><span class="tiny muted num">40 / 40 h · 2 over</span></div>
+          <div class="wk-cell off"></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1121 · Harbor &amp; Main</span><span class="ticket-time">9:00 · 2 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1125 · Mission Office Park</span><span class="ticket-time">8:00 · 8 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1050 · Bristol Court</span><span class="ticket-time">8:00 · 4 h</span></div><div class="ticket compact"><span class="ticket-title">1068 · Warner</span><span class="ticket-time">2:30 · 2.5 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact"><span class="ticket-title">1137 · Tustin Auto</span><span class="ticket-time">8:00 · 5 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-red"><span class="ticket-title">1142 · Civic Center</span><span class="ticket-time">10 h · over</span></div></div>
+          <div class="wk-cell off"></div>
+          <div class="wk-tech"><span>Priya Shah</span><span class="load-bar"><i class="a" style="width:55%"></i><i class="b" style="width:25%"></i></span><span class="tiny muted num">32 / 40 h</span></div>
+          <div class="wk-cell off"></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1122 · Fairview Dental</span><span class="ticket-time">8:00 · 2 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-moss"><span class="ticket-title">1126 · Santa Ana Gym</span><span class="ticket-time">7:00 · 4 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact t-red"><span class="ticket-title">1057 · Irvine Center Clinics</span><span class="ticket-time">9:30 · 2 h</span></div><div class="ticket compact t-plum"><span class="ticket-title">1062 · Tustin Auto</span><span class="ticket-time">12:30 · 2 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact"><span class="ticket-title">1138 · Oak Creek</span><span class="ticket-time">8:00 · 3 h</span></div></div>
+          <div class="wk-cell"><div class="ticket compact ghosted"><span class="ticket-title">Open · 8 h free</span></div></div>
+          <div class="wk-cell off"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" data-seg-panel="span" data-val="month">
+      <div class="page">
+        <div class="row between wrap" style="margin-bottom: 12px;"><h2>October 2026</h2><div class="legend"><span><span class="dot steel"></span>Scheduled</span><span><span class="dot copper"></span>Over capacity</span><span><span class="dot red"></span>Unassigned</span></div></div>
+        <div class="month-grid">
+          <div class="dow">Sun</div><div class="dow">Mon</div><div class="dow">Tue</div><div class="dow">Wed</div><div class="dow">Thu</div><div class="dow">Fri</div><div class="dow">Sat</div>
+          <div class="mday dim"><span class="d">27</span></div><div class="mday dim"><span class="d">28</span></div><div class="mday dim"><span class="d">29</span></div><div class="mday dim"><span class="d">30</span></div><div class="mday"><span class="d">1</span><span class="small">Open 2</span><div class="load"><i style="width:40%"></i></div></div><div class="mday"><span class="d">2</span><span class="small">Open 3</span><div class="load"><i style="width:55%"></i></div></div><div class="mday"><span class="d">3</span></div>
+          <div class="mday"><span class="d">4</span></div><div class="mday"><span class="d">5</span><span class="small">Open 4 · Assigned 3</span><div class="load"><i style="width:60%"></i></div></div><div class="mday"><span class="d">6</span><span class="small">Open 11 · Return 2 · Parts 1</span><div class="load"><i class="hot" style="width:96%"></i></div></div><div class="mday"><span class="d">7</span><span class="small">Open 6 · Assigned 5</span><div class="load"><i style="width:70%"></i></div></div><div class="mday"><span class="d">8</span><span class="small">Open 5</span><div class="load"><i style="width:62%"></i></div></div><div class="mday"><span class="d">9</span><span class="small">Open 4</span><div class="load"><i style="width:50%"></i></div></div><div class="mday"><span class="d">10</span></div>
+          <div class="mday"><span class="d">11</span></div><div class="mday"><span class="d">12</span><span class="small">Assigned 6</span><div class="load"><i style="width:75%"></i></div></div><div class="mday"><span class="d">13</span><span class="small">Assigned 8</span><div class="load"><i style="width:88%"></i></div></div><div class="mday today"><span class="d">14</span><span class="small">14 visits · <span style="color:var(--red)">3 unassigned</span></span><div class="load"><i style="width:82%"></i></div></div><div class="mday"><span class="d">15</span><span class="small">Assigned 7 · Parts 1</span><div class="load"><i style="width:70%"></i></div></div><div class="mday"><span class="d">16</span><span class="small">Assigned 9</span><div class="load"><i class="hot" style="width:100%"></i></div></div><div class="mday"><span class="d">17</span></div>
+          <div class="mday"><span class="d">18</span></div><div class="mday"><span class="d">19</span><span class="small">PM visits 5</span><div class="load"><i style="width:58%"></i></div></div><div class="mday"><span class="d">20</span><span class="small">PM visits 6</span><div class="load"><i style="width:64%"></i></div></div><div class="mday"><span class="d">21</span><span class="small">Assigned 4</span><div class="load"><i style="width:45%"></i></div></div><div class="mday"><span class="d">22</span><span class="small">Assigned 3</span><div class="load"><i style="width:36%"></i></div></div><div class="mday"><span class="d">23</span><span class="small">Assigned 2</span><div class="load"><i style="width:28%"></i></div></div><div class="mday"><span class="d">24</span></div>
+          <div class="mday"><span class="d">25</span></div><div class="mday"><span class="d">26</span><span class="small">PM visits 4</span><div class="load"><i style="width:40%"></i></div></div><div class="mday"><span class="d">27</span><span class="small">Assigned 2</span><div class="load"><i style="width:22%"></i></div></div><div class="mday"><span class="d">28</span></div><div class="mday"><span class="d">29</span></div><div class="mday"><span class="d">30</span></div><div class="mday"><span class="d">31</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Same board anatomy: queue on the left, techs across the top, drag a ticket onto a time. Day / Week / Month and the team switch stay where they were.</li>
+    <li><span class="f">changed</span>The queue is a light panel with one search, one Open / Ready / Done switch, and a Filters button. The five chip groups now live in a filters sheet, so the board breathes. New WO moved to the top bar's + New.</li>
+    <li><span class="f">new</span>Live map beside the board with truck positions, the selected tech's next drive, and "nearest to this job". Toggle with Map.</li>
+    <li><span class="f">new</span>Summary before detail: visits, unassigned, running late, and capacity sit in the toolbar so the dispatcher never counts cards.</li>
+    <li><span class="f">new</span>Suggest assignments ranks open jobs against drive time, skills, and remaining hours. The dispatcher still drops the ticket.</li>
+    <li><span class="f">new</span>Drive time and lunch render as hatched blocks so gaps are real gaps. A dashed ghost shows where a dragged ticket would land and how far the drive is.</li>
+    <li><span class="f">changed</span>Clicking a job opens a side sheet instead of a modal window. The board stays visible, and "Open full work order" goes to the record page.</li>
+    <li><span class="f">changed</span>Job state is one color language everywhere: steel scheduled, amber en route, moss on site, rust waiting on parts, red urgent or late, plum quoted.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-wo-1058" role="dialog" aria-label="Work order 1058">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="num strong" style="font-size:18px">1058</span><span class="pill site">On site · 0:38</span><span class="pill warranty">Warranty</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div>
+      <h2>Irvine Med Offices · Suite 200</h2>
+      <div class="muted">4600 Barranca Pkwy, Irvine · Dr. Lena Park · 949-555-0142</div>
+    </div>
+    <div class="status-track" data-status-host>
+      <div class="st done" data-st="sched">Scheduled<br><span class="num">8:50</span></div>
+      <div class="st done" data-st="route">En route<br><span class="num">9:31</span></div>
+      <div class="st now" data-st="site">On site<br><span class="num">10:02</span></div>
+      <div class="st" data-st="done">Done</div>
+      <div class="st" data-st="bill">Billed</div>
+    </div>
+    <dl class="facts">
+      <dt>Problem</dt><dd>Warranty coil leak, suite 200. Customer reports water on the ceiling tile under RTU-2.</dd>
+      <dt>Equipment</dt><dd>RTU-2 · Carrier 48TC · 7.5 ton · R-410A · installed 2023 · <span class="pill warranty plain">Parts warranty to 2033</span></dd>
+      <dt>Technician</dt><dd><span class="avatar sm">MH</span> Marcus Hale · lead</dd>
+      <dt>Type</dt><dd>Service · T&amp;M · Normal</dd>
+      <dt>Customer</dt><dd>Irvine Med Offices · Bill-to: Barranca Medical Partners</dd>
+    </dl>
+    <div class="btn-group">
+      <button class="btn primary" type="button" data-go="work-order" data-close>Open full work order</button>
+      <button class="btn" type="button" data-toast="Text sent to Dr. Park: Marcus is on site and will update you by noon.">Text customer</button>
+      <button class="btn" type="button" data-toast="Helper request added to the queue">Add helper</button>
+    </div>
+    <div>
+      <span class="eyebrow">Today</span>
+      <div class="timeline mt-1">
+        <div class="tl moss"><div class="when">10:02</div><div class="what">Arrived on site</div><div class="who">Marcus · GPS matched the address</div></div>
+        <div class="tl amber"><div class="when">9:31</div><div class="what">En route · ETA text sent to Dr. Park</div><div class="who">Automatic</div></div>
+        <div class="tl steel"><div class="when">8:50</div><div class="what">Assigned to Marcus Hale, 10:00</div><div class="who">James Reynolds</div></div>
+        <div class="tl"><div class="when">Oct 13 · 4:12 PM</div><div class="what">Work order created from a call</div><div class="who">Customer service · caller Dr. Park</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Close</button>
+    <button class="btn copper" type="button" data-toast="Marcus notified: please add photos of the coil before leaving">Message Marcus</button>
+  </div>
+</div>
+<div class="sheet" id="sheet-wo-1055" role="dialog" aria-label="Work order 1055">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="num strong" style="font-size:18px">1055</span><span class="pill urgent">Urgent</span><span class="pill open">Unassigned</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div>
+      <h2>Harbor &amp; Main Kitchen</h2>
+      <div class="muted">1890 Harbor Blvd, Costa Mesa · Tony Reyes, kitchen manager · 714-555-0188</div>
+    </div>
+    <div class="notice red"><b>8 days in the queue.</b>&nbsp;Dining room reads 84° on a lunch service day. Nearest free tech: Priya at 3:00 (11 min away).</div>
+    <dl class="facts">
+      <dt>Problem</dt><dd>Kitchen too hot, dining room 84°. Make-up air unit tripping on high limit.</dd>
+      <dt>Equipment</dt><dd>MAU-1 · Captive-Aire · 2019 · <span class="pill parts plain">Out of warranty</span></dd>
+      <dt>History</dt><dd>3 visits this year · last: belt replaced Aug 12 (Andre)</dd>
+    </dl>
+    <div>
+      <span class="eyebrow">Place on the board</span>
+      <div class="option-cards mt-1" style="grid-template-columns: repeat(2, minmax(0,1fr));">
+        <button class="option-card on" type="button" data-option><span class="tier">Suggested</span><div class="strong">Priya Shah · today 3:00</div><div class="small muted">11 min drive · knows the site · 2 h free</div></button>
+        <button class="option-card" type="button" data-option><span class="tier">Alternative</span><div class="strong">Marcus Hale · today 3:30</div><div class="small muted">18 min drive · after Jamboree</div></button>
+      </div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Close</button>
+    <button class="btn copper" type="button" data-close data-toast="1055 placed with Priya Shah at 3:00. Tony Reyes texted the window.">Place with Priya at 3:00</button>
+  </div>
+</div>
+<div class="sheet" id="sheet-dispatch-filters" role="dialog" aria-label="Queue filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label for="dispatch-tech">Technician</label><select class="select" id="dispatch-tech"><option>All techs</option><option>Unassigned</option><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option></select></div>
+    <div class="chip-group"><span class="eyebrow">Sort</span><div class="chips"><button class="chip" type="button" data-chip>Oldest</button><button class="chip on" type="button" data-chip>Priority</button><button class="chip" type="button" data-chip>Newest</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Type</span><div class="chips"><button class="chip" type="button" data-chip>Service</button><button class="chip" type="button" data-chip>Maintenance</button><button class="chip" type="button" data-chip>Quoted job</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Priority</span><div class="chips"><button class="chip" type="button" data-chip>Urgent</button><button class="chip" type="button" data-chip>Normal</button><button class="chip" type="button" data-chip>Low</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Flags</span><div class="chips"><button class="chip" type="button" data-chip>Assigned</button><button class="chip on" type="button" data-chip>Unassigned</button><button class="chip" type="button" data-chip>Need to return</button><button class="chip" type="button" data-chip>Waiting on parts</button><button class="chip" type="button" data-chip>Warranty</button></div></div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Clear</button><button class="btn primary" type="button" data-close data-toast="Filters applied: sorted by priority, unassigned only">Apply</button></div>
+</div>
+</template>
+</section>

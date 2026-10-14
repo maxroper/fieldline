@@ -1,0 +1,139 @@
+<section class="screen" id="s-cust-portal" data-title="Customer portal" data-group="customer" data-face="customer" data-order="82">
+<style>
+  #s-cust-portal .ph-page { gap: 22px; padding-top: 18px; }
+  #s-cust-portal .option-cards { grid-template-columns: minmax(0, 1fr); }
+  #s-cust-portal .option-card .inc { font-size: 12px; color: var(--ink-2); margin-top: 6px; }
+  #s-cust-portal .option-card .mo { font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+  #s-cust-portal .due { font-size: 32px; font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
+  #s-cust-portal .plain-list { border: 0; border-radius: 0; background: transparent; }
+  #s-cust-portal .plain-list .item { padding: 10px 0; }
+  #s-cust-portal .units .item { grid-template-columns: minmax(0, 1fr) auto; }
+  #s-cust-portal .signature { height: 110px; }
+</style>
+
+<div class="cf-top"><span class="url">portal.fieldline.app/barranca</span></div>
+<div class="ph-page">
+  <div class="row between">
+    <div class="row"><span class="avatar ink">HC</span><div><b>Harbor Coast Mechanical</b><div class="small muted">Customer portal</div></div></div>
+    <button class="btn sm subtle" type="button" data-toast="Signed in as Dr. Lena Park · 2 users on this account · last login Oct 9">Dr. Park</button>
+  </div>
+
+  <div class="stack tight">
+    <h1>Barranca Medical Partners</h1>
+    <div class="muted">Irvine Med Offices · Suites 100 and 200 · Gold agreement, 4-hour response</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><span class="eyebrow">To approve <span class="callout">1</span></span><h3>Quote 2041 · RTU-4 economizer and controls</h3></div>
+      <span class="small muted num">Sent Oct 8</span>
+    </div>
+    <p class="small muted">RTU-4 over Suite 100 has a failed economizer actuator and ten-year-old controls. Pick the option that fits; nothing is scheduled until you approve.</p>
+    <div class="option-cards mt-2">
+      <button class="option-card" type="button" data-option>
+        <div class="row between top"><div><span class="tier">Good</span><div class="strong">Repair</div></div><div class="price money">$1,640</div></div>
+        <div class="inc">Replace the economizer actuator and linkage, recalibrate, 1-year parts and labor warranty.</div>
+      </button>
+      <button class="option-card on" type="button" data-option>
+        <div class="row between top"><div><span class="tier">Better · recommended</span><div class="strong">Repair and air quality</div></div><div class="right"><div class="price money">$3,420</div><div class="mo">as low as $62 / mo</div></div></div>
+        <div class="inc">Everything in Good, plus MERV 13 filtration, a UV coil light and a controls tune-up. 2-year warranty.</div>
+      </button>
+      <button class="option-card" type="button" data-option>
+        <div class="row between top"><div><span class="tier">Best</span><div class="strong">Replace RTU-4</div></div><div class="right"><div class="price money">$16,900</div><div class="mo">as low as $312 / mo</div></div></div>
+        <div class="inc">New Carrier 48HC 10-ton with economizer and smart controls, crane and permit included. 10-year parts warranty.</div>
+      </button>
+    </div>
+    <button class="btn copper xl block mt-3" type="button" data-open="#sheet-cust-portal-sign">Approve Better · <span class="money">$3,420</span></button>
+    <div class="small muted center mt-1">Signs with your finger. A copy goes to your email.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><span class="eyebrow">To pay <span class="callout">2</span></span><h3>Invoice 742 · Quarterly PM, Oct 2</h3></div>
+      <span class="pill route plain">Due Nov 1</span>
+    </div>
+    <div class="row between top">
+      <div class="due money">$1,186.00</div>
+      <div class="right small muted">Work order <span class="num">1032</span><br>net 30</div>
+    </div>
+    <div class="small muted mt-1">Visa ending 4242 is on file. Paying now emails your receipt and posts to your account tonight.</div>
+    <button class="btn copper xl block mt-3" type="button" data-toast="Paid $1,186.00 with Visa ···· 4242 · receipt sent to ap@barrancamed.com">Pay now · Visa ···· 4242</button>
+    <div class="row between mt-1">
+      <button class="btn sm subtle" type="button" data-toast="Invoice 742 PDF opened">View PDF</button>
+      <button class="btn sm subtle" type="button" data-toast="Bank transfer details sent to your AP email">Pay by bank transfer</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><span class="eyebrow">Recent visits <span class="callout">3</span></span><h3>Oct 14 · Warranty coil leak, RTU-2</h3></div>
+      <span class="small muted">Marcus H.</span>
+    </div>
+    <div class="photo-grid">
+      <div class="photo steel"><span class="cap">RTU-2</span></div>
+      <div class="photo dark"><span class="cap">Coil joint</span></div>
+      <div class="photo copper"><span class="cap">Ceiling tile</span></div>
+    </div>
+    <p class="small mt-2">Marcus found the evaporator coil on RTU-2 leaking at a brazed joint, which caused the water on the ceiling tile in Suite 200. The coil is covered by the Carrier parts warranty; it is on order and the return visit is being scheduled. The unit is running with the leak isolated, so cooling continues.</p>
+    <div class="small muted mt-1">Summary written by Fieldline from the technician's notes.</div>
+    <div class="list plain-list mt-2">
+      <button class="item" type="button" data-toast="Opens the Oct 2 visit · 3 photos and the summary"><span class="num small muted">Oct 2</span><div><div class="title">Quarterly PM, 3 RTUs</div><div class="sub">Marcus · 3 photos · invoice 742</div></div><span class="small muted">View</span></button>
+      <button class="item" type="button" data-toast="Opens the Aug 20 visit · 4 photos and the summary"><span class="num small muted">Aug 20</span><div><div class="title">RTU-2 no cooling</div><div class="sub">Elena · 4 photos · warranty, no charge</div></div><span class="small muted">View</span></button>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="eyebrow">Equipment at your site</span>
+    <div class="list units">
+      <div class="item"><div><div class="title">RTU-1 · Carrier 48TC · 7.5 ton</div><div class="sub">Suite 200 roof · installed 2023</div></div><span class="pill warranty plain">Warranty to 2033</span></div>
+      <div class="item"><div><div class="title">RTU-2 · Carrier 48TC · 7.5 ton</div><div class="sub">Suite 200 roof · coil on order</div></div><span class="pill warranty plain">Warranty to 2033</span></div>
+      <div class="item"><div><div class="title">RTU-4 · Carrier 48TC · 10 ton</div><div class="sub">Suite 100 roof · installed 2016 · quote 2041</div></div><span class="pill parts plain">Out of warranty</span></div>
+      <div class="item"><div><div class="title">Server room split · Mitsubishi</div><div class="sub">Suite 200 IT closet · installed 2021</div></div><span class="pill warranty plain">Warranty to 2028</span></div>
+    </div>
+  </div>
+
+  <button class="btn copper xl block" type="button" data-open="#sheet-cust-portal-request"><svg class="i"><use href="#i-plus"/></svg>Request service <span class="callout">4</span></button>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">new</span>F13 customer portal: one page for the customer's account, with the things that need them at the top (approve, pay) and the record below (visits, equipment).</li>
+    <li><span class="f">new</span>F9 Good / Better / Best (1): three options with what is included and "as low as $/mo" financing on the larger two. Approve opens an e-sign sheet; the signed PDF goes to both sides and the job lands in the office queue as approved.</li>
+    <li><span class="f">new</span>F11 Pay now (2) uses the card on file, with PDF and bank transfer as quiet alternatives. The payment posts to QuickBooks through the sync.</li>
+    <li><span class="f">new</span>F17 each visit (3) shows the tech's photos and the summary Fieldline wrote from the voice note, so the customer reads what was done without calling. F6 equipment with warranty state ties the quote to the unit.</li>
+    <li><span class="f">new</span>Request service (4) is the one way in: problem, unit, urgency and a preferred window go straight to New WO in the office with the customer and site already matched.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet bottom" id="sheet-cust-portal-sign" role="dialog" aria-label="Approve quote 2041">
+  <div class="sheet-head"><div><b>Approve quote 2041</b><div class="small muted">Better · Repair and air quality · <span class="money">$3,420.00</span></div></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <dl class="facts tight">
+      <dt>Total</dt><dd><span class="money">$3,420.00</span> · includes tax</dd>
+      <dt>Financing</dt><dd>As low as $62 / mo for 60 months, on approval · or pay on completion</dd>
+      <dt>Next</dt><dd>Harbor Coast calls within one business day to schedule. Work takes about a day; RTU-4 is off during the work.</dd>
+    </dl>
+    <div class="field"><label for="cp-name">Your name</label><input class="input lg" id="cp-name" type="text" value="Dr. Lena Park"></div>
+    <div class="stack tight">
+      <span class="label">Sign here</span>
+      <div class="signature"><svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true"><path d="M26 72 C34 36 48 30 54 56 C60 82 72 78 78 54 C84 30 98 36 104 58 C110 80 124 66 130 50 C136 34 150 42 158 60 C166 78 180 64 186 48 C192 32 208 38 216 58 C224 78 240 60 248 46 C254 36 268 40 276 52"/></svg></div>
+    </div>
+    <label class="check on" data-check><i></i><span>I accept the quote terms and authorize the work</span></label>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn copper" type="button" data-close data-toast="Quote 2041 approved · signed copy emailed · Harbor Coast will call to schedule">Approve and sign</button></div>
+</div>
+
+<div class="sheet bottom" id="sheet-cust-portal-request" role="dialog" aria-label="Request service">
+  <div class="sheet-head"><div><b>Request service</b><div class="small muted">Irvine Med Offices · Barranca Medical Partners</div></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label for="cp-problem">What is happening?</label><textarea class="textarea" id="cp-problem" placeholder="Suite 100 waiting room is warm in the afternoon…"></textarea></div>
+    <div class="field"><label for="cp-unit">Unit, if you know it</label><select class="select lg" id="cp-unit"><option>Not sure</option><option>RTU-1 · Suite 200</option><option>RTU-2 · Suite 200</option><option>RTU-4 · Suite 100</option><option>Server room split</option></select></div>
+    <div class="field"><span class="label">How urgent</span><div class="seg lg light" data-seg="cp-urgency"><button type="button" class="on" data-val="routine">Routine</button><button type="button" data-val="week">This week</button><button type="button" data-val="urgent">Urgent</button></div></div>
+    <div class="field"><label for="cp-window">Preferred window</label><select class="select lg" id="cp-window"><option>Tomorrow morning</option><option>Tomorrow afternoon</option><option>Fri, Oct 16</option><option>Next week</option><option>Any time</option></select></div>
+    <div class="small muted">Your Gold agreement includes a 4-hour response for urgent requests during business hours.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn copper" type="button" data-close data-toast="Request sent · the office will text you a time">Send request</button></div>
+</div>
+</template>
+</section>

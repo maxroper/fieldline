@@ -1,0 +1,312 @@
+<section class="screen" id="s-tech-wo" data-title="Work order 1135" data-group="tech" data-face="tech" data-order="62">
+<style>
+  #s-tech-wo .ph-page { gap: 18px; }
+  #s-tech-wo .ph-page > .back-bar { position: static; margin: -14px -16px 0; }
+  #s-tech-wo .pill.live::before { margin-right: 0; }
+  #s-tech-wo .status-btns .btn { min-height: 52px; }
+  #s-tech-wo .status-btns .btn.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  #s-tech-wo .pinned { flex-direction: column; gap: 4px; }
+  #s-tech-wo .pinned .who { font-size: 11px; opacity: 0.8; }
+  #s-tech-wo .facts .btn { margin-top: 4px; }
+  #s-tech-wo .sections .item { grid-template-columns: auto minmax(0, 1fr) auto auto; padding: 12px 14px; min-height: 56px; }
+  #s-tech-wo .sections .item .count { font-size: 12px; color: var(--ink-2); font-family: var(--mono); white-space: nowrap; }
+  #s-tech-wo .sections .item > svg:first-child { color: var(--ink-2); }
+  #s-tech-wo .sections .chev { color: var(--ink-3); transform: rotate(180deg); transition: transform var(--dur-2) var(--ease); }
+  #s-tech-wo .sections .item.open .chev { transform: rotate(-90deg); }
+  #s-tech-wo .sections .item.open { background: var(--paper-2); }
+  #s-tech-wo .sec { display: none; padding: 12px 14px 16px; border-bottom: 1px solid var(--line); background: var(--paper-2); }
+  #s-tech-wo .item.open + .sec { display: flex; flex-direction: column; gap: 12px; }
+  #s-tech-wo .ck { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); min-height: 44px; }
+  #s-tech-wo .ck:last-child { border-bottom: 0; }
+  #s-tech-wo .ck .sub { font-size: 12px; color: var(--ink-2); }
+  #s-tech-wo .ck.flagged .sub { color: var(--amber-deep); }
+  #s-tech-wo .ck .pill { min-height: 28px; padding: 3px 11px; border: 0; cursor: pointer; }
+  #s-tech-wo .tri button { min-height: 44px; min-width: 56px; }
+  #s-tech-wo .tri button.on[data-val="pass"] { background: var(--moss); color: #fff; }
+  #s-tech-wo .tri button.on[data-val="flag"] { background: var(--amber); color: var(--ink); }
+  #s-tech-wo .tri button.on[data-val="fail"] { background: var(--red); color: #fff; }
+  #s-tech-wo .photo.wait::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255,253,248,0.55) 0 6px, transparent 6px 12px); }
+  #s-tech-wo .stepper button { min-height: 44px; width: 44px; }
+</style>
+
+<div class="ph-page">
+  <div class="back-bar">
+    <button class="btn subtle back" type="button" data-go="tech-today">Back to my day</button>
+    <span class="pill route plain">2 photos waiting <span class="callout">1</span></span>
+  </div>
+
+  <div class="stack tight">
+    <div class="row between"><h1 class="num">1135</h1><span class="pill site live" data-status-label>On site · 1:12</span></div>
+    <h2>Warner Business Park · Bldg 3</h2>
+    <div class="small muted">Fall PM, 4 RTUs · Maintenance · Silver agreement · Normal · 4 h · Lead</div>
+  </div>
+
+  <div class="stack" data-status-host>
+    <div class="status-track">
+      <div class="st done" data-st="sched">Scheduled<br><span class="num">9:12</span></div>
+      <div class="st done" data-st="route">En route<br><span class="num">10:49</span></div>
+      <div class="st now" data-st="site">On site<br><span class="num">11:04</span></div>
+      <div class="st" data-st="done">Done</div>
+    </div>
+    <div class="big-actions status-btns mt-1">
+      <button class="btn" type="button" data-status-cycle="route" data-status-text="En route" data-status-btn>En route</button>
+      <button class="btn on" type="button" data-status-cycle="site" data-status-text="On site" data-status-btn>On site</button>
+      <button class="btn" type="button" data-toast="Paused · the clock stopped at 12:16">Pause</button>
+      <button class="btn copper" type="button" data-go="tech-closeout">Complete</button>
+    </div>
+  </div>
+
+  <div class="notice steel pinned">
+    <div class="row between"><b>Dispatcher notes</b><span class="who">James Reynolds · 9:12 · updated 10:20</span></div>
+    <div>Yolanda wants the belt on RTU-3 looked at; it squealed Monday. Park behind Bldg 3, roof hatch key at the front desk. This is the second of two agreement visits this year. Added 10:20: if there is time, check the Bldg 2 lobby thermostat.</div>
+  </div>
+
+  <dl class="facts tight">
+    <dt>Address</dt><dd>2501 W Warner Ave, Bldg 3, Santa Ana 92704<br><button class="btn sm" type="button" data-toast="Opening directions · 16 min from Irvine Med"><svg class="i"><use href="#i-map"/></svg>Directions</button></dd>
+    <dt>Contact</dt><dd>Yolanda Ruiz · property manager</dd>
+    <dt>Phone</dt><dd><span class="num">714-555-0163</span><br><button class="btn sm" type="button" data-toast="Text sent to Yolanda Ruiz: Marcus is on the roof of Bldg 3 and will check in before leaving."><svg class="i"><use href="#i-chat"/></svg>Text</button></dd>
+    <dt>Instructions</dt><dd>Check in at the front desk first. Roof hatch key at the desk; gate code <span class="num">4471#</span>.</dd>
+    <dt>Problem</dt><dd>Fall PM on four rooftop units (RTU-1 to RTU-4). Belt squeal reported on RTU-3.</dd>
+    <dt>Equipment</dt><dd>RTU-1 to RTU-4 · Carrier 48HC · 10 ton · R-410A · 2019 (RTU-1 replaced 2024, warranty to 2034)</dd>
+    <dt>Signature</dt><dd>Required · property manager</dd>
+    <dt>Customer PO</dt><dd class="num">WBP-2026-114</dd>
+  </dl>
+
+  <div class="list sections stagger">
+    <button class="item open" type="button" data-toggle-class="open">
+      <svg class="i"><use href="#i-agreement"/></svg>
+      <div><div class="title">Checklist <span class="callout">2</span></div><div class="sub">PM inspection · 1 flagged</div></div>
+      <span class="count">7 / 8</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <div class="sec">
+      <div class="row between">
+        <div class="seg light" data-seg="tw-unit"><button type="button" data-val="1">RTU-1</button><button type="button" data-val="2">RTU-2</button><button type="button" class="on" data-val="3">RTU-3</button><button type="button" data-val="4">RTU-4</button></div>
+        <span class="small muted num">3 of 4 units</span>
+      </div>
+      <div class="meter moss"><i style="width: 69%"></i></div>
+      <div>
+        <div class="ck"><div><div>Filters replaced</div><div class="sub">20x25x2 MERV 8 × 2 from truck</div></div><button class="pill site plain" type="button" data-toast="Tap Pass, Flag or Fail to change">Pass</button></div>
+        <div class="ck flagged"><div><div>Belt condition</div><div class="sub">Belt cracked → added to quote 2045 as a line, $186</div></div><button class="pill route plain" type="button" data-open="#sheet-tech-wo-quotes">Flag</button></div>
+        <div class="ck"><div><div>Refrigerant charge</div><div class="sub">Low · 2.5 lb R-410A added, see the log</div></div><button class="pill site plain" type="button" data-toast="Tap Pass, Flag or Fail to change">Pass</button></div>
+        <div class="ck"><div><div>Condenser coil</div><div class="sub">Cleaned, fins straightened</div></div><button class="pill site plain" type="button" data-toast="Tap Pass, Flag or Fail to change">Pass</button></div>
+        <div class="ck"><div><div>Electrical</div><div class="sub">Contactor OK · capacitor 44.6 µF of 45</div></div><button class="pill site plain" type="button" data-toast="Tap Pass, Flag or Fail to change">Pass</button></div>
+        <div class="ck"><div><div>Condensate drain</div><div class="sub">Clear, trap primed</div></div><button class="pill site plain" type="button" data-toast="Tap Pass, Flag or Fail to change">Pass</button></div>
+        <div class="ck"><div><div>Safety</div><div class="sub">Disconnect, panels, roof hatch</div></div><button class="pill site plain" type="button" data-toast="Tap Pass, Flag or Fail to change">Pass</button></div>
+        <div class="ck"><div><div>Economizer operation</div><div class="sub">Drive to full open and closed</div></div><div class="seg light tri" data-seg="tw-ck8"><button type="button" data-val="pass">Pass</button><button type="button" data-val="flag">Flag</button><button type="button" data-val="fail">Fail</button></div></div>
+      </div>
+    </div>
+
+    <button class="item open" type="button" data-toggle-class="open">
+      <svg class="i"><use href="#i-list"/></svg>
+      <div><div class="title">Refrigerant log <span class="callout">3</span></div><div class="sub">R-410A · RTU-3</div></div>
+      <span class="count">2.5 lb</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <div class="sec">
+      <dl class="facts tight">
+        <dt>Type</dt><dd>R-410A · unit charge <span class="num">18.5 lb</span></dd>
+        <dt>Added</dt><dd class="num">2.5 lb</dd>
+        <dt>Recovered</dt><dd class="num">0 lb</dd>
+        <dt>Cylinder</dt><dd><span class="num">118-A</span> · 24.0 → 21.5 lb</dd>
+        <dt>Leak check</dt><dd>Passed · electronic, 0 ppm at joints</dd>
+        <dt>Tech cert</dt><dd>Marcus Hale · EPA 608 Universal</dd>
+      </dl>
+      <div class="small muted">2.5 lb since Apr 8 is 26% a year, above the 20% commercial threshold. The EPA 608 / CARB record was created and the office gets the follow-up date (Nov 13).</div>
+      <button class="btn ghost" type="button" data-toast="New refrigerant entry · scan the cylinder tag"><svg class="i"><use href="#i-plus"/></svg>Add entry</button>
+    </div>
+
+    <button class="item open" type="button" data-toggle-class="open">
+      <svg class="i"><use href="#i-board"/></svg>
+      <div><div class="title">Photos</div><div class="sub">4 synced · 2 waiting for signal</div></div>
+      <span class="count">6</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <div class="sec">
+      <div class="photo-grid">
+        <div class="photo steel"><span class="cap">RTU-3 nameplate</span></div>
+        <div class="photo dark"><span class="cap">Belt wear</span></div>
+        <div class="photo"><span class="cap">Filters before</span></div>
+        <div class="photo copper"><span class="cap">Coil after</span></div>
+        <div class="photo steel wait"><span class="cap">Gauges 118 psi</span></div>
+        <div class="photo dark wait"><span class="cap">Economizer</span></div>
+        <button class="photo add" type="button" data-toast="Camera opened · photos attach to RTU-3">Take photo</button>
+      </div>
+    </div>
+
+    <button class="item" type="button" data-open="#sheet-tech-wo-parts">
+      <svg class="i"><use href="#i-box"/></svg>
+      <div><div class="title">Parts from truck <span class="callout">4</span></div><div class="sub">FLT-20252 × 8 · CAP-45-5 × 1</div></div>
+      <span class="count">2</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <button class="item" type="button" data-open="#sheet-tech-wo-time">
+      <svg class="i"><use href="#i-clock"/></svg>
+      <div><div class="title">Time</div><div class="sub">Travel 0.3 h · on site 1:12 running</div></div>
+      <span class="count">1.5 h</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <button class="item" type="button" data-open="#sheet-tech-wo-quotes">
+      <svg class="i"><use href="#i-tag"/></svg>
+      <div><div class="title">Quotes</div><div class="sub">2045 draft · belt and bearings, RTU-3</div></div>
+      <span class="count money">$640</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <button class="item" type="button" data-open="#sheet-tech-wo-po">
+      <svg class="i"><use href="#i-cart"/></svg>
+      <div><div class="title">Purchase orders</div><div class="sub">PO 121 · Johnstone Santa Ana · lump sum</div></div>
+      <span class="count money">$142.10</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <button class="item" type="button" data-open="#sheet-tech-wo-history">
+      <svg class="i"><use href="#i-chat"/></svg>
+      <div><div class="title">Notes and history</div><div class="sub">3 notes · 1 voice note · 4 prior visits</div></div>
+      <span class="count">3</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <button class="item" type="button" data-open="#sheet-tech-wo-billing">
+      <svg class="i"><use href="#i-dollar"/></svg>
+      <div><div class="title">Billing</div><div class="sub">Maintenance · PM price, billed after the visit</div></div>
+      <span class="count money">$1,180</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+    <button class="item" type="button" data-open="#sheet-tech-wo-followup">
+      <svg class="i"><use href="#i-bell"/></svg>
+      <div><div class="title">Follow up</div><div class="sub">No return needed · quote pending</div></div>
+      <span class="count">—</span>
+      <svg class="i chev"><use href="#i-chevron"/></svg>
+    </button>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Everything from today's tech visit: En route / On site / Pause and Complete, the pinned dispatcher notes with the held "Updated" text, the facts with Directions, and all eight sections (Follow up, Purchase orders, Inventory as Parts from truck, Time, Closeout as Complete, Quotes, Notes and history, Billing).</li>
+    <li><span class="f">new</span>F8 Checklist (2): the PM inspection is a required form; items read Pass / Flag / Fail, and a flagged item becomes a quote line on the spot. The office sees results on the work order's Compliance tab.</li>
+    <li><span class="f">new</span>F7 Refrigerant log (3): type, pounds added and recovered, cylinder, leak check and the tech's 608 cert, with the leak-rate math done for the EPA / CARB record.</li>
+    <li><span class="f">new</span>F16 Parts from truck (4) pulls by SKU so the van count moves as the part is used. F6 unit history and F17 voice notes live in Notes and history. F15 the sync pill (1) replaces any "not saved" worry.</li>
+    <li><span class="f">changed</span>The eight section buttons are one list of rows with counts. Checklist, Refrigerant log and Photos are open because the tech needs them while working; the rest open bottom sheets so the page stays one task.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet bottom" id="sheet-tech-wo-parts" role="dialog" aria-label="Parts from truck">
+  <div class="sheet-head"><div class="row gap-2"><b>Parts from truck</b><span class="small muted">Van 3</span></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="search"><input class="input lg" type="search" placeholder="Search truck stock or scan a barcode"></div>
+    <div class="list">
+      <div class="item"><span class="tag mono">FLT-20252</span><div><div class="title">Filter 20x25x2 MERV 8</div><div class="sub">$6.10 each · 16 left on the van (min 12)</div></div><div class="stepper"><button type="button" aria-label="Fewer">−</button><b class="num">8</b><button type="button" aria-label="More">+</button></div></div>
+      <div class="item"><span class="tag mono">CAP-45-5</span><div><div class="title">Dual run capacitor 45/5 µF 440 V</div><div class="sub">$23.10 · 1 left on the van, below min 3</div></div><div class="stepper"><button type="button" aria-label="Fewer">−</button><b class="num">1</b><button type="button" aria-label="More">+</button></div></div>
+    </div>
+    <div class="row between"><span class="muted">Material from truck</span><b class="money">$71.90</b></div>
+    <div class="small muted">Used parts post to the work order and to Van 3 as "Used on WO". The capacitor drops below its minimum, so it joins the replenishment list.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button><button class="btn primary" type="button" data-close data-toast="2 parts saved to 1135 · Van 3 updated">Save</button></div>
+</div>
+
+<div class="sheet bottom" id="sheet-tech-wo-time" role="dialog" aria-label="Time on 1135">
+  <div class="sheet-head"><div class="row gap-2"><b>Time on 1135</b><span class="small muted num">1.5 h so far</span></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="list">
+      <div class="item"><svg class="i"><use href="#i-map"/></svg><div><div class="title">Travel</div><div class="sub">10:49 – 11:04 · GPS verified</div></div><b class="num">0.3 h</b></div>
+      <div class="item"><svg class="i"><use href="#i-building"/></svg><div><div class="title">On site</div><div class="sub">11:04 – 11:55 · GPS verified</div></div><b class="num">0.9 h</b></div>
+      <div class="item"><svg class="i"><use href="#i-clock"/></svg><div><div class="title">Lunch</div><div class="sub">11:55 – 12:25 · unpaid</div></div><b class="num muted">0.5 h</b></div>
+      <div class="item"><svg class="i"><use href="#i-building"/></svg><div><div class="title live">On site</div><div class="sub">12:25 – running</div></div><b class="num">0.3 h</b></div>
+    </div>
+    <div class="small muted">Estimated 4.0 h · still to schedule 0 · lead only, no helper today. Rows come from the status buttons; fix anything on the timesheet.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button><button class="btn primary" type="button" data-close data-go="tech-timesheet">Open timesheet</button></div>
+</div>
+
+<div class="sheet bottom" id="sheet-tech-wo-quotes" role="dialog" aria-label="Quotes on 1135">
+  <div class="sheet-head"><div class="row gap-2"><b>Quote 2045</b><span class="pill quote plain">Draft</span></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label for="tw-q-problem">Found on PM</label><textarea class="textarea" id="tw-q-problem">Belt on RTU-3 is cracked and the blower bearings are noisy under load. Recommend replacing both before winter heating.</textarea></div>
+    <div class="list">
+      <div class="item"><span class="tag mono">RPR-BLT</span><div><div class="title">Replace belt and align pulley</div><div class="sub">From the pricebook · 0.5 h labor + belt</div></div><b class="money">$186</b></div>
+      <div class="item"><span class="tag mono">RPR-BRG</span><div><div class="title">Replace blower bearings, RTU-3</div><div class="sub">1.5 h labor + bearing set</div></div><b class="money">$454</b></div>
+    </div>
+    <div class="row between"><button class="btn ghost" type="button" data-toast="Pricebook opened · plain-language repairs"><svg class="i"><use href="#i-plus"/></svg>Add from pricebook</button><b class="money" style="font-size:18px">$640</b></div>
+    <div class="row gap-2"><div class="photo dark" style="width:56px"><span class="cap">Belt</span></div><span class="small muted">The belt photo is attached. The office turns this into a Good / Better / Best proposal for Yolanda.</span></div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close data-toast="Quote 2045 saved as a draft">Save</button><button class="btn copper" type="button" data-close data-toast="Quote 2045 sent to the office for pricing">Save and send</button></div>
+</div>
+
+<div class="sheet bottom" id="sheet-tech-wo-po" role="dialog" aria-label="Purchase orders on 1135">
+  <div class="sheet-head"><div class="row gap-2"><b>PO 121</b><span class="small muted">Johnstone Supply · Santa Ana</span></div><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <dl class="facts tight">
+      <dt>Vendor</dt><dd>Johnstone Supply · Santa Ana · will-call 9:40</dd>
+      <dt>Lines</dt><dd>Lump sum · <span class="money">$142.10</span></dd>
+      <dt>Status</dt><dd>Received · invoice photo attached</dd>
+      <dt>Reminder</dt><dd>Lump-sum POs need the invoice before billing. Done.</dd>
+    </dl>
+    <div class="row gap-2"><div class="photo" style="width:72px"><span class="cap">Invoice</span></div><div class="small muted">Contactor 40 A and two 45/5 capacitors for RTU-2 and RTU-4 were on the parts list; the rest came from the van.</div></div>
+    <button class="btn ghost block" type="button" data-toast="New purchase order for 1135 · choose a vendor"><svg class="i"><use href="#i-plus"/></svg>New purchase order</button>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button><button class="btn primary" type="button" data-close data-toast="PO 121 saved">Save</button></div>
+</div>
+
+<div class="sheet bottom" id="sheet-tech-wo-history" role="dialog" aria-label="Notes and history">
+  <div class="sheet-head"><b>Notes and history</b><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div>
+      <span class="eyebrow">RTU-3</span>
+      <dl class="facts tight mt-1">
+        <dt>Unit</dt><dd>Carrier 48HC · 10 ton · R-410A 18.5 lb · 2019 · S/N <span class="num">1919G40012</span></dd>
+        <dt>Warranty</dt><dd>Parts to Jun 2024 · expired</dd>
+        <dt>QR tag</dt><dd>Fitted Apr 8 · <button class="btn sm" type="button" data-toast="Camera opened · point at the unit tag">Scan QR</button></dd>
+      </dl>
+    </div>
+    <div>
+      <span class="eyebrow">Prior visits on this unit</span>
+      <div class="list mt-1">
+        <div class="item"><span class="num small muted">Apr 8</span><div><div class="title">1012 · Spring PM, 4 RTUs</div><div class="sub">Marcus · belts OK then · 4.0 h</div></div><span class="small muted">Billed</span></div>
+        <div class="item"><span class="num small muted">Jul 22</span><div><div class="title">1029 · RTU-3 not cooling</div><div class="sub">Andre · capacitor replaced · 1.5 h</div></div><span class="small muted">Billed</span></div>
+        <div class="item"><span class="num small muted">Nov 3, 2025</span><div><div class="title">0961 · Fall PM</div><div class="sub">Marcus · 2 lb R-410A added to RTU-3</div></div><span class="small muted">Billed</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow">Notes</span>
+      <div class="list mt-1">
+        <div class="item"><svg class="i"><use href="#i-chat"/></svg><div><div class="title">Voice note · 0:42</div><div class="sub">Transcribed · used in the closeout summary</div></div><button class="btn sm ghost" type="button" data-toast="Playing voice note">Play</button></div>
+        <div class="item"><svg class="i"><use href="#i-chat"/></svg><div><div class="title">Yolanda asked about the Bldg 2 lobby thermostat</div><div class="sub">Marcus · 11:20</div></div><span></span></div>
+        <div class="item"><svg class="i"><use href="#i-chat"/></svg><div><div class="title">RTU-3 belt squeal confirmed on start-up</div><div class="sub">Marcus · 11:32</div></div><span></span></div>
+      </div>
+    </div>
+    <div class="row gap-2">
+      <input class="input lg grow" type="text" placeholder="Add a note">
+      <button class="btn lg copper" type="button" data-toast="Recording · tap again to stop"><svg class="i"><use href="#i-chat"/></svg>Voice</button>
+    </div>
+    <div class="field"><label for="tw-gate">Gate code or access note</label><div class="row gap-2"><input class="input" id="tw-gate" type="text" value="Gate 4471# · roof hatch key at the front desk"><button class="btn" type="button" data-toast="Saved on the site for every visit">Save on the site</button></div></div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button></div>
+</div>
+
+<div class="sheet bottom" id="sheet-tech-wo-billing" role="dialog" aria-label="Billing on 1135">
+  <div class="sheet-head"><b>Billing</b><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <dl class="facts tight">
+      <dt>WO type</dt><dd>Maintenance · agreement visit</dd>
+      <dt>Billing method</dt><dd>PM price, billed after the visit</dd>
+      <dt>PM price</dt><dd class="money">$1,180.00</dd>
+      <dt>Refrigerant</dt><dd><span class="money">$95.00</span> · 2.5 lb at $38</dd>
+      <dt>Bill-to</dt><dd>Warner Business Park LLC · net 30 · card on file</dd>
+      <dt>Customer PO</dt><dd class="num">WBP-2026-114</dd>
+    </dl>
+    <div class="small muted">Read only on the phone. The office sends the invoice; you can collect at closeout.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button></div>
+</div>
+
+<div class="sheet bottom" id="sheet-tech-wo-followup" role="dialog" aria-label="Follow up">
+  <div class="sheet-head"><b>Follow up</b><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label for="tw-left">What is left</label><textarea class="textarea" id="tw-left">Belt and blower bearings on RTU-3 — waiting on quote 2045. Bldg 2 lobby thermostat not checked.</textarea></div>
+    <label class="check" data-check><i></i><span>Need to return</span></label>
+    <label class="check" data-check><i></i><span>Waiting on parts</span></label>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Close</button><button class="btn primary" type="button" data-close data-toast="Follow-up saved · the office sees it in Follow-ups">Save</button></div>
+</div>
+</template>
+</section>

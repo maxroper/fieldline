@@ -1,0 +1,291 @@
+<section class="screen" id="s-customers" data-title="Customers" data-group="office" data-face="office" data-order="20">
+<style>
+  #s-customers .rail .list { border: 0; background: transparent; border-radius: 0; }
+  #s-customers .rail .item { padding: 10px 8px; border-radius: var(--r-2); border-bottom: 0; }
+  #s-customers .rail .item .money { font-size: 13px; }
+  #s-customers .rail .item .money.due { color: var(--red); }
+  #s-customers .rec-cols { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  #s-customers .aging { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; text-align: center; }
+  #s-customers .aging .b { border-radius: var(--r-1); padding: 6px 4px; background: var(--paper-2); }
+  #s-customers .aging .b .l { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); display: block; }
+  #s-customers .aging .b .money { font-size: 13px; font-weight: 600; }
+  #s-customers .aging .b.hot { background: var(--red-tint); color: var(--red); }
+  #s-customers .aging .b.hot .l { color: var(--red); }
+  #s-customers .card-on-file { display: flex; align-items: center; gap: 10px; }
+  #s-customers .card-on-file .chipicon { width: 34px; height: 24px; border-radius: 4px; background: linear-gradient(135deg, var(--steel), var(--steel-deep)); flex: 0 0 auto; }
+  #s-customers .site-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  #s-customers .site-row:last-child { border-bottom: 0; }
+  #s-customers .site-row .list { margin-top: 10px; }
+  @media (max-width: 1100px) { #s-customers .rec-cols { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+</style>
+
+<div class="split">
+  <aside class="rail">
+    <div class="search"><input class="input" type="search" placeholder="Name, site, address, or AP contact" aria-label="Find a customer"></div>
+    <div class="seg" data-seg="cust-filter">
+      <button type="button" class="on" data-val="all">All <span class="count">16</span></button>
+      <button type="button" data-val="agr">Agreement <span class="count">6</span></button>
+      <button type="button" data-val="bal">Balance <span class="count">7</span></button>
+      <button type="button" data-val="quiet">Quiet <span class="count">2</span></button>
+    </div>
+    <div class="row between">
+      <button class="btn sm" type="button" data-open="#sheet-customers-filters"><svg><use href="#i-filter"/></svg>Filters · <span class="num">1</span></button>
+      <span class="small muted"><b class="num">16</b> customers · <b class="num">27</b> sites <span class="callout">1</span></span>
+    </div>
+    <div class="list stagger">
+      <button class="item on" type="button"><span class="avatar">IM</span><span class="stack tight"><span class="title">Irvine Med Offices</span><span class="sub">Barranca Medical Partners · 2 sites</span></span><span class="money due">$4,310</span></button>
+      <button class="item" type="button"><span class="avatar amber">HM</span><span class="stack tight"><span class="title">Harbor &amp; Main Kitchen</span><span class="sub">Costa Mesa · 1 site</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar rust">NP</span><span class="stack tight"><span class="title">Newport Plaza Retail</span><span class="sub">Newport Beach · 3 sites</span></span><span class="money">$2,480</span></button>
+      <button class="item" type="button"><span class="avatar moss">BC</span><span class="stack tight"><span class="title">Bristol Court Offices</span><span class="sub">Costa Mesa · 1 site · Gold</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar">WB</span><span class="stack tight"><span class="title">Warner Business Park</span><span class="sub">Santa Ana · 4 sites · Silver</span></span><span class="money due">$6,920</span></button>
+      <button class="item" type="button"><span class="avatar plum">JC</span><span class="stack tight"><span class="title">Jamboree Corporate</span><span class="sub">Irvine · 2 sites</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar amber">BB</span><span class="stack tight"><span class="title">Balboa Bay Offices</span><span class="sub">Newport Beach · 1 site</span></span><span class="money">$1,540</span></button>
+      <button class="item" type="button"><span class="avatar moss">OC</span><span class="stack tight"><span class="title">Oak Creek Professional</span><span class="sub">Irvine · 1 site · Bronze</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar rust">SG</span><span class="stack tight"><span class="title">Santa Ana Gym</span><span class="sub">Santa Ana · 1 site · Silver</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar">IC</span><span class="stack tight"><span class="title">Irvine Center Clinics</span><span class="sub">Irvine · 1 site</span></span><span class="money due">$3,870</span></button>
+      <button class="item" type="button"><span class="avatar plum">TA</span><span class="stack tight"><span class="title">Tustin Auto Center</span><span class="sub">Tustin · 1 site</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar moss">CL</span><span class="stack tight"><span class="title">Costa Mesa Library</span><span class="sub">Costa Mesa · 1 site · tax exempt</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar amber">SM</span><span class="stack tight"><span class="title">17th Street Market</span><span class="sub">Costa Mesa · 1 site</span></span><span class="money">$920</span></button>
+      <button class="item" type="button"><span class="avatar">AP</span><span class="stack tight"><span class="title">Adams Avenue Plaza</span><span class="sub">Costa Mesa · 2 sites · Bronze</span></span><span class="money faint">$0</span></button>
+      <button class="item" type="button"><span class="avatar rust">NC</span><span class="stack tight"><span class="title">Newport Coast HOA</span><span class="sub">Newport Beach · 3 sites</span></span><span class="money">$1,840</span></button>
+      <button class="item" type="button"><span class="avatar plum">HD</span><span class="stack tight"><span class="title">Huntington Harbour Dental</span><span class="sub">Huntington Beach · 1 site · no visits 14 mo</span></span><span class="money faint">$0</span></button>
+    </div>
+    <hr class="divider">
+    <span class="eyebrow">Not linked yet · <span class="num">2</span></span>
+    <div class="list">
+      <button class="item" type="button"><span class="avatar" style="background:var(--paper-3);color:var(--ink-3)">?</span><span class="stack tight"><span class="title">Civic Center Hall</span><span class="sub">Santa Ana · site without a bill-to</span></span><span class="tag">Link</span></button>
+      <button class="item" type="button"><span class="avatar" style="background:var(--paper-3);color:var(--ink-3)">?</span><span class="stack tight"><span class="title">MacFadden Retail</span><span class="sub">Huntington Beach · created from a call</span></span><span class="tag">Link</span></button>
+    </div>
+  </aside>
+
+  <div class="canvas">
+    <div class="page">
+      <div class="page-head">
+        <div class="stack tight">
+          <span class="eyebrow">Bill-to · Barranca Medical Partners</span>
+          <h1>Irvine Med Offices</h1>
+          <div class="row wrap"><span class="pill copper">Gold agreement · 4 h response</span><span class="pill overdue">$4,310 due · 1 overdue</span><span class="pill site">Portal · 2 users</span></div>
+          <div class="small muted">AP Rosa Delgado · <span class="num">949-555-0171</span> · Account manager James Reynolds · 2 sites, Irvine team · customer since Mar 2024</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn" type="button" data-go="messages">Message</button>
+          <button class="btn primary" type="button" data-open="#sheet-customers-edit">Edit</button>
+        </div>
+      </div>
+
+      <div class="tabs" data-tabs="cust">
+        <button type="button" class="on" data-tab="overview">Overview</button>
+        <button type="button" data-tab="sites">Sites <span class="count">2</span></button>
+        <button type="button" data-tab="changes">Changes <span class="count">4</span></button>
+      </div>
+
+      <div class="panel on" data-panel="overview" data-panel-group="cust">
+        <div class="rec-cols mt-4">
+          <div class="stack loose">
+            <div>
+              <div class="row between"><span class="eyebrow">Bill-to</span><span class="small faint">Billing and supervisors can edit; others see "Ask a supervisor to change this customer"</span></div>
+              <dl class="facts mt-2">
+                <dt>Name</dt><dd>Barranca Medical Partners</dd>
+                <dt>Billing address</dt><dd>4600 Barranca Pkwy, Suite 300, Irvine, CA 92604</dd>
+                <dt>AP contact</dt><dd>Rosa Delgado · <span class="num">949-555-0171</span></dd>
+                <dt>Billing rate</dt><dd>Contract rates · Journeyman <span class="money">$165</span>/h</dd>
+                <dt>Credit limit</dt><dd><span class="money">$15,000</span> <span class="muted">· $4,310 used</span></dd>
+                <dt>Contract customer</dt><dd>Yes · since Mar 2024</dd>
+                <dt>Tax exempt</dt><dd>No</dd>
+                <dt>Exemption number</dt><dd class="faint">—</dd>
+                <dt>Invoice delivery</dt><dd>Email</dd>
+                <dt>Invoice emails</dt><dd>ap@barrancamed.com, rdelgado@barrancamed.com</dd>
+                <dt>Account manager</dt><dd>James Reynolds</dd>
+              </dl>
+            </div>
+            <hr class="divider">
+            <div>
+              <span class="eyebrow">This year</span>
+              <div class="summary-line mt-2">
+                <span>Revenue <b data-countup="18640" data-prefix="$">$18,640</b></span>
+                <span>Visits <b data-countup="14">14</b></span>
+                <span>Avg days to pay <b>26</b></span>
+                <span>Open quotes <b>1</b> · <span class="money">$3,420</span></span>
+              </div>
+            </div>
+            <hr class="divider">
+            <div>
+              <div class="row between"><span class="eyebrow">Customer portal <span class="callout">4</span></span><span class="small muted">F13</span></div>
+              <dl class="facts mt-2">
+                <dt>Users</dt><dd>Dr. Lena Park, Rosa Delgado (AP)</dd>
+                <dt>Last login</dt><dd>Oct 9 · Rosa viewed invoice 742</dd>
+                <dt>Through the portal</dt><dd>Quote 2039 approved and e-signed Sep 18 · 1 service request became WO 1029</dd>
+              </dl>
+              <div class="btn-group mt-2"><button class="btn sm" type="button" data-toast="Portal invite emailed to kim.tran@barrancamed.com">Invite user</button><button class="btn sm ghost" type="button" data-go="cust-portal">View as customer</button></div>
+            </div>
+          </div>
+
+          <div class="stack loose">
+            <div>
+              <div class="row between"><span class="eyebrow">Agreement <span class="callout">2</span></span><span class="pill copper plain">Gold</span></div>
+              <dl class="facts tight mt-2">
+                <dt>Response</dt><dd>4 h · business hours</dd>
+                <dt>Assets</dt><dd>6 rooftop units across 2 sites</dd>
+                <dt>Visits</dt><dd>Spring and fall · next due Nov 3 · 2 left</dd>
+                <dt>Billing</dt><dd><span class="money">$640</span> / month · card on file</dd>
+                <dt>Renewal</dt><dd>Mar 1, 2027 · auto-renew on</dd>
+              </dl>
+              <div class="row between small muted mt-2"><span>Visits this year</span><b class="num">10 / 12</b></div>
+              <div class="meter moss mt-1"><i style="width: 83%"></i></div>
+              <div class="btn-group mt-2"><button class="btn sm" type="button" data-go="agreements">Open agreement</button><button class="btn sm ghost" type="button" data-toast="2 fall visits generated into the open queue for Nov 3 · Marcus Hale">Generate fall visits</button></div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h3>Balance <span class="callout">3</span></h3><span class="money strong" style="font-size:18px">$4,310</span></div>
+              <div class="aging">
+                <div class="b"><span class="l">Current</span><span class="money">$1,186</span></div>
+                <div class="b"><span class="l">1–30</span><span class="money faint">$0</span></div>
+                <div class="b hot"><span class="l">31–60</span><span class="money">$3,124</span></div>
+                <div class="b"><span class="l">61–90</span><span class="money faint">$0</span></div>
+                <div class="b"><span class="l">90+</span><span class="money faint">$0</span></div>
+              </div>
+              <div class="list mt-3">
+                <button class="item" type="button" data-go="billing"><span class="num strong">742</span><span class="stack tight"><span class="title">WO 1041 · Fall PM</span><span class="sub">Due Oct 28 · payment link sent Oct 10, viewed</span></span><span class="money">$1,186</span></button>
+                <button class="item" type="button" data-go="billing"><span class="num strong">731</span><span class="stack tight"><span class="title">WO 1017 · RTU-1 capacitor</span><span class="sub" style="color:var(--red)">42 days · AP says PO 4471 is missing</span></span><span class="money">$3,124</span></button>
+              </div>
+              <div class="card-on-file mt-3">
+                <span class="chipicon" aria-hidden="true"></span>
+                <div class="grow small"><b>Visa ····4242</b> · exp 08/28 · agreement autopay on<div class="muted">Added Mar 1 by Dr. Lena Park in the portal</div></div>
+              </div>
+              <div class="btn-group mt-3">
+                <button class="btn sm" type="button" data-toast="Payment link for invoice 731 texted and emailed to Rosa Delgado">Send payment link</button>
+                <button class="btn sm" type="button" data-toast="Charge of $3,124 queued for Visa ····4242 · receipt will email AP">Charge card on file</button>
+                <button class="btn sm ghost" type="button" data-go="billing">Statement</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="sites" data-panel-group="cust">
+        <div class="mt-3">
+          <div class="site-row">
+            <div>
+              <div class="row wrap"><b>Irvine Med Offices · Main building</b><span class="pill site plain">1058 on site</span></div>
+              <div class="small muted">4600 Barranca Pkwy, Irvine · Dr. Lena Park <span class="num">949-555-0142</span> · 4 rooftop units + 1 split</div>
+              <div class="small mt-1">Primary <b>Marcus Hale</b> · Backup <b>Elena Cruz</b> · Tax 7.75% company default · Invoice delivery uses parent <span class="callout">5</span></div>
+              <div class="list">
+                <button class="item" type="button" data-go="work-order"><span class="num strong">1058</span><span class="stack tight"><span class="title">Warranty coil leak, suite 200</span><span class="sub">RTU-2 · Marcus · today 10:00 · on site</span></span><span class="small muted">Open</span></button>
+                <button class="item" type="button"><span class="num strong">1064</span><span class="stack tight"><span class="title">Economizer actuator, suite 100</span><span class="sub">RTU-4 · Johnstone PO 118 · expected Thu</span></span><span class="small muted">Waiting on parts</span></button>
+                <button class="item" type="button"><span class="num muted">Oct 2</span><span class="stack tight"><span class="title">1041 · Fall PM, 4 RTUs</span><span class="sub">Marcus · 4.0 h · belt flagged on RTU-3 → Quote 2041</span></span><span class="small muted">Billed</span></button>
+                <button class="item" type="button"><span class="num muted">Sep 18</span><span class="stack tight"><span class="title">1029 · Suite 210 too warm</span><span class="sub">Elena · 1.5 h</span></span><span class="small muted">Billed</span></button>
+              </div>
+              <button class="btn sm subtle mt-1" type="button" data-toast="Showing the last 15 visits">Show the last 15 visits</button>
+            </div>
+            <div class="btn-group"><button class="btn sm" type="button" data-go="site-equipment">Site &amp; equipment</button><button class="btn sm ghost" type="button" data-open="#sheet-customers-site-edit">Edit</button></div>
+          </div>
+          <div class="site-row">
+            <div>
+              <div class="row wrap"><b>Irvine Med Offices · Annex</b><span class="pill sched plain">PM due Nov 3</span></div>
+              <div class="small muted">4620 Barranca Pkwy, Irvine · Kim Tran <span class="num">949-555-0163</span> · 2 rooftop units · imaging suite, no work 8–11</div>
+              <div class="small mt-1">Primary <b>Marcus Hale</b> · Backup <b>Priya Shah</b> · Tax 7.75% company default · Invoice delivery uses parent</div>
+              <div class="list">
+                <button class="item" type="button"><span class="num muted">Apr 9</span><span class="stack tight"><span class="title">0962 · Spring PM, 2 RTUs</span><span class="sub">Marcus · 2.0 h</span></span><span class="small muted">Billed</span></button>
+              </div>
+            </div>
+            <div class="btn-group"><button class="btn sm" type="button" data-go="site-equipment">Site &amp; equipment</button><button class="btn sm ghost" type="button" data-open="#sheet-customers-site-edit">Edit</button></div>
+          </div>
+          <button class="btn ghost mt-3" type="button" data-toast="New site form opened under Barranca Medical Partners">Add a site</button>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="changes" data-panel-group="cust">
+        <div class="timeline mt-4" style="max-width:640px">
+          <div class="tl copper"><div class="when">Oct 9 · 2:14 PM</div><div class="what">Credit limit <span class="num">$10,000 → $15,000</span></div><div class="who">Billing · "Gold renewal, 3 years paid on time"</div></div>
+          <div class="tl steel"><div class="when">Sep 30 · 9:02 AM</div><div class="what">Invoice email added · rdelgado@barrancamed.com</div><div class="who">James Reynolds</div></div>
+          <div class="tl moss"><div class="when">Sep 12 · 4:40 PM</div><div class="what">Portal user invited · Dr. Lena Park</div><div class="who">Customer service</div></div>
+          <div class="tl"><div class="when">Mar 1 · 8:15 AM</div><div class="what">Agreement upgraded Silver → Gold · card on file saved</div><div class="who">Admin</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Same directory shape: bill-to parents on the left, the record on the right. Every bill-to field is still here in one facts list (billing address, AP contact, billing rate, credit limit, contract, tax exempt, exemption number, invoice delivery, emails, account manager), the site rows keep their primary and backup tech, tax rate, delivery, open work orders and "last 15 visits", the "Not linked yet" bucket stays, and Changes is its own tab. Permission rule unchanged: non-billing roles see "Ask a supervisor to change this customer" instead of Edit.</li>
+    <li><span class="f">new</span>The rail (1) is a search, one segmented control (All / Agreement / Balance / Quiet = no visits in 12 months) and a Filters button; team, tier, city, account manager and sort live in the Filters sheet. Rows carry the balance so the list reads like a report.</li>
+    <li><span class="f">new</span>F5 Agreement block (2): tier, response target, assets, next visit, billing, renewal, a visit meter and "Generate fall visits".</li>
+    <li><span class="f">new</span>F11 Balance (3) is the one card on the page: AR aging in five buckets, open invoices with payment-link status, card on file, "Send payment link" and "Charge card on file".</li>
+    <li><span class="f">new</span>F13 Portal (4): users, last login, what came through the portal, "View as customer".</li>
+    <li><span class="f">changed</span>Calm header: title, three pills, one line of facts, then Overview / Sites / Changes tabs. Sites (5) open the new Site &amp; equipment record instead of the old equipment sheet; Equipment and PM contract actions moved there.</li>
+    <li><span class="f">changed</span>Edit is a side sheet (6) that keeps the product rule: a back bar with "Back to Customers", "Save" and "Save and back".</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-customers-filters" role="dialog" aria-label="Customer filters">
+  <div class="sheet-head"><h3>Filters</h3><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="chip-group"><span class="eyebrow">Team</span><div class="chips"><button class="chip on" type="button" data-chip>Costa Mesa</button><button class="chip on" type="button" data-chip>Irvine</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Agreement tier</span><div class="chips"><button class="chip" type="button" data-chip>Bronze</button><button class="chip" type="button" data-chip>Silver</button><button class="chip" type="button" data-chip>Gold</button><button class="chip" type="button" data-chip>None</button></div></div>
+    <div class="chip-group"><span class="eyebrow">City</span><div class="chips"><button class="chip" type="button" data-chip>Costa Mesa</button><button class="chip" type="button" data-chip>Irvine</button><button class="chip" type="button" data-chip>Newport Beach</button><button class="chip" type="button" data-chip>Santa Ana</button><button class="chip" type="button" data-chip>Tustin</button><button class="chip" type="button" data-chip>Huntington Beach</button></div></div>
+    <div class="field-grid">
+      <div class="field"><label>Account manager</label><select class="select"><option>Anyone</option><option>James Reynolds</option><option>Supervisor</option><option>Customer service</option></select></div>
+      <div class="field"><label>Sort</label><select class="select"><option>Name</option><option>Balance, highest first</option><option>Last visit, oldest first</option><option>Sites</option></select></div>
+    </div>
+    <label class="switch on" data-switch><i></i><span>Has a portal user</span></label>
+    <label class="switch" data-switch><i></i><span>Card on file</span></label>
+    <label class="switch" data-switch><i></i><span>Show "Not linked yet" sites only</span></label>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button><button class="btn primary" type="button" data-close data-toast="Filters applied · 16 customers">Apply</button></div>
+</div>
+<div class="sheet" id="sheet-customers-edit" role="dialog" aria-label="Edit customer">
+  <div class="back-bar" style="position:static">
+    <button class="btn ghost sm back" type="button" data-close>Back to Customers</button>
+    <div class="btn-group"><button class="btn sm" type="button" data-toast="Saved">Save</button><button class="btn primary sm" type="button" data-close data-toast="Saved">Save and back</button><span class="callout">6</span></div>
+  </div>
+  <div class="sheet-body stack loose">
+    <div><h2>Edit customer</h2><div class="muted">Barranca Medical Partners · bill-to for 2 sites</div></div>
+    <div class="field-grid">
+      <div class="field span-2"><label>Bill-to name</label><input class="input" value="Barranca Medical Partners"></div>
+      <div class="field span-2"><label>Billing address</label><input class="input" value="4600 Barranca Pkwy, Suite 300, Irvine, CA 92604"></div>
+      <div class="field"><label>AP contact name</label><input class="input" value="Rosa Delgado"></div>
+      <div class="field"><label>AP contact phone</label><input class="input num" value="949-555-0171"></div>
+      <div class="field"><label>Billing rate</label><select class="select"><option>Contract rates</option><option>Non-contract rates</option></select></div>
+      <div class="field"><label>Credit limit</label><input class="input money" value="$15,000"></div>
+      <div class="field"><label>Account manager</label><select class="select"><option>James Reynolds</option><option>Supervisor</option><option>Customer service</option><option>Admin</option></select></div>
+      <div class="field"><label>Invoice delivery</label><select class="select"><option>Email</option><option>Print</option><option>Both</option><option>Not set</option></select></div>
+      <div class="field span-2"><label>Invoice emails</label><input class="input" value="ap@barrancamed.com, rdelgado@barrancamed.com"><span class="help">Separate addresses with commas. Statements and payment links go here too.</span></div>
+      <div class="field"><label>Exemption certificate number</label><input class="input" placeholder="Only if tax exempt"></div>
+      <div class="field"><label>Portal</label><select class="select"><option>Active · 2 users</option><option>Invite only</option><option>Off</option></select></div>
+    </div>
+    <div class="stack tight">
+      <label class="check on" data-check><i></i><span>Contract customer</span></label>
+      <label class="check" data-check><i></i><span>Tax exempt</span></label>
+      <label class="check on" data-check><i></i><span>Autopay agreement billing to the card on file</span></label>
+    </div>
+    <div class="small muted">QuickBooks Online: matched to customer 3391 by ID. Renaming here will not create a second QBO customer.</div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Discard</button><button class="btn primary" type="button" data-close data-toast="Customer saved">Save and back</button></div>
+</div>
+<div class="sheet" id="sheet-customers-site-edit" role="dialog" aria-label="Edit site">
+  <div class="back-bar" style="position:static">
+    <button class="btn ghost sm back" type="button" data-close>Back to Customers</button>
+    <div class="btn-group"><button class="btn sm" type="button" data-toast="Saved">Save</button><button class="btn primary sm" type="button" data-close data-toast="Saved">Save and back</button></div>
+  </div>
+  <div class="sheet-body stack loose">
+    <div><h2>Edit site</h2><div class="muted">Irvine Med Offices · Main building</div></div>
+    <div class="field-grid">
+      <div class="field span-2"><label>Building name</label><input class="input" value="Irvine Med Offices"></div>
+      <div class="field"><label>Service address</label><input class="input" value="4600 Barranca Pkwy"></div>
+      <div class="field"><label>City</label><input class="input" value="Irvine"></div>
+      <div class="field"><label>Site contact name</label><input class="input" value="Dr. Lena Park"></div>
+      <div class="field"><label>Site contact phone</label><input class="input num" value="949-555-0142"></div>
+      <div class="field span-2"><label>Special instructions</label><textarea class="textarea">Check in at the front desk, suite 200. Roof hatch key at reception.</textarea></div>
+      <div class="field"><label>Tax rate %</label><input class="input num" placeholder="Company default 7.75"></div>
+      <div class="field"><label>Site invoice delivery</label><select class="select"><option>Use parent (Email)</option><option>Email</option><option>Print</option><option>Both</option></select></div>
+      <div class="field span-2"><label>Site invoice emails</label><input class="input" placeholder="Only if different from the parent"></div>
+      <div class="field"><label>Primary technician</label><select class="select"><option>Marcus Hale</option><option>Elena Cruz</option><option>Andre Walsh</option><option>Priya Shah</option></select></div>
+      <div class="field"><label>Backup technician</label><select class="select"><option>Elena Cruz</option><option>Marcus Hale</option><option>Priya Shah</option><option>Diego Ramos</option></select></div>
+    </div>
+  </div>
+  <div class="sheet-foot"><button class="btn ghost" type="button" data-close>Discard</button><button class="btn primary" type="button" data-close data-toast="Site saved">Save and back</button></div>
+</div>
+</template>
+</section>

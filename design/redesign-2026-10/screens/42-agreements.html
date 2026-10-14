@@ -1,0 +1,276 @@
+<section class="screen" id="s-agreements" data-title="Agreements" data-group="office" data-face="office" data-order="42">
+<style>
+  #s-agreements .pill.bronze { background: #efe0d2; color: #7a4a2a; }
+  #s-agreements .pill.silver { background: #e9e8e4; color: #4a4742; }
+  #s-agreements .pill.gold { background: #f6e7b8; color: #7a5a08; }
+  #s-agreements .season { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; min-width: 720px; }
+  #s-agreements .wk { padding: 10px 12px; border-radius: var(--r-2); display: flex; flex-direction: column; gap: 6px; }
+  #s-agreements .wk .d { font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
+  #s-agreements .wk .n { font-size: 22px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+  #s-agreements .wk.now { background: var(--copper-tint); }
+  #s-agreements .wk.past .n { color: var(--ink-2); }
+  #s-agreements .group { display: flex; flex-direction: column; gap: 12px; }
+  #s-agreements .tier-defs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; font-size: 12px; color: var(--ink-2); }
+  #s-agreements .tier-defs b { display: block; color: var(--ink); font-size: 13px; margin-bottom: 2px; }
+  #s-agreements tbody tr[data-open], #s-agreements tbody tr[data-toast] { cursor: pointer; }
+  #s-agreements .state { white-space: nowrap; }
+  #s-agreements .state .dot { margin-right: 6px; vertical-align: 1px; }
+  #s-agreements .asset { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  #s-agreements .asset:last-child { border-bottom: 0; }
+  @media (max-width: 640px) { #s-agreements .tier-defs { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="toolbar">
+  <div class="search" style="flex: 1 1 200px; max-width: 320px;"><input class="input" type="search" placeholder="Customer, site or agreement" aria-label="Search agreements"></div>
+  <div class="seg" data-seg="agreements-season"><button type="button" class="on" data-val="fall">Fall 2026</button><button type="button" data-val="spring">Spring 2027</button></div>
+  <button class="btn sm" type="button" data-open="#sheet-agreements-filters"><svg><use href="#i-filter"/></svg>Filters · 1</button>
+  <span class="grow"></span>
+  <button class="btn ghost sm" type="button" data-toast="Agreements export started: 38 agreements, assets, visits and renewals (.xlsx)">Export</button>
+  <button class="btn copper sm" type="button" data-open="#sheet-agreements-new"><svg><use href="#i-plus"/></svg>New agreement</button>
+</div>
+
+<div class="page stack loose">
+  <div class="kpis">
+    <div class="kpi"><span class="eyebrow">Active agreements</span><div class="value"><span data-countup="38">38</span></div><div class="delta up">+3 this quarter · 2 lapsed</div></div>
+    <div class="kpi"><span class="eyebrow">Annual value</span><div class="value"><span data-countup="214600" data-prefix="$">$214,600</span></div><div class="delta up">+$18,400 vs last year · 41% billed monthly</div></div>
+    <div class="kpi"><span class="eyebrow">Renewals due in 60 days</span><div class="value"><span data-countup="6">6</span><small>· $17,540</small></div><div class="delta down">2 without auto-renew</div></div>
+    <div class="kpi"><span class="eyebrow">PM visits this season</span><div class="value"><span data-countup="92">92</span></div><div class="load-bar mt-1" aria-label="Done 41, scheduled 33, unscheduled 18"><i class="b" style="width: 44.6%"></i><i class="a" style="width: 35.9%"></i><i class="c" style="width: 19.5%"></i></div><div class="delta">41 done · 33 scheduled · 18 unscheduled</div></div>
+  </div>
+
+  <div class="group">
+    <div class="section-head">
+      <div><h2>Fall season planner <span class="callout">1</span></h2><div class="small muted">Agreement visits are generated per asset and placed against board capacity. Suggestions only; the dispatcher drops the ticket.</div></div>
+      <button class="btn sm ghost" type="button" data-toast="18 unscheduled visits placed as suggestions on the board (Oct 19 to Nov 6). Nothing moves until you confirm each.">Suggest placements</button>
+    </div>
+    <div class="scroll-x">
+      <div class="season stagger">
+        <div class="wk past"><span class="d">Sep 28 – Oct 2</span><span class="n num">9</span><span class="small muted">all done</span><div class="meter moss"><i style="width: 58%"></i></div><span class="tiny faint">58% of PM capacity</span></div>
+        <div class="wk past"><span class="d">Oct 5 – 9</span><span class="n num">12</span><span class="small muted">all done · 1 quote found</span><div class="meter moss"><i style="width: 71%"></i></div><span class="tiny faint">71% of PM capacity</span></div>
+        <div class="wk now"><span class="d live">Oct 12 – 16 · this week</span><span class="n num">14</span><span class="small muted">9 done · 5 scheduled</span><div class="meter steel"><i style="width: 82%"></i></div><span class="tiny faint">82% · 7 h free Fri</span></div>
+        <div class="wk"><span class="d">Oct 19 – 23</span><span class="n num">13</span><span class="small muted">11 scheduled · 2 unscheduled</span><div class="meter steel"><i style="width: 64%"></i></div><span class="tiny faint">64% · 14 h free</span></div>
+        <div class="wk"><span class="d">Oct 26 – 30</span><span class="n num">13</span><span class="small muted">6 scheduled · 7 unscheduled</span><div class="meter amber"><i style="width: 40%"></i></div><span class="tiny faint">40% · 24 h free</span></div>
+        <div class="wk"><span class="d">Nov 2 – 6</span><span class="n num">13</span><span class="small muted">4 scheduled · 9 unscheduled</span><div class="meter amber"><i style="width: 28%"></i></div><span class="tiny faint">28% · 29 h free</span></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="two-col">
+    <div class="group">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Customer</th><th>Tier</th><th>Assets</th><th class="num">Visits / yr</th><th>Next visit</th><th>Billing</th><th>Renewal</th><th>SLA</th></tr></thead>
+          <tbody class="stagger">
+            <tr class="on" data-open="#sheet-agreements-bristol">
+              <td><div class="primary-cell">Bristol Court Offices</div><div class="small faint">Costa Mesa</div></td><td><span class="pill gold">Gold</span></td><td>4 RTUs</td><td class="num">2</td>
+              <td class="state"><span class="dot moss"></span>Oct 14–15 · Andre</td><td>Annual · <span class="money">$4,800</span></td><td class="num">Mar 1, 2027</td><td class="num">4 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Irvine Med Offices · Gold">
+              <td><div class="primary-cell">Irvine Med Offices</div><div class="small faint">Suites 100 &amp; 200 · Irvine</div></td><td><span class="pill gold">Gold</span></td><td>6 RTUs · 2 splits</td><td class="num">4</td>
+              <td class="state"><span class="dot amber"></span>Nov 3 · unscheduled</td><td>Monthly card · <span class="money">$640</span></td><td class="num">Jan 15, 2027</td><td class="num">4 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Santa Ana Gym · Silver">
+              <td><div class="primary-cell">Santa Ana Gym</div><div class="small faint">Santa Ana</div></td><td><span class="pill silver">Silver</span></td><td>6 RTUs</td><td class="num">2</td>
+              <td class="state"><span class="dot red"></span>WO 1066 · unassigned</td><td>Annual · <span class="money">$3,600</span></td><td class="num" style="color: var(--amber-deep);">Dec 1 · 48 d</td><td class="num">8 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Warner Business Park · Silver">
+              <td><div class="primary-cell">Warner Business Park</div><div class="small faint">Santa Ana · Yolanda Ruiz</div></td><td><span class="pill silver">Silver</span></td><td>8 RTUs</td><td class="num">2</td>
+              <td class="state"><span class="dot steel"></span>Oct 22 · Marcus</td><td>Pre-billed · <span class="money">$5,200</span></td><td class="num">Feb 1, 2027</td><td class="num">8 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Jamboree Corporate · Gold">
+              <td><div class="primary-cell">Jamboree Corporate</div><div class="small faint">Irvine · 3 buildings</div></td><td><span class="pill gold">Gold</span></td><td>10 RTUs</td><td class="num">4</td>
+              <td class="state"><span class="dot steel"></span>Oct 20 · Elena</td><td>Monthly card · <span class="money">$1,180</span></td><td class="num">Jun 1, 2027</td><td class="num">4 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Irvine Center Clinics · Gold">
+              <td><div class="primary-cell">Irvine Center Clinics</div><div class="small faint">Irvine</div></td><td><span class="pill gold">Gold</span></td><td>5 RTUs · 1 split</td><td class="num">4</td>
+              <td class="state"><span class="dot steel"></span>Oct 16 · Priya</td><td>Monthly card · <span class="money">$720</span></td><td class="num">Aug 1, 2027</td><td class="num">4 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Adams Avenue Plaza · Silver">
+              <td><div class="primary-cell">Adams Avenue Plaza</div><div class="small faint">Costa Mesa</div></td><td><span class="pill silver">Silver</span></td><td>6 RTUs</td><td class="num">2</td>
+              <td class="state"><span class="dot moss"></span>Done today · 1049</td><td>Annual · <span class="money">$3,900</span></td><td class="num">May 1, 2027</td><td class="num">8 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Oak Creek Professional · Silver">
+              <td><div class="primary-cell">Oak Creek Professional</div><div class="small faint">Irvine</div></td><td><span class="pill silver">Silver</span></td><td>5 RTUs</td><td class="num">2</td>
+              <td class="state"><span class="dot amber"></span>Oct 27 · unscheduled</td><td>Annual · <span class="money">$3,100</span></td><td class="num" style="color: var(--amber-deep);">Nov 30 · 47 d</td><td class="num">8 h</td>
+            </tr>
+            <tr data-toast="Agreement detail: Balboa Bay Offices · Bronze">
+              <td><div class="primary-cell">Balboa Bay Offices</div><div class="small faint">Newport Beach</div></td><td><span class="pill bronze">Bronze</span></td><td>3 RTUs</td><td class="num">1</td>
+              <td class="state"><span class="dot"></span>Apr 2027</td><td>Annual · <span class="money">$1,140</span></td><td class="num">Apr 1, 2027</td><td class="small">Next day</td>
+            </tr>
+            <tr data-toast="Agreement detail: Costa Mesa Library · Bronze">
+              <td><div class="primary-cell">Costa Mesa Library</div><div class="small faint">Costa Mesa · city account</div></td><td><span class="pill bronze">Bronze</span></td><td>4 RTUs</td><td class="num">1</td>
+              <td class="state"><span class="dot amber"></span>Nov 10 · unscheduled</td><td>Pre-billed · <span class="money">$1,520</span></td><td class="num">Jul 1, 2027</td><td class="small">Next day</td>
+            </tr>
+            <tr data-toast="Agreement detail: Huntington Harbour Dental · Bronze">
+              <td><div class="primary-cell">Huntington Harbour Dental</div><div class="small faint">Huntington Beach</div></td><td><span class="pill bronze">Bronze</span></td><td>2 splits</td><td class="num">2</td>
+              <td class="state"><span class="dot amber"></span>Oct 29 · unscheduled</td><td>Monthly card · <span class="money">$95</span></td><td class="num" style="color: var(--red);">Oct 31 · 17 d · no auto-renew</td><td class="small">Next day</td>
+            </tr>
+            <tr aria-label="Importing">
+              <td><span class="skeleton" style="display: inline-block; width: 150px;">&nbsp;</span></td><td><span class="skeleton" style="display: inline-block; width: 56px;">&nbsp;</span></td><td><span class="skeleton" style="display: inline-block; width: 70px;">&nbsp;</span></td><td class="num"><span class="skeleton" style="display: inline-block; width: 20px;">&nbsp;</span></td><td colspan="4" class="small faint">Newport Coast HOA · importing the signed agreement from the portal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="small faint">38 agreements · 11 with activity this season · click a row for the detail. SLA is the response target for service calls on covered assets; next-visit dots use the job-state colors.</div>
+    </div>
+
+    <div class="stack loose">
+      <div class="group">
+        <div class="row between"><h3>Renewals due in 60 days <span class="callout">2</span></h3><span class="small muted num">6 · $17,540</span></div>
+        <div class="list">
+          <div class="item"><span class="num small">Oct 31</span><div><div class="title">Huntington Harbour Dental</div><div class="sub">Bronze · <span class="money">$1,140</span>/yr · <span style="color: var(--red);">auto-renew off</span></div></div><button class="btn sm" type="button" data-toast="Renewal call task created for Customer service · due Fri">Call</button></div>
+          <div class="item"><span class="num small">Nov 30</span><div><div class="title">Oak Creek Professional</div><div class="sub">Silver · <span class="money">$3,100</span>/yr · auto-renew on</div></div><button class="btn sm ghost" type="button" data-toast="Renewal letter emailed to Oak Creek Professional with the 2027 price">Send letter</button></div>
+          <div class="item"><span class="num small">Dec 1</span><div><div class="title">Santa Ana Gym</div><div class="sub">Silver · <span class="money">$3,600</span>/yr · auto-renew on</div></div><button class="btn sm ghost" type="button" data-toast="Renewal letter emailed to Santa Ana Gym">Send letter</button></div>
+          <div class="item"><span class="num small">Dec 10</span><div><div class="title">Tustin Auto Center</div><div class="sub">Silver · <span class="money">$2,900</span>/yr · <span style="color: var(--red);">auto-renew off</span></div></div><button class="btn sm" type="button" data-toast="Renewal call task created for Customer service · due Nov 10">Call</button></div>
+          <div class="item"><span class="num small">Dec 12</span><div><div class="title">17th Street Market</div><div class="sub">Gold · refrigeration · <span class="money">$4,200</span>/yr</div></div><button class="btn sm ghost" type="button" data-toast="Renewal letter emailed to 17th Street Market">Send letter</button></div>
+          <div class="item"><span class="num small">Dec 15</span><div><div class="title">Newport Plaza Retail</div><div class="sub">Silver · <span class="money">$2,600</span>/yr · auto-renew on</div></div><button class="btn sm ghost" type="button" data-toast="Renewal letter emailed to Newport Plaza Retail">Send letter</button></div>
+        </div>
+        <p class="small faint">Letters go 60 days out, a reminder at 30. Auto-renew creates the next term and bills it the way the current one is billed [F14].</p>
+      </div>
+
+      <hr class="divider">
+
+      <div class="group">
+        <div class="row between"><h3>Tiers</h3><button class="btn sm subtle" type="button" data-go="settings">Edit in Settings</button></div>
+        <svg class="chart" viewBox="0 0 320 66" role="img" aria-label="Agreements by tier: Bronze 14, Silver 15, Gold 9">
+          <rect class="bar h" x="0" y="4" width="110" height="14" rx="3" style="fill: #e0cdb9;"/><text class="axis" x="118" y="15">Bronze 14 · $33,800 / yr</text>
+          <rect class="bar h" x="0" y="26" width="118" height="14" rx="3" style="fill: #d8d6d0;"/><text class="axis" x="126" y="37">Silver 15 · $70,100 / yr</text>
+          <rect class="bar h" x="0" y="48" width="71" height="14" rx="3" style="fill: #e9d48d;"/><text class="axis" x="79" y="59">Gold 9 · $110,700 / yr</text>
+        </svg>
+        <div class="tier-defs">
+          <div><b>Bronze</b>1 PM visit / yr · next-business-day response · 5% off repairs</div>
+          <div><b>Silver</b>2 PM visits / yr · 8 h response · 10% off repairs · filters included</div>
+          <div><b>Gold</b>2–4 PM visits / yr · 4 h response, priority board slot · 15% off repairs · filters, belts, no trip charge</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>Nothing existed here before except the "Contract customer" checkbox, the PM billing method (Pre-billed / On demand / Not on the contract yet) and the PM contract sheet that said "The contract will be built later." Those carry over as the Billing column and the pricing block in the detail sheet.</li>
+    <li><span class="f">new</span>F5 Maintenance agreements engine: tiers (Bronze / Silver / Gold) with SLA response targets, assets covered, visits per year generated per asset into the open queue, monthly card-on-file or annual billing, renewals with auto-renew (callout 2). The season planner (callout 1) shows the fall by week against PM capacity; placements are suggestions only, matching the board's assist-only rule [F2].</li>
+    <li><span class="f">new</span>The Bristol Court sheet is the whole record: 4 RTUs, spring done Apr 8 with its checklist and the quote it produced [F8], fall in progress with Andre, included services, price, renewal and the SLA record. "Generate fall visits" checks for duplicates before it adds anything. Renewal letters and calls feed Follow-ups and Messages [F14]; card-on-file status reads from payments [F11].</li>
+    <li><span class="f">changed</span>Per the direction update: four KPI tiles and nothing else summarizing; one toolbar (search, season, Filters, Export, New agreement) with tier and status chips in the Filters sheet; one pill per row (the tier), next visit and renewal as plain text with job-state dots; the season strip and the right column use spacing and dividers, not cards. Tier pills use metallic tints so Gold never reads as "en route".</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-agreements-filters" role="dialog" aria-label="Agreement filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="chip-group"><span class="eyebrow">Tier</span><div class="chips"><button class="chip" type="button" data-chip>Bronze <span class="count">14</span></button><button class="chip" type="button" data-chip>Silver <span class="count">15</span></button><button class="chip" type="button" data-chip>Gold <span class="count">9</span></button></div></div>
+    <div class="chip-group"><span class="eyebrow">Status</span><div class="chips"><button class="chip on" type="button" data-chip>Active <span class="count">36</span></button><button class="chip" type="button" data-chip>Renewing <span class="count">6</span></button><button class="chip" type="button" data-chip>Lapsed <span class="count">2</span></button><button class="chip" type="button" data-chip>Draft <span class="count">1</span></button></div></div>
+    <div class="chip-group"><span class="eyebrow">Next visit</span><div class="chips"><button class="chip" type="button" data-chip>Unscheduled</button><button class="chip" type="button" data-chip>This week</button><button class="chip" type="button" data-chip>Overdue</button></div></div>
+    <div class="field"><label>Billing</label><select class="select"><option>Any billing</option><option>Monthly · card on file</option><option>Annual invoice</option><option>Pre-billed</option></select></div>
+    <div class="field"><label>Team</label><select class="select"><option>Both teams</option><option>Costa Mesa</option><option>Irvine</option></select></div>
+    <div class="field"><label>Account manager</label><select class="select"><option>Anyone</option><option>Admin</option><option>Supervisor</option><option>Customer service</option></select></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button>
+    <button class="btn primary" type="button" data-close data-toast="Filters applied">Apply</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-agreements-bristol" role="dialog" aria-label="Agreement · Bristol Court Offices">
+  <div class="sheet-head">
+    <div class="row wrap gap-2"><h2>Bristol Court Offices</h2><span class="pill gold">Gold</span><span class="pill site plain">Active · SLA 4 h</span></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="muted small">3100 Bristol St, Costa Mesa · Sam Whitaker, property manager · 714-555-0160 · bill-to Bristol Court Partners · term Mar 1, 2026 – Feb 28, 2027</div>
+    <div class="status-track">
+      <div class="st done">Signed<br><span class="num">Mar 1</span></div>
+      <div class="st done">Spring PM<br><span class="num">Apr 8</span></div>
+      <div class="st now">Fall PM<br><span class="num">Oct 14–15</span></div>
+      <div class="st">Renewal letter<br><span class="num">Jan 1</span></div>
+      <div class="st">Renews<br><span class="num">Mar 1, 2027</span></div>
+    </div>
+
+    <hr class="divider">
+    <div>
+      <div class="row between"><span class="eyebrow">Assets covered · 4</span><button class="btn sm subtle" type="button" data-go="site-equipment" data-close>Site &amp; equipment</button></div>
+      <div class="mt-1">
+        <div class="asset"><span class="num small">RTU-1</span><div><b>Carrier 48TC · 10 ton</b><div class="small muted">R-410A 22 lb · 2018 · filters 20×25×2 ×4 · belt A42 · out of warranty</div></div><span></span></div>
+        <div class="asset"><span class="num small">RTU-2</span><div><b>Carrier 48TC · 10 ton</b><div class="small muted">R-410A 22 lb · 2018 · filters 20×25×2 ×4 · belt A42 · out of warranty</div></div><span></span></div>
+        <div class="asset"><span class="num small">RTU-3</span><div><b>Trane Precedent · 7.5 ton</b><div class="small muted">R-410A 16 lb · 2021 · filters 16×25×2 ×4 · belt A38</div></div><span class="pill warranty plain">Parts to 2031</span></div>
+        <div class="asset"><span class="num small">RTU-4</span><div><b>Lennox Landmark · 5 ton</b><div class="small muted">R-410A 11 lb · 2016 · filters 16×25×2 ×2 · belt A36 · belt flagged Apr 8</div></div><span></span></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div>
+      <div class="row between"><span class="eyebrow">Visit schedule · 2 per year</span><button class="btn sm" type="button" data-toast="Fall visits checked: WO 1050 already covers RTU-1 to RTU-4 (Oct 14–15, Andre). Nothing new to add.">Generate fall visits</button></div>
+      <div class="list mt-1">
+        <div class="item"><span class="pill done">Done</span><div><div class="title">Spring PM · Apr 8 · Andre Walsh · 4.0 h</div><div class="sub">WO 1012 · checklist 46 pass · 2 flagged (RTU-4 belt, RTU-1 contactor) · quote 2039 approved <span class="money">$640</span></div></div><button class="btn sm ghost" type="button" data-go="work-order" data-close>Open</button></div>
+        <div class="item on"><span class="pill site">On site</span><div><div class="title">Fall PM · Oct 14–15 · Andre Walsh · 8.0 h</div><div class="sub">WO 1050 · day 1 RTU-1 and RTU-2 today 8:00–12:00 · day 2 RTU-3 and RTU-4 Thu 8:00</div></div><button class="btn sm ghost" type="button" data-go="work-order" data-close>Open</button></div>
+        <div class="item"><span class="pill hold plain">Next</span><div><div class="title">Spring PM · week of Apr 5, 2027</div><div class="sub">Generated 90 days ahead into the open queue, suggested for Andre</div></div><span class="small faint">auto</span></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <dl class="facts">
+      <dt>Included</dt><dd>2 PM visits per year with the 24-point RTU checklist [F8] · filters and belts on every visit · 15% off repairs · no trip charge · 4 h response with a priority board slot · refrigerant up to 5 lb / yr, logged per unit [F7]</dd>
+      <dt>Price</dt><dd><span class="money">$4,800 / yr</span> · annual invoice 742-A paid Mar 3 · monthly option <span class="money">$420 / mo</span> on card</dd>
+      <dt>Repair revenue</dt><dd class="money">$2,140 this term</dd>
+      <dt>Renewal</dt><dd>Mar 1, 2027 · letter Jan 1, reminder Feb 1 · 2027 price <span class="money">$4,944</span> (3% escalator)</dd>
+      <dt>Auto-renew</dt><dd><label class="switch on" data-switch><i></i><span>On · creates the next term and bills it the same way</span></label></dd>
+      <dt>SLA record</dt><dd>12 of 12 calls inside 4 h this term · fastest 1 h 10 m</dd>
+    </dl>
+    <div class="row wrap"><button class="btn sm ghost" type="button" data-toast="Switch to monthly offered to Sam Whitaker by email with a card-on-file link">Offer monthly</button><button class="btn sm ghost" type="button" data-toast="Renewal letter scheduled for Jan 1">Preview renewal letter</button></div>
+
+    <hr class="divider">
+    <div>
+      <span class="eyebrow">Changes</span>
+      <div class="timeline mt-1">
+        <div class="tl moss"><div class="when">Oct 14 · 8:02 AM</div><div class="what">Fall PM day 1 started</div><div class="who">Andre Walsh · GPS arrival</div></div>
+        <div class="tl steel"><div class="when">Sep 1 · 7:00 AM</div><div class="what">Fall visits generated into the open queue</div><div class="who">Agreements engine</div></div>
+        <div class="tl copper"><div class="when">Apr 9 · 2:15 PM</div><div class="what">Quote 2039 approved from flagged items</div><div class="who">Sam Whitaker · portal</div></div>
+        <div class="tl"><div class="when">Mar 1 · 10:30 AM</div><div class="what">Agreement signed · Gold · 4 assets</div><div class="who">Admin</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Close</button>
+    <button class="btn" type="button" data-go="customers" data-close>Customer record</button>
+    <button class="btn copper" type="button" data-close data-toast="Agreement saved">Save</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-agreements-new" role="dialog" aria-label="New agreement">
+  <div class="sheet-head">
+    <h2>New agreement</h2>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="field-grid">
+      <div class="field span-2"><label>Customer and site</label><div class="search"><input class="input" value="Newport Coast HOA · Newport Beach" aria-label="Customer and site"></div></div>
+      <div class="field"><label>Tier</label><select class="select"><option>Silver · 2 visits · 8 h</option><option>Bronze · 1 visit · next business day</option><option>Gold · 2–4 visits · 4 h</option></select></div>
+      <div class="field"><label>Visits per year</label><select class="select"><option>2 · spring and fall</option><option>1 · spring</option><option>4 · quarterly</option></select></div>
+      <div class="field"><label>Start</label><input class="input num" value="Nov 1, 2026" aria-label="Start"></div>
+      <div class="field"><label>Term</label><select class="select"><option>12 months</option><option>24 months</option><option>36 months</option></select></div>
+      <div class="field"><label>Billing</label><select class="select"><option>Monthly · card on file</option><option>Annual invoice</option><option>Pre-billed</option></select></div>
+      <div class="field"><label>Price</label><input class="input money" value="$310 / mo" aria-label="Price"></div>
+    </div>
+    <div>
+      <span class="eyebrow">Assets covered · from Site &amp; equipment</span>
+      <div class="stack tight mt-1">
+        <label class="check on" data-check><i></i><span>Bldg A · RTU-1 · Carrier 48TC 7.5 ton</span></label>
+        <label class="check on" data-check><i></i><span>Bldg B · RTU-2 · Carrier 48TC 7.5 ton</span></label>
+        <label class="check on" data-check><i></i><span>Bldg C · RTU-3 · Trane Precedent 5 ton · condenser fan motor quoted</span></label>
+        <label class="check" data-check><i></i><span>Clubhouse · split system · 3 ton</span></label>
+      </div>
+    </div>
+    <label class="switch on" data-switch><i></i><span>Auto-renew · 3% escalator</span></label>
+    <p class="small muted">Visits for 3 assets will be generated into the open queue: spring week of Apr 12, fall week of Oct 11. Price benchmark for Silver, 3 RTUs: <span class="money">$280–$340</span> / mo.</p>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn" type="button" data-close data-toast="Agreement sent to Newport Coast HOA for e-sign">Send for e-sign</button>
+    <button class="btn copper" type="button" data-close data-toast="Agreement created · 6 visits generated into the open queue">Create</button>
+  </div>
+</div>
+</template>
+</section>

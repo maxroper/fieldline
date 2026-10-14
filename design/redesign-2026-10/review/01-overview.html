@@ -1,0 +1,101 @@
+<section class="screen" id="s-overview" data-title="Overview · start here" data-group="review" data-face="review" data-order="1">
+<div class="doc">
+  <div>
+    <span class="eyebrow">Mockup pass · October 14, 2026</span>
+    <h1 class="mt-1">Fieldline, redesigned</h1>
+    <p class="lede mt-2">Every page of the dispatch app, redrawn on the same cream-and-copper palette, with the twenty features the research says a small HVAC company needs next. This is a review mockup, not the product: pick a screen from the bar at the top, toggle <b>Design notes</b> to see what changed on each one, and use the side sheets and buttons to feel the motion.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><span class="eyebrow">Screens redrawn</span><div class="value" data-countup="26">26</div><div class="delta">18 office · 6 tech phone · 2 customer</div></div>
+    <div class="kpi"><span class="eyebrow">Features added</span><div class="value" data-countup="20">20</div><div class="delta">from 30 candidates, ranked by value to a 2–10 tech shop</div></div>
+    <div class="kpi"><span class="eyebrow">Capabilities kept</span><div class="value">All</div><div class="delta">every screen in the current app maps to one here</div></div>
+    <div class="kpi"><span class="eyebrow">Palette</span><div class="value">Same</div><div class="delta">paper, ink, copper, amber, steel, moss, rust</div></div>
+  </div>
+
+  <h2>How to review</h2>
+  <ul>
+    <li><b>Pick a screen</b> from the selector in the dark bar, or step with the arrows (Alt + ← / → on a keyboard). The sidebar menu works too, and "+ New" opens the create menu.</li>
+    <li><b>Design notes</b> opens a panel per screen: what was kept, what is new (with the feature number), what moved. Small copper numbers on the page mark the spots the notes talk about.</li>
+    <li><b>Click things.</b> Tickets open side sheets, status buttons move the status track, chips toggle, segmented controls switch views, and Save buttons confirm with a toast. Nothing is saved anywhere.</li>
+    <li><b>Read the three reports</b> in this Review group: the design system, the feature research behind the twenty additions, and the architecture review of the current code.</li>
+  </ul>
+
+  <h2>What stayed the same</h2>
+  <ul>
+    <li>The palette, the IBM Plex type, and the Fieldline wordmark.</li>
+    <li>Every destination the office has today, the same three big tools for techs (Timesheet, Lookup, My vehicle), and the company and signed-in-as switchers.</li>
+    <li>The component kinds: pill buttons, chips, segmented controls, tinted job tickets, the dark queue rail on the board, fact grids, and the one shared Back bar with Save and Save and back.</li>
+    <li>Every capability on every current screen. The inventory in the research folder was the checklist.</li>
+  </ul>
+
+  <h2>What changed everywhere</h2>
+  <ul>
+    <li><b>A menu instead of a tab row.</b> Eighteen wrapped tabs became a sidebar grouped the way the office thinks: Work, Customers, Sales, Money, Insights, with Users and Settings at the bottom. It collapses to icons. Creating anything lives in one "+ New" button in the top bar, and the follow-up count sits on the bell. The new areas are marked <i>new</i> in the menu.</li>
+    <li><b>Filters behind a button.</b> Chip walls are gone from every page; a "Filters · 2" button opens a sheet with the same choices, and the active count stays visible.</li>
+    <li><b>One layout grammar.</b> A toolbar with one row of controls and a quiet summary line, a work list on the left, the canvas in the middle, and a side sheet for the record you clicked. Modal windows are gone; the board stays visible.</li>
+    <li><b>One color language for job state.</b> Steel is scheduled, amber is on the way, moss is on site or done, rust is waiting on parts, red is urgent or late, plum is a quoted job. It is the same on tickets, pills, board slots, map pins, and the phone.</li>
+    <li><b>Summary before detail.</b> Counts, money, and what is late sit at the top of every page, so nobody has to count cards or scroll to know the state of the day.</li>
+    <li><b>Motion with a job.</b> Lists rise in, the status track and pills animate on change, sheets slide, meters fill, charts draw. Everything respects reduced-motion settings.</li>
+    <li><b>Bigger targets on the phone.</b> Status buttons and the Complete flow are thumb sized; the command box from the README ("Close, 1.5 hrs, filter change") gets a real home at the bottom of the tech's day with a parsed preview.</li>
+  </ul>
+
+  <h2>The twenty features, and where to see them</h2>
+  <div class="feature-grid">
+    <div class="feature"><span class="n">F1</span><h3>Live map and GPS tech tracking</h3><p>Trucks, pins, drive times, and "nearest to this job" beside the board.</p><div class="where"><a href="#dispatch" data-go="dispatch">Dispatch board</a> · <a href="#tech-status" data-go="tech-status">Tech status</a> · <a href="#cust-tracking" data-go="cust-tracking">Customer tracking</a></div></div>
+    <div class="feature"><span class="n">F2</span><h3>Capacity and assignment suggestions</h3><p>Capacity in the toolbar, ranked suggestions the dispatcher still has to drop. Never an automatic reshuffle.</p><div class="where"><a href="#dispatch" data-go="dispatch">Dispatch board</a> · <a href="#new-wo" data-go="new-wo">New WO</a></div></div>
+    <div class="feature"><span class="n">F3</span><h3>Two-way texting and "on my way" ETA links</h3><p>An inbox for the office, one tap for the tech, a live page for the customer.</p><div class="where"><a href="#messages" data-go="messages">Messages</a> · <a href="#tech-today" data-go="tech-today">Tech today</a> · <a href="#cust-tracking" data-go="cust-tracking">Tracking page</a></div></div>
+    <div class="feature"><span class="n">F4</span><h3>Caller-ID screen pop and duplicate detection</h3><p>The customer, their equipment, open work, and a "possible duplicate" warning while the phone is still ringing.</p><div class="where"><a href="#new-wo" data-go="new-wo">New WO</a> · <a href="#new-customer" data-go="new-customer">New customer</a></div></div>
+    <div class="feature"><span class="n">F5</span><h3>Maintenance agreements engine</h3><p>Tiers, assets, spring and fall visits generated into the queue, renewals, billing, response targets.</p><div class="where"><a href="#agreements" data-go="agreements">Agreements</a> · <a href="#customers" data-go="customers">Customers</a></div></div>
+    <div class="feature"><span class="n">F6</span><h3>Equipment records from the nameplate</h3><p>Photo to model, serial, refrigerant, age; warranty status; QR tag; history per unit.</p><div class="where"><a href="#site-equipment" data-go="site-equipment">Site &amp; equipment</a> · <a href="#tech-lookup" data-go="tech-lookup">Tech lookup</a></div></div>
+    <div class="feature"><span class="n">F7</span><h3>Refrigerant log per job</h3><p>Pounds added and recovered, cylinder, cert, leak rate. EPA 608, the 2026 15-lb rule, and CARB records fall out of it.</p><div class="where"><a href="#tech-wo" data-go="tech-wo">Tech work order</a> · <a href="#work-order" data-go="work-order">Work order</a></div></div>
+    <div class="feature"><span class="n">F8</span><h3>Checklists and forms</h3><p>PM inspection with pass, flag, fail. Required before Complete. Flagged items become quote lines.</p><div class="where"><a href="#tech-wo" data-go="tech-wo">Tech work order</a> · <a href="#settings" data-go="settings">Settings</a></div></div>
+    <div class="feature"><span class="n">F9</span><h3>Good / Better / Best proposals</h3><p>Three option cards, e-sign, and financing shown as a monthly figure.</p><div class="where"><a href="#quote-editor" data-go="quote-editor">Quote editor</a> · <a href="#cust-portal" data-go="cust-portal">Customer portal</a></div></div>
+    <div class="feature"><span class="n">F10</span><h3>Pricebook</h3><p>Plain-language repairs with tiers, parts and labor, images, and how often each sells.</p><div class="where"><a href="#pricebook" data-go="pricebook">Pricebook</a> · <a href="#quote-editor" data-go="quote-editor">Quote editor</a></div></div>
+    <div class="feature"><span class="n">F11</span><h3>Payments</h3><p>Card on file, payment links, deposits, Tap to Pay in the field, and an aging view.</p><div class="where"><a href="#billing" data-go="billing">Billing</a> · <a href="#tech-closeout" data-go="tech-closeout">Tech closeout</a></div></div>
+    <div class="feature"><span class="n">F12</span><h3>QuickBooks Online sync</h3><p>ID-based matching and an alert queue instead of silent duplicates.</p><div class="where"><a href="#settings" data-go="settings">Settings</a> · <a href="#billing" data-go="billing">Billing</a></div></div>
+    <div class="feature"><span class="n">F13</span><h3>Customer portal</h3><p>Approve a quote, pay an invoice, see photos and history, request service.</p><div class="where"><a href="#cust-portal" data-go="cust-portal">Customer portal</a></div></div>
+    <div class="feature"><span class="n">F14</span><h3>Review requests and quote follow-up cadences</h3><p>Automations with switches, visible in the follow-up queue.</p><div class="where"><a href="#followups" data-go="followups">Follow-ups</a> · <a href="#messages" data-go="messages">Messages</a></div></div>
+    <div class="feature"><span class="n">F15</span><h3>Offline-first tech app</h3><p>A sync pill on every tech screen; photos and notes queue and retry.</p><div class="where"><a href="#tech-today" data-go="tech-today">Tech today</a></div></div>
+    <div class="feature"><span class="n">F16</span><h3>Truck stock by SKU</h3><p>Min and max, replenishment, and a check of tomorrow's jobs against what is on the van.</p><div class="where"><a href="#inventory" data-go="inventory">Inventory</a> · <a href="#tech-vehicle" data-go="tech-vehicle">My vehicle</a></div></div>
+    <div class="feature"><span class="n">F17</span><h3>Photo report and voice-note summary</h3><p>Dictate the closeout, get a clean summary, send the customer a photo report.</p><div class="where"><a href="#tech-closeout" data-go="tech-closeout">Tech closeout</a></div></div>
+    <div class="feature"><span class="n">F18</span><h3>Permit and warranty tracker</h3><p>Title 24 permit and test status per job; warranty registration deadlines as follow-ups.</p><div class="where"><a href="#work-order" data-go="work-order">Work order</a> · <a href="#followups" data-go="followups">Follow-ups</a></div></div>
+    <div class="feature"><span class="n">F19</span><h3>Owner dashboard</h3><p>Booking rate, average ticket, close rate, tech scorecards, aging, renewals, job costing.</p><div class="where"><a href="#reports" data-go="reports">Reports</a></div></div>
+    <div class="feature"><span class="n">F20</span><h3>Geofenced timesheets with California overtime</h3><p>Arrive and depart verified by location; daily overtime and double time computed for payroll.</p><div class="where"><a href="#timesheets" data-go="timesheets">Timesheets</a> · <a href="#tech-timesheet" data-go="tech-timesheet">Tech timesheet</a></div></div>
+  </div>
+
+  <h2>Screen index</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <span class="eyebrow">Office</span>
+      <div class="stack tight mt-1 small">
+        <a href="#dispatch" data-go="dispatch">Dispatch board</a><a href="#followups" data-go="followups">Follow-ups</a><a href="#new-wo" data-go="new-wo">New WO (call intake)</a><a href="#work-order" data-go="work-order">Work order record</a><a href="#work-orders" data-go="work-orders">Work orders list</a><a href="#customers" data-go="customers">Customers</a><a href="#site-equipment" data-go="site-equipment">Site &amp; equipment</a><a href="#new-customer" data-go="new-customer">New customer</a><a href="#tech-status" data-go="tech-status">Tech status</a><a href="#timesheets" data-go="timesheets">Timesheets</a><a href="#quoting" data-go="quoting">Quoting</a><a href="#quote-editor" data-go="quote-editor">Quote editor</a><a href="#purchasing" data-go="purchasing">Purchasing</a><a href="#inventory" data-go="inventory">Inventory</a><a href="#billing" data-go="billing">Billing</a><a href="#users" data-go="users">Users</a><a href="#agreements" data-go="agreements">Agreements (new)</a><a href="#messages" data-go="messages">Messages (new)</a><a href="#pricebook" data-go="pricebook">Pricebook (new)</a><a href="#reports" data-go="reports">Reports (new)</a><a href="#settings" data-go="settings">Settings</a>
+      </div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Tech phone</span>
+      <div class="stack tight mt-1 small">
+        <a href="#tech-today" data-go="tech-today">Today</a><a href="#tech-wo" data-go="tech-wo">Work order</a><a href="#tech-closeout" data-go="tech-closeout">Complete</a><a href="#tech-timesheet" data-go="tech-timesheet">Timesheet</a><a href="#tech-lookup" data-go="tech-lookup">Customer lookup</a><a href="#tech-vehicle" data-go="tech-vehicle">My vehicle</a>
+      </div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Customer</span>
+      <div class="stack tight mt-1 small">
+        <a href="#cust-tracking" data-go="cust-tracking">Tech on the way</a><a href="#cust-portal" data-go="cust-portal">Customer portal</a>
+      </div>
+      <span class="eyebrow mt-3">Reports in this review</span>
+      <div class="stack tight mt-1 small">
+        <a href="#design-system" data-go="design-system">Design system</a><a href="#features" data-go="features">Feature research</a><a href="#architecture" data-go="architecture">Architecture review</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>What this pass is not</h2>
+  <ul>
+    <li>Not the product. Nothing here is wired to data; the numbers, names, and addresses are invented to look like a real Wednesday in October for a Costa Mesa company.</li>
+    <li>Not a Claude Design canvas. The canvas tool could not be started in this environment, so the mockup is a plain page you can open anywhere, and the HTML lives in the repo under <code>design/redesign-2026-10/</code>.</li>
+    <li>Not final copy. Labels follow the current app's words where they exist; new ones are proposals.</li>
+  </ul>
+  <p>Next step after review: agree the screens and the feature list, then build, starting with the architecture changes in the Architecture report, because several of the twenty features need a real backend to exist at all.</p>
+</div>
+</section>

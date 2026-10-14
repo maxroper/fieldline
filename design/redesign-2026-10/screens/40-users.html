@@ -1,0 +1,244 @@
+<section class="screen" id="s-users" data-title="Users" data-group="office" data-face="office" data-order="40">
+<style>
+  #s-users .pill.r-admin { background: var(--copper-tint); color: var(--copper-deep); }
+  #s-users .pill.r-sup { background: var(--steel-tint); color: var(--steel-deep); }
+  #s-users .pill.r-disp { background: var(--ink); color: var(--paper); }
+  #s-users .pill.r-cs { background: var(--moss-tint); color: var(--moss-deep); }
+  #s-users .pill.r-bill { background: var(--plum-tint); color: var(--plum-deep); }
+  #s-users .pill.r-tech { background: var(--paper-3); color: var(--ink-2); }
+  #s-users .group { display: flex; flex-direction: column; gap: 12px; }
+  #s-users .roles .item { grid-template-columns: 130px minmax(0, 1fr) auto; align-items: start; }
+  #s-users .roles .item .sub { margin-top: 2px; }
+  @media (max-width: 640px) { #s-users .roles .item { grid-template-columns: minmax(0, 1fr) auto; } #s-users .roles .item .pill { grid-column: 1 / -1; justify-self: start; } }
+</style>
+
+<div class="toolbar">
+  <div class="search" style="flex: 1 1 200px; max-width: 320px;"><input class="input" type="search" placeholder="Name, phone or role" aria-label="Search people"></div>
+  <div class="seg" data-seg="users-kind"><button type="button" class="on" data-val="all">All <span class="count">13</span></button><button type="button" data-val="office">Office <span class="count">5</span></button><button type="button" data-val="tech">Tech <span class="count">8</span></button></div>
+  <button class="btn sm" type="button" data-open="#sheet-users-filters"><svg><use href="#i-filter"/></svg>Filters · 1</button>
+  <span class="grow"></span>
+  <button class="btn copper sm" type="button" data-open="#sheet-users-add"><svg><use href="#i-plus"/></svg>Add person</button>
+</div>
+
+<div class="page stack loose">
+  <div class="summary-line"><span><b>13</b> people · 5 office · 8 techs</span><span><span class="dot moss"></span><b>9</b> active now</span><span>Office seats unlimited</span><span><span class="dot amber"></span><b>8 / 8</b> tech seats in use <span class="callout">2</span></span></div>
+
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Person</th><th>Role</th><th>Home team</th><th>Phone</th><th>Last active</th><th>Permissions</th><th></th></tr></thead>
+      <tbody class="stagger">
+        <tr>
+          <td><div class="row"><span class="avatar ink">AD</span><div><div class="primary-cell">Admin</div><div class="small faint">Owner · admin@harborcoastmech.example</div></div></div></td>
+          <td><span class="pill r-admin plain">Admin</span></td><td>Costa Mesa</td><td class="num">714-555-0100</td><td><span class="live small">Now</span></td>
+          <td class="small muted">Everything</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar">SU</span><div><div class="primary-cell">Supervisor</div><div class="small faint">Field supervisor · both teams</div></div></div></td>
+          <td><span class="pill r-sup plain">Supervisor</span></td><td>Costa Mesa</td><td class="num">714-555-0102</td><td class="small muted">12 min ago</td>
+          <td class="small muted">Customers &amp; sites · break exceptions</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar plum">JR</span><div><div class="primary-cell">James Reynolds</div><div class="small faint">Dispatcher · james@harborcoastmech.example</div></div></div></td>
+          <td><span class="pill r-disp plain">Dispatcher</span></td><td>Costa Mesa</td><td class="num">714-555-0104</td><td><span class="live small">Now</span></td>
+          <td class="small muted">Customers &amp; sites</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar moss">CS</span><div><div class="primary-cell">Customer service</div><div class="small faint">Shared desk · 2 CSRs</div></div></div></td>
+          <td><span class="pill r-cs plain">Customer service</span></td><td>Irvine</td><td class="num">949-555-0106</td><td class="small muted">3 min ago</td>
+          <td class="small muted">Customers &amp; sites</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar plum">BI</span><div><div class="primary-cell">Billing</div><div class="small faint">Shared desk · AR and invoicing</div></div></div></td>
+          <td><span class="pill r-bill plain">Billing</span></td><td>Costa Mesa</td><td class="num">714-555-0108</td><td class="small muted">1 h ago</td>
+          <td class="small muted">Invoices &amp; credits · QuickBooks queue</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar">MH</span><div><div class="primary-cell">Marcus Hale</div><div class="small faint">Lead · 608 Universal · Van 12</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Costa Mesa</td><td class="num">714-555-0121</td><td><span class="live small">On site · 1058</span></td>
+          <td class="small muted">Phone app · quotes</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar moss">EC</span><div><div class="primary-cell">Elena Cruz</div><div class="small faint">Lead · 608 Universal · Van 7</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Costa Mesa</td><td class="num">714-555-0122</td><td><span class="live small">En route · 1059</span></td>
+          <td class="small muted">Phone app · quotes</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr class="on">
+          <td><div class="row"><span class="avatar amber">AW</span><div><div class="primary-cell">Andre Walsh</div><div class="small faint">Lead · 608 Type II · Van 9</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Costa Mesa</td><td class="num">714-555-0123</td><td><span class="live small">On site · 1050</span></td>
+          <td class="small muted">Phone app · quotes · POs</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar rust">PS</span><div><div class="primary-cell">Priya Shah</div><div class="small faint">Lead · 608 Universal · Van 4</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Irvine</td><td class="num">949-555-0124</td><td><span class="live small">On site · 1057</span></td>
+          <td class="small muted">Phone app · quotes</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar">DR</span><div><div class="primary-cell">Diego Ramos</div><div class="small faint">Journeyman · 608 Type II · Van 3</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Irvine</td><td class="num">949-555-0125</td><td class="small muted">2 h ago</td>
+          <td class="small muted">Phone app</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar moss">HC</span><div><div class="primary-cell">Hannah Cho</div><div class="small faint">Journeyman · 608 Universal · Van 5</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Irvine</td><td class="num">949-555-0126</td><td class="small muted">Yesterday</td>
+          <td class="small muted">Phone app</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar amber">LO</span><div><div class="primary-cell">Luis Ortega</div><div class="small faint">Apprentice · 608 Type II · Van 8</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Costa Mesa</td><td class="num">714-555-0127</td><td class="small muted">Mon · off today</td>
+          <td class="small muted">Phone app</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><div class="row"><span class="avatar rust">NB</span><div><div class="primary-cell">Naomi Brooks</div><div class="small faint">Journeyman · 608 Universal · Van 6</div></div></div></td>
+          <td><span class="pill r-tech plain">Tech</span></td><td>Irvine</td><td class="num">949-555-0128</td><td class="small muted">35 min ago</td>
+          <td class="small muted">Phone app</td>
+          <td class="right"><button class="btn sm ghost" type="button" data-open="#sheet-users-edit">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="small faint">13 active · 1 inactive (Carlos Vega, left Aug 2026) hidden by the Active filter <span class="callout">1</span></div>
+
+  <hr class="divider">
+
+  <div class="two-col">
+    <div class="group">
+      <div><h3>Roles <span class="callout">3</span></h3><div class="small muted">What each role sees. Tabs follow the role; the two permission checkboxes add edit rights per person.</div></div>
+      <div class="list roles stagger">
+        <div class="item"><span class="pill r-admin plain">Admin</span><div><div class="title">Owner view, every page</div><div class="sub">All 13 original pages plus Agreements, Messages, Pricebook, Reports and Settings. Edits customers, invoices, credits, rates and people. Only role that sees Users and Settings.</div></div><span class="num small faint">1</span></div>
+        <div class="item"><span class="pill r-sup plain">Supervisor</span><div><div class="title">Runs the field</div><div class="sub">Dispatcher pages plus Agreements, Pricebook and Reports. Approves break exceptions, marks techs off, edits customers and sites.</div></div><span class="num small faint">1</span></div>
+        <div class="item"><span class="pill r-disp plain">Dispatcher</span><div><div class="title">Owns the board</div><div class="sub">Dispatch, Follow-ups, New WO, Customers, Tech status, Timesheets, Work orders, Quoting, Inventory, Messages, Agreements. No Purchasing, Billing, New customer or Users.</div></div><span class="num small faint">1</span></div>
+        <div class="item"><span class="pill r-cs plain">Customer service</span><div><div class="title">Answers the phone</div><div class="sub">New WO with caller ID, Customers, New customer, Messages. Books agreement visits from the queue; edits customers only with the checkbox.</div></div><span class="num small faint">1</span></div>
+        <div class="item"><span class="pill r-bill plain">Billing</span><div><div class="title">Closes the money</div><div class="sub">Billing, Work orders (closed only), Reports for AR and job costing, the QuickBooks sync queue and payment links. Credits only with the checkbox.</div></div><span class="num small faint">1</span></div>
+        <div class="item"><span class="pill r-tech plain">Tech</span><div><div class="title">Phone app only</div><div class="sub">Today, work orders, timesheet, lookup, my vehicle. Quotes, POs and inventory use from the job when granted. No office pages; uses a tech seat.</div></div><span class="num small faint">8</span></div>
+      </div>
+    </div>
+
+    <div class="stack loose">
+      <div class="group">
+        <h3>Seats</h3>
+        <div class="small muted">Office seats are unlimited for every role but Tech. Tech seats: <b class="num">8 of 8</b> in use; Carlos Vega's seat was freed in August and taken by Naomi Brooks.</div>
+        <div class="meter amber"><i style="width: 100%"></i></div>
+        <div class="row wrap"><span class="small faint">Adding a ninth tech asks for a seat first.</span><span class="grow"></span><button class="btn sm ghost" type="button" data-toast="Seat request sent: 1 tech seat · billed on the next invoice">Add a tech seat</button></div>
+      </div>
+      <hr class="divider">
+      <div class="group">
+        <h3>Permissions</h3>
+        <div class="small muted">"Can edit customers and sites" and "Can edit invoices and issue credits" are set per office person here and in Settings · People permissions. Admin always has both.</div>
+        <button class="btn sm ghost" type="button" data-go="settings" style="align-self: flex-start;">Open People permissions</button>
+      </div>
+      <hr class="divider">
+      <div class="group">
+        <span class="eyebrow">Recent changes</span>
+        <div class="timeline">
+          <div class="tl moss"><div class="when">Oct 12 · 9:15 AM</div><div class="what">Naomi Brooks moved to the Irvine team</div><div class="who">Admin</div></div>
+          <div class="tl steel"><div class="when">Oct 6 · 4:02 PM</div><div class="what">Billing granted "invoices and credits"</div><div class="who">Admin</div></div>
+          <div class="tl"><div class="when">Aug 30 · 5:10 PM</div><div class="what">Carlos Vega deactivated · tech seat freed</div><div class="who">Admin</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="notes">
+  <ul>
+    <li><span class="f">kept</span>The people table (name, role, home team) and the Add person form with Name, Role and Home team, now in a sheet behind the one copper button. The two per-person permission checkboxes, "Can edit customers and sites" and "Can edit invoices and issue credits", moved here from the Company page and still live in Settings · People permissions.</li>
+    <li><span class="f">new</span>Columns for phone, last active (live for people signed in now) and a plain-text permissions summary; a roles list (callout 3) spells out what each role sees, including the new pages; the summary line states the seat rule: office seats unlimited, 8 tech seats in use (callout 2).</li>
+    <li><span class="f">new</span>Edit and deactivate per person (the old page had neither, callout 1), a reset of the phone login, and a 608 certification field on techs that the refrigerant log reads [F7].</li>
+    <li><span class="f">changed</span>Per the direction update: one toolbar (search, All / Office / Tech, Filters, Add person), one summary line, one pill per row, roles as a quiet list instead of six cards, and the side column uses dividers rather than cards. Roles use their own color family without the state dot so they never read as a job state.</li>
+  </ul>
+</aside>
+
+<template data-overlay>
+<div class="sheet" id="sheet-users-filters" role="dialog" aria-label="People filters">
+  <div class="sheet-head"><h2>Filters</h2><button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button></div>
+  <div class="sheet-body stack loose">
+    <div class="field"><label>Home team</label><select class="select"><option>Both teams</option><option>Costa Mesa</option><option>Irvine</option></select></div>
+    <div class="chip-group"><span class="eyebrow">Role</span><div class="chips"><button class="chip" type="button" data-chip>Admin</button><button class="chip" type="button" data-chip>Supervisor</button><button class="chip" type="button" data-chip>Dispatcher</button><button class="chip" type="button" data-chip>Customer service</button><button class="chip" type="button" data-chip>Billing</button><button class="chip" type="button" data-chip>Tech</button></div></div>
+    <div class="chip-group"><span class="eyebrow">Status</span><div class="chips"><button class="chip on" type="button" data-chip>Active</button><button class="chip" type="button" data-chip>Inactive <span class="count">1</span></button><button class="chip" type="button" data-chip>Signed in now <span class="count">9</span></button></div></div>
+    <div class="chip-group"><span class="eyebrow">Rights</span><div class="chips"><button class="chip" type="button" data-chip>Can edit customers and sites</button><button class="chip" type="button" data-chip>Can edit invoices and issue credits</button></div></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close data-toast="Filters cleared">Clear</button>
+    <button class="btn primary" type="button" data-close data-toast="Filters applied">Apply</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-users-edit" role="dialog" aria-label="Edit Andre Walsh">
+  <div class="sheet-head">
+    <div class="row gap-2"><span class="avatar amber">AW</span><div><h2>Andre Walsh</h2><div class="small muted">Tech · Costa Mesa · Van 9</div></div></div>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="field-grid">
+      <div class="field"><label>Name</label><input class="input" value="Andre Walsh" aria-label="Name"></div>
+      <div class="field"><label>Role</label><select class="select"><option>Tech</option><option>Dispatcher</option><option>Supervisor</option></select></div>
+      <div class="field"><label>Home team</label><select class="select"><option>Costa Mesa</option><option>Irvine</option></select></div>
+      <div class="field"><label>Phone</label><input class="input num" value="714-555-0123" aria-label="Phone"></div>
+      <div class="field"><label>Vehicle</label><select class="select"><option>Van 9</option><option>Van 2 (inactive)</option><option>None</option></select></div>
+      <div class="field"><label>EPA 608 certification</label><input class="input num" value="Type II · 0821-4473" aria-label="EPA 608 certification"></div>
+    </div>
+    <div>
+      <span class="eyebrow">Permissions</span>
+      <div class="stack tight mt-1">
+        <label class="check" data-check><i></i><span>Can edit customers and sites</span></label>
+        <label class="check" data-check><i></i><span>Can edit invoices and issue credits</span></label>
+        <label class="check on" data-check><i></i><span>Can create quotes from the job</span></label>
+        <label class="check on" data-check><i></i><span>Can issue purchase orders from the job</span></label>
+        <label class="check on" data-check><i></i><span>Can use truck stock and request transfers</span></label>
+      </div>
+    </div>
+    <div class="row wrap">
+      <button class="btn sm ghost" type="button" data-toast="New phone login code texted to Andre">Reset phone login</button>
+      <button class="btn sm ghost" type="button" data-toast="Andre marked off for Fri Oct 16">Mark off day</button>
+      <span class="grow"></span>
+      <button class="btn sm danger" type="button" data-toast="Andre Walsh deactivated · tech seat freed · open visits stay on the board">Deactivate</button>
+    </div>
+    <p class="small faint">Last active now · on site at Bristol Court Offices (1050). Signed in on the phone app, synced 2 min ago.</p>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn primary" type="button" data-close data-toast="Andre Walsh saved">Save</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-users-add" role="dialog" aria-label="Add person">
+  <div class="sheet-head">
+    <h2>Add person</h2>
+    <button class="btn icon sm ghost" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body stack loose">
+    <div class="field-grid">
+      <div class="field span-2"><label>Name</label><input class="input" placeholder="Full name" aria-label="Name"></div>
+      <div class="field"><label>Role</label><select class="select"><option>Tech</option><option>Dispatcher</option><option>Customer service</option><option>Billing</option><option>Supervisor</option><option>Admin</option></select></div>
+      <div class="field"><label>Home team</label><select class="select"><option>Costa Mesa</option><option>Irvine</option></select></div>
+      <div class="field"><label>Phone</label><input class="input num" placeholder="714-555-0000" aria-label="Phone"></div>
+      <div class="field"><label>Email (office login)</label><input class="input" placeholder="name@harborcoastmech.example" aria-label="Email"></div>
+    </div>
+    <div>
+      <span class="eyebrow">Permissions</span>
+      <div class="stack tight mt-1">
+        <label class="check" data-check><i></i><span>Can edit customers and sites</span></label>
+        <label class="check" data-check><i></i><span>Can edit invoices and issue credits</span></label>
+      </div>
+    </div>
+    <div class="notice"><span><b>Tech seats are full (8 of 8).</b> Adding a tech asks for a seat first; office roles need no seat. Techs get the phone app and a 608 certification field.</span></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" type="button" data-close>Cancel</button>
+    <button class="btn primary" type="button" data-close data-toast="Person added · invite texted">Add person</button>
+  </div>
+</div>
+</template>
+</section>
