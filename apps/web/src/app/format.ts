@@ -2,6 +2,11 @@ import { minuteLabel, money } from "@fieldline/shared";
 
 export { minuteLabel, money };
 
+/** An absolute path inside this deployment (GitHub Pages serves the demo under /<repo>/). */
+export function siteUrl(path: string): string {
+  return `${import.meta.env.BASE_URL.replace(/\/$/, "")}${path}`;
+}
+
 export function moneyK(value: number): string {
   if (Math.abs(value) >= 1000) return `$${(value / 1000).toFixed(1)}k`;
   return money(value);

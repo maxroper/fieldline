@@ -2,10 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { api } from "../../app/api";
-import { dayLabel, elapsed, hoursText, minuteLabel, money, stampLabel, statusLabel, timeLabel, woNumber, woTone } from "../../app/format";
+import { dayLabel, elapsed, hoursText, minuteLabel, money, siteUrl, stampLabel, statusLabel, timeLabel, woNumber, woTone } from "../../app/format";
 import { useAction, useSettings, workOrderQuery, type WorkOrderDetail } from "../../app/queries";
 import { BackBar, Button, Card, Check, Empty, ErrorBox, Facts, Field, Input, Loading, Pill, Select, Sheet, StatusTrack, Tabs, Textarea } from "../../design/components";
 import { BillPreview } from "../../features/billing/BillPreview";
+import { FilePhoto } from "../../features/files/FilePhoto";
 
 export const Route = createFileRoute("/_office/work-orders/$id")({ component: WorkOrderPage });
 
@@ -321,7 +322,7 @@ function PhotosTab({ d }: { d: WorkOrderDetail }) {
         <div className="section-head"><h3>Photos</h3><label className="btn sm"><input type="file" accept="image/*" className="sr-only" onChange={(e) => e.target.files?.[0] && upload.mutate(e.target.files[0])} />Add photo</label></div>
         {photos.length === 0 ? <p className="small muted">No photos yet.</p> : (
           <div className="photo-grid" style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}>
-            {photos.map((f) => <a key={f.id} className="photo" href={api.fileUrl(f.id)} target="_blank" rel="noreferrer" style={{ backgroundImage: `url(${api.fileUrl(f.id)})`, backgroundSize: "cover" }}>{f.caption ? <span className="cap">{f.caption}</span> : null}</a>)}
+            {photos.map((f) => <FilePhoto key={f.id} id={f.id} caption={f.caption} />)}
           </div>
         )}
       </section>
@@ -408,7 +409,7 @@ function SideColumn({ d }: { d: WorkOrderDetail }) {
         <span className="eyebrow">Timeline</span>
         <div className="timeline">{events.map((e, i) => <div key={i} className={`tl ${e.tone}`}><div className="when">{stampLabel(e.at)}</div><div className="what">{e.what}</div><div className="who">{e.who}</div></div>)}</div>
       </div>
-      {wo.trackingToken ? <div className="small muted">Customer tracking link: <a href={`/t/${wo.trackingToken}`} target="_blank" rel="noreferrer">/t/{wo.trackingToken}</a></div> : null}
+      {wo.trackingToken ? <div className="small muted">Customer tracking link: <a href={siteUrl(`/t/${wo.trackingToken}`)} target="_blank" rel="noreferrer">/t/{wo.trackingToken}</a></div> : null}
     </aside>
   );
 }

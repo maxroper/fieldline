@@ -16,7 +16,7 @@ export function useTechWho(): string {
  */
 export function PhoneShell() {
   const me = useMe();
-  useRealtime(Boolean(me.data?.session));
+  useRealtime(Boolean(me.data?.session), me.data?.session?.orgId);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [online, setOnline] = useState(typeof navigator === "undefined" ? true : navigator.onLine);
   useEffect(() => {

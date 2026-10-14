@@ -7,6 +7,7 @@ import { dayLabel, money, stampLabel, statusLabel, woNumber } from "../../app/fo
 import { useAction, workOrdersQuery } from "../../app/queries";
 import type { PoLineRow, PurchaseOrderRow, WarehouseRow } from "../../app/types";
 import { Button, Check, Chip, Empty, Facts, Field, Input, Loading, Notice, Pill, Select, Sheet, SummaryLine } from "../../design/components";
+import { FileLink } from "../../features/files/FilePhoto";
 
 type PoListRow = PurchaseOrderRow & { workOrderNumber: number | null; workOrderTrip: number | null; workOrderTitle: string | null; siteName: string | null; warehouseName: string | null; lines: PoLineRow[]; cost: number; received: number };
 
@@ -124,7 +125,7 @@ function PoSheet({ id, onClose }: { id: string | undefined; onClose: () => void 
           </section>
           <section className="section">
             <div className="section-head"><h3>Documents</h3><label className="btn sm"><input type="file" className="sr-only" onChange={(e) => e.target.files?.[0] && upload.mutate(e.target.files[0])} />Attach pack list or invoice</label></div>
-            {d.files.length === 0 ? <p className="small muted">Nothing attached.</p> : <div className="stack tight small">{d.files.map((f) => <a key={f.id} href={api.fileUrl(f.id)} target="_blank" rel="noreferrer">{statusLabel(f.kind)} · {stampLabel(f.createdAt)}{f.caption ? ` · ${f.caption}` : ""}</a>)}</div>}
+            {d.files.length === 0 ? <p className="small muted">Nothing attached.</p> : <div className="stack tight small">{d.files.map((f) => <FileLink key={f.id} id={f.id}>{statusLabel(f.kind)} · {stampLabel(f.createdAt)}{f.caption ? ` · ${f.caption}` : ""}</FileLink>)}</div>}
           </section>
         </div>
       )}

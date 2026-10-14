@@ -9,6 +9,7 @@ import { useTechWho } from "../../app/shell/PhoneShell";
 import type { InventoryItemRow, StockRow } from "../../app/types";
 import { Button, Check, Field, Input, Loading, Notice, Pill, Select, Sheet, StatusTrack, Textarea } from "../../design/components";
 import { Icon } from "../../design/icons";
+import { FilePhoto } from "../../features/files/FilePhoto";
 
 export const Route = createFileRoute("/tech/work-orders/$id")({ component: TechJob });
 
@@ -103,7 +104,7 @@ function TechJob() {
       <div className="ph-section">
         <div className="row between"><span className="eyebrow">Photos</span><label className="btn sm"><input type="file" accept="image/*" capture="environment" className="sr-only" onChange={(e) => e.target.files?.[0] && upload.mutate(e.target.files[0])} /><Icon name="camera" /> Add</label></div>
         <div className="photo-grid">
-          {photos.map((f) => <a key={f.id} className="photo" href={api.fileUrl(f.id)} target="_blank" rel="noreferrer" style={{ backgroundImage: `url(${api.fileUrl(f.id)})`, backgroundSize: "cover" }}>{f.caption ? <span className="cap">{f.caption}</span> : null}</a>)}
+          {photos.map((f) => <FilePhoto key={f.id} id={f.id} caption={f.caption} />)}
           <label className="photo add"><input type="file" accept="image/*" capture="environment" className="sr-only" onChange={(e) => e.target.files?.[0] && upload.mutate(e.target.files[0])} />Before / after</label>
         </div>
       </div>

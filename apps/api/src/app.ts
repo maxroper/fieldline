@@ -29,7 +29,7 @@ export type AppEnv = { Variables: Vars };
 /** Build the app around a database connection, so tests can pass an in-memory one. */
 export function createApp(conn: Connection) {
   const app = new Hono<AppEnv>();
-  if (!env.production) app.use(logger());
+  if (!env.production && !env.demo) app.use(logger());
   app.use("/api/*", cors({ origin: env.corsOrigins, credentials: true }));
 
   app.get("/api/health", (c) => c.json({ ok: true, database: conn.kind, time: new Date().toISOString() }));

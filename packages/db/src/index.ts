@@ -1,4 +1,3 @@
-export * from "./client";
+export * from "./core";
 export * as schema from "./schema";
-export { RLS_SQL, RLS_STATEMENTS } from "./rls";
-export { applyRls } from "./scripts/migrate";
+export { RLS_SQL, RLS_STATEMENTS, applyRls } from "./rls";

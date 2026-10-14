@@ -1,32 +1,36 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
-import { env } from "./env";
-
 /**
- * File storage behind one small interface. The local adapter writes under FILES_DIR.
- * An S3-compatible adapter (Supabase Storage, R2, S3) implements the same two functions.
+ * File storage behind one small interface. The Node entry installs the disk adapter from
+ * `storage-node.ts`; the browser demo keeps files in memory. An S3-compatible adapter (Supabase
+ * Storage, R2, S3) implements the same two functions and is installed the same way.
  */
 export interface Storage {
   put(key: string, bytes: Uint8Array): Promise<void>;
   get(key: string): Promise<Uint8Array | null>;
 }
 
-export const localStorage: Storage = {
-  async put(key, bytes) {
-    const path = join(env.filesDir, key);
-    await mkdir(dirname(path), { recursive: true });
-    await writeFile(path, bytes);
-  },
-  async get(key) {
-    try {
-      return await readFile(join(env.filesDir, key));
-    } catch {
-      return null;
-    }
-  },
-};
+export function memoryStorage(): Storage {
+  const files = new Map<string, Uint8Array>();
+  return {
+    async put(key, bytes) {
+      files.set(key, bytes);
+    },
+    async get(key) {
+      return files.get(key) ?? null;
+    },
+  };
+}
 
-export const storage: Storage = localStorage;
+let current: Storage = memoryStorage();
+
+/** Install the adapter for this process. Called once by the entry point before the app serves. */
+export function setStorage(next: Storage): void {
+  current = next;
+}
+
+export const storage: Storage = {
+  put: (key, bytes) => current.put(key, bytes),
+  get: (key) => current.get(key),
+};
 
 export function storageKey(orgId: string, fileId: string, mime: string): string {
   const ext = mime === "image/jpeg" ? "jpg" : mime === "image/png" ? "png" : mime === "application/pdf" ? "pdf" : "bin";
@@ -37,5 +41,8 @@ export function storageKey(orgId: string, fileId: string, mime: string): string 
 export function decodeDataUrl(dataUrl: string): { mime: string; bytes: Uint8Array } | null {
   const match = /^data:([^;,]+);base64,(.+)$/.exec(dataUrl);
   if (!match) return null;
-  return { mime: match[1]!, bytes: Buffer.from(match[2]!, "base64") };
+  const binary = atob(match[2]!);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return { mime: match[1]!, bytes };
 }

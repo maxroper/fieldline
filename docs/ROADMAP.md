@@ -9,6 +9,7 @@ Where the product is and what comes next, in the order that unblocks the most. D
 - The tech phone: today, the job (status taps with GPS, photos, checklists, parts from the van, refrigerant log, notes, draft a quote), closeout with signature, timesheet with California checks, lookup, van.
 - Customer pages: tracking link and the portal (approve proposals, pay invoices, visit reports, equipment, request service).
 - Demo providers for texting and payments; integrations reported honestly in Settings.
+- The static demo on GitHub Pages: the whole stack inside the browser, rebuilt on every push by `.github/workflows/pages.yml`.
 
 ## Phase 1: production readiness
 

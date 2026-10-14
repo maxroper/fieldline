@@ -9,9 +9,13 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "build:demo": "VITE_DEMO=1 vite build && node scripts/finish-demo.mjs",
+    "preview:demo": "VITE_BASE=/fieldline/ vite preview --port 4173 --strictPort"
   },
   "dependencies": {
+    "@fieldline/api": "*",
+    "@fieldline/db": "*",
     "@fieldline/shared": "*",
     "@tanstack/react-query": "^5.90.0",
     "@tanstack/react-router": "^1.132.0",

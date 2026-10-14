@@ -6,16 +6,20 @@
   "description": "Drizzle schema, migrations, row-level security, database client (PGlite locally, Postgres hosted) and the demo seed.",
   "exports": {
     ".": "./src/index.ts",
+    "./node": "./src/client.ts",
+    "./browser": "./src/browser.ts",
+    "./seed": "./src/scripts/seed.ts",
     "./schema": "./src/schema/index.ts"
   },
   "types": "./src/index.ts",
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "generate": "drizzle-kit generate",
+    "generate": "drizzle-kit generate && node scripts/bundle-migrations.mjs",
     "migrate": "tsx src/scripts/migrate.ts",
-    "seed": "tsx src/scripts/seed.ts",
+    "seed": "tsx src/scripts/seed-cli.ts",
     "reset": "tsx src/scripts/reset.ts",
-    "studio": "drizzle-kit studio"
+    "studio": "drizzle-kit studio",
+    "bundle": "node scripts/bundle-migrations.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.9",

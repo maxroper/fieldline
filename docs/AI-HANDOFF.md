@@ -27,7 +27,9 @@ packages/shared/src
   ids.ts        UUID v7 and short tokens
 packages/db/src
   schema/       one file per area; _shared.ts has the column helpers
-  client.ts     connect(), withOrg(), withBypass(), nextNumber()
+  core.ts       withOrg(), withBypass(), nextNumber(), the Connection type
+  client.ts     connect() on Node (PGlite file or pg); browser.ts for the in-page demo
+  migrations.generated.ts  the SQL migrations bundled for the browser (generated)
   rls.ts        row-level security statements
   scripts/      migrate.ts (schema + RLS), seed.ts, reset.ts
   drizzle/      generated migrations (never hand edit)
@@ -37,11 +39,13 @@ apps/api/src
   db.ts         scoped(conn): run a handler inside withOrg
   http.ts       parse(), notFound(), conflict(), forbidden()
   realtime.ts   SSE hub; publish(orgId, type, id) after writes
-  storage.ts    file storage adapter (local disk now)
+  storage.ts    file storage interface, memory adapter; storage-node.ts is the disk adapter
+  demo.ts       the API inside a browser, for the static demo
   routes/       one file per area; work-orders.ts is the center
 apps/web/src
   main.tsx      QueryClient + router
-  app/api.ts    the fetch wrapper (same-origin /api)
+  app/api.ts    the fetch wrapper (same-origin /api) over app/transport.ts
+  app/demo.ts   static demo: in-page app, bearer session; demo-state.ts, files.ts
   app/queries.ts  queryOptions and useAction()
   app/types.ts  the API row shapes the screens read
   app/format.ts money, dates, labels, tones
@@ -77,6 +81,9 @@ apps/web/src
 ## Gotchas
 
 - PGlite accepts one SQL command per prepared statement. Run DDL in pieces (see `rls.ts`).
+- The API must stay runtime-agnostic because the static demo runs it inside the browser: no `node:` imports in `app.ts` or the routes (only `index.ts`, `storage-node.ts` and `packages/db/src/client.ts` may use them), settings through `env.ts`, sessions signed with Web Crypto. After `npm run db:generate`, commit `packages/db/src/migrations.generated.ts`.
+- In the browser, `Set-Cookie` and `Cookie` headers on page-built responses and requests are silently dropped. The demo uses the bearer token the dev-login route returns when `FIELDLINE_DEMO=1`.
+- Layout routes read the session with `ensureQueryData`, which trusts cached data. After sign-in, remove the cached `me` query and fetch it again (see `routes/login.tsx`) or the redirect bounces back to the login page.
 - One process can hold the PGlite directory. Stop `npm run dev` before `db:reset` or `db:seed` from a shell.
 - `noUncheckedIndexedAccess` is on. Index results are `T | undefined`; use `?? ` or `!` deliberately.
 - Work order status flows: `status` is open → closed → billed (office). `techStatus` is en_route → on_site → paused → done (tech). The bill reads time entries, not statuses.

@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import type { AppEnv } from "../app";
-import { clearSessionCookie, readSession, setSessionCookie } from "../auth";
+import { clearSessionCookie, encodeSession, readSession, setSessionCookie } from "../auth";
 import { env } from "../env";
 import { jsonBody, parse } from "../http";
 
@@ -34,9 +34,10 @@ export function authRoutes(conn: Connection) {
     const [user] = await withBypass(conn.db, (tx) => tx.select().from(schema.users).where(eq(schema.users.id, body.userId)).limit(1));
     if (!user || !user.active) throw new HTTPException(401, { message: "Unknown user" });
     const session = { userId: user.id, orgId: user.orgId, role: user.role, name: user.name };
-    setSessionCookie(c, session);
+    await setSessionCookie(c, session);
     await withBypass(conn.db, (tx) => tx.update(schema.users).set({ lastActiveAt: new Date().toISOString() }).where(eq(schema.users.id, user.id)));
-    return c.json({ session });
+    // The in-browser demo cannot carry cookies, so it gets the same session as a bearer token.
+    return c.json({ session, token: env.demo ? await encodeSession(session) : undefined });
   });
 
   r.post("/logout", (c) => {
@@ -45,7 +46,7 @@ export function authRoutes(conn: Connection) {
   });
 
   r.get("/me", async (c) => {
-    const session = readSession(c);
+    const session = await readSession(c);
     if (!session) return c.json({ session: null });
     const [user] = await withBypass(conn.db, (tx) => tx.select().from(schema.users).where(eq(schema.users.id, session.userId)).limit(1));
     const [org] = await withBypass(conn.db, (tx) => tx.select({ id: schema.orgs.id, name: schema.orgs.name, city: schema.orgs.city, timezone: schema.orgs.timezone }).from(schema.orgs).where(eq(schema.orgs.id, session.orgId)).limit(1));

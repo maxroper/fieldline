@@ -20,7 +20,8 @@
     "db:migrate": "npm run migrate -w packages/db",
     "db:seed": "npm run seed -w packages/db",
     "db:reset": "npm run reset -w packages/db",
-    "setup": "npm install && npm run db:migrate && npm run db:seed"
+    "setup": "npm install && npm run db:migrate && npm run db:seed",
+    "build:demo": "npm run build:demo -w apps/web"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

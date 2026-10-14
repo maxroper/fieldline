@@ -2,6 +2,7 @@ import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 import { api } from "../api";
+import { siteUrl } from "../format";
 import { useUi } from "../store";
 import { useMe } from "../session";
 import { useRealtime } from "../realtime";
@@ -25,7 +26,7 @@ export function OfficeShell({ title, children }: { title?: string; children?: Re
   const ui = useUi();
   const [createOpen, setCreateOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
-  useRealtime(Boolean(me.data?.session));
+  useRealtime(Boolean(me.data?.session), me.data?.session?.orgId);
   const followUps = useQuery({ queryKey: ["follow-ups"], queryFn: () => api.get<{ counts: { overdue: number } }>("/follow-ups"), staleTime: 30_000 });
   const overdue = followUps.data?.counts.overdue ?? 0;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -135,7 +136,7 @@ export function OfficeShell({ title, children }: { title?: string; children?: Re
             tone="ghost"
             onClick={async () => {
               await api.post("/auth/logout");
-              window.location.href = "/login";
+              window.location.href = siteUrl("/login");
             }}
           >
             Sign out

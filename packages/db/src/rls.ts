@@ -1,3 +1,6 @@
+import { sql } from "drizzle-orm";
+import type { Db } from "./core";
+
 /**
  * Row-level security. Applied by `migrate.ts` after the schema migrations, and safe to re-run.
  *
@@ -43,3 +46,8 @@ end $$`,
 
 /** The same policies as one script, for reading or for psql. */
 export const RLS_SQL = RLS_STATEMENTS.map((s) => `${s};`).join("\n\n");
+
+/** Apply the policies. Idempotent; one statement per round trip because PGlite rejects multi-command prepared statements. */
+export async function applyRls(db: Db): Promise<void> {
+  for (const statement of RLS_STATEMENTS) await db.execute(sql.raw(statement));
+}

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { api } from "../../app/api";
-import { dayLabel, minuteLabel, money, stampLabel, statusLabel, woNumber, woTone } from "../../app/format";
+import { dayLabel, minuteLabel, money, siteUrl, stampLabel, statusLabel, woNumber, woTone } from "../../app/format";
 import { useAction, useSettings } from "../../app/queries";
 import type { AgreementRow, AgreementVisitRow, CustomerRow, FieldChange, InvoiceRow, PaymentRow, SiteRow, WorkOrderRow } from "../../app/types";
 import { BackBar, Button, Card, Empty, ErrorBox, Facts, Field, Input, Kpi, LinkButton, Loading, Pill, Select, Sheet, Switch, SummaryLine, Tabs, Textarea } from "../../design/components";
@@ -47,7 +47,7 @@ function CustomerPage() {
               {c.contract ? <Pill tone="sched">Contract pricing</Pill> : <Pill tone="open" plain>Standard pricing</Pill>}
               {c.taxExempt ? <Pill tone="open" plain>Tax exempt{c.taxExemptNumber ? ` · ${c.taxExemptNumber}` : ""}</Pill> : null}
               {c.cardOnFile ? <Pill tone="site" plain>{c.cardOnFile.brand} ····{c.cardOnFile.last4}</Pill> : null}
-              {c.portalEnabled && c.portalToken ? <a className="pill plain copper" href={`/portal/${c.portalToken}`} target="_blank" rel="noreferrer">Customer portal</a> : null}
+              {c.portalEnabled && c.portalToken ? <a className="pill plain copper" href={siteUrl(`/portal/${c.portalToken}`)} target="_blank" rel="noreferrer">Customer portal</a> : null}
             </div>
             <div className="small muted">{[c.billingAddress, c.phone, c.email].filter(Boolean).join(" · ")}</div>
           </div>

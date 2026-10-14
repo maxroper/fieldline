@@ -62,6 +62,10 @@ Every write endpoint validates with a schema that lives next to the types. The w
 
 Meal and rest requirements, overtime thresholds and the use tax treatment sit in `packages/shared/src/time.ts` and `money.ts` with named constants. Another state means another set of constants, not a fork of the logic.
 
+## 17. The public demo runs the API inside the browser
+
+GitHub Pages can only serve files, and there was no hosting account to run a server. Rather than publish screenshots, the demo build loads the real Hono app and a PGlite Postgres inside the page and swaps the fetch transport for a direct call. Every visitor gets a private, persistent copy of the seed company; nothing is faked. The constraint it imposes is healthy anyway: the API stays runtime-agnostic, and the browser rules about cookie headers pushed sessions to also accept a bearer token, which a native app will want later.
+
 ## 16. Demo providers instead of mocks
 
 Without Twilio keys, texts are recorded as delivered; without Stripe, a portal payment is recorded as paid. The product flow can be exercised end to end on a laptop, and Settings is honest about what is connected.

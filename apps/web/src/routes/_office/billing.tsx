@@ -4,7 +4,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { api, qs } from "../../app/api";
-import { dayLabel, money, stampLabel, statusLabel, woNumber } from "../../app/format";
+import { dayLabel, money, siteUrl, stampLabel, statusLabel, woNumber } from "../../app/format";
 import { useAction } from "../../app/queries";
 import type { InvoiceRow, PaymentRow, WorkOrderRow } from "../../app/types";
 import { Button, Check, Chip, Empty, Facts, Field, Input, Kpi, Loading, Notice, Pill, Seg, Select, Sheet, SummaryLine } from "../../design/components";
@@ -227,7 +227,7 @@ function InvoiceSheet({ id, onClose }: { id: string | undefined; onClose: () => 
             <Pill tone={invoiceTone(inv.status)}>{statusLabel(inv.status)}</Pill>
             {d.workOrder ? <Link to="/work-orders/$id" params={{ id: d.workOrder.id }} className="pill plain open nav-link">WO {woNumber(d.workOrder)} · {d.workOrder.title}</Link> : null}
             {d.customer ? <Link to="/customers/$id" params={{ id: d.customer.id }} className="pill plain open nav-link">{d.customer.name}</Link> : null}
-            {d.customer?.portalEnabled && d.customer.portalToken ? <a className="pill plain copper" href={`/portal/${d.customer.portalToken}`} target="_blank" rel="noreferrer">Customer portal, pay online</a> : null}
+            {d.customer?.portalEnabled && d.customer.portalToken ? <a className="pill plain copper" href={siteUrl(`/portal/${d.customer.portalToken}`)} target="_blank" rel="noreferrer">Customer portal, pay online</a> : null}
           </div>
           <Facts tight rows={[["Billed", stampLabel(inv.billedAt)], ["Due", inv.dueDate ? dayLabel(inv.dueDate) : "—"], ["Amount", money(inv.amount)], ["Paid", money(d.paid)], ["Credited", money(d.credited)], ["Balance", <b key="b">{money(d.balance)}</b>]]} />
           <table className="table dense">

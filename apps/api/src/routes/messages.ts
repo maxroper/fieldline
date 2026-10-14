@@ -15,13 +15,11 @@ import { publish } from "../realtime";
  */
 async function sendSms(to: string, body: string): Promise<{ status: "sent" | "delivered" | "failed"; providerId: string | null; error: string }> {
   if (!env.integrations.twilio) return { status: "delivered", providerId: `demo-${Date.now()}`, error: "" };
-  const sid = process.env.TWILIO_ACCOUNT_SID!;
-  const token = process.env.TWILIO_AUTH_TOKEN!;
-  const from = process.env.TWILIO_FROM_NUMBER!;
+  const { sid, token, from } = env.twilio;
   try {
     const res = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${sid}/Messages.json`, {
       method: "POST",
-      headers: { Authorization: `Basic ${Buffer.from(`${sid}:${token}`).toString("base64")}`, "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { Authorization: `Basic ${btoa(`${sid}:${token}`)}`, "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ To: to, From: from, Body: body }),
     });
     const json = (await res.json()) as { sid?: string; message?: string };
@@ -72,7 +70,7 @@ export async function queueAutomation(tx: Tx, orgId: string, key: AutomationKey 
     return;
   }
   const result = await sendSms(to, body);
-  await tx.insert(s.messages).values({ orgId, customerId: ctx.customerId, workOrderId: ctx.workOrderId, channel: "sms", direction: "out", fromAddress: process.env.TWILIO_FROM_NUMBER ?? org?.phone ?? "", toAddress: to, body, automated: true, template, status: result.status, providerId: result.providerId, error: result.error });
+  await tx.insert(s.messages).values({ orgId, customerId: ctx.customerId, workOrderId: ctx.workOrderId, channel: "sms", direction: "out", fromAddress: env.twilio.from || org?.phone || "", toAddress: to, body, automated: true, template, status: result.status, providerId: result.providerId, error: result.error });
   if (automation) await tx.update(s.automations).set({ sentCount: sql`${s.automations.sentCount} + 1`, lastRunAt: nowIso() }).where(eq(s.automations.id, automation.id));
   if (result.status === "failed") {
     await tx.insert(s.followUpItems).values({ orgId, kind: "eta_text_failed", status: "open", title: `Text failed · ${customer?.name ?? siteName}${wo ? ` (${wo.number})` : ""}`, detail: result.error || "The carrier rejected the message.", dueOn: nowIso().slice(0, 10), customerId: ctx.customerId, workOrderId: ctx.workOrderId });
@@ -143,7 +141,7 @@ export function messagesRoutes(conn: Connection) {
       const to = body.channel === "sms" ? normalizePhone(body.to) : body.to;
       if (!to) notFound("That is not a mobile number");
       const result = body.channel === "sms" ? await sendSms(to, body.body) : { status: "sent" as const, providerId: null, error: "" };
-      const [row] = await tx.insert(s.messages).values({ orgId: session.orgId, customerId: body.customerId ?? null, workOrderId: body.workOrderId ?? null, channel: body.channel, direction: "out", fromAddress: process.env.TWILIO_FROM_NUMBER ?? "", toAddress: to, body: body.body, automated: false, template: body.template ?? "", status: result.status, providerId: result.providerId, error: result.error, sentBy: session.userId }).returning();
+      const [row] = await tx.insert(s.messages).values({ orgId: session.orgId, customerId: body.customerId ?? null, workOrderId: body.workOrderId ?? null, channel: body.channel, direction: "out", fromAddress: env.twilio.from, toAddress: to, body: body.body, automated: false, template: body.template ?? "", status: result.status, providerId: result.providerId, error: result.error, sentBy: session.userId }).returning();
       return row!;
     });
     publish(c.get("session").orgId, "message.sent", message.id);

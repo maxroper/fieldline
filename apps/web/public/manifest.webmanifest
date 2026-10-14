@@ -2,9 +2,16 @@
   "name": "Fieldline",
   "short_name": "Fieldline",
   "description": "HVAC service operations: dispatch, work orders, techs, quoting, billing.",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#f6f1e8",
   "theme_color": "#f6f1e8",
-  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }

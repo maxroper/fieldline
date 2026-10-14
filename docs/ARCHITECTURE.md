@@ -59,6 +59,17 @@ REST-ish JSON under `/api`. Reads return the shape the screen needs (joins done 
 
 **Phone.** The tech screens are the same React app at `/tech/*`, laid out for a 390px viewport, with a web manifest so it installs to a home screen. Status taps include the device position when the browser grants it. Offline queueing is a roadmap item; the shell already shows an online/offline pill.
 
+## The static demo
+
+`npm run build:demo` produces a build in which the whole stack runs inside the browser tab, so the product can be shown from GitHub Pages (or any static host) with no server:
+
+- `apps/api/src/demo.ts` builds the same Hono app the server runs, on a PGlite database stored in IndexedDB (`packages/db/src/browser.ts`), applies the bundled migrations (`packages/db/src/migrations.generated.ts`, written by `scripts/bundle-migrations.mjs` after `drizzle-kit generate`), row-level security and the seed, and installs the memory file adapter.
+- `apps/web/src/app/demo.ts` replaces the network transport (`app/transport.ts`) with a call to `app.fetch(request)`. Browsers drop `Set-Cookie` on responses built in the page and `Cookie` on requests built in the page, so the demo keeps the session as a bearer token in `sessionStorage`; the API accepts both forms.
+- Realtime uses the in-process event bus instead of server-sent events; file URLs are object URLs created from the in-page app (`app/files.ts`).
+- The condition `import.meta.env.VITE_DEMO === "1"` is fixed at build time, so the normal build never includes the API or PGlite.
+
+The API modules are therefore runtime-agnostic: no `node:` imports outside `apps/api/src/index.ts`, `storage-node.ts` and `packages/db/src/client.ts`; sessions sign with Web Crypto; settings come from `env.ts`, which reads the process environment on Node and a global on the page.
+
 ## Deployment shape (not yet done)
 
 One Node process serves the API; the web app is static files from `apps/web/dist` served by the same process or a CDN with `VITE_API_URL` pointing at the API. Postgres is hosted. Environment variables are listed in `.env.example`. A GitHub Actions workflow runs typecheck, tests and the build on every push.

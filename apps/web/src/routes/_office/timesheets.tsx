@@ -17,7 +17,6 @@ const search = z.object({ date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional
 
 export const Route = createFileRoute("/_office/timesheets")({ validateSearch: search, component: TimesheetsPage });
 
-const apiBase = (import.meta.env.VITE_API_URL as string | undefined) ?? "";
 
 /** HH:MM in the browser's zone for a time input. */
 function toTime(stamp: string | null | undefined): string {
@@ -60,7 +59,7 @@ function TimesheetsPage() {
         <span className="strong">{dayLabel(date, true)}</span>
         <Seg value={params.team ?? ""} options={[{ value: "", label: "All teams" }, ...teams.map((t) => ({ value: t.id, label: t.name }))]} onChange={(v) => setSearch({ team: v || undefined })} />
         <span className="grow" />
-        <a className="btn sm ghost nav-link" href={`${apiBase}/api/time/timesheets/export?from=${monthStart}&to=${date}`} target="_blank" rel="noreferrer">Export payroll CSV</a>
+        <Button size="sm" tone="ghost" onClick={() => void api.download(`/time/timesheets/export?from=${monthStart}&to=${date}`, `timesheets-${monthStart}-${date}.csv`)}>Export payroll CSV</Button>
       </div>
       <div className="page">
         {query.isLoading || !data ? <Loading label="Loading timesheets" /> : (

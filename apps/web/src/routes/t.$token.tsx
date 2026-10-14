@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { api } from "../app/api";
 import { dayLabel, relativeLabel, statusLabel } from "../app/format";
 import { Loading, Notice, StatusTrack } from "../design/components";
+import { FilePhoto } from "../features/files/FilePhoto";
 
 interface Tracking {
   company: { name: string; phone: string; timezone: string } | undefined;
@@ -38,7 +39,7 @@ function TrackPage() {
         {wo.techStatusAt && !done ? <div className="small muted">{statusLabel(wo.techStatus)} since {relativeLabel(wo.techStatusAt)}</div> : null}
       </div>
       {done && wo.workPerformed ? <div className="public-card"><span className="eyebrow">Work performed</span><p style={{ margin: 0 }}>{wo.workPerformed}</p></div> : null}
-      {done && d.photos.length ? <div className="public-card"><span className="eyebrow">Photos</span><div className="photo-grid">{d.photos.map((p) => <a key={p.id} className="photo" href={api.fileUrl(p.id)} target="_blank" rel="noreferrer" style={{ backgroundImage: `url(${api.fileUrl(p.id)})`, backgroundSize: "cover" }}>{p.caption ? <span className="cap">{p.caption}</span> : null}</a>)}</div></div> : null}
+      {done && d.photos.length ? <div className="public-card"><span className="eyebrow">Photos</span><div className="photo-grid">{d.photos.map((p) => <FilePhoto key={p.id} id={p.id} caption={p.caption} />)}</div></div> : null}
       <div className="small muted">Questions? Call {d.company?.phone ? <a href={`tel:${d.company.phone.replace(/[^\d+]/g, "")}`}>{d.company.phone}</a> : "the office"}.</div>
     </div>
   );

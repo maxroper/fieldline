@@ -6,6 +6,7 @@ import { dayLabel, minuteLabel, money, stampLabel, statusLabel, woNumber, woTone
 import { useAction } from "../../app/queries";
 import type { AgreementRow, CustomerRow, EquipmentRow, FieldChange, RefrigerantLogRow, SiteRow, WorkOrderRow } from "../../app/types";
 import { BackBar, Button, Card, Empty, ErrorBox, Field, Input, LinkButton, Loading, Pill, Select, Sheet, Tabs, Textarea } from "../../design/components";
+import { FileLink } from "../../features/files/FilePhoto";
 
 interface SiteDetail {
   site: SiteRow;
@@ -100,7 +101,7 @@ function EquipmentTab({ d }: { d: SiteDetail }) {
                     {underWarranty ? <Pill tone="warranty" plain>Parts warranty to {dayLabel(u.warrantyPartsUntil)}</Pill> : null}
                     {onAgreement ? <Pill tone="copper" plain>On agreement</Pill> : null}
                     {u.stage !== "active" ? <Pill tone="hold" plain>{statusLabel(u.stage)}</Pill> : null}
-                    {u.nameplateFileId ? <a className="pill plain open" href={api.fileUrl(u.nameplateFileId)} target="_blank" rel="noreferrer">Nameplate photo</a> : <label className="pill plain hold" style={{ cursor: "pointer" }}><input type="file" accept="image/*" className="sr-only" onChange={(e) => e.target.files?.[0] && upload.mutate({ unit: u, file: e.target.files[0] })} />Add nameplate photo</label>}
+                    {u.nameplateFileId ? <FileLink id={u.nameplateFileId} className="pill plain open">Nameplate photo</FileLink> : <label className="pill plain hold" style={{ cursor: "pointer" }}><input type="file" accept="image/*" className="sr-only" onChange={(e) => e.target.files?.[0] && upload.mutate({ unit: u, file: e.target.files[0] })} />Add nameplate photo</label>}
                   </div>
                 </div>
               </Card>

@@ -6,6 +6,7 @@ import { dayLabel, money, statusLabel } from "../app/format";
 import { useAction } from "../app/queries";
 import type { FrozenLine } from "../app/types";
 import { Button, Empty, Field, Input, Loading, Notice, Pill, Select, Tabs, Textarea } from "../design/components";
+import { FilePhoto } from "../features/files/FilePhoto";
 
 interface Portal {
   company: { name: string; phone: string } | undefined;
@@ -39,7 +40,7 @@ function PortalPage() {
       <Tabs value={tab} onChange={setTab} tabs={[{ value: "quotes", label: "Quotes", count: d.quotes.length || undefined }, { value: "invoices", label: "Invoices", count: owed ? money(owed) : undefined }, { value: "visits", label: "Visits" }, { value: "equipment", label: "Equipment" }, { value: "request", label: "Request service" }]} />
       {tab === "quotes" ? <QuotesTab d={d} /> : null}
       {tab === "invoices" ? <InvoicesTab d={d} /> : null}
-      {tab === "visits" ? (d.visits.length === 0 ? <Empty title="No visits yet" /> : d.visits.map((v) => <div key={v.id} className="public-card"><div className="row between wrap"><b>{v.title}</b><span className="small muted">{dayLabel(v.date)} · {v.siteName}{v.techName ? ` · ${v.techName.split(" ")[0]}` : ""}</span></div>{v.summary ? <p style={{ margin: 0 }}>{v.summary}</p> : null}{v.photos.length ? <div className="photo-grid">{v.photos.map((p) => <a key={p.id} className="photo" href={api.fileUrl(p.id)} target="_blank" rel="noreferrer" style={{ backgroundImage: `url(${api.fileUrl(p.id)})`, backgroundSize: "cover" }} />)}</div> : null}</div>)) : null}
+      {tab === "visits" ? (d.visits.length === 0 ? <Empty title="No visits yet" /> : d.visits.map((v) => <div key={v.id} className="public-card"><div className="row between wrap"><b>{v.title}</b><span className="small muted">{dayLabel(v.date)} · {v.siteName}{v.techName ? ` · ${v.techName.split(" ")[0]}` : ""}</span></div>{v.summary ? <p style={{ margin: 0 }}>{v.summary}</p> : null}{v.photos.length ? <div className="photo-grid">{v.photos.map((p) => <FilePhoto key={p.id} id={p.id} caption={p.caption} />)}</div> : null}</div>)) : null}
       {tab === "equipment" ? (
         <div className="public-card">
           {d.equipment.length === 0 ? <Empty title="No equipment on file" /> : d.equipment.map((u) => <div key={u.id} className="row between wrap small"><span><b>{u.tag}</b> · {u.make} {u.model}{u.installYear ? ` · ${u.installYear}` : ""} <span className="muted">· {d.sites.find((s) => s.id === u.siteId)?.name}</span></span>{u.warrantyPartsUntil && u.warrantyPartsUntil >= new Date().toISOString().slice(0, 10) ? <Pill tone="warranty" plain>Parts warranty to {dayLabel(u.warrantyPartsUntil)}</Pill> : null}</div>)}

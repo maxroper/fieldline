@@ -5,7 +5,7 @@
  */
 import { companyDay, newId, newToken, type CompanySettings } from "@fieldline/shared";
 import { sql } from "drizzle-orm";
-import { connect, withBypass, type Db, type Tx } from "../client";
+import { withBypass, type Db, type Tx } from "../core";
 import * as s from "../schema";
 
 const TZ = "America/Los_Angeles";
@@ -569,15 +569,5 @@ async function seedHarborCoast(tx: Tx) {
   ]);
 }
 
-const isMain = process.argv[1] && import.meta.url.endsWith(process.argv[1].split("/").pop() ?? "");
-if (isMain) {
-  try {
-    process.loadEnvFile?.(new URL("../../../../.env", import.meta.url).pathname);
-  } catch {
-    /* no .env */
-  }
-  const conn = await connect();
-  await conn.migrate();
-  await seed(conn.db);
-  await conn.close();
-}
+/** Alias used by the browser demo. */
+export const seedDemo = seed;

@@ -4,6 +4,12 @@ Service operations for a small HVAC company: the dispatch board, work orders, te
 
 If you are an AI assistant or a new engineer, start with [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md). It is the map.
 
+## See it online
+
+**https://maxroper.github.io/fieldline/** is the live demo. It is the real app: the API and an embedded Postgres run inside your browser tab, so there is no server and every visitor gets their own copy of the demo company. The first visit takes a few seconds while the database starts; after that it is instant. Pick a person on the sign-in page (James Reynolds is the dispatcher, Elena Cruz is a technician). Clearing the site's data in your browser resets the demo. The customer portal demo is at `/fieldline/portal/barranca`.
+
+The demo is rebuilt and published by GitHub Actions on every push to `main` (`.github/workflows/pages.yml`). Build it locally with `npm run build:demo` and serve `apps/web/dist`.
+
 ## Run it
 
 Requirements: Node 22.12 or newer (`.nvmrc` says 26). Nothing else. The database is an embedded Postgres (PGlite) stored in `./data/pglite`, so there is no Docker and nothing to install.
@@ -27,6 +33,7 @@ Other scripts:
 | `npm run typecheck` | TypeScript across every package and app |
 | `npm test` | Unit tests (the money and time rules in `packages/shared`) |
 | `npm run build` | Production build of the web app into `apps/web/dist` |
+| `npm run build:demo` | The static demo (API and database inside the browser) into `apps/web/dist` |
 | `npm run db:generate` | Write a new migration after changing `packages/db/src/schema` |
 | `npm run db:migrate` | Apply migrations and the row-level security policies |
 | `npm run db:seed` | Seed the demo company (idempotent) |

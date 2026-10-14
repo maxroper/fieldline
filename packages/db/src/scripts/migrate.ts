@@ -1,11 +1,7 @@
-import { sql } from "drizzle-orm";
-import { connect, type Db } from "../client";
-import { RLS_STATEMENTS } from "../rls";
+import { connect } from "../client";
+import { applyRls } from "../rls";
 
-/** Schema migrations first (drizzle-kit output), then the row-level security policies. Idempotent. One statement per round trip. */
-export async function applyRls(db: Db): Promise<void> {
-  for (const statement of RLS_STATEMENTS) await db.execute(sql.raw(statement));
-}
+export { applyRls };
 
 export async function migrateAll(options?: { url?: string | null; pgliteDir?: string }) {
   const conn = await connect(options);

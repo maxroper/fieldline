@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { api, qs } from "../../app/api";
-import { dayLabel, money, stampLabel, statusLabel, woNumber } from "../../app/format";
+import { dayLabel, money, siteUrl, stampLabel, statusLabel, woNumber } from "../../app/format";
 import { useAction, useSettings, type WorkOrderDetail } from "../../app/queries";
 import type { CustomerRow, EquipmentRow, PricebookItem, QuoteLabor, QuoteLineRow, QuoteOptionRow, QuoteRow, SiteRow } from "../../app/types";
 import { Button, Card, Check, Empty, Facts, Field, Input, Notice, Pill, Select, Sheet, StatusTrack, Textarea } from "../../design/components";
@@ -270,7 +270,7 @@ export function QuoteEditor({ detail, prefill }: { detail?: QuoteDetail; prefill
           <div className="stack tight small">
             {detail.quote.workOrderId ? <Link to="/work-orders/$id" params={{ id: detail.quote.workOrderId }} className="nav-link">Found on work order</Link> : null}
             {ctx.customer ? <Link to="/customers/$id" params={{ id: ctx.customer.id }} className="nav-link">{ctx.customer.name}</Link> : null}
-            {detail.customer?.portalEnabled && detail.customer.portalToken ? <a href={`/portal/${detail.customer.portalToken}`} target="_blank" rel="noreferrer">Customer portal (approve online)</a> : <span className="muted">Enable the customer portal to let them approve online.</span>}
+            {detail.customer?.portalEnabled && detail.customer.portalToken ? <a href={siteUrl(`/portal/${detail.customer.portalToken}`)} target="_blank" rel="noreferrer">Customer portal (approve online)</a> : <span className="muted">Enable the customer portal to let them approve online.</span>}
             <span className="muted">Created {stampLabel(detail.quote.createdAt)}</span>
           </div>
         ) : null}

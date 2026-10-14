@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { api } from "../app/api";
+import { meQuery } from "../app/session";
 import { toast } from "../app/store";
 import { Avatar, Loading } from "../design/components";
 
@@ -46,7 +47,10 @@ function LoginPage() {
                 onClick={async () => {
                   try {
                     await api.post("/auth/dev-login", { userId: u.id });
-                    await queryClient.invalidateQueries({ queryKey: ["me"] });
+                    // The layouts read the session with ensureQueryData, which trusts cached data, so drop
+                    // the cached "no session" answer and fetch the new one before moving on.
+                    queryClient.removeQueries({ queryKey: ["me"] });
+                    await queryClient.fetchQuery(meQuery);
                     await navigate({ to: u.role === "tech" ? "/tech" : "/dispatch" });
                   } catch (err) {
                     toast(err instanceof Error ? err.message : "Sign-in failed", "error");
