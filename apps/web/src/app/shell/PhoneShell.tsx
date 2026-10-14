@@ -7,7 +7,7 @@ import { Icon, type IconName } from "../../design/icons";
 /** Which tech the phone screens show: the signed-in tech, or `?as=<id>` when the office previews a day. */
 export function useTechWho(): string {
   const search = useSearch({ from: "/tech" });
-  return search.as ?? "me";
+  return search.as || "me";
 }
 
 /**
