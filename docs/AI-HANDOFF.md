@@ -94,6 +94,6 @@ apps/web/src
 
 ## Verifying a change
 
-Sign in as **James Reynolds** (dispatcher) for office screens, **Max Roper** (owner, admin) for settings and users, **Elena Cruz** for the phone. Seed facts worth knowing: today's board has Elena en route to 1059 and Andre on site at 1055; invoice 742 is open; quote 2041 has Good, Better, Best options; Barranca Medical Partners has the customer portal on at `/portal/barranca`; purchase order 121 is a lump sum waiting for lines.
+Sign in as **James Reynolds** (owner, admin) for office screens including settings and users, **Alex Tran** (dispatcher) for a dispatcher view, **Elena Cruz** for the phone. Seed facts worth knowing: today's board has Elena en route to 1059 and Andre on site at 1055; invoice 742 is open; quote 2041 has Good, Better, Best options; Barranca Medical Partners has the customer portal on at `/portal/barranca`; purchase order 121 is a lump sum waiting for lines.
 
 Before calling a change done: `npm run typecheck`, `npm test`, load the screen, check the browser console, check the API log.

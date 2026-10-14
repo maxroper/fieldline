@@ -97,13 +97,13 @@ async function seedHarborCoast(tx: Tx) {
     { id: irvine, orgId, name: "Irvine" },
   ]);
   const u = {
-    admin: newId(), supervisor: newId(), james: newId(), service: newId(), billing: newId(),
+    james: newId(), supervisor: newId(), dispatcher: newId(), service: newId(), billing: newId(),
     marcus: newId(), elena: newId(), andre: newId(), priya: newId(), diego: newId(), hannah: newId(), luis: newId(), naomi: newId(),
   };
   await tx.insert(s.users).values([
-    { id: u.admin, orgId, name: "Max Roper", email: "admin@harborcoast.example", role: "admin", title: "Owner", homeTeamId: costaMesa },
+    { id: u.james, orgId, name: "James Reynolds", email: "james@harborcoast.example", role: "admin", title: "Owner", homeTeamId: costaMesa, phone: "714-555-0101" },
     { id: u.supervisor, orgId, name: "Supervisor", email: "supervisor@harborcoast.example", role: "supervisor", title: "Service manager", homeTeamId: costaMesa },
-    { id: u.james, orgId, name: "James Reynolds", email: "james@harborcoast.example", role: "dispatcher", title: "Dispatcher", homeTeamId: costaMesa, phone: "714-555-0101" },
+    { id: u.dispatcher, orgId, name: "Alex Tran", email: "alex@harborcoast.example", role: "dispatcher", title: "Dispatcher", homeTeamId: costaMesa, phone: "714-555-0102" },
     { id: u.service, orgId, name: "Customer service", email: "service@harborcoast.example", role: "customer_service", title: "CSR", homeTeamId: irvine },
     { id: u.billing, orgId, name: "Billing", email: "billing@harborcoast.example", role: "billing", title: "Billing", homeTeamId: costaMesa },
     { id: u.marcus, orgId, name: "Marcus Hale", email: "marcus@harborcoast.example", role: "tech", title: "Lead · journeyman", teamId: costaMesa, phone: "714-555-0111" },
@@ -571,3 +571,6 @@ async function seedHarborCoast(tx: Tx) {
 
 /** Alias used by the browser demo. */
 export const seedDemo = seed;
+
+/** Bump when the seed changes in a way visitors of the static demo should see; the demo keeps one database per version. */
+export const SEED_VERSION = 2;

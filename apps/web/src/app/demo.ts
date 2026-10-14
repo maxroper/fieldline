@@ -38,7 +38,7 @@ async function boot(): Promise<DemoApp> {
   try {
     (globalThis as { __FIELDLINE_ENV__?: Record<string, string> }).__FIELDLINE_ENV__ = { FIELDLINE_DEMO: "1", CORS_ORIGINS: location.origin, SESSION_SECRET: "demo" };
     const demo = await import("@fieldline/api/demo");
-    const { app } = await demo.createDemoApp({ dataDir: "idb://fieldline-demo" });
+    const { app } = await demo.createDemoApp();
     setDemoSubscribe((orgId, listener) => demo.subscribe(orgId, listener));
     useDemo.setState({ booting: false, ready: true });
     return app;

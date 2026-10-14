@@ -33,7 +33,7 @@ The database is PGlite in `./data/pglite` unless `DATABASE_URL` is set. One proc
 ## When you finish a change
 
 1. `npm run typecheck` and `npm test` pass.
-2. The screen or endpoint was exercised against the seed data (sign in as James Reynolds for the office, Elena Cruz for a tech).
+2. The screen or endpoint was exercised against the seed data (sign in as James Reynolds, the owner, for the office, Elena Cruz for a tech).
 3. If the data model changed: a migration exists, the seed still runs, and `docs/DATA-MODEL.md` reflects it.
 4. If a product rule changed: `docs/FEATURES.md` or `docs/DECISIONS.md` says so.
 
