@@ -54,7 +54,7 @@ function QuotingPage() {
               <div className="table-wrap">
                 <table className="table">
                   <thead><tr><th>Quote</th><th>Customer · site</th><th>Scope</th><th>Options</th><th className="num">Price</th><th>Status</th><th>Sent</th><th>Follow-up</th><th>By</th></tr></thead>
-                  <tbody className="stagger">
+                  <tbody>
                     {rows.map((q) => (
                       <tr key={q.id} className="clickable" onClick={() => navigate({ to: "/quoting/$id", params: { id: q.id } })}>
                         <td className="num primary-cell">{q.number}</td>

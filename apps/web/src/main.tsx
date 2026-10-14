@@ -3,9 +3,9 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ApiError } from "./app/api";
-import { resetDemoData } from "./app/demo-state";
+import { resetDemoData, useDemo } from "./app/demo-state";
 import { isDemo } from "./app/transport";
-import { Button, Loading } from "./design/components";
+import { Button } from "./design/components";
 import "./design/fieldline.css";
 import { routeTree } from "./routeTree.gen";
 
@@ -14,6 +14,31 @@ import { routeTree } from "./routeTree.gen";
 if (isDemo) {
   const { installDemo } = await import("./app/demo");
   installDemo();
+}
+
+/** The first paint waits for the preloaded fonts (briefly), so text is never drawn in a fallback and swapped. */
+async function fontsReady(): Promise<void> {
+  if (typeof document === "undefined" || !("fonts" in document)) return;
+  const wanted = ['400 1em "IBM Plex Sans"', '500 1em "IBM Plex Sans"', '600 1em "IBM Plex Sans"', '400 1em "IBM Plex Mono"'];
+  await Promise.race([Promise.all(wanted.map((font) => document.fonts.load(font))).catch(() => undefined), new Promise((resolve) => setTimeout(resolve, 1500))]);
+}
+
+/** Route transitions show a thin bar at the top; the demo adds a note while its database starts. */
+function Pending() {
+  const booting = useDemo((s) => s.booting);
+  return (
+    <>
+      <div className="route-progress" />
+      {isDemo && booting ? (
+        <div className="boot-note">
+          <div>
+            <b>Starting the demo</b>
+            <span className="small">The database runs inside your browser. The first visit takes a few seconds.</span>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
 }
 
 const queryClient = new QueryClient({
@@ -34,7 +59,7 @@ const router = createRouter({
   basepath: import.meta.env.BASE_URL.replace(/\/$/, ""),
   defaultPendingMs: 300,
   defaultPendingMinMs: 200,
-  defaultPendingComponent: () => <Loading label={isDemo ? "Starting the demo database. The first visit takes a few seconds." : "Loading"} />,
+  defaultPendingComponent: Pending,
   defaultErrorComponent: ({ error }) => (
     <div className="page" style={{ maxWidth: 640 }}>
       <h1>Something went wrong</h1>
@@ -52,6 +77,8 @@ declare module "@tanstack/react-router" {
     router: typeof router;
   }
 }
+
+await fontsReady();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

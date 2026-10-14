@@ -128,7 +128,7 @@ function InvoicesView({ data, status, onStatus, onOpen }: { data: InvoicesPayloa
         <div className="table-wrap">
           <table className="table">
             <thead><tr><th>Invoice</th><th>Customer</th><th>Job</th><th>Billed</th><th>Due</th><th className="num">Amount</th><th className="num">Balance</th><th>Status</th><th>Sent</th></tr></thead>
-            <tbody className="stagger">
+            <tbody>
               {rows.map((inv) => (
                 <tr key={inv.id} className="clickable" onClick={() => onOpen(inv.id)}>
                   <td className="num primary-cell">{inv.number}</td>

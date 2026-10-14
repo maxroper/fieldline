@@ -56,7 +56,7 @@ function AgreementsPage() {
               <div className="table-wrap">
                 <table className="table">
                   <thead><tr><th>Customer · site</th><th>Plan</th><th className="num">Units</th><th className="num">Visits / yr</th><th>Next visit</th><th>Ends</th><th className="num">Amount</th><th>Tech</th></tr></thead>
-                  <tbody className="stagger">
+                  <tbody>
                     {rows.map((a) => (
                       <tr key={a.id} className="clickable" onClick={() => navigate({ to: "/agreements/$id", params: { id: a.id } })}>
                         <td className="primary-cell"><div>{a.customerName}</div><div className="small muted">{a.siteName}{a.siteCity ? ` · ${a.siteCity}` : ""}</div></td>

@@ -52,7 +52,7 @@ function PricebookPage() {
               <div className="table-wrap">
                 <table className="table">
                   <thead><tr><th>Code</th><th>Item</th><th>Category</th><th className="num">Parts cost</th><th className="num">Labor</th><th className="num">Good</th><th className="num">Better</th><th className="num">Best</th><th className="num">Financing</th><th className="num">Used</th></tr></thead>
-                  <tbody className="stagger">
+                  <tbody>
                     {items.map((it) => (
                       <tr key={it.id} className="clickable" onClick={() => setEditing(it)}>
                         <td className="num primary-cell">{it.code}</td>

@@ -42,7 +42,7 @@ function UsersPage() {
         <div className="table-wrap">
           <table className="table">
             <thead><tr><th>Name</th><th>Role</th><th>Team</th><th>Phone</th><th>Permissions</th><th className="num">Shift</th><th>Last active</th></tr></thead>
-            <tbody className="stagger">
+            <tbody>
               {users.map((u) => (
                 <tr key={u.id} className={isAdmin ? "clickable" : ""} onClick={() => isAdmin && setEditing(u)}>
                   <td className="primary-cell"><span className="row gap-2"><Avatar name={u.name} size="sm" tone={u.role === "tech" ? "moss" : u.role === "admin" ? "ink" : undefined} /><span><div>{u.name}</div><div className="small muted">{u.title}{u.email ? ` · ${u.email}` : ""}</div></span></span></td>

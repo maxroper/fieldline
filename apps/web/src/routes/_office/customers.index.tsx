@@ -45,7 +45,7 @@ function CustomersPage() {
                   <thead>
                     <tr><th>Customer</th><th>Phone</th><th className="num">Sites</th><th className="num">Agreements</th><th>Last visit</th><th className="num">Open balance</th><th>Pricing</th></tr>
                   </thead>
-                  <tbody className="stagger">
+                  <tbody>
                     {rows.map((c) => (
                       <tr key={c.id} className="clickable" onClick={() => navigate({ to: "/customers/$id", params: { id: c.id } })}>
                         <td className="primary-cell">

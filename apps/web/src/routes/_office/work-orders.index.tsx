@@ -86,7 +86,7 @@ function WorkOrdersPage() {
                       <th>Number</th><th>Customer</th><th>Site</th><th>City</th><th>Type</th><th>Priority</th><th>Status</th><th>Wait</th><th>Tech</th><th>Date</th><th className="num">Hours</th><th>Problem</th>
                     </tr>
                   </thead>
-                  <tbody className="stagger">
+                  <tbody>
                     {rows.map((w) => (
                       <tr key={w.id} className="clickable" onClick={() => navigate({ to: "/work-orders/$id", params: { id: w.id } })}>
                         <td className="num primary-cell">{woNumber(w)}</td>

@@ -52,7 +52,7 @@ function PurchasingPage() {
               <div className="table-wrap">
                 <table className="table">
                   <thead><tr><th>PO</th><th>Vendor</th><th>For</th><th>Lines</th><th className="num">Cost</th><th>Expected</th><th>Status</th></tr></thead>
-                  <tbody className="stagger">
+                  <tbody>
                     {rows.map((po) => (
                       <tr key={po.id} className={`clickable${params.po === po.id ? " on" : ""}`} onClick={() => setSearch({ po: po.id })}>
                         <td className="num primary-cell">{po.number}</td>
